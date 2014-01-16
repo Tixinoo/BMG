@@ -1,0 +1,4 @@
+BMG
+===
+
+Brilliant Mathematicians Generator
