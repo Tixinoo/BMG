@@ -270,6 +270,7 @@ public class QuestionCalculation extends Question {
 						tmp_opt.add(tab[x].charAt(0));
 					}
 					assert tmp_opt.size() > 0 : "empty operators table";
+					assert tmp_opd.size() == tmp_opt.size() : "operands and operaters tables have different sizes";
 					res.setOperators(tmp_opt);
 					
 					i++;
