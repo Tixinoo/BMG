@@ -188,6 +188,116 @@ public class QuestionCalculation extends Question {
 		// res = res + "\n-----------------------";
 		return res;
 	}
+	
+	public ArrayList<Integer> getOperands() {
+		return operands;
+	}
+
+	public void setOperands(ArrayList<Integer> operands) {
+		this.operands = operands;
+	}
+
+	public ArrayList<Character> getOperators() {
+		return operators;
+	}
+
+	public void setOperators(ArrayList<Character> operators) {
+		this.operators = operators;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	/**
+	 * Encode the current question (object) in a string which can recreate this question by the decode() method
+	 * @return encoded question
+	 */
+	public String encode() {
+		Iterator<Integer> itopd = operands.iterator();
+		String res = "#QuestionCalculaion<";
+		while (itopd.hasNext()) {
+			res = res + itopd.next() + ":";
+		}
+		res = res.substring(0, res.length()-2);
+		res = res + "><";
+		Iterator<Character> itopt = operators.iterator();
+		while (itopt.hasNext()) {
+			res = res + itopt.next() + ":";
+		}
+		res = res.substring(0, res.length()-2);
+		res = res + "><" + length + ">";
+		return res;
+	}
+	
+	/**
+	 * Decode the string generate by the encode() method of this class
+	 * @param str encoded question
+	 * @return decoded question (object)
+	 */
+	public static QuestionCalculation decode(String str) {
+		QuestionCalculation res = null;
+		if ((str.substring(0,18) == "#QuestionCalculaion")) {
+			res = new QuestionCalculation();
+			int i = 19;
+			if (str.charAt(i) == '<') {
+				while (str.charAt(i) != '>') {
+					i++;
+				}
+				
+				String[] tab = str.substring(18,i-1).split(":");
+				ArrayList<Integer> tmp_opd = new ArrayList<Integer>();
+				for (int x=0; x<tab.length; x++) {
+					tmp_opd.add(Integer.valueOf(tab[x]));
+				}
+				assert tmp_opd.size() > 0 : "empty operands table";
+				res.setOperands(tmp_opd);
+				
+				i++;
+				int beginning = i;
+				if (str.charAt(i) == '<') {
+					while (str.charAt(i) != '>') {
+						i++;
+					}
+					
+					tab = str.substring(beginning+1,i-1).split(":");
+					ArrayList<Character> tmp_opt = new ArrayList<Character>();
+					for (int x=0; x<tab.length; x++) {
+						tmp_opt.add(tab[x].charAt(0));
+					}
+					assert tmp_opt.size() > 0 : "empty operators table";
+					res.setOperators(tmp_opt);
+					
+					i++;
+					beginning = i;
+					if (str.charAt(i) == '<') {
+						while (str.charAt(i) != '>') {
+							i++;
+						}
+						
+						int tmp_lth = Integer.valueOf(str.substring(beginning+1,i-1));
+						assert tmp_lth < 0 : "negative length";
+						res.setLength(tmp_lth);
+						
+						i++;
+						str = str.substring(i,str.length()-1);
+					} else {
+						res = null;
+					}
+				} else {
+					res = null;
+				}
+			} else {
+				res =null;
+			}
+			
+		}
+		return res;
+	}
 
 	// ----------------------
 
