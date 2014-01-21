@@ -16,7 +16,7 @@ public class QuestionFraction extends Question {
     /**
      * Denominators of the calculation with fractions
      */
-    private ArrayList<Character> denominators;
+    private ArrayList<Integer> denominators;
 
     /**
      * Operators of the calculation with fractions
@@ -93,6 +93,65 @@ public class QuestionFraction extends Question {
       res = res + "\n			Difficulty: " + this.difficulty;
       return res;
     }
+    
+    public ArrayList<Integer> getNumerators() {
+		return numerators;
+	}
+
+	public void setNumerators(ArrayList<Integer> numerators) {
+		this.numerators = numerators;
+	}
+
+	public ArrayList<Integer> getDenominators() {
+		return denominators;
+	}
+
+	public void setDenominators(ArrayList<Integer> denominators) {
+		this.denominators = denominators;
+	}
+
+	public ArrayList<Character> getOperators() {
+		return operators;
+	}
+
+	public void setOperators(ArrayList<Character> operators) {
+		this.operators = operators;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	/**
+	 * Encode the current question (object) in a string which can recreate this question by the decode() method
+	 * @return encoded question
+	 */
+	public String encode() {
+		Iterator<Integer> itnum = numerators.iterator();
+		String res = "#QuestionFraction<";
+		while (itnum.hasNext()) {
+			res = res + itnum.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><";
+		Iterator<Integer> itdnm = denominators.iterator();
+		while (itdnm.hasNext()) {
+			res = res + itdnm.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><";
+		Iterator<Character> itopt = operators.iterator();
+		while (itopt.hasNext()) {
+			res = res + itopt.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><" + length + ">";
+		return res;
+	}
 
 
   // ----------------------

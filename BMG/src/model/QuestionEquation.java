@@ -92,7 +92,66 @@ public class QuestionEquation extends Question {
 		res = res + "\n			Difficulty: " + this.difficulty;
 		return res;
 	}
+	
+	public ArrayList<Integer> getOperands() {
+		return operands;
+	}
 
+	public void setOperands(ArrayList<Integer> operands) {
+		this.operands = operands;
+	}
+
+	public ArrayList<Boolean> getUnknowns() {
+		return unknowns;
+	}
+
+	public void setUnknowns(ArrayList<Boolean> unknowns) {
+		this.unknowns = unknowns;
+	}
+
+	public ArrayList<Character> getOperators() {
+		return operators;
+	}
+
+	public void setOperators(ArrayList<Character> operators) {
+		this.operators = operators;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	/**
+	 * Encode the current question (object) in a string which can recreate this question by the decode() method
+	 * @return encoded question
+	 */
+	public String encode() {
+		Iterator<Integer> itopd = operands.iterator();
+		String res = "#QuestionEquation<";
+		while (itopd.hasNext()) {
+			res = res + itopd.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><";
+		Iterator<Boolean> itukn = unknowns.iterator();
+		while (itukn.hasNext()) {
+			res = res + itukn.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><";
+		Iterator<Character> itopt = operators.iterator();
+		while (itopt.hasNext()) {
+			res = res + itopt.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><" + length + ">";
+		return res;
+	}
+	
 	// ----------------------
 
 }

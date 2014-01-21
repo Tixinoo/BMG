@@ -223,13 +223,13 @@ public class QuestionCalculation extends Question {
 		while (itopd.hasNext()) {
 			res = res + itopd.next() + ":";
 		}
-		res = res.substring(0, res.length()-2);
+		res = res.substring(0, res.length()-1);
 		res = res + "><";
 		Iterator<Character> itopt = operators.iterator();
 		while (itopt.hasNext()) {
 			res = res + itopt.next() + ":";
 		}
-		res = res.substring(0, res.length()-2);
+		res = res.substring(0, res.length()-1);
 		res = res + "><" + length + ">";
 		return res;
 	}
@@ -241,15 +241,14 @@ public class QuestionCalculation extends Question {
 	 */
 	public static QuestionCalculation decode(String str) {
 		QuestionCalculation res = null;
-		if ((str.substring(0,18) == "#QuestionCalculaion")) {
+		if (str.substring(0,19).compareTo("#QuestionCalculaion") == 0) {
 			res = new QuestionCalculation();
 			int i = 19;
 			if (str.charAt(i) == '<') {
 				while (str.charAt(i) != '>') {
 					i++;
 				}
-				
-				String[] tab = str.substring(18,i-1).split(":");
+				String[] tab = str.substring(20,i).split(":");
 				ArrayList<Integer> tmp_opd = new ArrayList<Integer>();
 				for (int x=0; x<tab.length; x++) {
 					tmp_opd.add(Integer.valueOf(tab[x]));
@@ -263,14 +262,13 @@ public class QuestionCalculation extends Question {
 					while (str.charAt(i) != '>') {
 						i++;
 					}
-					
-					tab = str.substring(beginning+1,i-1).split(":");
+					tab = str.substring(beginning+1,i).split(":");
 					ArrayList<Character> tmp_opt = new ArrayList<Character>();
 					for (int x=0; x<tab.length; x++) {
 						tmp_opt.add(tab[x].charAt(0));
 					}
 					assert tmp_opt.size() > 0 : "empty operators table";
-					assert tmp_opd.size() == tmp_opt.size() : "operands and operaters tables have different sizes";
+					assert tmp_opd.size() == tmp_opt.size()+1 : "incorrect size of operators table";
 					res.setOperators(tmp_opt);
 					
 					i++;
@@ -279,13 +277,12 @@ public class QuestionCalculation extends Question {
 						while (str.charAt(i) != '>') {
 							i++;
 						}
-						
-						int tmp_lth = Integer.valueOf(str.substring(beginning+1,i-1));
+						int tmp_lth = Integer.valueOf(str.substring(beginning+1,i));
 						assert tmp_lth < 0 : "negative length";
 						res.setLength(tmp_lth);
 						
 						i++;
-						str = str.substring(i,str.length()-1);
+						str = str.substring(i,str.length());
 					} else {
 						res = null;
 					}
