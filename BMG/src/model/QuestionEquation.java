@@ -152,6 +152,86 @@ public class QuestionEquation extends Question {
 		return res;
 	}
 	
+	/**
+	 * Decode the string generate by the encode() method of this class
+	 * @param str encoded question
+	 * @return decoded question (object)
+	 */
+	public static QuestionEquation decode(String str) {
+		QuestionEquation res = null;
+		if (str.substring(0,17).compareTo("#QuestionEquation") == 0) {
+			res = new QuestionEquation();
+			int i = 17;
+			if (str.charAt(i) == '<') {
+				while (str.charAt(i) != '>') {
+					i++;
+				}
+				String[] tab = str.substring(18,i).split(":");
+				ArrayList<Integer> tmp_opd = new ArrayList<Integer>();
+				for (int x=0; x<tab.length; x++) {
+					tmp_opd.add(Integer.valueOf(tab[x]));
+				}
+				assert tmp_opd.size() > 0 : "empty operands table";
+				res.setOperands(tmp_opd);
+				
+				i++;
+				int beginning = i;
+				if (str.charAt(i) == '<') {
+					while (str.charAt(i) != '>') {
+						i++;
+					}
+					tab = str.substring(beginning+1,i).split(":");
+					ArrayList<Boolean> tmp_ukn = new ArrayList<Boolean>();
+					for (int x=0; x<tab.length; x++) {
+						tmp_ukn.add(Boolean.valueOf(tab[x]));
+					}
+					assert tmp_ukn.size() > 0 : "empty unknowns table";
+					res.setUnknowns(tmp_ukn);
+				
+					i++;
+					beginning = i;
+					if (str.charAt(i) == '<') {
+						while (str.charAt(i) != '>') {
+							i++;
+						}
+						tab = str.substring(beginning+1,i).split(":");
+						ArrayList<Character> tmp_opt = new ArrayList<Character>();
+						for (int x=0; x<tab.length; x++) {
+							tmp_opt.add(tab[x].charAt(0));
+						}
+						assert tmp_opt.size() > 0 : "empty operators table";
+						assert tmp_opt.size() == tmp_opt.size()+1 : "incorrect size of operators table";
+						res.setOperators(tmp_opt);
+						
+						i++;
+						beginning = i;
+						if (str.charAt(i) == '<') {
+							while (str.charAt(i) != '>') {
+								i++;
+							}
+							int tmp_lth = Integer.valueOf(str.substring(beginning+1,i));
+							assert tmp_lth < 0 : "negative length";
+							res.setLength(tmp_lth);
+							
+							i++;
+							str = str.substring(i,str.length());
+						} else {
+							res = null;
+						}
+					} else {
+						res = null;
+					}
+				} else {
+					res = null;
+				}
+			} else {
+				res =null;
+			}
+			
+		}
+		return res;
+	}
+	
 	// ----------------------
 
 }
