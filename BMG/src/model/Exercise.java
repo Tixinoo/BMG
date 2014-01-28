@@ -9,7 +9,7 @@ public class Exercise {
 	/**
 	 * Exercise's statement
 	 */
-	private Statement statement;
+	private Wording statement;
 
 	/**
 	 * Exercise's questions
@@ -115,7 +115,7 @@ public class Exercise {
 	/**
    *
    */
-	public void setStatement(Statement Estatement) {
+	public void setStatement(Wording Estatement) {
 		if (Estatement != null) {
 			this.statement = Estatement;
 			this.update_ready();
