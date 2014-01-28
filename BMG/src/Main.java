@@ -34,7 +34,7 @@ public class Main {
         String t = sc.next();
         System.out.println("");
         Exercise ex1 = new Exercise(t);
-        ex1.setStatement(new Statement());
+        ex1.setStatement(new Wording());
         ex1.addQuestion(qc1);
         ex1.addQuestion(qc2);
         System.out.println(ex1);
