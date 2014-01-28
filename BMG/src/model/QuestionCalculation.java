@@ -298,5 +298,43 @@ public class QuestionCalculation extends Question {
 	}
 
 	// ----------------------
+	
+	// ----- DB METHODS -----
 
+	/* GETTERS */
+	public String get()
+	{
+	    return "";
+	}
+
+	/* SETTERS */
+	public String set()
+	{
+	    return "";
+	}
+
+	/* MISE A JOURS */
+	public String insert()
+	{
+	    return "";
+	}
+
+	public String update()
+	{
+	    return "";
+	}
+
+	public String delete()
+	{
+	    return "";
+	}
+
+	/* FINDERS */
+	public static String findById(int id)
+	{
+	    return "";
+	}
+	
+	// ----------------------
+	
 }
