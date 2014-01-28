@@ -8,7 +8,7 @@ public class Database
 {
     private Connection connection = null;
     private String driver = "com.mysql.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:3306/BMG_test";
+    private String url = "jdbc:mysql://localhost:3306/BMG_db";
     private String login = "Joseph";
     private String password = "j0j0";
     
