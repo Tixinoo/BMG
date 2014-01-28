@@ -95,18 +95,6 @@ public class Wording {
 	
 	// ----- DB METHODS -----
 
-	/* GETTERS */
-	public String get()
-	{
-	    return "";
-	}
-
-	/* SETTERS */
-	public String set()
-	{
-	    return "";
-	}
-
 	/* MISE A JOURS */
 	public String insert()
 	{
