@@ -1,3 +1,12 @@
+/*
+NOTES IMPORTANTES : [OK = test verifie ; ... = en cours ; / = non implementee]
+insert : OK
+update : ...
+delete : ...
+findById : ...
+findByNom : /
+*/
+
 package user;
 
 import database.Database;

@@ -1,3 +1,17 @@
+/*
+NOTES IMPORTANTES : [OK = test verifie ; ... = en cours ; / = non implementee]
+insert : OK
+update : OK
+delete : OK
+findById : OK
+findByFName : /
+findByLName : /
+findBySchool : /
+findByEmail : /
+findByPass : /
+findByConnected : /
+*/
+
 package user;
 
 import database.Database;
