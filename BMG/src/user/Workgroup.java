@@ -1,9 +1,9 @@
 /*
 NOTES IMPORTANTES : [OK = test verifie ; ... = en cours ; / = non implementee]
-insert : ...
-update : ...
-delete : ...
-findById : ...
+insert : OK
+update : OK
+delete : OK
+findById : OK
 findByNom : /
 */
 
