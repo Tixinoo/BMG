@@ -1,7 +1,9 @@
 package tests;
 
+import user.Screen;
 import user.User;
 import user.UserType;
+import user.Workgroup;
 
 public class ActiveRecord_Tests 
 {
@@ -62,5 +64,52 @@ public class ActiveRecord_Tests
 	ut = UserType.findById(userType_6.getId_ut());
 	
 	if (ut != null) System.out.println(""+ut.getId_ut()+" | "+ut.getName_ut()+""); else System.out.println("delete UT : OK");
+	
+	Screen screen_1 = new Screen("Ecran1");
+	s = screen_1.insert();
+	System.out.println(""+s+" insertion screen 1");
+	Screen screen_2 = new Screen("Ecran2");
+	s = screen_2.insert();
+	System.out.println(""+s+" insertion screen 2");
+	Screen screen_3 = new Screen("Ecran3");
+	s = screen_3.insert();
+	System.out.println(""+s+" insertion screen 3");
+	
+	Screen sc;
+	sc = Screen.findById(screen_3.getId_s());
+	
+	if (sc != null) System.out.println(""+sc.getId_s()+" | "+sc.getName_s()+""); else System.out.println("insert S : pas OK");
+	
+	sc.setName_s("...");
+	sc.update();
+	
+	if (sc != null) System.out.println(""+sc.getId_s()+" | "+sc.getName_s()+""); else System.out.println("update S : pas OK");
+	
+	sc.delete();
+	sc = Screen.findById(screen_3.getId_s());
+	
+	if (sc != null) System.out.println(""+sc.getId_s()+" | "+sc.getName_s()+""); else System.out.println("delete S : OK");
+	
+	Workgroup workGroup_1 = new Workgroup("GroupeDeTravail1");
+	s = workGroup_1.insert();
+	System.out.println(""+s+" insertion workGroup 1");
+	Workgroup workGroup_2 = new Workgroup("GroupeDeTravail2");
+	s = workGroup_2.insert();
+	System.out.println(""+s+" insertion workGroup 2");
+	
+	Workgroup wg;
+	wg = Workgroup.findById(workGroup_2.getId_wg());
+	
+	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("insert WG : pas OK");
+	
+	wg.setName_wg("...");
+	wg.update();
+	
+	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("update WG : pas OK");
+	
+	wg.delete();
+	wg = Workgroup.findById(workGroup_2.getId_wg());
+	
+	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("delete WG : OK");
     }
 }
