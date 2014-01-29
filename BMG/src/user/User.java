@@ -19,7 +19,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,39 +57,49 @@ public class User {
 	connected_u = connectedu;
     }
 
-    public int getId_u() {
+    /* GETTERS & SETTERS */
+    public int getId_u() 
+    {
 	return id_u;
     }
 
-    public void setId_u(int id_u) {
+    public void setId_u(int id_u) 
+    {
 	this.id_u = id_u;
     }
 
-    public int getId_ut() {
+    public int getId_ut() 
+    {
 	return id_ut;
     }
 
-    public void setId_ut(int id_ut) {
+    public void setId_ut(int id_ut) 
+    {
 	this.id_ut = id_ut;
     }
 
-    public String getFname_u() {
+    public String getFname_u() 
+    {
 	return fname_u;
     }
 
-    public void setFname_u(String fname_u) {
+    public void setFname_u(String fname_u) 
+    {
 	this.fname_u = fname_u;
     }
 
-    public String getLname_u() {
+    public String getLname_u() 
+    {
 	return lname_u;
     }
 
-    public void setLname_u(String lname_u) {
+    public void setLname_u(String lname_u) 
+    {
 	this.lname_u = lname_u;
     }
 
-    public String getSchool_u() {
+    public String getSchool_u() 
+    {
 	return school_u;
     }
 
@@ -109,19 +118,23 @@ public class User {
 	this.email_u = email_u;
     }
 
-    public String getPass_u() {
+    public String getPass_u() 
+    {
 	return pass_u;
     }
 
-    public void setPass_u(String pass_u) {
+    public void setPass_u(String pass_u) 
+    {
 	this.pass_u = pass_u;
     }
 
-    public boolean isConnected_u() {
+    public boolean isConnected_u() 
+    {
 	return connected_u;
     }
 
-    public void setConnected_u(boolean connected_u) {
+    public void setConnected_u(boolean connected_u) 
+    {
 	this.connected_u = connected_u;
     }
 
@@ -164,7 +177,7 @@ public class User {
 	{
 	    if (this.id_u < 0)
 	    {
-		String query = "UPDATE User SET SET id_ut = ? , fname_u = ? , lname_u = ? , school_u = ? , email_u = ? , pass_u = ? , connected_u = ?) WHERE id_u = ?";
+		String query = "UPDATE User SET (id_ut = ? , fname_u = ? , lname_u = ? , school_u = ? , email_u = ? , pass_u = ? , connected_u = ?) WHERE id_u = ?";
 		PreparedStatement p_statement = connection.prepareStatement(query);
 		p_statement.setInt(1,this.id_ut);
 		p_statement.setString(2,this.fname_u);
@@ -191,7 +204,7 @@ public class User {
 	
 	try 
 	{
-	    if (findById(this.getId_u()) != null)
+	    if (User.findById(this.getId_u()) != null)
 	    {
 		String query = "DELETE FROM User WHERE id_u = ?";
 		PreparedStatement p_statement = connection.prepareStatement(query);
@@ -220,7 +233,7 @@ public class User {
 	    PreparedStatement p_statement = connection.prepareStatement(query);
 	    p_statement.setInt(1,id);
 	    
-	    ResultSet rs = p_statement.executeQuery();;
+	    ResultSet rs = p_statement.executeQuery();
 	    
 	    if (rs.next())
 	    {

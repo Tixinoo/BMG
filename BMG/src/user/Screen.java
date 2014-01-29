@@ -17,18 +17,27 @@ public class Screen
     /* CONSTRUCTOR */
     public Screen() {}
     
-    /* GETTERS */
-    public String get()
+    /* GETTERS & SETTERS */
+    public int getId_s()
     {
-	return "";
+	return id_s;
     }
-    
-    /* SETTERS */
-    public String set()
+
+    public void setId_s(int id_s) 
     {
-	return "";
+	this.id_s = id_s;
     }
-    
+
+    public String getName_s() 
+    {
+	return name_s;
+    }
+
+    public void setName_s(String name_s) 
+    {
+	this.name_s = name_s;
+    }
+
     /* MISE A JOURS */
     public String insert()
     {

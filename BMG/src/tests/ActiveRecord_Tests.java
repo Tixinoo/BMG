@@ -36,16 +36,31 @@ public class ActiveRecord_Tests
 	User u;
 	u = User.findById(user.getId_u());
 	
-	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("insert : pas OK");
+	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("insert U : pas OK");
 	
 	u.setFname_u("...");
 	u.update();
 	
-	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("update : pas OK");
+	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("update U : pas OK");
 	
 	u.delete();
 	u = User.findById(user.getId_u());
 	
-	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("delete : OK");
+	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("delete U : OK");
+	
+	UserType ut;
+	ut = UserType.findById(userType_6.getId_ut());
+	
+	if (ut != null) System.out.println(""+ut.getId_ut()+" | "+ut.getName_ut()+""); else System.out.println("insert UT : pas OK");
+	
+	ut.setName_ut("...");
+	ut.update();
+	
+	if (ut != null) System.out.println(""+ut.getId_ut()+" | "+ut.getName_ut()+""); else System.out.println("update UT : pas OK");
+	
+	ut.delete();
+	ut = UserType.findById(userType_6.getId_ut());
+	
+	if (ut != null) System.out.println(""+ut.getId_ut()+" | "+ut.getName_ut()+""); else System.out.println("delete UT : OK");
     }
 }

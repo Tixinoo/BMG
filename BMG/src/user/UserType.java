@@ -1,9 +1,9 @@
 /*
 NOTES IMPORTANTES : [OK = test verifie ; ... = en cours ; / = non implementee]
 insert : OK
-update : ...
-delete : ...
-findById : ...
+update : OK
+delete : OK
+findById : OK
 findByNom : /
 */
 
@@ -27,33 +27,32 @@ public class UserType
     {
 	name_ut = nameut;
     }
+    
+    public UserType(int idut, String nameut) 
+    {
+	id_ut = idut;
+	name_ut = nameut;
+    }
 
-    public int getId_ut() {
+    /* GETTERS & SETTERS */
+    public int getId_ut() 
+    {
 	return id_ut;
     }
 
-    public void setId_ut(int id_ut) {
+    public void setId_ut(int id_ut) 
+    {
 	this.id_ut = id_ut;
     }
 
-    public String getName_ut() {
+    public String getName_ut() 
+    {
 	return name_ut;
     }
 
-    public void setName_ut(String name_ut) {
+    public void setName_ut(String name_ut) 
+    {
 	this.name_ut = name_ut;
-    }
-    
-    /* GETTERS */
-    public String get()
-    {
-	return "";
-    }
-    
-    /* SETTERS */
-    public String set()
-    {
-	return "";
     }
     
     /* MISE A JOURS */
@@ -80,19 +79,80 @@ public class UserType
 	return "OK";
     }
     
-    public String update()
+    public String update() 
     {
-	return "";
+	Database db = new Database();
+	Connection connection = db.getConnection();
+	
+	try 
+	{
+	    if (this.id_ut < 0)
+	    {
+		String query = "UPDATE User SET name_ut = ? WHERE id_ut = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setString(1,this.name_ut);
+		p_statement.setInt(2,this.id_ut);
+		p_statement.executeUpdate();
+	    }
+	} catch (SQLException ex) 
+	{
+	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	
+	return "OK";
     }
-    
-    public String delete()
+
+    public String delete() 
     {
-	return "";
+	Database db = new Database();
+	Connection connection = db.getConnection();
+	
+	try 
+	{
+	    if (UserType.findById(this.getId_ut()) != null)
+	    {
+		String query = "DELETE FROM UserType WHERE id_ut = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setInt(1,this.id_ut);
+		p_statement.executeUpdate();
+	    }
+	} catch (SQLException ex) 
+	{
+	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	
+	return "OK";
     }
-    
+
     /* FINDERS */
-    public static String findById(int id)
+    public static UserType findById(int id) 
     {
-	return "";
+	Database db = new Database();
+	Connection connection = db.getConnection();
+	
+	UserType userType = null;
+	
+	try 
+	{
+	    String query = "SELECT * FROM UserType WHERE id_ut = ?";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    p_statement.setInt(1,id);
+	    
+	    ResultSet rs = p_statement.executeQuery();
+	    
+	    if (rs.next())
+	    {
+		int idut = rs.getInt("id_ut");
+		String nameut = rs.getString("name_ut");
+	    
+		userType = new UserType(idut,nameut);
+	    }
+		    
+	} catch (SQLException ex) 
+	{
+	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	
+	return userType;
     }
 }

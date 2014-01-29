@@ -17,16 +17,25 @@ public class Workgroup
     /* CONSTRUCTOR */
     public Workgroup() {}
     
-    /* GETTERS */
-    public String get()
+    /* GETTERS & SETTERS */
+    public int getId_wg() 
     {
-	return "";
+	return id_wg;
     }
-    
-    /* SETTERS */
-    public String set()
+
+    public void setId_wg(int id_wg) 
     {
-	return "";
+	this.id_wg = id_wg;
+    }
+
+    public String getName_wg() 
+    {
+	return name_wg;
+    }
+
+    public void setName_wg(String name_wg) 
+    {
+	this.name_wg = name_wg;
     }
     
     /* MISE A JOURS */
