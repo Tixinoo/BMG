@@ -31,6 +31,18 @@ public class User {
 	pass_u = passu;
 	connected_u = false;
     }
+    
+    public User(int idu, int idut, String fnameu, String lnameu, String schoolu, String emailu, String passu, boolean connectedu) 
+    {
+	id_u = idu;
+	id_ut = idut;
+	fname_u = fnameu;
+	lname_u = lnameu;
+	school_u = schoolu;
+	email_u = emailu;
+	pass_u = passu;
+	connected_u = connectedu;
+    }
 
     public int getId_u() {
 	return id_u;
@@ -100,13 +112,14 @@ public class User {
     }
 
     /* MISE A JOURS */
-    public String insert() {
-	String query = "INSERT INTO User (id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,?,?)";
+    public String insert() 
+    {	
 	Database db = new Database();
 	Connection connection = db.getConnection();
 	
 	try 
 	{
+	    String query = "INSERT INTO User (id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
 	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
 	    p_statement.setInt(1,this.id_ut);
 	    p_statement.setString(2,this.fname_u);
@@ -115,8 +128,9 @@ public class User {
 	    p_statement.setString(5,this.email_u);
 	    p_statement.setString(6,this.pass_u);
 	    p_statement.setBoolean(7,this.connected_u);
-	    p_statement.executeUpdate(query);
+	    p_statement.executeUpdate();
 	    ResultSet rs = p_statement.getGeneratedKeys();
+	    
 	    if (rs.next()) this.id_u = rs.getInt(1);
 		    
 	} catch (SQLException ex) 
@@ -127,16 +141,92 @@ public class User {
 	return "OK";
     }
 
-    public String update() {
-	return "";
+    public String update() 
+    {
+	Database db = new Database();
+	Connection connection = db.getConnection();
+	
+	try 
+	{
+	    if (this.id_u < 0)
+	    {
+		String query = "UPDATE User SET SET id_ut = ? , fname_u = ? , lname_u = ? , school_u = ? , email_u = ? , pass_u = ? , connected_u = ?) WHERE id_u = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setInt(1,this.id_ut);
+		p_statement.setString(2,this.fname_u);
+		p_statement.setString(3,this.lname_u);
+		p_statement.setString(4,this.school_u);
+		p_statement.setString(5,this.email_u);
+		p_statement.setString(6,this.pass_u);
+		p_statement.setBoolean(7,this.connected_u);
+		p_statement.setInt(8, this.id_u);
+		p_statement.executeUpdate();
+	    }
+	} catch (SQLException ex) 
+	{
+	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	
+	return "OK";
     }
 
-    public String delete() {
-	return "";
+    public String delete() 
+    {
+	Database db = new Database();
+	Connection connection = db.getConnection();
+	
+	try 
+	{
+	    if (findById(this.getId_u()) != null)
+	    {
+		String query = "DELETE FROM User WHERE id_u = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setInt(1,this.id_u);
+		p_statement.executeUpdate();
+	    }
+	} catch (SQLException ex) 
+	{
+	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	
+	return "OK";
     }
 
     /* FINDERS */
-    public static String findById(int id) {
-	return "";
+    public static User findById(int id) 
+    {
+	Database db = new Database();
+	Connection connection = db.getConnection();
+	
+	User user = null;
+	
+	try 
+	{
+	    String query = "SELECT * FROM User WHERE id_u = ?";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    p_statement.setInt(1,id);
+	    
+	    ResultSet rs = p_statement.executeQuery();;
+	    
+	    if (rs.next())
+	    {
+		int idu = rs.getInt("id_u");
+		int idut = rs.getInt("id_ut");
+		String fnameu = rs.getString("fname_u");
+		String lnameu = rs.getString("lname_u");
+		String schoolu = rs.getString("school_u");
+		String emailu = rs.getString("email_u");
+		String passu = rs.getString("pass_u");
+		boolean connectedu = rs.getBoolean("connected_u");
+	    
+		user = new User(idu,idut,fnameu,lnameu,schoolu,emailu,passu,connectedu);
+	    }
+		    
+	} catch (SQLException ex) 
+	{
+	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	
+	return user;
     }
 }
