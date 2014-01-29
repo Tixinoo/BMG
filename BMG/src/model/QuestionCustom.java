@@ -36,7 +36,8 @@ public class QuestionCustom<SolutionType> extends Question {
 	 * This constructor creates the simplest question for a calculation
 	 */
 	public QuestionCustom() {
-
+            super();
+            
 	}
 
 	/**

@@ -36,7 +36,8 @@ public class QuestionEquation extends Question {
 	 * This constructor creates the simplest question for a calculation
 	 */
 	public QuestionEquation() {
-
+            super();
+            
 	}
 
 	/**

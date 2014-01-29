@@ -31,6 +31,7 @@ public class QuestionCalculation extends Question {
 	 * This constructor creates the simplest question for a calculation
 	 */
 	public QuestionCalculation() {
+                super();
 		this.text = "Calculate.";
 		this.difficulty = 0;
 		this.operands = new ArrayList<Integer>();
