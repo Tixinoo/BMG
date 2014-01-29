@@ -36,16 +36,16 @@ public class ActiveRecord_Tests
 	User u;
 	u = User.findById(user.getId_u());
 	
-	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("lol");
+	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("insert : pas OK");
 	
 	u.setFname_u("...");
 	u.update();
 	
-	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("lol");
+	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("update : pas OK");
 	
 	u.delete();
 	u = User.findById(user.getId_u());
 	
-	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("lol");
+	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("delete : OK");
     }
 }
