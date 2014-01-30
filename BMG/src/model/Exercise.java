@@ -195,6 +195,11 @@ public class Exercise {
         }
         return res;
     }
+    
+    public String encode() {
+		String res = "";
+		return res;
+	}
 
     // ----------------------
     

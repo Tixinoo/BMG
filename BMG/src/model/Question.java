@@ -50,6 +50,11 @@ public abstract class Question {
             this.difficulty = Qdifficulty;
         }
     }
+    
+    public String encode() {
+		String res = "<" + text + "><" + difficulty + ">";
+		return res;
+	}
 
 	// ----------------------
 }

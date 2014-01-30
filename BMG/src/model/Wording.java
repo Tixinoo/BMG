@@ -100,6 +100,18 @@ public class Wording {
         // res = res + "\n-----------------------";
         return res;
     }
+    
+    public String encode() {
+		String res = "#Wording<$<";
+		res = text;
+		res = res + ">$><";
+		for (int i = 0; i<values.length; i++) {
+			res = res + values[i] + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + ">";
+		return res;
+	}
 
     // ----------------------
     

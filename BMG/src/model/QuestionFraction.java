@@ -126,114 +126,112 @@ public class QuestionFraction extends Question {
     }
 
     /**
-     * Encode the current question (object) in a string which can recreate this
-     * question by the decode() method
-     *
-     * @return encoded question
-     */
-    public String encode() {
-        Iterator<Integer> itnum = numerators.iterator();
-        String res = "#QuestionFraction<";
-        while (itnum.hasNext()) {
-            res = res + itnum.next() + ":";
-        }
-        res = res.substring(0, res.length() - 1);
-        res = res + "><";
-        Iterator<Integer> itdnm = denominators.iterator();
-        while (itdnm.hasNext()) {
-            res = res + itdnm.next() + ":";
-        }
-        res = res.substring(0, res.length() - 1);
-        res = res + "><";
-        Iterator<Character> itopt = operators.iterator();
-        while (itopt.hasNext()) {
-            res = res + itopt.next() + ":";
-        }
-        res = res.substring(0, res.length() - 1);
-        res = res + "><" + length + ">";
-        return res;
-    }
-
-    /**
-     * Decode the string generate by the encode() method of this class
-     *
-     * @param str encoded question
-     * @return decoded question (object)
-     */
-    public static QuestionFraction decode(String str) {
-        QuestionFraction res = null;
-        if (str.substring(0, 16).compareTo("#QuestionFraction") == 0) {
-            res = new QuestionFraction();
-            int i = 16;
-            if (str.charAt(i) == '<') {
-                while (str.charAt(i) != '>') {
-                    i++;
-                }
-                String[] tab = str.substring(17, i).split(":");
-                ArrayList<Integer> tmp_num = new ArrayList<Integer>();
-                for (int x = 0; x < tab.length; x++) {
-                    tmp_num.add(Integer.valueOf(tab[x]));
-                }
-                assert tmp_num.size() > 0 : "empty numerators table";
-                res.setNumerators(tmp_num);
-
-                i++;
-                int beginning = i;
-                if (str.charAt(i) == '<') {
-                    while (str.charAt(i) != '>') {
-                        i++;
-                    }
-                    tab = str.substring(beginning + 1, i).split(":");
-                    ArrayList<Integer> tmp_dnm = new ArrayList<Integer>();
-                    for (int x = 0; x < tab.length; x++) {
-                        tmp_dnm.add(Integer.valueOf(tab[x]));
-                    }
-                    assert tmp_dnm.size() > 0 : "empty operators table";
-                    res.setDenominators(tmp_dnm);
-
-                    i++;
-                    beginning = i;
-                    if (str.charAt(i) == '<') {
-                        while (str.charAt(i) != '>') {
-                            i++;
-                        }
-                        tab = str.substring(beginning + 1, i).split(":");
-                        ArrayList<Character> tmp_opt = new ArrayList<Character>();
-                        for (int x = 0; x < tab.length; x++) {
-                            tmp_opt.add(tab[x].charAt(0));
-                        }
-                        assert tmp_opt.size() > 0 : "empty operators table";
-                        assert tmp_opt.size() == tmp_opt.size() + 1 : "incorrect size of operators table";
-                        res.setOperators(tmp_opt);
-
-                        i++;
-                        beginning = i;
-                        if (str.charAt(i) == '<') {
-                            while (str.charAt(i) != '>') {
-                                i++;
-                            }
-                            int tmp_lth = Integer.valueOf(str.substring(beginning + 1, i));
-                            assert tmp_lth < 0 : "negative length";
-                            res.setLength(tmp_lth);
-
-                            i++;
-                            str = str.substring(i, str.length());
-                        } else {
-                            res = null;
-                        }
-                    } else {
-                        res = null;
-                    }
-                } else {
-                    res = null;
-                }
-            } else {
-                res = null;
-            }
-
-        }
-        return res;
-    }
+	 * Encode the current question (object) in a string which can recreate this question by the decode() method
+	 * @return encoded question
+	 */
+	public String encode() {
+		Iterator<Integer> itnum = numerators.iterator();
+		String res = "#QuestionFraction<";
+		while (itnum.hasNext()) {
+			res = res + itnum.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><";
+		Iterator<Integer> itdnm = denominators.iterator();
+		while (itdnm.hasNext()) {
+			res = res + itdnm.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><";
+		Iterator<Character> itopt = operators.iterator();
+		while (itopt.hasNext()) {
+			res = res + itopt.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+		res = res + "><" + length + ">";
+		res = res + super.encode();
+		return res;
+	}
+	
+	/**
+	 * Decode the string generate by the encode() method of this class
+	 * @param str encoded question
+	 * @return decoded question (object)
+	 */
+	public static QuestionFraction decode(String str) {
+		QuestionFraction res = null;
+		if (str.substring(0,16).compareTo("#QuestionFraction") == 0) {
+			res = new QuestionFraction();
+			int i = 16;
+			if (str.charAt(i) == '<') {
+				while (str.charAt(i) != '>') {
+					i++;
+				}
+				String[] tab = str.substring(17,i).split(":");
+				ArrayList<Integer> tmp_num = new ArrayList<Integer>();
+				for (int x=0; x<tab.length; x++) {
+					tmp_num.add(Integer.valueOf(tab[x]));
+				}
+				assert tmp_num.size() > 0 : "empty numerators table";
+				res.setNumerators(tmp_num);
+				
+				i++;
+				int beginning = i;
+				if (str.charAt(i) == '<') {
+					while (str.charAt(i) != '>') {
+						i++;
+					}
+					tab = str.substring(beginning+1,i).split(":");
+					ArrayList<Integer> tmp_dnm = new ArrayList<Integer>();
+					for (int x=0; x<tab.length; x++) {
+						tmp_dnm.add(Integer.valueOf(tab[x]));
+					}
+					assert tmp_dnm.size() > 0 : "empty operators table";
+					res.setDenominators(tmp_dnm);
+				
+					i++;
+					beginning = i;
+					if (str.charAt(i) == '<') {
+						while (str.charAt(i) != '>') {
+							i++;
+						}
+						tab = str.substring(beginning+1,i).split(":");
+						ArrayList<Character> tmp_opt = new ArrayList<Character>();
+						for (int x=0; x<tab.length; x++) {
+							tmp_opt.add(tab[x].charAt(0));
+						}
+						assert tmp_opt.size() > 0 : "empty operators table";
+						assert tmp_opt.size() == tmp_opt.size()+1 : "incorrect size of operators table";
+						res.setOperators(tmp_opt);
+						
+						i++;
+						beginning = i;
+						if (str.charAt(i) == '<') {
+							while (str.charAt(i) != '>') {
+								i++;
+							}
+							int tmp_lth = Integer.valueOf(str.substring(beginning+1,i));
+							assert tmp_lth < 0 : "negative length";
+							res.setLength(tmp_lth);
+							
+							i++;
+							str = str.substring(i,str.length());
+						} else {
+							res = null;
+						}
+					} else {
+						res = null;
+					}
+				} else {
+					res = null;
+				}
+			} else {
+				res =null;
+			}
+			
+		}
+		return res;
+	}
 
     // ----------------------
     
