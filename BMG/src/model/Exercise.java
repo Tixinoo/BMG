@@ -227,8 +227,92 @@ public class Exercise {
 		return res;
 	}
     
-    public static Exercise decode() {
-    	Exercise res = new Exercise();
+    public static Exercise decode(String str) {
+    	Exercise res = null;
+    	if (str.charAt(0) == '<') {
+    		res = new Exercise();
+    		int i = 1;
+    		while (str.charAt(i) != '>') {
+    			i++;
+    		}
+    		res.setID(Integer.valueOf(str.substring(1, i)));
+    		
+    		i++;
+    		int beginning = i;
+    		if (str.charAt(i) == '<') {
+        		while (str.charAt(i) != '>') {
+        			i++;
+        		}
+        		res.setTitle(str.substring(beginning+1, i));
+        		
+        		i++;
+        		beginning = i;
+        		if (str.charAt(i) == '<') {
+            		while (str.charAt(i) != '>') {
+            			i++;
+            		}
+            		res.setType(str.substring(beginning+1, i));
+            		
+            		i++;
+            		beginning = i;
+            		if (str.charAt(i) == '<') {
+                		while (str.charAt(i) != '>') {
+                			i++;
+                		}
+                		res.setDifficulty(Integer.valueOf(str.substring(beginning+1, i)));
+                		
+                		i++;
+                		str = str.substring(i);
+                		
+                		i = 0;
+                		beginning = 0;
+                		while (str.length() != i) {
+                			if (str.charAt(i) == '#') {
+                				str = str.substring(i);
+                				System.out.println(str);
+                				i = 0;
+                				while (str.charAt(i) != '<') {
+                					i++;
+                				}
+                				String qtype = str.substring(beginning, i);
+                				switch(qtype) {
+                				case "#QuestionCalculaion":
+                					QuestionCalculation qc = QuestionCalculation.decode(str);
+                					System.out.println(qc);
+                					res.addQuestion(qc);
+                					break;
+                				case "#QuestionFraction":
+                					QuestionFraction qf = QuestionFraction.decode(str);
+                					System.out.println(qf);
+                					res.addQuestion(qf);
+                					break;
+                				case "#QuestionEquation":
+                					QuestionEquation qe = QuestionEquation.decode(str);
+                					System.out.println(qe);
+                					res.addQuestion(qe);
+                					break;
+                				case "#Wording":
+                					Wording w = Wording.decode(str);
+                					System.out.println(w);
+                					res.setWording(w);
+                					break;
+                				}
+                				i = 0;
+                			}
+                			i++;
+                		}
+            		} else {
+            			res = null;
+            		}
+        		} else {
+        			res = null;
+        		}
+    		} else {
+    			res = null;
+    		}
+    	} else {
+    		res = null;
+    	}
     	return res;
     }
 

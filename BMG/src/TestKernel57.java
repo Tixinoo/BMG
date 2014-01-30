@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import model.Exercise;
 import model.QuestionCalculation;
 import model.QuestionEquation;
@@ -28,9 +27,9 @@ public class TestKernel57 {
 		qcal.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate lacus eu odio ultricies porta.");
 		
 		String str = qcal.encode();
-		System.out.println(str);
+		System.out.println("encode 1 qcal :" + str);
 		QuestionCalculation qcal2 = QuestionCalculation.decode(str);
-		System.out.println(qcal2);
+		System.out.println("decode 1 qcal2 : " + qcal2);
 		str = qcal2.encode();
 		System.out.println(str+ "\n");
 		
@@ -77,7 +76,7 @@ public class TestKernel57 {
 		qequ.setOperators(opt);
 		qequ.setUnknowns(ukn);
 		qequ.setLength(4);
-		System.out.println(qequ.encode());
+		//System.out.println(qequ.encode());
 		
 		Exercise ex = new Exercise();
 		ex.setTitle("machin");
@@ -91,7 +90,8 @@ public class TestKernel57 {
 		ex.update_ready();
 		str = ex.encode();
 		System.out.println("\n\n" + str);
-		//Exercise e = Exercise.
+		Exercise e = Exercise.decode(str);
+		System.out.println(e);
 		
 	}
 
