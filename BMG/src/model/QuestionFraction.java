@@ -9,22 +9,22 @@ public class QuestionFraction extends Question {
     // Inherited
     
     /**
-     * Numerators of the calculation with fractions
+     * Numerators of the calculation with fractions.
      */
     private ArrayList<Integer> numerators;
 
     /**
-     * Denominators of the calculation with fractions
+     * Denominators of the calculation with fractions.
      */
     private ArrayList<Integer> denominators;
 
     /**
-     * Operators of the calculation with fractions
+     * Operators of the calculation with fractions.
      */
     private ArrayList<Character> operators;
 
     /**
-     * Length of the calculation with fractions
+     * Length of the calculation with fractions.
      */
     private int length;
 
@@ -33,25 +33,54 @@ public class QuestionFraction extends Question {
     // ---- CONSTRUCTORS ----
     
     /**
-     * This constructor creates the simplest question for a calculation
+     * This constructor creates the simplest question,
+     * with fractions.
      */
     public QuestionFraction() {
-
+        super();
+        this.text = "Calculate.";
+        this.difficulty = 0;
+        this.numerators = new ArrayList<Integer>();
+        this.denominators = new ArrayList<Integer>();
+        this.operators = new ArrayList<Character>();
     }
 
     /**
-     * This constructor creates a question with the text given in parameter
+     * This constructor creates a question,
+     * with the text given in parameter.
      */
     public QuestionFraction(String QCtext) {
-
+        super();
+        if (QCtext != null) {
+            this.text = QCtext;
+        } else {
+            this.text = "...";
+        }
+        this.difficulty = 0;
+        this.numerators = new ArrayList<Integer>();
+        this.denominators = new ArrayList<Integer>();
+        this.operators = new ArrayList<Character>();
     }
 
     /**
-     * This constructor creates a question with the text and the difficulty
-     * given in parameters
+     * This constructor creates a question,
+     * with the text and the difficulty given in parameters.
      */
     public QuestionFraction(String QCtext, int QCdifficulty) {
-
+        super();
+        if (QCtext != null) {
+            this.text = QCtext;
+        } else {
+            this.text = "...";
+        }
+        if (QCdifficulty >= 0) {
+            this.difficulty = QCdifficulty;
+        } else {
+            this.difficulty = 0;
+        }
+        this.numerators = new ArrayList<Integer>();
+        this.denominators = new ArrayList<Integer>();
+        this.operators = new ArrayList<Character>();
     }
 
     // ----------------------
@@ -61,18 +90,39 @@ public class QuestionFraction extends Question {
     // Inherited
     
     /**
-     * Generate a random question with fraction
+     * Generate a random question with fractions.
      */
     public void generate() {
-
+        char[] possible_operators = {'+', '-', '*'};
+        this.length = (int) (Math.random() * 10) + 2;
+        System.out.println("	Random length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.numerators.add((int) (Math.random() * 20) + 1);
+            this.denominators.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * 3)]);
+            }
+        }
     }
 
     /**
-     * Generate a random question with calculation with the length given in
-     * parameter
+     * Generate a random question with fractions,
+     * with the length given in parameter.
      */
     public void generate(int QClength) {
-
+        char[] possible_operators = {'+', '-', '*'};
+        this.length = 2;
+        if (QClength > 0) {
+            this.length = QClength;
+        }
+        System.out.println("	Chosen length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.numerators.add((int) (Math.random() * 20) + 1);
+            this.denominators.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * 3)]);
+            }
+        }
     }
 
     /**
@@ -87,9 +137,21 @@ public class QuestionFraction extends Question {
      * Display a question of calculation
      */
     public String toString() {
-        String res = "		QuestionFraction";
+        String res = "		QuestionCalculation";
         res = res + "\n			Text: " + this.text;
         res = res + "\n			Difficulty: " + this.difficulty;
+        res = res + "\n			Numerators: " + this.numerators;
+        res = res + "\n			Denominators: " + this.denominators;
+        res = res + "\n			Operators: " + this.operators;
+        res = res + "\n			Operation: ";
+        Iterator<Integer> it_numerators = this.numerators.iterator();
+        Iterator<Integer> it_denominators = this.denominators.iterator();
+        Iterator<Character> it_operators = this.operators.iterator();
+        res = res + "(" + it_numerators.next() + "/" + it_denominators.next() + ")";
+        while (it_numerators.hasNext()) {
+            res = res + it_operators.next() + "(" + it_numerators.next() + "/" + it_denominators.next() + ")";
+        }
+        // res = res + "\n-----------------------";
         return res;
     }
 
