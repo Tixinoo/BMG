@@ -126,7 +126,7 @@ public class QuestionFraction extends Question {
             this.numerators.add((int) (Math.random() * 20) + 1);
             this.denominators.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
-                this.operators.add(possible_operators[(int) (Math.random() * 3)]);
+                this.operators.add(possible_operators[(int) (Math.random() * QCoperators.size())]);
             }
         }
     }
@@ -146,7 +146,7 @@ public class QuestionFraction extends Question {
             this.numerators.add((int) (Math.random() * 20) + 1);
             this.denominators.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
-                this.operators.add(possible_operators[(int) (Math.random() * 3)]);
+                this.operators.add(possible_operators[(int) (Math.random() * QCoperators.size())]);
             }
         }
     }
