@@ -227,12 +227,69 @@ public class User {
 
         return user;
     }
+    
+    public static User findByLogs(BaseSetting bs, String eml, String pswd) 
+    {
+	Connection connection = bs.getConnection();
+
+        User user = null;
+
+        try {
+	    String query;
+	    PreparedStatement p_statement;
+	    ResultSet rs;
+	    
+	    query = "SELECT sha(?)";
+            p_statement = connection.prepareStatement(query);
+	    p_statement.setString(1, pswd);
+	    
+	    rs = p_statement.executeQuery();
+	    
+	    if (rs.next())
+		pswd = rs.getString("password");
+	    
+	    query = "SELECT * FROM User WHERE email_u = ? AND pass_u = ?";
+            p_statement = connection.prepareStatement(query);
+            p_statement.setString(1, eml);
+	    p_statement.setString(2, pswd);
+	    
+            rs = p_statement.executeQuery();
+
+            if (rs.next()) 
+	    {
+                int idu = rs.getInt("id_u");
+                int idut = rs.getInt("id_ut");
+                String fnameu = rs.getString("fname_u");
+                String lnameu = rs.getString("lname_u");
+                String schoolu = rs.getString("school_u");
+                String emailu = rs.getString("email_u");
+                String passu = rs.getString("pass_u");
+                int connectedu = rs.getInt("connected_u");
+
+                user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
+    }
 
     /* OTHERS */
     public static boolean signIn(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) 
     {
         User u = new User(ut, fn, ln, sch, eml, pswd);
         return u.insert(bs);
-
+    }
+    
+    public boolean isConnected(BaseSetting bs, String eml, String pswd)
+    {
+	User u = User.findByLogs(bs, eml, pswd);
+	
+	boolean b = false;
+	if (u != null) b = true;
+	
+	return b;
     }
 }
