@@ -34,12 +34,15 @@ public class ActiveRecord_Tests
 	b = userType_6.insert(bs);
 	System.out.println(""+b+" insertion userType 6");
 	
-	User user = new User(userType_5.getId_ut(),"Prenom","Nom","Ecole","Email","MdP");
-	b = user.insert(bs);
-	System.out.println(""+b+" insertion user");
+	User user_1 = new User(userType_5.getId_ut(),"Prenom1","Nom1","Ecole1","Email1","MdP1");
+	b = user_1.insert(bs);
+	System.out.println(""+b+" insertion user 1");
+	User user_2 = new User(userType_4.getId_ut(),"Prenom2","Nom2","Ecole2","Email2","MdP2");
+	b = user_2.insert(bs);
+	System.out.println(""+b+" insertion user 2");
 	
 	User u;
-	u = User.findById(user.getId_u(),bs);
+	u = User.findById(user_2.getId_u(),bs);
 	
 	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("insert U : pas OK");
 	
@@ -49,7 +52,7 @@ public class ActiveRecord_Tests
 	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("update U : pas OK");
 	
 	u.delete(bs);
-	u = User.findById(user.getId_u(),bs);
+	u = User.findById(user_2.getId_u(),bs);
 	
 	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("delete U : OK");
 	
