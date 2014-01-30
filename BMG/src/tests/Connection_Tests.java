@@ -246,20 +246,20 @@ public class Connection_Tests  extends JFrame implements MouseListener
 				
 				if (connection != null)
 				{
-						if (u.getEmail_u().equals(login) && u.getPass_u().equals(password))
-						{
-							groupe = UserType.findById(u.getId_ut(),bs).getName_ut();
-							System.out.println("OK : " + groupe);
-							/**/
-							afficherMenuPrincipal();
-							setResizable(true);
-							setExtendedState(MAXIMIZED_BOTH);
-							/**/
-						}
-						else
-						{
-							System.out.println("NON OK");
-						}
+					if (u.getEmail_u().equals(login) && u.getPass_u().equals(password))
+					{
+						groupe = UserType.findById(u.getId_ut(),bs).getName_ut();
+						System.out.println("OK : " + groupe);
+						/**/
+						afficherMenuPrincipal();
+						setResizable(true);
+						setExtendedState(MAXIMIZED_BOTH);
+						/**/
+					}
+					else
+					{
+						System.out.println("NON OK");
+					}
 				}
 				else
 				{
