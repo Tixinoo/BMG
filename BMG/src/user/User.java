@@ -157,7 +157,7 @@ public class User {
 
         try {
             if (this.id_u < 0) {
-                String query = "UPDATE User SET (id_ut = ? , fname_u = ? , lname_u = ? , school_u = ? , email_u = ? , pass_u = ? , connected_u = ?) WHERE id_u = ?";
+                String query = "UPDATE User SET (id_ut = ? , fname_u = ? , lname_u = ? , school_u = ? , email_u = ? , pass_u = sha(?) , connected_u = ?) WHERE id_u = ?";
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_ut);
                 p_statement.setString(2, this.fname_u);
