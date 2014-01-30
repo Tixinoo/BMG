@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.*;
-//
+
 public class Main {
 
     private static Scanner sc;
