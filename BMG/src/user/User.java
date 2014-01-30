@@ -228,7 +228,7 @@ public class User {
         return user;
     }
     
-    public static User findByLogs(BaseSetting bs, String eml, String pswd) 
+    public static User findByLogs(String eml, String pswd, BaseSetting bs) 
     {
 	Connection connection = bs.getConnection();
 
@@ -285,7 +285,7 @@ public class User {
     
     public boolean isConnected(BaseSetting bs, String eml, String pswd)
     {
-	User u = User.findByLogs(bs, eml, pswd);
+	User u = User.findByLogs(eml, pswd, bs);
 	
 	boolean b = false;
 	if (u != null) b = true;
