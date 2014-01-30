@@ -66,30 +66,40 @@ public abstract class Question {
 		return res;
 	}
     
-    public static void decode(Question qtn, String str) {
+    public String getText() {
+		return text;
+	}
+
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+
+	public static void decode(Question qtn, String str) {
     	if (str.charAt(0) == '<') {
     		int i = 1;
     		while (str.charAt(i) != '>') {
     			i++;
     		}
     		if (i > 1) {
-    			qtn.setID(Integer.valueOf(str.substring(1, i-1)));
+    			qtn.setID(Integer.valueOf(str.substring(1, i)));
     		} else {
     			qtn.setID(-1);
     		}
     		
-    		i =+ 3;
+    		i++;
     		int beginning = i;
-            if (str.substring(i-2, i).compareTo("<$<") == 0) {
-                while (str.substring(i, i+2).compareTo(">$>") != 0) {
+            if (str.substring(i, i+3).compareTo("<$<") == 0) {
+                while (str.substring(i, i+3).compareTo(">$>") != 0) {
                     i++;
                 }
                 if (beginning < i-1) {
-                	qtn.setText(str.substring(beginning + 1, i-1));
+                	qtn.setText(str.substring(beginning + 3, i));
                 } else {
                 	qtn.setText(null);
                 }
-                i =+ 3;
+                i += 3;
                 
                 beginning = i;
                 if (str.charAt(0) == '<') {
@@ -97,10 +107,12 @@ public abstract class Question {
             			i++;
             		}
             		if (i-1 > beginning) {
-            			qtn.setDifficulty(Integer.valueOf(str.substring(beginning+1, i-1)));
+            			qtn.setDifficulty(Integer.valueOf(str.substring(beginning+1, i)));
             		} else {
             			qtn.setDifficulty(0);
             		}
+            		i++;
+            		str = str.substring(i);
                 }
             }
     	}
