@@ -73,7 +73,7 @@ public class PanelSignin extends JPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 
-                if(User.signIn3(bs, 1, jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText()))
+                if(User.signIn(bs, 1, jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText()))
                     labelRes.setText("<html><p style=\"color:green; text-align: center;\">Sign in success !</p></html>");
                 else 
                     labelRes.setText("<html><p style=\"color:green;\">ERREUR !</p></html>");
