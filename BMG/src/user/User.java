@@ -246,7 +246,7 @@ public class User {
 	    rs = p_statement.executeQuery();
 	    
 	    if (rs.next())
-		pswd = rs.getString("pass_u");
+		pswd = rs.getString(1);
 	    
 	    query = "SELECT * FROM User WHERE email_u = ? AND pass_u = ?";
             p_statement = connection.prepareStatement(query);
