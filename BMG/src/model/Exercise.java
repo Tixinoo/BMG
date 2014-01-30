@@ -12,6 +12,11 @@ public class Exercise {
     private int id;
     
     /**
+     * Exercise's title
+     */
+    private String title;
+    
+    /**
      * Exercise's statement
      */
     private Wording wording;
@@ -46,7 +51,8 @@ public class Exercise {
      */
     public Exercise() {
         this.id = -1;
-        this.statement = null;
+        this.title = "Exercise";
+        this.wording = null;
         this.questions = new ArrayList<Question>();
         this.type = "";
         this.difficulty = 0;
@@ -59,7 +65,8 @@ public class Exercise {
      */
     public Exercise(String Etype) {
         this.id = -1;
-        this.statement = null;
+        this.title = "Exercise";
+        this.wording = null;
         this.questions = new ArrayList<Question>();
         this.difficulty = 0;
         if (Etype != null) {
@@ -76,7 +83,8 @@ public class Exercise {
      */
     public Exercise(String Etype, int Edifficulty) {
         this.id = -1;
-        this.statement = null;
+        this.title = "Exercise";
+        this.wording = null;
         this.questions = new ArrayList<Question>();
         this.type = "";
         if (Edifficulty >= 0) {
@@ -124,7 +132,7 @@ public class Exercise {
      * Update the attribute ready
      */
     public void update_ready() {
-        if ((this.statement != null) && (!this.questions.isEmpty())
+        if ((this.wording != null) && (!this.questions.isEmpty())
                 && (this.type != null) && (this.difficulty >= 0)) {
             this.ready = true;
         }
@@ -142,7 +150,7 @@ public class Exercise {
      */
     public void setStatement(Wording Estatement) {
         if (Estatement != null) {
-            this.statement = Estatement;
+            this.wording = Estatement;
             this.update_ready();
         }
     }
@@ -172,7 +180,7 @@ public class Exercise {
      */
     public String toString() {
         String res = "--> EXERCISE";
-        res = res + "\n	Statement: " + this.statement;
+        res = res + "\n	Statement: " + this.wording;
         res = res + "\n	Type: " + this.type;
         res = res + "\n	Difficulty: " + this.difficulty;
         res = res + "\n	Ready: " + this.ready;
