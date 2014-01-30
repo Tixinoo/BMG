@@ -54,6 +54,7 @@ public abstract class Question {
     public String encode() {
 		String res = "<" + id + "><" + text + "><" + difficulty + ">";
 		return res;
+		
 	}
 
 	// ----------------------
