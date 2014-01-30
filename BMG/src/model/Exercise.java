@@ -219,6 +219,11 @@ public class Exercise {
     	}
 		return res;
 	}
+    
+    public static Exercise decode() {
+    	Exercise res = new Exercise();
+    	return res;
+    }
 
     // ----------------------
     

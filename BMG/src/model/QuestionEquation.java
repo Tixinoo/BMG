@@ -1,5 +1,5 @@
 package model;
-
+//
 import java.util.*;
 
 public class QuestionEquation extends Question {
