@@ -52,7 +52,7 @@ public abstract class Question {
     }
     
     public String encode() {
-		String res = "<" + text + "><" + difficulty + ">";
+		String res = "<" + id + "><" + text + "><" + difficulty + ">";
 		return res;
 	}
 
