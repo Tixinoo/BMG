@@ -256,4 +256,19 @@ public class User {
 	
 	return user;
     }
+    
+    /* OTHERS */
+    public static boolean signIn(int ut,String fn,String ln,String sch,String eml,String pswd)
+    {
+	boolean b = false;
+	
+	User u = new User(ut,fn,ln,sch,eml,pswd);
+	u.insert();
+	User u_returned = User.findById(u.getId_u());
+	
+	if (u_returned != null)
+	    b = true;
+	
+	return b;
+    }
 }
