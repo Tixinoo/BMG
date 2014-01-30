@@ -217,6 +217,7 @@ public class QuestionEquation extends Question {
 							
 							i++;
 							str = str.substring(i);
+							Question.decode(res, str);
 						} else {
 							res = null;
 						}
