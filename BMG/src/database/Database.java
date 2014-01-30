@@ -20,7 +20,6 @@ public class Database
     {
 	login = lgn;
 	password = pswd;
-        
         this.driver = bs.getDriver();
         this.url = bs.getUrl();
         this.login = bs.getLogin();
@@ -81,10 +80,7 @@ public class Database
     
     public Connection getConnection()
     {
-	if (connection == null)
-	    connect();
-	    
-	return connection;
+	return bs.getConnection();
     }
 
 }
