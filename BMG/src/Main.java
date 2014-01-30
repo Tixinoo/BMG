@@ -11,8 +11,12 @@ public class Main {
 
         System.out.println("\n-----------------------\n  Welcome in B.M.G. !\n-----------------------\n");
 
-        int sel = 1;
-        switch(sel) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1 - Calculation part");
+        System.out.println("2 - Fraction part");
+        System.out.println("3 - Save/Load part");
+        int sel = sc.nextInt();
+        switch(sel-1) {
         
             case 0:
                 System.out.println("-------> A random calculation <-------");
@@ -162,23 +166,30 @@ public class Main {
                 System.out.println("---------------------------------------------------------------------\n");
                 
                 break;
+            case 2:
+                System.out.println("\n-------> An exercise with a given type <-------");
+                System.out.println("Type? ");
+                String t3 = sc.next();
+                System.out.println("Title ");
+                String t4 = sc.next();
+                System.out.println("");
+                Exercise ex5 = new Exercise(t3);
+                ex5.setTitle(t4);
+                ex5.setWording(new Wording());
+                ex5.generate();
+                //System.out.println(ex5);
+                System.out.println("---------------------------------------------------------------------\n");
+                System.out.println("Saving...");
+                ex5.save();
+                System.out.println("Loading...");
+                Exercise ex5load = new Exercise();
+                ex5load.load("ex-1.bmg");
+                System.out.println(ex5);
+                break;
             default:
                 break;
         };
-            
-        /*
-        // TODO
         
-        System.out.println("\n-------> TODO <-------");
-        
-        // Encoding and saving
-        ex2.setTitle("Ex-1-calculation");
-        ex2.save(); // Encode the file in a string and save it in a file "<exercise.title>.txt" (here, "Ex-1-calculation.txt")
-        
-        // Decoding and loading
-        Exercise ex2load = new Exercise();
-        ex2load.load("Ex-1-calculation"); // Load the exercise from the file "Ex-1-calculation.txt" in the object "ex2load"
-        */
         
     }
 

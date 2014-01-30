@@ -121,7 +121,7 @@ public class Wording {
     public String encode() {
 		String res = "#Wording<" + id + "><$<" + text + ">$><";
 		String type;
-		if (values != null) {
+		if (values != null && values.length != 0) {
 			if (values[0] instanceof Integer) {
 				type = "int";
 			} else if (values[0] instanceof Double) {
