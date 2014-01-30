@@ -6,6 +6,7 @@
 
 package view;
 
+import database.BaseInformation;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -20,6 +21,7 @@ import javax.swing.JPanel;
  * @author Maxime
  */
 public class MenuPrincipal extends JFrame {
+    public BaseInformation bi = BaseInformation.lectureInformations();
     
     public MenuPrincipal() {
         super("Maxime BLAISE");
@@ -27,7 +29,7 @@ public class MenuPrincipal extends JFrame {
         this.setContentPane(this.genererPanelPrincipal());
         
         this.setLocation(300,300);
-        this.setPreferredSize(new Dimension(400,400));
+        //this.setPreferredSize(new Dimension(400,400));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
@@ -45,7 +47,8 @@ public class MenuPrincipal extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                setPanel(new PanelSettings(fen()));
+                bi = BaseInformation.lectureInformations();
+                setPanel(new PanelSettings(bi, fen()));
             }
         });
         pan.add(bSettings);
@@ -62,5 +65,11 @@ public class MenuPrincipal extends JFrame {
         this.getContentPane().removeAll();
         this.setContentPane(pan);
         this.pack();
+    }
+    
+    public static void main(String[] args) {
+        new MenuPrincipal();
+        
+        //BaseInformation bi = new BaseInformation("blabla", "sgesge", "ZEFGZg", "root", "", "//localhost");
     }
 }
