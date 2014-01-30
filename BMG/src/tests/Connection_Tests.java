@@ -233,66 +233,20 @@ public class Connection_Tests  extends JFrame implements MouseListener
 		{
 			if (me.getSource() == jb_connexion)
 			{
-//				login = jtf_login.getText();
-//				password = String.valueOf(jpf_password.getPassword());
-//				
-//				User u = User.findById(68,bs);
-//				
-//				String query = "SELECT sha(?)";
-//				Connection connection = bs.getConnection();
-//				p_statement = connection.prepareStatement(query);
-//				p_statement.setString(1,password);
-//				ResultSet rs = p_statement.executeQuery();
-//				rs.next();
-//				password = rs.getString(1);
-//				
-//				if (connection != null)
-//				{
-//					if (u.getEmail_u().equals(login) && u.getPass_u().equals(password))
-//					{
-//						groupe = UserType.findById(u.getId_ut(),bs).getName_ut();
-//						System.out.println("OK : " + groupe);
-//						/**/
-//						afficherMenuPrincipal();
-//						setResizable(true);
-//						setExtendedState(MAXIMIZED_BOTH);
-//						/**/
-//					}
-//					else
-//					{
-//						System.out.println("NON OK");
-//					}
-//				}
-//				else
-//				{
-//					System.out.println("connection == null OU query == null");
-//				}
-			    
 				login = jtf_login.getText();
 				password = String.valueOf(jpf_password.getPassword());
+				
+				System.out.println("Email : "+login);
+				System.out.println("MotDePasse : "+password);
 				
 				User u = null;
 				
 				Connection co = bs.getConnection();
 				
-				try 
-				{
-				    String query = "SELECT sha(?)";
-				    
-				    p_statement = co.prepareStatement(query);
-			    
-				    p_statement.setString(1,password);
-				    ResultSet rs = p_statement.executeQuery();
-				    rs.next();
-				    password = rs.getString(1);
-				} 
-				catch (SQLException ex) 
-				{
-				    Logger.getLogger(Connection_Tests.class.getName()).log(Level.SEVERE, null, ex);
-				}
-					
+				System.out.println("avant IF");
 				if (User.checkPresence(bs,login,password))
 				{
+				    System.out.println("debut IF");
 				    u = User.findByLogs(login,password,bs);
 				    groupe = UserType.findById(u.getId_ut(),bs).getName_ut();
 				    System.out.println("OK : " + groupe);
