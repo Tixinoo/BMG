@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import model.*;
 
@@ -29,6 +30,40 @@ public class Main {
         System.out.println("Result2: " + res2);
         System.out.println("---------------------------------------------------------------------\n");
 
+        System.out.println("\n-------> A calculation with selected operators <-------");
+        sc = new Scanner(System.in);
+        char op = '+';
+        ArrayList<Character> operators = new ArrayList<Character>();
+        while (op != '0') {
+            System.out.print("Operator? ");
+            op = sc.next().charAt(0);
+            if (op != '0') operators.add(op);
+        }
+        QuestionCalculation qc3 = new QuestionCalculation();
+        qc3.generate(operators);
+        System.out.println(qc3);
+        double res3 = qc3.solve();
+        System.out.println("Result3: " + res3);
+        System.out.println("---------------------------------------------------------------------\n");
+
+        System.out.println("\n-------> A calculation with selected operators and given length <-------");
+        sc = new Scanner(System.in);
+        System.out.print("Length? ");
+        int l2 = sc.nextInt();
+        char op2 = '+';
+        ArrayList<Character> operators2 = new ArrayList<Character>();
+        while (op2 != '0') {
+            System.out.print("Operator? ");
+            op2 = sc.next().charAt(0);
+            if (op2 != '0') operators2.add(op2);
+        }
+        QuestionCalculation qc4 = new QuestionCalculation();
+        qc4.generate(operators2,l2);
+        System.out.println(qc4);
+        double res4 = qc4.solve();
+        System.out.println("Result4: " + res4);
+        System.out.println("---------------------------------------------------------------------\n");
+
         System.out.println("\n-------> An exercise with a given type <-------");
         System.out.println("Type? ");
         String t = sc.next();
@@ -37,6 +72,8 @@ public class Main {
         ex1.setStatement(new Wording());
         ex1.addQuestion(qc1);
         ex1.addQuestion(qc2);
+        ex1.addQuestion(qc3);
+        ex1.addQuestion(qc4);
         System.out.println(ex1);
 
     }

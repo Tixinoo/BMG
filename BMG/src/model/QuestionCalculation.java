@@ -5,28 +5,27 @@ import java.util.*;
 public class QuestionCalculation extends Question {
 
     // ----- ATTRIBUTES -----
-    
     // Inherited
-    
     /**
-     * Operands of the calculation
+     * Operands of the calculation.
      */
     private ArrayList<Integer> operands;
 
     /**
-     * Operators of the calculation
+     * Operators of the calculation.
      */
     private ArrayList<Character> operators;
 
     /**
-     * Length of the calculation
+     * Length of the calculation.
      */
     private int length;
 
 	// ----------------------
-	// ---- CONSTRUCTORS ----
+    // ---- CONSTRUCTORS ----
     /**
-     * This constructor creates the simplest question for a calculation
+     * This constructor creates the simplest question,
+     * for a calculation.
      */
     public QuestionCalculation() {
         super();
@@ -38,9 +37,11 @@ public class QuestionCalculation extends Question {
     }
 
     /**
-     * This constructor creates a question with the text given in parameter
+     * This constructor creates a question,
+     * with the text given in parameter.
      */
     public QuestionCalculation(String QCtext) {
+        super();
         if (QCtext != null) {
             this.text = QCtext;
         } else {
@@ -53,10 +54,11 @@ public class QuestionCalculation extends Question {
     }
 
     /**
-     * This constructor creates a question with the text and the difficulty
-     * given in parameters
+     * This constructor creates a question,
+     * with the text and the difficulty given in parameters.
      */
     public QuestionCalculation(String QCtext, int QCdifficulty) {
+        super();
         if (QCtext != null) {
             this.text = QCtext;
         } else {
@@ -73,13 +75,10 @@ public class QuestionCalculation extends Question {
     }
 
     // ----------------------
-    
     // ------- METHODS ------
-    
     // Inherited
-    
     /**
-     * Generate a random question of calculation
+     * Generate a random question of calculation.
      */
     public void generate() {
         char[] possible_operators = {'+', '-', '*', '/'};
@@ -88,15 +87,14 @@ public class QuestionCalculation extends Question {
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
-                this.operators
-                        .add(possible_operators[(int) (Math.random() * 4)]);
+                this.operators.add(possible_operators[(int) (Math.random() * 4)]);
             }
         }
     }
 
     /**
-     * Generate a random question of calculation with the length given in
-     * parameter
+     * Generate a random question of calculation,
+     * with the length given in parameter.
      */
     public void generate(int QClength) {
         char[] possible_operators = {'+', '-', '*', '/'};
@@ -108,14 +106,51 @@ public class QuestionCalculation extends Question {
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i < length - 1) {
-                this.operators
-                        .add(possible_operators[(int) (Math.random() * 4)]);
+                this.operators.add(possible_operators[(int) (Math.random() * 4)]);
             }
         }
     }
 
     /**
-     * Solve a question of calculation
+     * Generate a random question of calculation,
+     * Operators are choosen in the ArrayList given in parameter.
+     */
+    public void generate(ArrayList<Character> QCoperators) {
+        Character[] possible_operators = new Character[QCoperators.size()];
+        possible_operators = QCoperators.toArray(possible_operators);
+        this.length = (int) (Math.random() * 10) + 2;
+        System.out.println("	Random length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * QCoperators.size())]);
+            }
+        }
+    }
+    
+    /**
+     * Generate a random question of calculation,
+     * with the length given in parameter,
+     * Operators are choosen in the ArrayList given in parameter.
+     */
+    public void generate(ArrayList<Character> QCoperators, int QClength) {
+        Character[] possible_operators = new Character[QCoperators.size()];
+        possible_operators = QCoperators.toArray(possible_operators);
+        this.length = 2;
+        if (QClength > 0) {
+            this.length = QClength;
+        }
+        System.out.println("	Chosen length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            if (i < length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * QCoperators.size())]);
+            }
+        }
+    }
+
+    /**
+     * Solve a question of calculation.
      */
     public double solve() {
         double res = 0;
@@ -179,7 +214,7 @@ public class QuestionCalculation extends Question {
     }
 
     /**
-     * Display a question of calculation
+     * Display a question of calculation.
      */
     public String toString() {
         String res = "		QuestionCalculation";
@@ -223,8 +258,7 @@ public class QuestionCalculation extends Question {
     }
 
     /**
-     * Encode the current question (object) in a string which can recreate this
-     * question by the decode() method
+     * Encode the current question (object) in a string which can recreate this question by the decode() method
      *
      * @return encoded question
      */
@@ -310,7 +344,6 @@ public class QuestionCalculation extends Question {
     }
 
     // ----------------------
-    
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
