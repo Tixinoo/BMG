@@ -292,4 +292,34 @@ public class User {
 	
 	return b;
     }
+    
+    public static boolean setConnected(BaseSetting bs, String eml, String pswd)
+    {
+	boolean b = false;
+	
+	if (checkPresence(bs,eml,pswd))
+	{
+	    User u = User.findByLogs(eml, pswd, bs);
+	    u.setConnected_u(1);
+	    b = u.update(bs);
+	    b = (User.findById(u.getId_u(), bs).isConnected_u() == 1);
+	}
+	
+	return b;
+    }
+    
+    public static boolean setDisconnected(BaseSetting bs, String eml, String pswd)
+    {
+	boolean b = false;
+	
+	if (checkPresence(bs,eml,pswd))
+	{
+	    User u = User.findByLogs(eml, pswd, bs);
+	    u.setConnected_u(0);
+	    b = u.update(bs);
+	    b = (User.findById(u.getId_u(), bs).isConnected_u() == 0);
+	}
+	
+	return b;
+    }
 }
