@@ -9,6 +9,7 @@ findByNom : /
 
 package user;
 
+import database.BaseSetting;
 import database.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,10 +57,9 @@ public class Workgroup
     }
     
     /* MISE A JOURS */
-    public String insert()
+    public boolean insert(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
@@ -76,13 +76,12 @@ public class Workgroup
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
     
-    public String update() 
+    public boolean update(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
@@ -99,17 +98,16 @@ public class Workgroup
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
 
-    public String delete() 
+    public boolean delete(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
-	    if (Workgroup.findById(this.getId_wg()) != null)
+	    if (Workgroup.findById(this.getId_wg(),bs) != null)
 	    {
 		String query = "DELETE FROM WorkGroup WHERE id_wg = ?";
 		PreparedStatement p_statement = connection.prepareStatement(query);
@@ -121,14 +119,13 @@ public class Workgroup
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
 
     /* FINDERS */
-    public static Workgroup findById(int id) 
+    public static Workgroup findById(int id,BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	Workgroup workGroup = null;
 	
