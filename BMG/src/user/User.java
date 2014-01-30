@@ -147,7 +147,8 @@ public class User {
 	try 
 	{
 	    String query = "INSERT INTO User (id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
-	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+           // System.out.println("dsifjbvijv");
+            PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
 	    p_statement.setInt(1,this.id_ut);
 	    p_statement.setString(2,this.fname_u);
 	    p_statement.setString(3,this.lname_u);
@@ -255,5 +256,20 @@ public class User {
 	}
 	
 	return user;
+    }
+    
+    /* OTHERS */
+    public static boolean signIn(int ut,String fn,String ln,String sch,String eml,String pswd)
+    {
+	boolean b = false;
+	
+	User u = new User(ut,fn,ln,sch,eml,pswd);
+	String s = u.insert();
+	User u_returned = User.findById(u.getId_u());
+	
+	if (u_returned != null)
+	    b = true;
+	
+	return b;
     }
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import user.User;
 
 public class SignIn_Tests
 {
@@ -31,28 +32,36 @@ public class SignIn_Tests
 		(
 		new MouseListener() 
 		{
+			@Override
 			public void mouseClicked(MouseEvent me) 
 			{
 				if (me.getSource() == jb)
 				{
+					int idut = 444;
 					String s_fname = jtf_fname.getText();
 					String s_lname = jtf_lname.getText();
 					String s_school = jtf_school.getText();
 					String s_email = jtf_email.getText();
 					String s_pass = jpf_pass.getText();
-					int id = 0;
+					
+					User u = new User(idut,s_fname,s_lname,s_school,s_email,s_pass);
+					u.insert();
+					
+					int id = User.findById(u.getId_u()).getId_u();
 					jl.setText("Thanks and welcome "+s_fname+"! Your id is : "+id);
 				}
 			}
 			
+			@Override
 			public void mousePressed(MouseEvent me) {}
 			
+			@Override
 			public void mouseReleased(MouseEvent me) {}
 			
-			public void mouseDragged(MouseEvent me) {}
-			
+			@Override
 			public void mouseEntered(MouseEvent me) {}
 			
+			@Override
 			public void mouseExited(MouseEvent me) {}
 		}
 		);

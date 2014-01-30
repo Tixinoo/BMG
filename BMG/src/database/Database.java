@@ -6,18 +6,31 @@ import java.sql.SQLException;
 
 public class Database 
 {
+    private BaseSetting bs = new BaseSetting();
     private Connection connection = null;
     private String driver = "com.mysql.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/BMG_db";
     private String login = "Joseph";
     private String password = "j0j0";
     
-    public Database() {}
+    
+    public Database() {
+        this.driver = bs.getDriver();
+        this.url = bs.getUrl();
+        this.login = bs.getLogin();
+        this.password = bs.getPassword();
+        this.connection = bs.getConnection();
+    }
     
     public Database(String lgn, String pswd) 
     {
-	login = lgn;
-	password = pswd;
+	this.login = lgn;
+	this.password = pswd;
+        this.driver = bs.getDriver();
+        this.url = bs.getUrl();
+        this.login = bs.getLogin();
+        this.password = bs.getPassword();
+        this.connection = bs.getConnection();
     }
     
     public boolean disconnect()
@@ -74,10 +87,7 @@ public class Database
     
     public Connection getConnection()
     {
-	if (connection == null)
-	    connect();
-	    
-	return connection;
+	return this.connection;
     }
 
 }
