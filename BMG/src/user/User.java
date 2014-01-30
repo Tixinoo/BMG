@@ -121,51 +121,8 @@ public class User {
     }
 
     /* MISE A JOURS */
-    public String insert() {
-        Database db = new Database();
-        Connection connection = db.getConnection();
-
-        try {
-            String query = "INSERT INTO User (id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
-            PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-            p_statement.setInt(1, this.id_ut);
-            p_statement.setString(2, this.fname_u);
-            p_statement.setString(3, this.lname_u);
-            p_statement.setString(4, this.school_u);
-            p_statement.setString(5, this.email_u);
-            p_statement.setString(6, this.pass_u);
-            p_statement.setInt(7, this.connected_u);
-            p_statement.executeUpdate();
-            ResultSet rs = p_statement.getGeneratedKeys();
-
-            if (rs.next()) {
-                this.id_u = rs.getInt(1);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return "OK";
-    }
-
-    public boolean insert2(BaseSetting bs) {
-        try {
-            String query = "INSERT INTO User(id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES ('"+this.id_ut+"', '"+this.fname_u+"', '"+this.lname_u+"', '"+this.school_u+"', '"+this.email_u+"', '"+this.pass_u+"', '"+this.connected_u+"')";
-            
-            System.out.println(query);
-            bs.setStatement(bs.getConnection().createStatement());
-            bs.getStatement().executeUpdate(query);
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return false;
-    }
-
-    /* MISE A JOURS */
-    public boolean insert3(BaseSetting bs) {
+    public boolean insert(BaseSetting bs) 
+    {
         Connection connection = bs.getConnection();
 
         try {
@@ -194,7 +151,8 @@ public class User {
         return false;
     }    
     
-    public String update() {
+    public String update() 
+    {
         Database db = new Database();
         Connection connection = db.getConnection();
 
@@ -219,7 +177,8 @@ public class User {
         return "OK";
     }
 
-    public String delete() {
+    public String delete() 
+    {
         Database db = new Database();
         Connection connection = db.getConnection();
 
@@ -238,7 +197,8 @@ public class User {
     }
 
     /* FINDERS */
-    public static User findById(int id) {
+    public static User findById(int id) 
+    {
         Database db = new Database();
         Connection connection = db.getConnection();
 
@@ -272,31 +232,10 @@ public class User {
     }
 
     /* OTHERS */
-    public static boolean signIn(int ut, String fn, String ln, String sch, String eml, String pswd) {
-        boolean b = false;
-
+    public static boolean signIn(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) 
+    {
         User u = new User(ut, fn, ln, sch, eml, pswd);
-        String s = u.insert();
-        User u_returned = User.findById(u.getId_u());
-
-        if (u_returned != null) {
-            b = true;
-        }
-
-        return b;
-    }
-
-    public static boolean signIn2(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) {
-        System.out.println("signin2");
-        User u = new User(ut, fn, ln, sch, eml, pswd);
-        return u.insert2(bs);
-
-    }
-    
-    public static boolean signIn3(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) {
-        System.out.println("signin3");
-        User u = new User(ut, fn, ln, sch, eml, pswd);
-        return u.insert3(bs);
+        return u.insert(bs);
 
     }
 }
