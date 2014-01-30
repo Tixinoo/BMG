@@ -64,18 +64,25 @@ public class Main {
         System.out.println("Result4: " + res4);
         System.out.println("---------------------------------------------------------------------\n");
 
-        System.out.println("\n-------> An exercise with a given type <-------");
-        System.out.println("Type? ");
-        String t = sc.next();
-        System.out.println("");
-        Exercise ex1 = new Exercise(t);
+        System.out.println("\n-------> An exercise with these questions <-------");
+        Exercise ex1 = new Exercise("calculation");
         ex1.setStatement(new Wording());
         ex1.addQuestion(qc1);
         ex1.addQuestion(qc2);
         ex1.addQuestion(qc3);
         ex1.addQuestion(qc4);
         System.out.println(ex1);
+        System.out.println("---------------------------------------------------------------------\n");
 
+        System.out.println("\n-------> An exercise with a given type <-------");
+        System.out.println("Type? ");
+        String t = sc.next();
+        System.out.println("");
+        Exercise ex2 = new Exercise(t);
+        ex2.generate();
+        System.out.println(ex2);
+        System.out.println("---------------------------------------------------------------------\n");
+        
     }
 
 }

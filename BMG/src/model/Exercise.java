@@ -87,8 +87,29 @@ public class Exercise {
         this.ready = false;
     }
 
-	// ----------------------
-	// ------- METHODS ------
+    // ----------------------
+    // ------- METHODS ------
+    
+    /**
+     * Generate a random exercise with 10 randoms questions,
+     * type must be precised in the attribute.
+     */
+    public void generate() {
+        if (this.type != "") {
+            switch(type) {
+                case "calculation":
+                    for(int i=0;i<10;i++) {
+                        QuestionCalculation qc = new QuestionCalculation();
+                        qc.generate();
+                        this.addQuestion(qc);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
     /**
      * Add a question to the exercise
      */
@@ -160,7 +181,6 @@ public class Exercise {
         while (it.hasNext()) {
             res = res + it.next() + "\n";
         }
-        res = res + "\n-----------------------";
         return res;
     }
 
