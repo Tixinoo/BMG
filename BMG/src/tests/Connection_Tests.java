@@ -236,6 +236,14 @@ public class Connection_Tests  extends JFrame implements MouseListener
 				
 				User u = User.findById(68,bs);
 				
+				String query = "SELECT sha(?)";
+				Connection connection = bs.getConnection();
+				p_statement = connection.prepareStatement(query);
+				p_statement.setString(1,password);
+				ResultSet rs = p_statement.executeQuery();
+				rs.next();
+				password = rs.getString(1);
+				
 				if (connection != null)
 				{
 						if (u.getEmail_u().equals(login) && u.getPass_u().equals(password))
