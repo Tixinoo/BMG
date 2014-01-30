@@ -93,8 +93,8 @@ public class Main {
                 QuestionFraction qf1 = new QuestionFraction();
                 qf1.generate();
                 System.out.println(qf1);
-                //double res1f = qf1.solve();
-                //System.out.println("Result1: " + res1);
+                double res1f = qf1.solve();
+                System.out.println("Result1: " + res1f);
                 System.out.println("---------------------------------------------------------------------\n");
                 
                 System.out.println("\n-------> A question with fractions with a given length <-------");
@@ -104,8 +104,8 @@ public class Main {
                 QuestionFraction qf2 = new QuestionFraction();
                 qf2.generate(lf);
                 System.out.println(qf2);
-                //double res2f = qf2.solve();
-                //System.out.println("Result2: " + res2);
+                double res2f = qf2.solve();
+                System.out.println("Result2: " + res2f);
                 System.out.println("---------------------------------------------------------------------\n");
                 
                 break;
