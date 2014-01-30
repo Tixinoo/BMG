@@ -151,10 +151,9 @@ public class User {
         return false;
     }    
     
-    public String update() 
+    public boolean update(BaseSetting bs) 
     {
-        Database db = new Database();
-        Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 
         try {
             if (this.id_u < 0) {
@@ -174,16 +173,15 @@ public class User {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return "OK";
+        return true;
     }
 
-    public String delete() 
+    public boolean delete(BaseSetting bs) 
     {
-        Database db = new Database();
-        Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 
         try {
-            if (User.findById(this.getId_u()) != null) {
+            if (User.findById(this.getId_u(),bs) != null) {
                 String query = "DELETE FROM User WHERE id_u = ?";
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_u);
@@ -193,14 +191,13 @@ public class User {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return "OK";
+        return true;
     }
 
     /* FINDERS */
-    public static User findById(int id) 
+    public static User findById(int id,BaseSetting bs) 
     {
-        Database db = new Database();
-        Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 
         User user = null;
 
