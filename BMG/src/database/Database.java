@@ -14,7 +14,13 @@ public class Database
     private String password = "j0j0";
     
     
-    public Database() {}
+    public Database() {
+        this.driver = bs.getDriver();
+        this.url = bs.getUrl();
+        this.login = bs.getLogin();
+        this.password = bs.getPassword();
+        this.connection = bs.getConnection();
+    }
     
     public Database(String lgn, String pswd) 
     {
