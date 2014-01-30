@@ -9,6 +9,7 @@ findByNom : /
 
 package user;
 
+import database.BaseSetting;
 import database.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,10 +57,9 @@ public class Screen
     }
 
     /* MISE A JOURS */
-    public String insert()
+    public boolean insert(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
@@ -76,13 +76,12 @@ public class Screen
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
     
-    public String update() 
+    public boolean update(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
@@ -99,17 +98,16 @@ public class Screen
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
 
-    public String delete() 
+    public boolean delete(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
-	    if (Screen.findById(this.getId_s()) != null)
+	    if (Screen.findById(this.getId_s(),bs) != null)
 	    {
 		String query = "DELETE FROM Screen WHERE id_s = ?";
 		PreparedStatement p_statement = connection.prepareStatement(query);
@@ -121,14 +119,13 @@ public class Screen
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
 
     /* FINDERS */
-    public static Screen findById(int id) 
+    public static Screen findById(int id,BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	Screen screen = null;
 	
