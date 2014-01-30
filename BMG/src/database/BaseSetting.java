@@ -116,6 +116,15 @@ public class BaseSetting {
     public void setResult_set(ResultSet result_set) {
         this.result_set = result_set;
     }
+    
+    public String getLogin() {
+        return this.bi.getLogin();
+    }
+    
+    public String getPassword() {
+        return this.bi.getPassword();
+    }
+ 
 
     /*
      * public boolean check(String login, String password)

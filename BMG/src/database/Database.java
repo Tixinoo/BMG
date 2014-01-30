@@ -6,11 +6,13 @@ import java.sql.SQLException;
 
 public class Database 
 {
+    BaseSetting bs = new BaseSetting();
     private Connection connection = null;
     private String driver = "com.mysql.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/BMG_db";
     private String login = "Joseph";
     private String password = "j0j0";
+    
     
     public Database() {}
     
@@ -18,6 +20,11 @@ public class Database
     {
 	login = lgn;
 	password = pswd;
+        
+        this.driver = bs.getDriver();
+        this.url = bs.getUrl();
+        this.login = bs.getLogin();
+        this.password = bs.getPassword();
     }
     
     public boolean disconnect()
