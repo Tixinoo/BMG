@@ -4,261 +4,259 @@ import java.util.*;
 
 public class QuestionEquation extends Question {
 
-	// ----- ATTRIBUTES -----
+    // ----- ATTRIBUTES -----
+    
+    // Inherited
+    
+    /**
+     * Operands of the equation (without unknowns)
+     */
+    private ArrayList<Integer> operands;
 
-	// Inherited
+    /**
+     * Placements of the unknowns in the equation
+     */
+    private ArrayList<Boolean> unknowns;
 
-	/**
-	 * Operands of the equation (without unknowns)
-	 */
-	private ArrayList<Integer> operands;
+    /**
+     * Operators of the equation ('=' included)
+     */
+    private ArrayList<Character> operators;
 
-	/**
-	 * Placements of the unknowns in the equation
-	 */
-	private ArrayList<Boolean> unknowns;
+    /**
+     * Length of the equation
+     */
+    private int length;
 
-	/**
-	 * Operators of the equation ('=' included)
-	 */
-	private ArrayList<Character> operators;
+    // ----------------------
+    
+    // ---- CONSTRUCTORS ----
+    
+    /**
+     * This constructor creates the simplest question for a calculation
+     */
+    public QuestionEquation() {
+        super();
 
-	/**
-	 * Length of the equation
-	 */
-	private int length;
+    }
 
-	// ----------------------
+    /**
+     * This constructor creates a question with the text given in parameter
+     */
+    public QuestionEquation(String QCtext) {
 
-	// ---- CONSTRUCTORS ----
+    }
 
-	/**
-	 * This constructor creates the simplest question for a calculation
-	 */
-	public QuestionEquation() {
-            super();
-            
-	}
+    /**
+     * This constructor creates a question with the text and the difficulty
+     * given in parameters
+     */
+    public QuestionEquation(String QCtext, int QCdifficulty) {
 
-	/**
-	 * This constructor creates a question with the text given in parameter
-	 */
-	public QuestionEquation(String QCtext) {
+    }
 
-	}
+    // ----------------------
+    
+    // ------- METHODS ------
+    
+    // Inherited
+    
+    /**
+     * Generate a random question with an equation
+     */
+    public void generate() {
 
-	/**
-	 * This constructor creates a question with the text and the difficulty
-	 * given in parameters
-	 */
-	public QuestionEquation(String QCtext, int QCdifficulty) {
+    }
 
-	}
+    /**
+     * Generate a random question with an equation with the length given in
+     * parameter
+     */
+    public void generate(int QClength) {
 
-	// ----------------------
+    }
 
-	// ------- METHODS ------
+    /**
+     * Solve a question with an equation
+     */
+    public double solve() {
+        double res = 0;
+        return res;
+    }
 
-	// Inherited
+    /**
+     * Display a question with an equation
+     */
+    public String toString() {
+        String res = "		QuestionFraction";
+        res = res + "\n			Text: " + this.text;
+        res = res + "\n			Difficulty: " + this.difficulty;
+        return res;
+    }
 
-	/**
-	 * Generate a random question with an equation
-	 */
-	public void generate() {
+    public ArrayList<Integer> getOperands() {
+        return operands;
+    }
 
-	}
+    public void setOperands(ArrayList<Integer> operands) {
+        this.operands = operands;
+    }
 
-	/**
-	 * Generate a random question with an equation with the length given in
-	 * parameter
-	 */
-	public void generate(int QClength) {
+    public ArrayList<Boolean> getUnknowns() {
+        return unknowns;
+    }
 
-	}
+    public void setUnknowns(ArrayList<Boolean> unknowns) {
+        this.unknowns = unknowns;
+    }
 
-	/**
-	 * Solve a question with an equation
-	 */
-	public double solve() {
-		double res = 0;
-		return res;
-	}
+    public ArrayList<Character> getOperators() {
+        return operators;
+    }
 
-	/**
-	 * Display a question with an equation
-	 */
-	public String toString() {
-		String res = "		QuestionFraction";
-		res = res + "\n			Text: " + this.text;
-		res = res + "\n			Difficulty: " + this.difficulty;
-		return res;
-	}
-	
-	public ArrayList<Integer> getOperands() {
-		return operands;
-	}
+    public void setOperators(ArrayList<Character> operators) {
+        this.operators = operators;
+    }
 
-	public void setOperands(ArrayList<Integer> operands) {
-		this.operands = operands;
-	}
+    public int getLength() {
+        return length;
+    }
 
-	public ArrayList<Boolean> getUnknowns() {
-		return unknowns;
-	}
+    public void setLength(int length) {
+        this.length = length;
+    }
 
-	public void setUnknowns(ArrayList<Boolean> unknowns) {
-		this.unknowns = unknowns;
-	}
+    /**
+     * Encode the current question (object) in a string which can recreate this
+     * question by the decode() method
+     *
+     * @return encoded question
+     */
+    public String encode() {
+        Iterator<Integer> itopd = operands.iterator();
+        String res = "#QuestionEquation<";
+        while (itopd.hasNext()) {
+            res = res + itopd.next() + ":";
+        }
+        res = res.substring(0, res.length() - 1);
+        res = res + "><";
+        Iterator<Boolean> itukn = unknowns.iterator();
+        while (itukn.hasNext()) {
+            res = res + itukn.next() + ":";
+        }
+        res = res.substring(0, res.length() - 1);
+        res = res + "><";
+        Iterator<Character> itopt = operators.iterator();
+        while (itopt.hasNext()) {
+            res = res + itopt.next() + ":";
+        }
+        res = res.substring(0, res.length() - 1);
+        res = res + "><" + length + ">";
+        return res;
+    }
 
-	public ArrayList<Character> getOperators() {
-		return operators;
-	}
+    /**
+     * Decode the string generate by the encode() method of this class
+     *
+     * @param str encoded question
+     * @return decoded question (object)
+     */
+    public static QuestionEquation decode(String str) {
+        QuestionEquation res = null;
+        if (str.substring(0, 17).compareTo("#QuestionEquation") == 0) {
+            res = new QuestionEquation();
+            int i = 17;
+            if (str.charAt(i) == '<') {
+                while (str.charAt(i) != '>') {
+                    i++;
+                }
+                String[] tab = str.substring(18, i).split(":");
+                ArrayList<Integer> tmp_opd = new ArrayList<Integer>();
+                for (int x = 0; x < tab.length; x++) {
+                    tmp_opd.add(Integer.valueOf(tab[x]));
+                }
+                assert tmp_opd.size() > 0 : "empty operands table";
+                res.setOperands(tmp_opd);
 
-	public void setOperators(ArrayList<Character> operators) {
-		this.operators = operators;
-	}
+                i++;
+                int beginning = i;
+                if (str.charAt(i) == '<') {
+                    while (str.charAt(i) != '>') {
+                        i++;
+                    }
+                    tab = str.substring(beginning + 1, i).split(":");
+                    ArrayList<Boolean> tmp_ukn = new ArrayList<Boolean>();
+                    for (int x = 0; x < tab.length; x++) {
+                        tmp_ukn.add(Boolean.valueOf(tab[x]));
+                    }
+                    assert tmp_ukn.size() > 0 : "empty unknowns table";
+                    res.setUnknowns(tmp_ukn);
 
-	public int getLength() {
-		return length;
-	}
+                    i++;
+                    beginning = i;
+                    if (str.charAt(i) == '<') {
+                        while (str.charAt(i) != '>') {
+                            i++;
+                        }
+                        tab = str.substring(beginning + 1, i).split(":");
+                        ArrayList<Character> tmp_opt = new ArrayList<Character>();
+                        for (int x = 0; x < tab.length; x++) {
+                            tmp_opt.add(tab[x].charAt(0));
+                        }
+                        assert tmp_opt.size() > 0 : "empty operators table";
+                        assert tmp_opt.size() == tmp_opt.size() + 1 : "incorrect size of operators table";
+                        res.setOperators(tmp_opt);
 
-	public void setLength(int length) {
-		this.length = length;
-	}
+                        i++;
+                        beginning = i;
+                        if (str.charAt(i) == '<') {
+                            while (str.charAt(i) != '>') {
+                                i++;
+                            }
+                            int tmp_lth = Integer.valueOf(str.substring(beginning + 1, i));
+                            assert tmp_lth < 0 : "negative length";
+                            res.setLength(tmp_lth);
 
-	/**
-	 * Encode the current question (object) in a string which can recreate this question by the decode() method
-	 * @return encoded question
-	 */
-	public String encode() {
-		Iterator<Integer> itopd = operands.iterator();
-		String res = "#QuestionEquation<";
-		while (itopd.hasNext()) {
-			res = res + itopd.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
-		res = res + "><";
-		Iterator<Boolean> itukn = unknowns.iterator();
-		while (itukn.hasNext()) {
-			res = res + itukn.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
-		res = res + "><";
-		Iterator<Character> itopt = operators.iterator();
-		while (itopt.hasNext()) {
-			res = res + itopt.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
-		res = res + "><" + length + ">";
-		return res;
-	}
-	
-	/**
-	 * Decode the string generate by the encode() method of this class
-	 * @param str encoded question
-	 * @return decoded question (object)
-	 */
-	public static QuestionEquation decode(String str) {
-		QuestionEquation res = null;
-		if (str.substring(0,17).compareTo("#QuestionEquation") == 0) {
-			res = new QuestionEquation();
-			int i = 17;
-			if (str.charAt(i) == '<') {
-				while (str.charAt(i) != '>') {
-					i++;
-				}
-				String[] tab = str.substring(18,i).split(":");
-				ArrayList<Integer> tmp_opd = new ArrayList<Integer>();
-				for (int x=0; x<tab.length; x++) {
-					tmp_opd.add(Integer.valueOf(tab[x]));
-				}
-				assert tmp_opd.size() > 0 : "empty operands table";
-				res.setOperands(tmp_opd);
-				
-				i++;
-				int beginning = i;
-				if (str.charAt(i) == '<') {
-					while (str.charAt(i) != '>') {
-						i++;
-					}
-					tab = str.substring(beginning+1,i).split(":");
-					ArrayList<Boolean> tmp_ukn = new ArrayList<Boolean>();
-					for (int x=0; x<tab.length; x++) {
-						tmp_ukn.add(Boolean.valueOf(tab[x]));
-					}
-					assert tmp_ukn.size() > 0 : "empty unknowns table";
-					res.setUnknowns(tmp_ukn);
-				
-					i++;
-					beginning = i;
-					if (str.charAt(i) == '<') {
-						while (str.charAt(i) != '>') {
-							i++;
-						}
-						tab = str.substring(beginning+1,i).split(":");
-						ArrayList<Character> tmp_opt = new ArrayList<Character>();
-						for (int x=0; x<tab.length; x++) {
-							tmp_opt.add(tab[x].charAt(0));
-						}
-						assert tmp_opt.size() > 0 : "empty operators table";
-						assert tmp_opt.size() == tmp_opt.size()+1 : "incorrect size of operators table";
-						res.setOperators(tmp_opt);
-						
-						i++;
-						beginning = i;
-						if (str.charAt(i) == '<') {
-							while (str.charAt(i) != '>') {
-								i++;
-							}
-							int tmp_lth = Integer.valueOf(str.substring(beginning+1,i));
-							assert tmp_lth < 0 : "negative length";
-							res.setLength(tmp_lth);
-							
-							i++;
-							str = str.substring(i,str.length());
-						} else {
-							res = null;
-						}
-					} else {
-						res = null;
-					}
-				} else {
-					res = null;
-				}
-			} else {
-				res =null;
-			}
-			
-		}
-		return res;
-	}
-	
-	// ----------------------
-	
-	// ----- DB METHODS -----
+                            i++;
+                            str = str.substring(i, str.length());
+                        } else {
+                            res = null;
+                        }
+                    } else {
+                        res = null;
+                    }
+                } else {
+                    res = null;
+                }
+            } else {
+                res = null;
+            }
 
-	/* MISE A JOURS */
-	public String insert()
-	{
-	    return "";
-	}
+        }
+        return res;
+    }
 
-	public String update()
-	{
-	    return "";
-	}
+    // ----------------------
+    
+    // ----- DB METHODS -----
 
-	public String delete()
-	{
-	    return "";
-	}
+    /* MISE A JOURS */
+    public String insert() {
+        return "";
+    }
 
-	/* FINDERS */
-	public static String findById(int id)
-	{
-	    return "";
-	}
-	
-	// ----------------------
-	
+    public String update() {
+        return "";
+    }
+
+    public String delete() {
+        return "";
+    }
+
+    /* FINDERS */
+    public static String findById(int id) {
+        return "";
+    }
+
+    // ----------------------
 }

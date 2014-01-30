@@ -236,6 +236,7 @@ public class QuestionFraction extends Question {
     }
 
     // ----------------------
+    
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
@@ -255,6 +256,6 @@ public class QuestionFraction extends Question {
     public static String findById(int id) {
         return "";
     }
-    
+
     // ----------------------
 }

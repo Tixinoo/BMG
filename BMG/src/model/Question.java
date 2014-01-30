@@ -3,6 +3,7 @@ package model;
 public abstract class Question {
 
     // ----- ATTRIBUTES -----
+    
     /**
      * Question'id
      */ 
@@ -14,8 +15,8 @@ public abstract class Question {
     protected String text;
 
     /**
-     * Question's difficulty '0' corresponds to an unknow difficulty '1'
-     * corresponds to the easiest difficulty
+     * Question's difficulty '0' corresponds to an unknow difficulty
+     * '1' corresponds to the easiest difficulty
      */
     protected int difficulty;
 
