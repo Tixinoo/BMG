@@ -34,7 +34,7 @@ public class ActiveRecord_Tests
 	b = userType_6.insert(bs);
 	System.out.println(""+b+" insertion userType 6");
 	
-	User user = new User(userType_5.getId_ut(),"Antoine","NONO","IUT Charlo","kikoolol57@hotmail.fr","comme_MA_b***");
+	User user = new User(userType_5.getId_ut(),"Prenom","Nom","Ecole","Email","MdP");
 	b = user.insert(bs);
 	System.out.println(""+b+" insertion user");
 	
