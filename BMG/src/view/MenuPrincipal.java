@@ -25,7 +25,7 @@ public class MenuPrincipal extends JFrame {
     public BaseSetting bs = new BaseSetting();
     
     public MenuPrincipal() {
-        super("Maxime BLAISE");
+        super("BMG 2014");
         
         this.setContentPane(this.genererPanelPrincipal());
         
