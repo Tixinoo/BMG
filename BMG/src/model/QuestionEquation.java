@@ -216,7 +216,7 @@ public class QuestionEquation extends Question {
 							res.setLength(tmp_lth);
 							
 							i++;
-							str = str.substring(i,str.length());
+							str = str.substring(i);
 						} else {
 							res = null;
 						}
@@ -229,7 +229,6 @@ public class QuestionEquation extends Question {
 			} else {
 				res =null;
 			}
-			
 		}
 		return res;
 	}

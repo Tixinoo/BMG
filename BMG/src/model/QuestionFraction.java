@@ -215,7 +215,7 @@ public class QuestionFraction extends Question {
 							res.setLength(tmp_lth);
 							
 							i++;
-							str = str.substring(i,str.length());
+							str = str.substring(i);
 						} else {
 							res = null;
 						}

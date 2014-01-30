@@ -121,7 +121,23 @@ public class Wording {
 
     public String encode() {
 		String res = "#Wording<" + id + "><$<" + text + ">$><";
-		
+		String type;
+		if (values != null) {
+			if (values[0] instanceof Integer) {
+				type = "int";
+			} else if (values[0] instanceof Double) {
+				type = "dbl";
+			} else if (values[0] instanceof Character) {
+				type = "chr";
+			} else if (values[0] instanceof String) {
+				type = "str";
+			} else {
+				type = "nul";
+			}
+		} else {
+			type = "nul";
+		}
+		res = res + type + "><";
 		for (int i = 0; i<values.length; i++) {
 			res = res + values[i] + ":";
 		}
@@ -144,8 +160,8 @@ public class Wording {
 
                 i =+ 3;
                 int beginning = i;
-                if (str.substring(i-2, i) == "<$<") {
-                    while (str.substring(i, i+2) != ">$>") {
+                if (str.substring(i-2, i).compareTo("<$<") == 0) {
+                    while (str.substring(i, i+2).compareTo(">$>") != 0) {
                         i++;
                     }
                     assert i > beginning+1 : "no wording text";
@@ -197,7 +213,8 @@ public class Wording {
 	                    } else {
 	                    	res.setValues(null);
 	                    }
-	                    str.substring(i+1);
+	                    i++;
+	                    str.substring(i);
                     } else {
                     	res = null;
                     }
@@ -209,7 +226,6 @@ public class Wording {
             }
         }
     	return res;
-    	
     }
 
     // ----------------------

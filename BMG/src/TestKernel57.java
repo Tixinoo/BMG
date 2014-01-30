@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
+import model.Exercise;
 import model.QuestionCalculation;
 import model.QuestionEquation;
 import model.QuestionFraction;
+import model.Wording;
 
 
 public class TestKernel57 {
@@ -21,6 +23,9 @@ public class TestKernel57 {
 		qcal.setOperands(opd);
 		qcal.setOperators(opt);
 		qcal.setLength(4);
+		qcal.setDifficulty(1);
+		qcal.setID(2);
+		qcal.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate lacus eu odio ultricies porta.");
 		
 		String str = qcal.encode();
 		System.out.println(str);
@@ -48,6 +53,9 @@ public class TestKernel57 {
 		qfra.setDenominators(dnm);
 		qfra.setOperators(opt);
 		qfra.setLength(4);
+		qfra.setDifficulty(3);
+		qfra.setID(8);
+		qfra.setText("Sed vulputate lacus eu odio ultricies porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 		System.out.println(qfra.encode()+ "\n");
 		
 		QuestionEquation qequ = new QuestionEquation();
@@ -70,6 +78,21 @@ public class TestKernel57 {
 		qequ.setUnknowns(ukn);
 		qequ.setLength(4);
 		System.out.println(qequ.encode());
+		
+		Exercise ex = new Exercise();
+		ex.setTitle("machin");
+		ex.setID(3);
+		Object[] tval = {78,45,9,34,86,24};
+		ex.setWording(new Wording("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate lacus eu odio ultricies porta. Cras blandit aliquam nisi at iaculis. Pellentesque tincidunt neque et est ultrices, nec luctus risus consequat. Pellentesque sed est magna. Phasellus ullamcorper ligula eu est vehicula, sit amet hendrerit leo malesuada. Cras fringilla lorem sit amet pharetra porttitor. Nullam venenatis convallis nisi. Nulla sem sem. ", tval));
+		ex.setType("calculation");
+		ex.setDifficulty(4);
+		ex.addQuestion(qcal);
+		ex.addQuestion(qfra);
+		ex.update_ready();
+		str = ex.encode();
+		System.out.println("\n\n" + str);
+		//Exercise e = Exercise.
+		
 	}
 
 }

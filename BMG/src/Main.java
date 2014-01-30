@@ -66,7 +66,7 @@ public class Main {
 
         System.out.println("\n-------> An exercise with these questions <-------");
         Exercise ex1 = new Exercise("calculation");
-        ex1.setStatement(new Wording());
+        ex1.setWording(new Wording());
         ex1.addQuestion(qc1);
         ex1.addQuestion(qc2);
         ex1.addQuestion(qc3);

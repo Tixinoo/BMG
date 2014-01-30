@@ -148,9 +148,9 @@ public class Exercise {
     /**
      *
      */
-    public void setStatement(Wording Estatement) {
-        if (Estatement != null) {
-            this.wording = Estatement;
+    public void setWording(Wording Ewording) {
+        if (Ewording != null) {
+            this.wording = Ewording;
             this.update_ready();
         }
     }
@@ -165,8 +165,8 @@ public class Exercise {
         }
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String Etitle) {
+        this.title = Etitle;
     }
     
     /**
@@ -177,6 +177,17 @@ public class Exercise {
             this.difficulty = Edifficulty;
             this.update_ready();
         }
+    }
+    
+    /**
+     * 
+     */
+    public void setID(int Eid) {
+    	if (Eid > 0) {
+    		this.id = Eid;
+    	} else {
+    		this.id = 0;
+    	}
     }
 
     /**
@@ -197,7 +208,15 @@ public class Exercise {
     }
     
     public String encode() {
-		String res = "";
+    	String res = null;
+    	if (ready) {
+			res = "<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
+			res = res + wording.encode() + "\n";
+			Iterator<Question> itq = questions.iterator();
+			while (itq.hasNext()) {
+				res = res + itq.next().encode() + "\n";
+			}
+    	}
 		return res;
 	}
 

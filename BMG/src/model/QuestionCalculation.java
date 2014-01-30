@@ -276,6 +276,7 @@ public class QuestionCalculation extends Question {
         }
         res = res.substring(0, res.length() - 1);
         res = res + "><" + length + ">";
+        res = res + super.encode();
         return res;
     }
 
@@ -328,7 +329,7 @@ public class QuestionCalculation extends Question {
                         res.setLength(tmp_lth);
 
                         i++;
-                        str = str.substring(i, str.length());
+                        str = str.substring(i);
                     } else {
                         res = null;
                     }
@@ -338,7 +339,6 @@ public class QuestionCalculation extends Question {
             } else {
                 res = null;
             }
-
         }
         return res;
     }
