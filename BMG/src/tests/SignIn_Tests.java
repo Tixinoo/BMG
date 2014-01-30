@@ -1,5 +1,6 @@
 package tests;
 
+import database.BaseSetting;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,6 +11,8 @@ public class SignIn_Tests
 {
 	public static void main(String[] args)
 	{
+		final BaseSetting bs = new BaseSetting();
+	    
 		JFrame jf = new JFrame("SignIn windows");
 		JPanel jp = new JPanel();
 		JPanel jpbis = new JPanel();

@@ -1,5 +1,6 @@
 package tests;
 
+import database.BaseSetting;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -48,6 +49,7 @@ public class Connection_Tests  extends JFrame implements MouseListener
 	private JButton jb_connexion = new JButton("Connexion");
 	private JButton jb_mdp_oublie = new JButton("MDP oublié");
 	private JLabel jl_message = new JLabel("Veuillez entrer vos identifiants");
+	private BaseSetting bs = new BaseSetting();
 	
 	// MENU PRINCIPAL
 	//
@@ -238,7 +240,7 @@ public class Connection_Tests  extends JFrame implements MouseListener
 				{
 						if (u.getEmail_u().equals(login) && u.getPass_u().equals(password))
 						{
-							groupe = UserType.findById(u.getId_ut()).getName_ut();
+							groupe = UserType.findById(u.getId_ut(),bs).getName_ut();
 							System.out.println("OK : " + groupe);
 							/**/
 							afficherMenuPrincipal();
