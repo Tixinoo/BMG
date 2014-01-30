@@ -94,9 +94,8 @@ public class Wording {
         if (this.values.length == 0) {
             res = res + "nothing";
         } else {
-            res = res + "\n";
             for (int i = 0; i < this.values.length; i++) {
-                res = res + this.values[i] + "\n";
+                res = res + this.values[i] + "  ";
             }
         }
         // res = res + "\n-----------------------";
@@ -148,33 +147,33 @@ public class Wording {
     
 	public static Wording decode(String str) {
 		Wording res = null;
-        if (str.substring(0, 7).compareTo("#Wording") == 0) {
+        if (str.substring(0, 8).compareTo("#Wording") == 0) {
             res = new Wording();
-            int i = 7;
+            int i = 8;
             if (str.charAt(i) == '<') {
                 while (str.charAt(i) != '>') {
                     i++;
                 }
                 assert i > 8 : "no id number";
-                res.setId(Integer.valueOf(str.substring(8, i)));
+                res.setId(Integer.valueOf(str.substring(9, i)));
 
-                i =+ 3;
+                i += 3;
                 int beginning = i;
-                if (str.substring(i-2, i).compareTo("<$<") == 0) {
-                    while (str.substring(i, i+2).compareTo(">$>") != 0) {
+                if (str.substring(i-2, i+1).compareTo("<$<") == 0) {
+                    while (str.substring(i-2, i+1).compareTo(">$>") != 0) {
                         i++;
                     }
                     assert i > beginning+1 : "no wording text";
-                    res.setText(str.substring(beginning + 1, i-1));
+                    res.setText(str.substring(beginning+1, i-1));
                     
-                    i =+ 3;
+                    i++;
                     if ((str.charAt(i) == '<') && (str.charAt(i+4) == '>')) {
-	                    String type = str.substring(i+1, i+3);
-	                    i =+ 5;
+	                    String type = str.substring(i+1, i+4);
+	                    i += 5;
                     	
 	                    beginning = i;
 	                    if (type.compareTo("nul") != 0) {
-	                    
+	                    	
 		                    if (str.charAt(i) == '<') {
 		                    	while (str.charAt(i) != '>') {
 		                            i++;
@@ -186,7 +185,7 @@ public class Wording {
 		                        	for (int x=0; x<tab.length; x++) {
 		                        		val_int[x] = Integer.valueOf(tab[x]); 
 		                        	}
-		                        	res.setValues(val_int);
+		                        	res.values = val_int;
 		                    		break;
 		                    	case "dbl":
 		                    		Double[] val_dbl = new Double[tab.length];
@@ -216,6 +215,7 @@ public class Wording {
 	                    i++;
 	                    str.substring(i);
                     } else {
+                    	System.out.println("qmslkfdjmlkgjmldksfjmg");
                     	res = null;
                     }
                 } else {
