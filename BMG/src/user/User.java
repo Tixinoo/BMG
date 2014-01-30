@@ -264,7 +264,7 @@ public class User {
 	boolean b = false;
 	
 	User u = new User(ut,fn,ln,sch,eml,pswd);
-	u.insert();
+	String s = u.insert();
 	User u_returned = User.findById(u.getId_u());
 	
 	if (u_returned != null)
