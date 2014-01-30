@@ -14,7 +14,7 @@ public class Exercise {
     /**
      * Exercise's statement
      */
-    private Wording statement;
+    private Wording wording;
 
     /**
      * Exercise's questions
