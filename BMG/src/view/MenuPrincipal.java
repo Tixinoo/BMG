@@ -7,6 +7,7 @@
 package view;
 
 import database.BaseInformation;
+import database.BaseSetting;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -21,7 +22,7 @@ import javax.swing.JPanel;
  * @author Maxime
  */
 public class MenuPrincipal extends JFrame {
-    public BaseInformation bi = BaseInformation.lectureInformations();
+    public BaseSetting bs = new BaseSetting();
     
     public MenuPrincipal() {
         super("Maxime BLAISE");
@@ -38,7 +39,7 @@ public class MenuPrincipal extends JFrame {
     public JPanel genererPanelPrincipal() {
         JPanel pan = new JPanel();
         
-        pan.setLayout(new GridLayout(3,1));
+        pan.setLayout(new GridLayout(5,1));
         pan.add(new Button("PRACTICE"));
         pan.add(new Button("GENERATE"));
         
@@ -47,11 +48,29 @@ public class MenuPrincipal extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                bi = BaseInformation.lectureInformations();
-                setPanel(new PanelSettings(bi, fen()));
+                
+                setPanel(new PanelSettings(bs.getBaseInformations(), fen()));
+            }
+        });
+        Button bSignin = new Button("Sign in");
+        bSignin.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setPanel(new PanelSignin(bs, fen()));
+            }
+        });
+        Button bConnexion = new Button("Connexion");
+        bConnexion.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setPanel(new PanelConnexion(bs, fen()));
             }
         });
         pan.add(bSettings);
+        pan.add(bSignin);
+        pan.add(bConnexion);
         
         
         return pan;

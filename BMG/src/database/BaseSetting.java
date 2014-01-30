@@ -46,6 +46,7 @@ public class BaseSetting {
     }
 
     public BaseInformation getBaseInformations() {
+        miseAJourInfo();
         return this.bi;
     }
 
