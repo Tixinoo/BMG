@@ -164,6 +164,36 @@ public class User {
         return false;
     }
 
+    /* MISE A JOURS */
+    public boolean insert3(BaseSetting bs) {
+        Connection connection = bs.getConnection();
+
+        try {
+            String query = "INSERT INTO User (id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
+            PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            p_statement.setInt(1, this.id_ut);
+            p_statement.setString(2, this.fname_u);
+            p_statement.setString(3, this.lname_u);
+            p_statement.setString(4, this.school_u);
+            p_statement.setString(5, this.email_u);
+            p_statement.setString(6, this.pass_u);
+            p_statement.setInt(7, this.connected_u);
+            p_statement.executeUpdate();
+            ResultSet rs = p_statement.getGeneratedKeys();
+
+            if (rs.next()) {
+                this.id_u = rs.getInt(1);
+            }
+            
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }    
+    
     public String update() {
         Database db = new Database();
         Connection connection = db.getConnection();
@@ -260,6 +290,13 @@ public class User {
         System.out.println("signin2");
         User u = new User(ut, fn, ln, sch, eml, pswd);
         return u.insert2(bs);
+
+    }
+    
+    public static boolean signIn3(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) {
+        System.out.println("signin3");
+        User u = new User(ut, fn, ln, sch, eml, pswd);
+        return u.insert3(bs);
 
     }
 }
