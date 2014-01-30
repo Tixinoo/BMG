@@ -32,21 +32,21 @@ public class ActiveRecord_Tests
 	System.out.println(""+s+" insertion userType 6");
 	
 	User user = new User(userType_5.getId_ut(),"Antoine","NONO","IUT Charlo","kikoolol57@hotmail.fr","comme_MA_b***");
-	s = user.insert();
+	s = user.insert(bs);
 	System.out.println(""+s+" insertion user");
 	
 	User u;
-	u = User.findById(user.getId_u());
+	u = User.findById(user.getId_u(),bs);
 	
 	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("insert U : pas OK");
 	
 	u.setFname_u("...");
-	u.update();
+	u.update(bs);
 	
 	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("update U : pas OK");
 	
-	u.delete();
-	u = User.findById(user.getId_u());
+	u.delete(bs);
+	u = User.findById(user.getId_u(),bs);
 	
 	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("delete U : OK");
 	

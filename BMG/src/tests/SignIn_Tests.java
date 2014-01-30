@@ -45,9 +45,9 @@ public class SignIn_Tests
 					String s_pass = jpf_pass.getText();
 					
 					User u = new User(idut,s_fname,s_lname,s_school,s_email,s_pass);
-					u.insert();
+					u.insert(bs);
 					
-					int id = User.findById(u.getId_u()).getId_u();
+					int id = User.findById(u.getId_u(),bs).getId_u();
 					jl.setText("Thanks and welcome "+s_fname+"! Your id is : "+id);
 				}
 			}

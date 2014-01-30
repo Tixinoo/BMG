@@ -232,7 +232,7 @@ public class Connection_Tests  extends JFrame implements MouseListener
 				login = jtf_login.getText();
 				password = String.valueOf(jpf_password.getPassword());
 				
-				User u = User.findById(27);
+				User u = User.findById(27,bs);
 				
 				if (connection != null)
 				{
