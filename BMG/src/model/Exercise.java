@@ -1,5 +1,5 @@
 package model;
-
+import java.io.*;
 import java.util.*;
 
 public class Exercise {
@@ -314,6 +314,32 @@ public class Exercise {
     		res = null;
     	}
     	return res;
+    }
+    
+    public void save() {
+    	try {
+			BufferedWriter file = new BufferedWriter(new FileWriter("ex"+id+".bmg"));
+			file.write(this.encode());
+			file.close();
+		} catch(FileNotFoundException fnfe) {
+			System.out.println("ERROR : file can not be found");
+		} catch(IOException ioe) {
+			System.out.println("ERREUR : in/out failure");
+		}
+    }
+    
+    public static Exercise load(String fname) {
+    	Exercise res = null;
+		try {
+			BufferedReader file = new BufferedReader(new FileReader(fname));
+			res = Exercise.decode(file.toString());
+			file.close();
+		} catch(FileNotFoundException fnfe) {
+			System.out.println("ERROR : file can not be found");
+		} catch(IOException ioe) {
+			System.out.println("ERREUR : in/out failure");
+		}
+		return res;
     }
 
     // ----------------------
