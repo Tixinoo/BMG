@@ -36,6 +36,10 @@ public class BaseInformation implements Serializable {
 		
 		this.ecrireInformations();
 	}
+        
+        public BaseInformation() {
+            this.ecrireInformations();
+        }
 	
 	
 	

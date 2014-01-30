@@ -70,6 +70,6 @@ public class MenuPrincipal extends JFrame {
     public static void main(String[] args) {
         new MenuPrincipal();
         
-        //BaseInformation bi = new BaseInformation("blabla", "sgesge", "ZEFGZg", "root", "", "//localhost");
+        //BaseInformation bi = new BaseInformation();
     }
 }
