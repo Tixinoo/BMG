@@ -7,6 +7,8 @@ import java.util.*;
 import java.lang.*;
 import java.net.*;
 import java.sql.*;
+import user.User;
+import user.UserType;
 
 public class Connection_Tests  extends JFrame implements MouseListener
 {
@@ -229,20 +231,14 @@ public class Connection_Tests  extends JFrame implements MouseListener
 			{
 				login = jtf_login.getText();
 				password = String.valueOf(jpf_password.getPassword());
-				query = "SELECT login,password,groupe FROM User WHERE login = '"+login+"' and password = '"+password+"'";
 				
-				if (connection != null && query != null)
+				User u = User.findById(0);
+				
+				if (connection != null)
 				{
-					statement = connection.createStatement();
-					result_set = statement.executeQuery(query);
-					
-					result_set.next();
-					
-					if (result_set != null)
-					{
-						if (result_set.getString(1).equals(login) && result_set.getString(2).equals(password))
+						if (u.getEmail_u().equals(login) && u.getPass_u().equals(password))
 						{
-							groupe = result_set.getString("groupe");
+							groupe = UserType.findById(u.getId_ut()).getName_ut();
 							System.out.println("OK : " + groupe);
 							/**/
 							afficherMenuPrincipal();
@@ -254,11 +250,6 @@ public class Connection_Tests  extends JFrame implements MouseListener
 						{
 							System.out.println("NON OK");
 						}
-					}
-					else
-					{
-						System.out.println("result_set == null");
-					}
 				}
 				else
 				{
@@ -280,40 +271,40 @@ public class Connection_Tests  extends JFrame implements MouseListener
 
 				if (SwingUtilities.isLeftMouseButton(me))
 				{
-					statement = connection.createStatement();
-					query = "CREATE TABLE table_test (champ1_test VARCHAR(30) NOT NULL, champ2_test INTEGER, PRIMARY KEY (champ1_test))";
-					statement.executeUpdate(query);
-					System.out.println("Creation reussie (create table)");
-					query = "INSERT INTO table_test VALUES ('valeur numero 1',2)";
-					statement.executeUpdate(query);
-					System.out.println("Enregistrement 1/2 reussi (insert v1)");
-					query = "INSERT INTO table_test VALUES ('valeur numero 2',2)";
-					statement.executeUpdate(query);
-					System.out.println("Enregistrement 2/2 reussi (insert v2)");
-					query = "UPDATE table_test SET champ2_test = 1 WHERE champ1_test = 'valeur numero 1'";
-					statement.executeUpdate(query);
-					System.out.println("Modification reussie (update v1)");
-					query = "DELETE FROM table_test WHERE champ1_test = 'valeur numero 2'";
-					statement.executeUpdate(query);
-					System.out.println("Effacement reussi (delete v2)");
+//					statement = connection.createStatement();
+//					query = "CREATE TABLE table_test (champ1_test VARCHAR(30) NOT NULL, champ2_test INTEGER, PRIMARY KEY (champ1_test))";
+//					statement.executeUpdate(query);
+//					System.out.println("Creation reussie (create table)");
+//					query = "INSERT INTO table_test VALUES ('valeur numero 1',2)";
+//					statement.executeUpdate(query);
+//					System.out.println("Enregistrement 1/2 reussi (insert v1)");
+//					query = "INSERT INTO table_test VALUES ('valeur numero 2',2)";
+//					statement.executeUpdate(query);
+//					System.out.println("Enregistrement 2/2 reussi (insert v2)");
+//					query = "UPDATE table_test SET champ2_test = 1 WHERE champ1_test = 'valeur numero 1'";
+//					statement.executeUpdate(query);
+//					System.out.println("Modification reussie (update v1)");
+//					query = "DELETE FROM table_test WHERE champ1_test = 'valeur numero 2'";
+//					statement.executeUpdate(query);
+//					System.out.println("Effacement reussi (delete v2)");
 				}
 				if (SwingUtilities.isRightMouseButton(me))
 				{
-					statement = connection.createStatement();
-					query = "DROP TABLE table_test";
-					statement.executeUpdate(query);
-					System.out.println("Suppression reussie (drop table)");
+//					statement = connection.createStatement();
+//					query = "DROP TABLE table_test";
+//					statement.executeUpdate(query);
+//					System.out.println("Suppression reussie (drop table)");
 				}
 				
 			}
 		}
-		catch (SQLException sqle)
-		{
-			jl_message.setText("Mauvaise combinaison login/password");
-			System.out.println("SQL Exception");
-			sqle.printStackTrace();
-			
-		}
+//		catch (SQLException sqle)
+//		{
+//			jl_message.setText("Mauvaise combinaison login/password");
+//			System.out.println("SQL Exception");
+//			sqle.printStackTrace();
+//			
+//		}
 		catch (Exception e)
 		{
 			System.out.println("Exception");

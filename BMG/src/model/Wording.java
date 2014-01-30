@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Wording {
 
     // ----- ATTRIBUTES -----
@@ -101,10 +103,25 @@ public class Wording {
         return res;
     }
     
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public Object[] getValues() {
+		return values;
+	}
+
     public String encode() {
-		String res = "#Wording<$<";
-		res = text;
-		res = res + ">$><";
+		String res = "#Wording<" + id + "><$<" + text + ">$><";
+		
 		for (int i = 0; i<values.length; i++) {
 			res = res + values[i] + ":";
 		}
@@ -112,6 +129,88 @@ public class Wording {
 		res = res + ">";
 		return res;
 	}
+    
+	public static Wording decode(String str) {
+		Wording res = null;
+        if (str.substring(0, 7).compareTo("#Wording") == 0) {
+            res = new Wording();
+            int i = 7;
+            if (str.charAt(i) == '<') {
+                while (str.charAt(i) != '>') {
+                    i++;
+                }
+                assert i > 8 : "no id number";
+                res.setId(Integer.valueOf(str.substring(8, i)));
+
+                i =+ 3;
+                int beginning = i;
+                if (str.substring(i-2, i) == "<$<") {
+                    while (str.substring(i, i+2) != ">$>") {
+                        i++;
+                    }
+                    assert i > beginning+1 : "no wording text";
+                    res.setText(str.substring(beginning + 1, i-1));
+                    
+                    i =+ 3;
+                    if ((str.charAt(i) == '<') && (str.charAt(i+4) == '>')) {
+	                    String type = str.substring(i+1, i+3);
+	                    i =+ 5;
+                    	
+	                    beginning = i;
+	                    if (type.compareTo("nul") != 0) {
+	                    
+		                    if (str.charAt(i) == '<') {
+		                    	while (str.charAt(i) != '>') {
+		                            i++;
+		                        }
+		                    	String[] tab = str.substring(beginning+1, i-1).split(":");
+		                    	switch(type) {
+		                    	case "int":
+		                    		Integer[] val_int = new Integer[tab.length];
+		                        	for (int x=0; x<tab.length; x++) {
+		                        		val_int[x] = Integer.valueOf(tab[x]); 
+		                        	}
+		                        	res.setValues(val_int);
+		                    		break;
+		                    	case "dbl":
+		                    		Double[] val_dbl = new Double[tab.length];
+		                        	for (int x=0; x<tab.length; x++) {
+		                        		val_dbl[x] = Double.valueOf(tab[x]);
+		                        	}
+		                        	res.setValues(val_dbl);
+		                    		break;
+		                    	case "str":
+		                    		String[] val_str = tab;
+		                    		res.setValues(val_str);
+		                    		break;
+		                    	case "chr":
+		                    		Character[] val_chr = new Character[tab.length];
+		                        	for (int x=0; x<tab.length; x++) {
+		                        		val_chr[x] = tab[x].charAt(0); 
+		                        	}
+		                        	res.setValues(val_chr);
+		                    		break;
+		                    	}
+		                    } else {
+		                    	res = null;
+		                    }
+	                    } else {
+	                    	res.setValues(null);
+	                    }
+	                    str.substring(i+1);
+                    } else {
+                    	res = null;
+                    }
+                } else {
+                	res = null;
+                }
+            } else {
+            	res = null;
+            }
+        }
+    	return res;
+    	
+    }
 
     // ----------------------
     
