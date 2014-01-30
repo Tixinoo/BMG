@@ -83,6 +83,19 @@ public class Main {
         System.out.println(ex2);
         System.out.println("---------------------------------------------------------------------\n");
         
+        
+        // TODO
+        
+        System.out.println("\n-------> TODO <-------");
+        
+        // Encoding and saving
+        ex2.setTitle("Ex-1-calculation");
+        ex2.save(); // Encode the file in a string and save it in a file "<exercise.title>.txt" (here, "Ex-1-calculation.txt")
+        
+        // Decoding and loading
+        Exercise ex2load = new Exercise();
+        ex2load.load("Ex-1-calculation"); // Load the exercise from the file "Ex-1-calculation.txt" in the object "ex2load"
+        
     }
 
 }
