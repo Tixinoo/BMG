@@ -41,7 +41,7 @@ public class PanelSignin extends JPanel {
     };
     JLabel labelRes = new JLabel(" ...");
     
-    public PanelSignin(BaseSetting bs, final MenuPrincipal fen) {
+    public PanelSignin(final BaseSetting bs, final MenuPrincipal fen) {
         super();
         this.bs = bs;
         this.setLayout(new BorderLayout());
@@ -73,7 +73,7 @@ public class PanelSignin extends JPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 
-                if(User.signIn(1, jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText()))
+                if(User.signIn2(bs, 1, jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText()))
                     labelRes.setText("<html><p style=\"color:green; text-align: center;\">Sign in success !</p></html>");
                 else 
                     labelRes.setText("<html><p style=\"color:green;\">ERREUR !</p></html>");
