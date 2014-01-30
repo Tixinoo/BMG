@@ -112,6 +112,13 @@ public class Exercise {
                         this.addQuestion(qc);
                     }
                     break;
+                case "fraction":
+                    for(int i=0;i<10;i++) {
+                        QuestionFraction qf = new QuestionFraction();
+                        qf.generate();
+                        this.addQuestion(qf);
+                    }
+                    break;
                 default:
                     break;
             }
