@@ -9,6 +9,7 @@ findByNom : /
 
 package user;
 
+import database.BaseSetting;
 import database.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,10 +57,9 @@ public class UserType
     }
     
     /* MISE A JOURS */
-    public String insert()
+    public boolean insert(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
@@ -76,13 +76,12 @@ public class UserType
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
     
-    public String update() 
+    public boolean update(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
@@ -99,17 +98,16 @@ public class UserType
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
 
-    public String delete() 
+    public boolean delete(BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	try 
 	{
-	    if (UserType.findById(this.getId_ut()) != null)
+	    if (UserType.findById(this.getId_ut(),bs) != null)
 	    {
 		String query = "DELETE FROM UserType WHERE id_ut = ?";
 		PreparedStatement p_statement = connection.prepareStatement(query);
@@ -121,14 +119,13 @@ public class UserType
 	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return "OK";
+	return true;
     }
 
     /* FINDERS */
-    public static UserType findById(int id) 
+    public static UserType findById(int id,BaseSetting bs) 
     {
-	Database db = new Database();
-	Connection connection = db.getConnection();
+        Connection connection = bs.getConnection();
 	
 	UserType userType = null;
 	
