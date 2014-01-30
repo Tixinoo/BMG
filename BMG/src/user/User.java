@@ -283,7 +283,7 @@ public class User {
         return u.insert(bs);
     }
     
-    public boolean isConnected(BaseSetting bs, String eml, String pswd)
+    public boolean isPresent(BaseSetting bs, String eml, String pswd)
     {
 	User u = User.findByLogs(eml, pswd, bs);
 	
