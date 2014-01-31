@@ -4,12 +4,17 @@
  update : OK
  delete : OK
  findById : OK
+findByLogs : ...
  findByFName : /
  findByLName : /
  findBySchool : /
  findByEmail : /
  findByPass : /
  findByConnected : /
+signIn : OK
+checkPresence : ...
+setConnected : ...
+setDisconnected : ...
  */
 package user;
 
