@@ -11,6 +11,7 @@ package user;
 
 import database.BaseSetting;
 import database.Database;
+import interfaces.iDbManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserType 
+public class UserType implements iDbManager
 {
     private int id_ut;
     private String name_ut;
