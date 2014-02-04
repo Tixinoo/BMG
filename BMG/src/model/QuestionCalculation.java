@@ -256,6 +256,30 @@ public class QuestionCalculation extends Question {
     public void setLength(int length) {
         this.length = length;
     }
+    
+    public String encodeOperands() {
+        String res = "";
+        if (operands.size() > 0) {
+            Iterator<Integer> itopd = operands.iterator();
+            while (itopd.hasNext()) {
+                res = res + itopd.next() + ":";
+            }
+            res = res.substring(0, res.length() - 1);
+        }
+        return res;
+    }
+    
+    public String encodeOperators() {
+        String res = "";
+        if (operators.size() > 0) {
+            Iterator<Integer> itopt = operands.iterator();
+            while (itopt.hasNext()) {
+                res = res + itopt.next() + ":";
+            }
+            res = res.substring(0, res.length() - 1);
+        }
+        return res;
+    }
 
     /**
      * Encode the current question (object) in a string which can recreate this question by the decode() method
@@ -263,20 +287,33 @@ public class QuestionCalculation extends Question {
      * @return encoded question
      */
     public String encode() {
-        Iterator<Integer> itopd = operands.iterator();
+        
         String res = "#QuestionCalculaion<";
-        while (itopd.hasNext()) {
-            res = res + itopd.next() + ":";
-        }
-        res = res.substring(0, res.length() - 1);
+        res = res + encodeOperands();
         res = res + "><";
-        Iterator<Character> itopt = operators.iterator();
-        while (itopt.hasNext()) {
-            res = res + itopt.next() + ":";
-        }
-        res = res.substring(0, res.length() - 1);
+        res = res + encodeOperators();
         res = res + "><" + length + ">";
         res = res + super.encode();
+        return res;
+    }
+    
+    public static ArrayList<Integer> decodeOperands(String str) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        String[] tab = str.split(":");
+        for (int x = 0; x < tab.length; x++) {
+            res.add(Integer.valueOf(tab[x]));
+        }
+        assert res.size() > 0 : "empty operands table";
+        return res;
+    }
+    
+    public static ArrayList<Character> decodeOperators(String str) {
+        ArrayList<Character> res = new ArrayList<Character>();
+        String[] tab = str.split(":");
+        for (int x = 0; x < tab.length; x++) {
+            res.add(tab[x].charAt(0));
+        }
+        assert res.size() > 0 : "empty operators table";
         return res;
     }
 
@@ -295,12 +332,7 @@ public class QuestionCalculation extends Question {
                 while (str.charAt(i) != '>') {
                     i++;
                 }
-                String[] tab = str.substring(20, i).split(":");
-                ArrayList<Integer> tmp_opd = new ArrayList<Integer>();
-                for (int x = 0; x < tab.length; x++) {
-                    tmp_opd.add(Integer.valueOf(tab[x]));
-                }
-                assert tmp_opd.size() > 0 : "empty operands table";
+                ArrayList<Integer> tmp_opd = decodeOperands(str.substring(20, i));
                 res.setOperands(tmp_opd);
 
                 i++;
@@ -309,12 +341,7 @@ public class QuestionCalculation extends Question {
                     while (str.charAt(i) != '>') {
                         i++;
                     }
-                    tab = str.substring(beginning + 1, i).split(":");
-                    ArrayList<Character> tmp_opt = new ArrayList<Character>();
-                    for (int x = 0; x < tab.length; x++) {
-                        tmp_opt.add(tab[x].charAt(0));
-                    }
-                    assert tmp_opt.size() > 0 : "empty operators table";
+                    ArrayList<Character> tmp_opt = decodeOperators(str.substring(beginning + 1, i));
                     assert tmp_opt.size() == tmp_opt.size() + 1 : "incorrect size of operators table";
                     res.setOperators(tmp_opt);
 
