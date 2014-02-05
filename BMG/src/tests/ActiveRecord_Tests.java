@@ -1,6 +1,7 @@
 package tests;
 
 import database.BaseSetting;
+import model.Exercise;
 import user.Screen;
 import user.User;
 import user.UserType;
@@ -117,5 +118,55 @@ public class ActiveRecord_Tests
 	wg = Workgroup.findById(workGroup_2.getId_wg(),bs);
 	
 	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("delete WG : OK");
+	
+//	Exercise exercise_1 = new Exercise("Exercise1");
+//	b = exercise_1.insert(bs);
+//	System.out.println(""+b+" insertion exercise_1");
+//	Exercise exercise_2 = new Exercise("Exercise2");
+//	b = exercise_2.insert(bs);
+//	System.out.println(""+b+" insertion exercise_1");
+//	Exercise exercise_3 = new Exercise("Exercise3");
+//	b = exercise_3.insert(bs);
+//	System.out.println(""+b+" insertion exercise_1");
+//	
+//	Exercise e;
+//	e = Exercise.findById(exercise_3.getId_e(),bs);
+//	
+//	if (e != null) System.out.println(""+e.getId_e()+" | "+e.getTitle_e()+""); else System.out.println("insert E : pas OK");
+//	
+//	e.setTitle_e("...");
+//	e.update(bs);
+//	
+//	if (e != null) System.out.println(""+e.getId_e()+" | "+e.getTitle_e()+""); else System.out.println("update E : pas OK");
+//	
+//	e.delete(bs);
+//	e = Exercise.findById(exercise_3.getId_e(),bs);
+//	
+//	if (e != null) System.out.println(""+e.getId_e()+" | "+e.getTitle_e()+""); else System.out.println("delete E : OK");
+	
+//	QuestionCalculation questionCalculation_1 = new QuestionCalculation("Questioncalculation1");
+//	b = questionCalculation_1.insert(bs);
+//	System.out.println(""+b+" insertion questionCalculation_1");
+//	QuestionCalculation questionCalculation_2 = new QuestionCalculation("QuestionCalculation2");
+//	b = questionCalculation_2.insert(bs);
+//	System.out.println(""+b+" insertion questionCalculation_2");
+//	QuestionCalculation questionCalculation_3 = new QuestionCalculation("QuestionCalculation3");
+//	b = questionCalculation_3.insert(bs);
+//	System.out.println(""+b+" insertion questionCalculation_1");
+//	
+//	QuestionCalculation qc;
+//	qc = QuestionCalculation.findById(questionCalculation_3.getId_qc(),bs);
+//	
+//	if (qc != null) System.out.println(""+qc.getId_qc()+" | "+qc.getText_qc()+""); else System.out.println("insert QC : pas OK");
+//	
+//	qc.setTitle_qc("...");
+//	qc.update(bs);
+//	
+//	if (qc != null) System.out.println(""+qc.getId_qc()+" | "+qc.getText_qc()+""); else System.out.println("update QC : pas OK");
+//	
+//	qc.delete(bs);
+//	qc = QuestionCalculation.findById(questionCalculation_3.getId_qc(),bs);
+//	
+//	if (qc != null) System.out.println(""+qc.getId_qc()+" | "+qc.getText_qc()+""); else System.out.println("delete QC : OK");
     }
 }
