@@ -13,6 +13,6 @@ import view.BmgFrame;
  */
 public class Principale {
     public static void main(String[] args) {
-        new BmgFrame("BMG 2014", 800, 600);
+        new BmgFrame("BMG 2014", 1200, 800);
     }
 }

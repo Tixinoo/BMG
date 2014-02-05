@@ -55,7 +55,7 @@ public class BmgFrame extends JFrame {
     private void setFrameSettings() {
         this.setPanel(panMain);
         this.setLocation(200, 100);
-        this.setPreferredSize(new Dimension(800, 600));
+        this.setPreferredSize(new Dimension(width, height));
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();

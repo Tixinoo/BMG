@@ -30,8 +30,8 @@ public class BmgCreatePanel {
      * @return 
      */
     public static JPanel createMainPanel(int width, int height) {
-        int nb = 4;
-        String colortitle = "red";
+        int nb = 5;
+        String colortitle = "green";
         String colortext = "black";
         JPanel pan = new JPanel();
 
@@ -50,7 +50,7 @@ public class BmgCreatePanel {
         //Panel Account
         JPanel panAccount = new JPanel();
         panAccount.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
-        panAccount.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: "+colortitle+";\">Database setting !</p></html>"));
+        panAccount.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: "+colortitle+";\">Account setting !</p></html>"));
         panAccount.setLayout(new GridLayout(2,2));
         panAccount.add(new BmgLabel("Sign in here : ", colortext));
         BmgButton bsignin = new BmgButton("Sign in");
@@ -62,7 +62,7 @@ public class BmgCreatePanel {
         //Panel Database Settings
         JPanel panSettings = new JPanel();
         panSettings.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
-        panSettings.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: red;\">Database setting !</p></html>"));
+        panSettings.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: "+colortitle+";\">Database setting !</p></html>"));
         panSettings.setLayout(new GridLayout(2,2));
         panSettings.add(new BmgLabel("Change database settings : ", colortext));
         BmgButton bsettings = new BmgButton("Settings");
