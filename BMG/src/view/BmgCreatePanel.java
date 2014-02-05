@@ -23,12 +23,19 @@ public class BmgCreatePanel {
     public BmgCreatePanel() {
     }
 
+    /**
+     * This method create the main panel.
+     * @param width
+     * @param height
+     * @return 
+     */
     public static JPanel createMainPanel(int width, int height) {
         int nb = 4;
         String colortitle = "red";
         String colortext = "black";
         JPanel pan = new JPanel();
 
+        //Panel Exercises
         JPanel panExercises = new JPanel();
         panExercises.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
         panExercises.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: "+colortitle+";\">Training with exercises !</p></html>"));
@@ -40,6 +47,7 @@ public class BmgCreatePanel {
         BmgButton bpractice = new BmgButton("Practice");
         panExercises.add(bpractice);
         
+        //Panel Account
         JPanel panAccount = new JPanel();
         panAccount.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
         panAccount.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: "+colortitle+";\">Database setting !</p></html>"));
@@ -51,6 +59,7 @@ public class BmgCreatePanel {
         BmgButton bsignup = new BmgButton("Sign up now !");
         panAccount.add(bsignup);
         
+        //Panel Database Settings
         JPanel panSettings = new JPanel();
         panSettings.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
         panSettings.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: red;\">Database setting !</p></html>"));
