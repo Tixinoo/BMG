@@ -1,6 +1,7 @@
 package model;
 
 import database.BaseSetting;
+import interfaces.iDbManager;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Exercise {
+public class Exercise implements iDbManager {
 
     // ----- ATTRIBUTES -----
     /**

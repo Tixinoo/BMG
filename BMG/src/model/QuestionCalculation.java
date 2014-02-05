@@ -1,6 +1,7 @@
 package model;
 
 import database.BaseSetting;
+import interfaces.iDbManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class QuestionCalculation extends Question {
+public class QuestionCalculation extends Question implements iDbManager {
 
     // ----- ATTRIBUTES -----
     // Inherited
