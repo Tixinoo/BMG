@@ -1,6 +1,13 @@
 package model;
 
+import database.BaseSetting;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QuestionCalculation extends Question {
 
@@ -72,6 +79,14 @@ public class QuestionCalculation extends Question {
         this.operands = new ArrayList<Integer>();
         this.operators = new ArrayList<Character>();
         this.length = 0;
+    }
+    
+    QuestionCalculation(int idqc, String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc)
+    {
+	super(idqc,textqc,diffqc);
+	operands = operandsqc;
+	operators = operatorsqc;
+	length = lengthqc;
     }
 
     // ----------------------
@@ -375,21 +390,114 @@ public class QuestionCalculation extends Question {
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
-    public String insert() {
-        return "";
+    public boolean insert(BaseSetting bs) 
+    {
+	Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    String query = "INSERT INTO QuestionCalculation (text_qc,diff_qc,operands_qc,operators_qc,length_qc) VALUES (?,?,?,?,?)";
+//	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+//	    p_statement.setString(1,this.text);
+//	    p_statement.setInt(2,this.difficulty);
+//	    p_statement.setString(3,this.operands); /**/
+//	    p_statement.setString(4,this.operators); /**/
+//	    p_statement.setInt(5,this.length);
+//	    p_statement.executeUpdate();
+//	    ResultSet rs = p_statement.getGeneratedKeys();
+//			
+//	    if (rs.next()) this.id = rs.getInt(1);		
+//	} 
+//	catch (SQLException ex) 
+//	{
+//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	}
+	
+	return true;
     }
 
-    public String update() {
-        return "";
+    public boolean update(BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    if (this.id < 0)
+//	    {
+//		String query = "UPDATE QuestionCalculation SET (text_qc = ? , diff_qc = ? , operands_qc = ? , operators_qc = ? , length_qc = ?) WHERE id_qf = ?";
+//		PreparedStatement p_statement = connection.prepareStatement(query);
+//		p_statement.setString(1,this.text);
+//		p_statement.setInt(2,this.difficulty);
+//		p_statement.setString(3,this.operands); /**/
+//		p_statement.setString(4,this.operators); /**/
+//		p_statement.setInt(5,this.length);
+//		p_statement.setInt(6,this.id);
+//		p_statement.executeUpdate();
+//	    }
+//	} catch (SQLException ex) 
+//	{
+//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	}
+	
+	return true;
     }
 
-    public String delete() {
-        return "";
+    public boolean delete(BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//		/* modifier le getter */
+//	    if (QuestionCalculation.findByID(this.getId()) != null)
+//	    {
+//		String query = "DELETE FROM QuestionCalculation WHERE id_qc = ?";
+//		PreparedStatement p_statement = connection.prepareStatement(query);
+//		p_statement.setInt(1,this.id);
+//		p_statement.executeUpdate();
+//	    }
+//	} catch (SQLException ex) 
+//	{
+//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	}
+	
+	return true;
     }
 
     /* FINDERS */
-    public static String findById(int id) {
-        return "";
+    public static QuestionCalculation findById(int id, BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+	
+	QuestionCalculation questionCalculation = null;
+	
+//	try 
+//	{
+//	    String query = "SELECT * FROM QuestionCalculation WHERE id_qc = ?";
+//	    PreparedStatement p_statement = connection.prepareStatement(query);
+//	    p_statement.setInt(1,id);
+//	    
+//	    ResultSet rs = p_statement.executeQuery();
+//	    
+//	    if (rs.next())
+//	    {
+//		int idqc = rs.getInt("id_qc");
+//		String textqc = rs.getString("text_qc");
+//		int diffqc = rs.getInt("diff_qc");
+//		String operandsqc = rs.getString("operands_qc"); /**/
+//		String operatorsqc = rs.getString("operators_qc"); /**/
+//		int lengthqc = rs.getInt("length_qc");
+//		
+//		/* ajouter le constructeur */
+//		questionCalculation = new QuestionCalculation(idqc,textqc,diffqc,operandsqc,operatorsqc,lengthqc);
+//	    }
+//		    
+//	} catch (SQLException ex) 
+//	{
+//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	}
+	
+	return questionCalculation;
     }
 
     // ----------------------
