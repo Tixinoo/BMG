@@ -407,10 +407,11 @@ public class QuestionCalculation extends Question {
 //	    ResultSet rs = p_statement.getGeneratedKeys();
 //			
 //	    if (rs.next()) this.id = rs.getInt(1);		
-//	} 
-//	catch (SQLException ex) 
+//	}  
+//	catch (SQLException sqle) 
 //	{
-//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
 //	}
 	
 	return true;
@@ -434,9 +435,11 @@ public class QuestionCalculation extends Question {
 //		p_statement.setInt(6,this.id);
 //		p_statement.executeUpdate();
 //	    }
-//	} catch (SQLException ex) 
+//	}  
+//	catch (SQLException sqle) 
 //	{
-//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
 //	}
 	
 	return true;
@@ -455,9 +458,11 @@ public class QuestionCalculation extends Question {
 //		p_statement.setInt(1,this.id);
 //		p_statement.executeUpdate();
 //	    }
-//	} catch (SQLException ex) 
+//	}  
+//	catch (SQLException sqle) 
 //	{
-//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
 //	}
 	
 	return true;
@@ -492,9 +497,11 @@ public class QuestionCalculation extends Question {
 //		questionCalculation = new QuestionCalculation(idqc,textqc,diffqc,alioprd,alcoprr,lengthqc);
 //	    }
 //		    
-//	} catch (SQLException ex) 
+//	}  
+//	catch (SQLException sqle) 
 //	{
-//	    Logger.getLogger(QuestionCalculation.class.getName()).log(Level.SEVERE, null, ex);
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
 //	}
 	
 	return questionCalculation;

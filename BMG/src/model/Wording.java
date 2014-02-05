@@ -1,5 +1,14 @@
 package model;
 
+import database.BaseSetting;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import user.User;
+
 
 public class Wording {
 
@@ -232,21 +241,111 @@ public class Wording {
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
-    public String insert() {
-        return "";
+    public boolean insert(BaseSetting bs) 
+    {
+	Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    String query = "INSERT INTO Wording (text_w,values_w) VALUE (?,?)";
+//	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+//	    p_statement.setString(1,""+this.text+"");
+//	    p_statement.setString(2,""+this.values+"");
+//	    p_statement.executeUpdate();
+//	    ResultSet rs = p_statement.getGeneratedKeys();
+//	    
+//	    if (rs.next()) this.id = rs.getInt(1);
+//		    
+//	}  
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return true;
     }
 
-    public String update() {
-        return "";
+    public boolean update(BaseSetting bs) 
+    {
+	Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    if (this.id < 0)
+//	    {
+//		String query = "UPDATE Wording SET (text_w = ? , values_w = ?) WHERE id_w = ?";
+//		PreparedStatement p_statement = connection.prepareStatement(query);
+//		p_statement.setString(1,this.text);
+//		p_statement.setString(2,this.values);
+//		p_statement.setInt(3,this.id);
+//		p_statement.executeUpdate();
+//	    }
+//	}  
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return true;
     }
 
-    public String delete() {
-        return "";
+    public boolean delete(BaseSetting bs) 
+    {
+	Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    if (Wording.findById(this.getId(),bs) != null)
+//	    {
+//		String query = "DELETE FROM Wording WHERE id_w = ?";
+//		PreparedStatement p_statement = connection.prepareStatement(query);
+//		p_statement.setInt(1,this.id);
+//		p_statement.executeUpdate();
+//	    }
+//	}  
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return true;
     }
 
     /* FINDERS */
-    public static String findById(int id) {
-        return "";
+    public static Wording findById(int id, BaseSetting bs) 
+    {
+	Connection connection = bs.getConnection();
+	
+	Wording wording = null;
+	
+//	try 
+//	{
+//	    String query = "SELECT * FROM Wording WHERE id_w = ?";
+//	    PreparedStatement p_statement = connection.prepareStatement(query);
+//	    p_statement.setInt(1,id);
+//	    
+//	    ResultSet rs = p_statement.executeQuery();
+//	    
+//	    if (rs.next())
+//	    {
+//		int idw = rs.getInt("id_w");
+//		String textw = rs.getString("text_w");
+//		String valuesw = rs.getString("values_w");
+//	    
+//		wording = new Wording(idw,textw,valuesw);
+//	    }
+//		    
+////	} 
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return wording;
     }
 
     // ----------------------

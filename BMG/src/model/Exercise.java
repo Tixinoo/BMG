@@ -1,6 +1,11 @@
 package model;
 
+import database.BaseSetting;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Exercise {
@@ -343,21 +348,119 @@ public class Exercise {
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
-    public String insert() {
-        return "";
+    public boolean insert(BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    String query = "INSERT INTO Exercise (id_w,title_e,type_e,diff_e,ready_e) VALUES (?,?,?,?,?)";
+//	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+//	    p_statement.setInt(1,this.id_w);
+//	    p_statement.setString(2,this.title);
+//	    p_statement.setString(3,this.type);
+//	    p_statement.setInt(4,this.difficulty);
+//	    p_statement.setBoolean(5,this.ready);
+//	    p_statement.executeUpdate();
+//	    ResultSet rs = p_statement.getGeneratedKeys();
+//	    
+//	    if (rs.next()) this.id = rs.getInt(1);
+//		    
+//	}  
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return true;
     }
 
-    public String update() {
-        return "";
+    public boolean update(BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    if (this.id < 0)
+//	    {
+//		String query = "UPDATE Exercise SET (id_w = ? , title_e = ? , type_e = ? , diff_e = ? , ready_e = ?) WHERE id_e = ?";
+//		PreparedStatement p_statement = connection.prepareStatement(query);
+//		p_statement.setInt(1,this.id);
+//		p_statement.setString(2,this.title);
+//		p_statement.setString(3,this.type);
+//		p_statement.setInt(4,this.difficulty);
+//		p_statement.setBoolean(5,this.ready);
+//		p_statement.setInt(6,this.id);
+//		p_statement.executeUpdate();
+//	    }
+//	}  
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return true;
     }
 
-    public String delete() {
-        return "";
+    public boolean delete(BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+	
+//	try 
+//	{
+//	    if (Exercise.findById(this.getId(),bs) != null)
+//	    {
+//		String query = "DELETE FROM Exercise WHERE id_e = ?";
+//		PreparedStatement p_statement = connection.prepareStatement(query);
+//		p_statement.setInt(1,this.id);
+//		p_statement.executeUpdate();
+//	    }
+//	}  
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return true;
     }
 
     /* FINDERS */
-    public static String findById(int id) {
-        return "";
+    public static Exercise findById(int id, BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+	
+	Exercise exercise = null;
+	
+//	try 
+//	{
+//	    String query = "SELECT * FROM Exercise WHERE id_e = ?";
+//	    PreparedStatement p_statement = connection.prepareStatement(query);
+//	    p_statement.setInt(1,id);
+//	    
+//	    ResultSet rs = p_statement.executeQuery();
+//	    
+//	    if (rs.next())
+//	    {
+//		int ide = rs.getInt("id_e");
+//		int idw = rs.getInt("id_w");
+//		String titlee = rs.getString("title_e");
+//		String diffe = rs.getString("diff_e");
+//		String readye = rs.getString("ready_e");
+//	    
+//		exercise = new Exercise(ide,idw,titlee,diffe,readye);
+//	    }
+//		    
+//	}  
+//	catch (SQLException sqle) 
+//	{
+//	    System.out.println("ERREUR");
+//	    sqle.printStackTrace();
+//	}
+	
+	return exercise;
     }
 
     // ----------------------
