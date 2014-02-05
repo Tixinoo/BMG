@@ -400,8 +400,8 @@ public class QuestionCalculation extends Question {
 //	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
 //	    p_statement.setString(1,this.text);
 //	    p_statement.setInt(2,this.difficulty);
-//	    p_statement.setString(3,this.operands); /**/
-//	    p_statement.setString(4,this.operators); /**/
+//	    p_statement.setString(3,this.encodeOperands());
+//	    p_statement.setString(4,this.encodeOperators());
 //	    p_statement.setInt(5,this.length);
 //	    p_statement.executeUpdate();
 //	    ResultSet rs = p_statement.getGeneratedKeys();
@@ -428,8 +428,8 @@ public class QuestionCalculation extends Question {
 //		PreparedStatement p_statement = connection.prepareStatement(query);
 //		p_statement.setString(1,this.text);
 //		p_statement.setInt(2,this.difficulty);
-//		p_statement.setString(3,this.operands); /**/
-//		p_statement.setString(4,this.operators); /**/
+//		p_statement.setString(3,this.encodeOperands());
+//		p_statement.setString(4,this.encodeOperators());
 //		p_statement.setInt(5,this.length);
 //		p_statement.setInt(6,this.id);
 //		p_statement.executeUpdate();
@@ -448,8 +448,7 @@ public class QuestionCalculation extends Question {
 	
 //	try 
 //	{
-//		/* modifier le getter */
-//	    if (QuestionCalculation.findByID(this.getId()) != null)
+//	    if (QuestionCalculation.findById(this.getID(), bs) != null)
 //	    {
 //		String query = "DELETE FROM QuestionCalculation WHERE id_qc = ?";
 //		PreparedStatement p_statement = connection.prepareStatement(query);
@@ -484,12 +483,13 @@ public class QuestionCalculation extends Question {
 //		int idqc = rs.getInt("id_qc");
 //		String textqc = rs.getString("text_qc");
 //		int diffqc = rs.getInt("diff_qc");
-//		String operandsqc = rs.getString("operands_qc"); /**/
-//		String operatorsqc = rs.getString("operators_qc"); /**/
+//		String operandsqc = rs.getString("operands_qc");
+//		ArrayList<Integer> alioprd = QuestionCalculation.decodeOperands(operandsqc);
+//		String operatorsqc = rs.getString("operators_qc");
+//		ArrayList<Character> alcoprr = QuestionCalculation.decodeOperators(operatorsqc);
 //		int lengthqc = rs.getInt("length_qc");
-//		
-//		/* ajouter le constructeur */
-//		questionCalculation = new QuestionCalculation(idqc,textqc,diffqc,operandsqc,operatorsqc,lengthqc);
+//
+//		questionCalculation = new QuestionCalculation(idqc,textqc,diffqc,alioprd,alcoprr,lengthqc);
 //	    }
 //		    
 //	} catch (SQLException ex) 
