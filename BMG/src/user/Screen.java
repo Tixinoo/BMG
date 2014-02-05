@@ -72,9 +72,11 @@ public class Screen implements iDbManager
 	    
 	    if (rs.next()) this.id_s = rs.getInt(1);
 		    
-	} catch (SQLException ex) 
+	}  
+	catch (SQLException sqle) 
 	{
-	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
 	}
 	
 	return true;
@@ -94,9 +96,11 @@ public class Screen implements iDbManager
 		p_statement.setInt(2,this.id_s);
 		p_statement.executeUpdate();
 	    }
-	} catch (SQLException ex) 
+	}  
+	catch (SQLException sqle) 
 	{
-	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
 	}
 	
 	return true;
@@ -115,9 +119,11 @@ public class Screen implements iDbManager
 		p_statement.setInt(1,this.id_s);
 		p_statement.executeUpdate();
 	    }
-	} catch (SQLException ex) 
+	}  
+	catch (SQLException sqle) 
 	{
-	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
 	}
 	
 	return true;
@@ -146,9 +152,11 @@ public class Screen implements iDbManager
 		screen = new Screen(ids,names);
 	    }
 		    
-	} catch (SQLException ex) 
+	}  
+	catch (SQLException sqle) 
 	{
-	    Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
 	}
 	
 	return screen;

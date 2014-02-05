@@ -151,9 +151,12 @@ public class User implements iDbManager
             
             return true;
 
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 
         return false;
     }    
@@ -176,9 +179,12 @@ public class User implements iDbManager
                 p_statement.setInt(8, this.id_u);
                 p_statement.executeUpdate();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 
         return true;
     }
@@ -194,9 +200,12 @@ public class User implements iDbManager
                 p_statement.setInt(1, this.id_u);
                 p_statement.executeUpdate();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 
         return true;
     }
@@ -228,9 +237,12 @@ public class User implements iDbManager
                 user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 
         return user;
     }
@@ -276,9 +288,12 @@ public class User implements iDbManager
                 user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 
         return user;
     }
