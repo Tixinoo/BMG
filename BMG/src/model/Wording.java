@@ -72,6 +72,13 @@ public class Wording implements iDbManager {
             this.values[i] = Svalues[i];
         }
     }
+    
+    public Wording(int i, String t, Object[] v)
+    {
+	id = i;
+	text = t;
+	values = v;
+    }
 
 	// ----------------------
 	// ------- METHODS ------
@@ -264,7 +271,7 @@ public class Wording implements iDbManager {
 	return res;
     }
 
-    public Object[] decodeValues(String s)
+    public static Object[] decodeValues(String s)
     {
 	String[] t_s = s.split(":");
 	Object[] t_o = new Object[t_s.length];
@@ -299,7 +306,7 @@ public class Wording implements iDbManager {
 //	    String query = "INSERT INTO Wording (text_w,values_w) VALUE (?,?)";
 //	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
 //	    p_statement.setString(1,""+this.text+"");
-//	    p_statement.setString(2,""+this.values+"");
+//	    p_statement.setString(2,""+this.encodeValues()+"");
 //	    p_statement.executeUpdate();
 //	    ResultSet rs = p_statement.getGeneratedKeys();
 //	    
@@ -326,7 +333,7 @@ public class Wording implements iDbManager {
 //		String query = "UPDATE Wording SET (text_w = ? , values_w = ?) WHERE id_w = ?";
 //		PreparedStatement p_statement = connection.prepareStatement(query);
 //		p_statement.setString(1,this.text);
-//		p_statement.setString(2,this.values);
+//		p_statement.setString(2,this.encodeValues());
 //		p_statement.setInt(3,this.id);
 //		p_statement.executeUpdate();
 //	    }
@@ -384,10 +391,10 @@ public class Wording implements iDbManager {
 //		String textw = rs.getString("text_w");
 //		String valuesw = rs.getString("values_w");
 //	    
-//		wording = new Wording(idw,textw,valuesw);
+//		wording = new Wording(idw,textw,Wording.decodeValues(valuesw));
 //	    }
 //		    
-////	} 
+//	} 
 //	catch (SQLException sqle) 
 //	{
 //	    System.out.println("ERREUR");
