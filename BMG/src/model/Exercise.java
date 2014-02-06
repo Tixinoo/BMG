@@ -359,6 +359,8 @@ public class Exercise implements iDbManager {
 //	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
 //	    p_statement.setInt(1,this.id_w);
 //	    p_statement.setString(2,this.title);
+	/*wording*/
+	/*questions*/
 //	    p_statement.setString(3,this.type);
 //	    p_statement.setInt(4,this.difficulty);
 //	    p_statement.setBoolean(5,this.ready);
@@ -389,6 +391,8 @@ public class Exercise implements iDbManager {
 //		PreparedStatement p_statement = connection.prepareStatement(query);
 //		p_statement.setInt(1,this.id);
 //		p_statement.setString(2,this.title);
+	/*wording*/
+	/*questions*/
 //		p_statement.setString(3,this.type);
 //		p_statement.setInt(4,this.difficulty);
 //		p_statement.setBoolean(5,this.ready);
@@ -448,10 +452,13 @@ public class Exercise implements iDbManager {
 //		int ide = rs.getInt("id_e");
 //		int idw = rs.getInt("id_w");
 //		String titlee = rs.getString("title_e");
+	/*wording*/
+	/*questions*/
+//		String typee = rs.getString("type_e");
 //		String diffe = rs.getString("diff_e");
 //		String readye = rs.getString("ready_e");
 //	    
-//		exercise = new Exercise(ide,idw,titlee,diffe,readye);
+//		exercise = new Exercise(ide,idw,titlee,typee,diffe,readye);
 //	    }
 //		    
 //	}  
