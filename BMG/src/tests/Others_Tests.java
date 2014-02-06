@@ -50,7 +50,7 @@ public class Others_Tests
 	w_decode.setValues(t_obj_decode);
 	
 	System.out.println("Obtenu :  "+w_decode.encode());
-	System.out.println("Attendu : "+"#Wording<-1><$<texte...>$><3.50:666:hello:!>>");
+	System.out.println("Attendu : "+"#Wording<-1><$<texte...>$><3.50:666:hello:!>");
 	
 	System.out.println("FIN TEST DECODE_VALUES");
 
