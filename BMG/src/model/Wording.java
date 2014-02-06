@@ -276,7 +276,7 @@ public class Wording implements iDbManager {
 	    if (t_s[k].charAt(0) == 'i')
 		t_o[k] = Integer.parseInt(t_s[k].substring(2,t_s[k].length()-1));
 	    if (t_s[k].charAt(0) == 's')
-	       t_o[k] = new String(t_s[k].substring(2,t_s[k].length()));
+	       t_o[k] = new String(t_s[k].substring(2,t_s[k].length()-1));
 	    if (t_s[k].charAt(0) == 'c')
 	       t_o[k] = (t_s[k].substring(2,3));
 	}
