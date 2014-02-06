@@ -88,7 +88,7 @@ public class QuestionEquation extends Question {
      * Display a question with an equation
      */
     public String toString() {
-        String res = "		QuestionFraction";
+        String res = "		QuestionEquation";
         res = res + "\n			Text: " + this.text;
         res = res + "\n			Difficulty: " + this.difficulty;
         return res;

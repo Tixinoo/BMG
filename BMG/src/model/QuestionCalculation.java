@@ -274,7 +274,7 @@ public class QuestionCalculation extends Question implements iDbManager {
     }
     
     public String encodeOperands() {
-        String res = "";
+        String res = new String();
         if (operands.size() > 0) {
             Iterator<Integer> itopd = operands.iterator();
             while (itopd.hasNext()) {
@@ -286,7 +286,7 @@ public class QuestionCalculation extends Question implements iDbManager {
     }
     
     public String encodeOperators() {
-        String res = "";
+        String res = new String();
         if (operators.size() > 0) {
             Iterator<Integer> itopt = operands.iterator();
             while (itopt.hasNext()) {

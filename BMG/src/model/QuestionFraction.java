@@ -225,7 +225,7 @@ public class QuestionFraction extends Question {
      * Display a question of calculation
      */
     public String toString() {
-        String res = "		QuestionCalculation";
+        String res = "		QuestionFraction";
         res = res + "\n			Text: " + this.text;
         res = res + "\n			Difficulty: " + this.difficulty;
         res = res + "\n			Numerators: " + this.numerators;
@@ -274,34 +274,82 @@ public class QuestionFraction extends Question {
     public void setLength(int length) {
         this.length = length;
     }
+    
+    public String encodeNumerators() {
+        String res = new String();
+		Iterator<Integer> itnum = numerators.iterator();
+        while (itnum.hasNext()) {
+			res = res + itnum.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+        return res;
+    }
+    
+    public String encodeDenominators() {
+        String res = new String();
+        Iterator<Integer> itdnm = denominators.iterator();
+		while (itdnm.hasNext()) {
+			res = res + itdnm.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+        return res;
+    }
+    
+    public String encodeOperators() {
+        String res = new String();
+        Iterator<Character> itopt = operators.iterator();
+		while (itopt.hasNext()) {
+			res = res + itopt.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+        return res;
+    }
 
     /**
 	 * Encode the current question (object) in a string which can recreate this question by the decode() method
 	 * @return encoded question
 	 */
 	public String encode() {
-		Iterator<Integer> itnum = numerators.iterator();
 		String res = "#QuestionFraction<";
-		while (itnum.hasNext()) {
-			res = res + itnum.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
+        res = res + encodeNumerators();
 		res = res + "><";
-		Iterator<Integer> itdnm = denominators.iterator();
-		while (itdnm.hasNext()) {
-			res = res + itdnm.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
+		res = res + encodeDenominators();
 		res = res + "><";
-		Iterator<Character> itopt = operators.iterator();
-		while (itopt.hasNext()) {
-			res = res + itopt.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
+		res = res + encodeOperators();
 		res = res + "><" + length + ">";
 		res = res + super.encode();
 		return res;
 	}
+    
+    public static ArrayList<Integer> decodeNumerators(String str) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        String[] tab = str.split(":");
+        for (int x=0; x<tab.length; x++) {
+            res.add(Integer.valueOf(tab[x]));
+        }
+        assert res.size() > 0 : "empty numerators table";
+        return res;
+    }
+    
+    public static ArrayList<Integer> decodeDenominators(String str) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        String[] tab = str.split(":");
+        for (int x=0; x<tab.length; x++) {
+            res.add(Integer.valueOf(tab[x]));
+        }
+        assert res.size() > 0 : "empty denominators table";
+        return res;
+    }
+    
+    public static ArrayList<Character> decodeOperators(String str) {
+        ArrayList<Character> res = new ArrayList<Character>();
+        String[] tab = str.split(":");
+        for (int x=0; x<tab.length; x++) {
+            res.add(tab[x].charAt(0));
+        }
+        assert res.size() > 0 : "empty operators table";
+        return res;
+    }
 	
 	/**
 	 * Decode the string generate by the encode() method of this class
@@ -317,12 +365,7 @@ public class QuestionFraction extends Question {
 				while (str.charAt(i) != '>') {
 					i++;
 				}
-				String[] tab = str.substring(18,i).split(":");
-				ArrayList<Integer> tmp_num = new ArrayList<Integer>();
-				for (int x=0; x<tab.length; x++) {
-					tmp_num.add(Integer.valueOf(tab[x]));
-				}
-				assert tmp_num.size() > 0 : "empty numerators table";
+				ArrayList<Integer> tmp_num = decodeNumerators(str.substring(18,i));
 				res.setNumerators(tmp_num);
 				
 				i++;
@@ -331,12 +374,7 @@ public class QuestionFraction extends Question {
 					while (str.charAt(i) != '>') {
 						i++;
 					}
-					tab = str.substring(beginning+1,i).split(":");
-					ArrayList<Integer> tmp_dnm = new ArrayList<Integer>();
-					for (int x=0; x<tab.length; x++) {
-						tmp_dnm.add(Integer.valueOf(tab[x]));
-					}
-					assert tmp_dnm.size() > 0 : "empty operators table";
+					ArrayList<Integer> tmp_dnm = decodeDenominators(str.substring(beginning+1,i));
 					res.setDenominators(tmp_dnm);
 				
 					i++;
@@ -345,12 +383,7 @@ public class QuestionFraction extends Question {
 						while (str.charAt(i) != '>') {
 							i++;
 						}
-						tab = str.substring(beginning+1,i).split(":");
-						ArrayList<Character> tmp_opt = new ArrayList<Character>();
-						for (int x=0; x<tab.length; x++) {
-							tmp_opt.add(tab[x].charAt(0));
-						}
-						assert tmp_opt.size() > 0 : "empty operators table";
+						ArrayList<Character> tmp_opt = decodeOperators(str.substring(beginning+1,i));
 						assert tmp_opt.size() == tmp_opt.size()+1 : "incorrect size of operators table";
 						res.setOperators(tmp_opt);
 						
@@ -379,7 +412,6 @@ public class QuestionFraction extends Question {
 			} else {
 				res =null;
 			}
-			
 		}
 		return res;
 	}
