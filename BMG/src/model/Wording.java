@@ -237,6 +237,54 @@ public class Wording implements iDbManager {
     	return res;
     }
 
+    public static char getType(Object o)
+    {
+	char c = ' ';
+	
+	if (o instanceof Double) c = 'd';
+	if (o instanceof Integer) c = 'i';
+	if (o instanceof String) c = 's';
+	if (o instanceof Character) c = 'c';
+	
+	return c;
+    }
+	
+    public String encodeValues()
+    {
+	String res = "";
+	
+	for (int i=0; i<values.length; i++)
+	{
+	    res += Wording.getType(values[i])+"("+values[i]+")";
+		
+	    if (i<values.length-1) 
+		res += ":";
+	}
+	
+	return res;
+    }
+
+    public Object[] decodeValues(String s)
+    {
+	String[] t_s = s.split(":");
+	Object[] t_o = new Object[t_s.length];
+	
+	for (int k=0; k<t_s.length; k++)
+	{
+	    if (t_s[k].charAt(0) == 'd')
+	        t_o[k] = Double.parseDouble(t_s[k].substring(2,t_s[k].length()-1));
+	    if (t_s[k].charAt(0) == 'i')
+		t_o[k] = Integer.parseInt(t_s[k].substring(2,t_s[k].length()-1));
+	    if (t_s[k].charAt(0) == 's')
+	       t_o[k] = new String(t_s[k].substring(2,t_s[k].length()));
+	    if (t_s[k].charAt(0) == 'c')
+	       t_o[k] = (t_s[k].substring(2,3));
+	}
+	
+	return t_o;
+    }
+
+	
     // ----------------------
     
     // ----- DB METHODS -----
