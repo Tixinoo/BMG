@@ -2,6 +2,7 @@ package tests;
 
 import database.BaseSetting;
 import java.util.ArrayList;
+import java.util.Collection;
 import model.Exercise;
 import model.Question;
 import model.QuestionCalculation;
@@ -145,13 +146,20 @@ public class ActiveRecord_Tests
 	
 	if (w != null) System.out.println(""+w.getId()+" | "+w.getText()+""); else System.out.println("delete W : OK");
 	
-	QuestionCalculation questionCalculation_1 = new QuestionCalculation("Questioncalculation1",0,new ArrayList<Integer>(),new ArrayList<Character>,0);
+	ArrayList<Integer> ali1 = new ArrayList<>(); ali1.add(6); ali1.add(2); ali1.add(3); ali1.add(7);
+	ArrayList<Integer> ali2 = new ArrayList<>(); ali2.add(2); ali2.add(8); ali2.add(5); ali2.add(9);
+	ArrayList<Integer> ali3 = new ArrayList<>(); ali3.add(1); ali3.add(4); ali3.add(8); ali3.add(9);
+	ArrayList<Character> alc1 = new ArrayList<>(); alc1.add('+'); alc1.add('+'); alc1.add('-');
+	ArrayList<Character> alc2 = new ArrayList<>(); alc2.add('-'); alc2.add('*'); alc2.add('/');
+	ArrayList<Character> alc3 = new ArrayList<>(); alc3.add('/'); alc3.add('/'); alc3.add('*');
+	
+	QuestionCalculation questionCalculation_1 = new QuestionCalculation("QuestionCalculation1",0); questionCalculation_1.setOperands(ali1); questionCalculation_1.setOperators(alc1);
 	b = questionCalculation_1.insert(bs);
 	System.out.println(""+b+" insertion questionCalculation_1");
-	QuestionCalculation questionCalculation_2 = new QuestionCalculation("QuestionCalculation2",0,new ArrayList<Integer>(),new ArrayList<Character>,0);
+	QuestionCalculation questionCalculation_2 = new QuestionCalculation("QuestionCalculation2",0); questionCalculation_2.setOperands(ali2); questionCalculation_2.setOperators(alc2);
 	b = questionCalculation_2.insert(bs);
 	System.out.println(""+b+" insertion questionCalculation_2");
-	QuestionCalculation questionCalculation_3 = new QuestionCalculation("QuestionCalculation3",0,new ArrayList<Integer>(),new ArrayList<Character>,0);
+	QuestionCalculation questionCalculation_3 = new QuestionCalculation("QuestionCalculation3",0); questionCalculation_3.setOperands(ali3); questionCalculation_3.setOperators(alc3);
 	b = questionCalculation_3.insert(bs);
 	System.out.println(""+b+" insertion questionCalculation_3");
 	
