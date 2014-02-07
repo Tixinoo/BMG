@@ -95,6 +95,27 @@ public class Exercise implements iDbManager {
         }
         this.ready = false;
     }
+    
+    public Exercise(String ti, Wording w, ArrayList<Question> alq, String ty, int d, boolean r) 
+    {
+        title = ti;
+        wording = w;
+        questions = alq;
+        type = ty;
+	difficulty = d;
+        ready = r;
+    }
+    
+    public Exercise(int i, String ti, Wording w, ArrayList<Question> alq, String ty, int d, boolean r) 
+    {
+        id = i;
+        title = ti;
+        wording = w;
+        questions = alq;
+        type = ty;
+        difficulty = d;
+        ready = r;
+    }
 
     // ----------------------
     // ------- METHODS ------
