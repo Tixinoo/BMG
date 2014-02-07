@@ -82,6 +82,14 @@ public class QuestionCalculation extends Question implements iDbManager {
         this.length = 0;
     }
     
+    QuestionCalculation(String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc)
+    {
+	super(textqc,diffqc);
+	operands = operandsqc;
+	operators = operatorsqc;
+	length = lengthqc;
+    }
+    
     QuestionCalculation(int idqc, String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc)
     {
 	super(idqc,textqc,diffqc);

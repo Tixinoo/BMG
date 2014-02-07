@@ -28,6 +28,12 @@ public abstract class Question {
         this.id = -1;
     }
     
+    public Question(String textq, int diffq)
+     {
+    		text = textq;
+    		difficulty = diffq;
+     }
+    
      public Question(int idq, String textq, int diffq)
      {
     		id = idq;
