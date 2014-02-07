@@ -216,6 +216,16 @@ public class Exercise implements iDbManager {
             this.id = 0;
         }
     }
+    
+    public int getId()
+    {
+	return id;
+    }
+    
+    public String getTitle()
+    {
+	return title;
+    }
 
     /**
      * Display an exercise
