@@ -301,7 +301,7 @@ public class QuestionCalculation extends Question implements iDbManager {
     public String encodeOperators() {
         String res = new String();
         if (operators.size() > 0) {
-            Iterator<Integer> itopt = operands.iterator();
+            Iterator<Character> itopt = operators.iterator();
             while (itopt.hasNext()) {
                 res = res + itopt.next() + ":";
             }

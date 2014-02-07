@@ -81,7 +81,7 @@ public class TestKernel57 {
 		Exercise ex = new Exercise();
 		ex.setTitle("machin");
 		ex.setID(3);
-		Object[] tval = {78,45,9,34,86,24};
+		Object[] tval = {78,"ezr",9.32,34,'c',24};
 		ex.setWording(new Wording("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate lacus eu odio ultricies porta. Cras blandit aliquam nisi at iaculis. Pellentesque tincidunt neque et est ultrices, nec luctus risus consequat. Pellentesque sed est magna. Phasellus ullamcorper ligula eu est vehicula, sit amet hendrerit leo malesuada. Cras fringilla lorem sit amet pharetra porttitor. Nullam venenatis convallis nisi. Nulla sem sem. ", tval));
 		ex.setType("calculation");
 		ex.setDifficulty(4);

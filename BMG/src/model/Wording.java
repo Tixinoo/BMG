@@ -95,9 +95,9 @@ public class Wording implements iDbManager {
      *
      */
     public void setValues(Object[] Svalues) {
-        if (this.values.length == Svalues.length) {
+        //if (this.values.length == Svalues.length) {
             this.values = Svalues;
-        }
+        //}
     }
 
     /**
@@ -133,36 +133,87 @@ public class Wording implements iDbManager {
 	public Object[] getValues() {
 		return values;
 	}
-
-    public String encode() {
-		String res = "#Wording<" + id + "><$<" + text + ">$><";
-		String type;
-		if (values != null && values.length != 0) {
-			if (values[0] instanceof Integer) {
-				type = "int";
-			} else if (values[0] instanceof Double) {
-				type = "dbl";
-			} else if (values[0] instanceof Character) {
-				type = "chr";
-			} else if (values[0] instanceof String) {
-				type = "str";
-			} else {
-				type = "nul";
-			}
-		} else {
-			type = "nul";
-		}
-		res = res + type + "><";
+    
+    public String encodeValues() {
+        String res = new String();
+		String types = "emp";
+        if (values != null && values.length > 0) {
+            types = "";
+            for (int i = 0; i<values.length; i++) {
+                if (values[i] instanceof Integer) {
+                    types = types + "int:";
+                } else if (values[i] instanceof Double) {
+                    types = types + "dbl:";
+                } else if (values[i] instanceof Character) {
+                    types = types + "chr:";
+                } else if (values[i] instanceof String) {
+                    types = types + "str:";
+                } else {
+                    types = types + "nul:";
+                }
+            }
+            types = types.substring(0, types.length()-1);
+        }
+        res = res + types + "><";
 		for (int i = 0; i<values.length; i++) {
 			res = res + values[i] + ":";
 		}
 		res = res.substring(0, res.length()-1);
+        return res;
+    }
+
+    public String encode() {
+		String res = "#Wording<" + id + "><$<" + text + ">$><";
+        res = res + encodeValues();
 		res = res + ">";
 		return res;
 	}
     
+    public static Object[] decodeValues(String str) {
+        Object[] res;
+        int i=0;
+        int beginning = i;
+        while (str.charAt(i) != '>') {
+            i++;
+        }
+        String[] types = str.substring(beginning, i).split(":");
+        
+        i++;
+        beginning = i;
+        if (str.charAt(i) == '<') {
+            i++;
+            while (i < str.length()) {
+                i++;
+            }
+            String[] tab = str.substring(beginning+1, i).split(":");
+            res = new Object[tab.length];
+            for (int x=0; x<tab.length; x++) {
+                switch(types[x]) {
+                case "int":
+                    res[x] = Integer.valueOf(tab[x]);
+                    break;
+                case "dbl":
+                    res[x] = Double.valueOf(tab[x]);
+                    break;
+                case "str":
+                    res[x] = tab;
+                    break;
+                case "chr":
+                    res[x] = tab[x].charAt(0);
+                    break;
+                case "nul":
+                    res[x] = null;
+                    break;
+                }
+            }
+        } else {
+            res = null;
+        }
+        return res;
+    }
+    
 	public static Wording decode(String str) {
-		Wording res = null;
+	    Wording res = null;
         if (str.substring(0, 8).compareTo("#Wording") == 0) {
             res = new Wording();
             int i = 8;
@@ -180,58 +231,39 @@ public class Wording implements iDbManager {
                         i++;
                     }
                     assert i > beginning+1 : "no wording text";
-                    res.setText(str.substring(beginning+1, i-1));
+                    res.setText(str.substring(beginning+1, i-2));
                     
                     i++;
-                    if ((str.charAt(i) == '<') && (str.charAt(i+4) == '>')) {
-	                    String type = str.substring(i+1, i+4);
-	                    i += 5;
-                    	
+                    if (str.charAt(i) == '<') {
 	                    beginning = i;
-	                    if (type.compareTo("nul") != 0) {
-	                    	
+	                    if (str.substring(i+1, i+4).compareTo("emp") != 0) {
 		                    if (str.charAt(i) == '<') {
+                                beginning = i;
+                                
 		                    	while (str.charAt(i) != '>') {
 		                            i++;
 		                        }
-		                    	String[] tab = str.substring(beginning+1, i-1).split(":");
-		                    	switch(type) {
-		                    	case "int":
-		                    		Integer[] val_int = new Integer[tab.length];
-		                        	for (int x=0; x<tab.length; x++) {
-		                        		val_int[x] = Integer.valueOf(tab[x]); 
-		                        	}
-		                        	res.values = val_int;
-		                    		break;
-		                    	case "dbl":
-		                    		Double[] val_dbl = new Double[tab.length];
-		                        	for (int x=0; x<tab.length; x++) {
-		                        		val_dbl[x] = Double.valueOf(tab[x]);
-		                        	}
-		                        	res.setValues(val_dbl);
-		                    		break;
-		                    	case "str":
-		                    		String[] val_str = tab;
-		                    		res.setValues(val_str);
-		                    		break;
-		                    	case "chr":
-		                    		Character[] val_chr = new Character[tab.length];
-		                        	for (int x=0; x<tab.length; x++) {
-		                        		val_chr[x] = tab[x].charAt(0); 
-		                        	}
-		                        	res.setValues(val_chr);
-		                    		break;
-		                    	}
+                                
+                                i++;
+                                if (str.charAt(i) == '<') {
+                                    i++;
+                                    while (str.charAt(i) != '>') {
+                                        i++;
+                                    }
+                                    res.setValues(decodeValues(str.substring(beginning+1, i)));
+                                } else {
+                                    res = null;
+                                }
 		                    } else {
 		                    	res = null;
 		                    }
 	                    } else {
 	                    	res.setValues(null);
+                            i += 2;
 	                    }
-	                    i++;
+                        i++;
 	                    str.substring(i);
                     } else {
-                    	System.out.println("qmslkfdjmlkgjmldksfjmg");
                     	res = null;
                     }
                 } else {
@@ -244,7 +276,7 @@ public class Wording implements iDbManager {
     	return res;
     }
 
-    public static char getType(Object o)
+    /*public static char getType(Object o)
     {
 	char c = ' ';
 	
@@ -254,9 +286,9 @@ public class Wording implements iDbManager {
 	if (o instanceof Character) c = 'c';
 	
 	return c;
-    }
+    }*/
 	
-    public String encodeValues()
+    /*public String encodeValues()
     {
 	String res = "";
 	
@@ -269,9 +301,9 @@ public class Wording implements iDbManager {
 	}
 	
 	return res;
-    }
+    }*/
 
-    public static Object[] decodeValues(String s)
+    /*public static Object[] decodeValues(String s)
     {
 	String[] t_s = s.split(":");
 	Object[] t_o = new Object[t_s.length];
@@ -289,7 +321,7 @@ public class Wording implements iDbManager {
 	}
 	
 	return t_o;
-    }
+    }*/
 
 	
     // ----------------------
