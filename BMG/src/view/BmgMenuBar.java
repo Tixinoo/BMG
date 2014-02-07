@@ -96,5 +96,6 @@ public class BmgMenuBar extends JMenuBar {
         menuHelp.add(itemHelp);
         menuHelp.add(itemAbout);
         this.add(menuHelp);
+        this.add(BmgFrame.labelConnexion);
     }
 }

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  * @author blaise
  */
 public class BmgFrame extends JFrame {
-
+    static JLabel labelConnexion = new JLabel("Not connected yet");
     BaseSetting bs = new BaseSetting();
     int width;
     int height;
@@ -61,7 +61,7 @@ public class BmgFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
-
+        new BmgFrameBegin(bs, fen());
     }
 
     public BmgFrame fen() {

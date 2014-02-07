@@ -22,4 +22,11 @@ public class BmgButton extends JButton {
         this.setPreferredSize(new Dimension(150,40));
         this.setBackground(Color.green);
     }
+    
+    public BmgButton(String name, int width, int height, Color color) {
+        super(name);
+        
+        this.setPreferredSize(new Dimension(width, height));
+        this.setBackground(color);
+    }
 }
