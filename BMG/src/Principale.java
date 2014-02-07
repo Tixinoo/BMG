@@ -1,4 +1,4 @@
-
+import database.BaseInformation;
 import view.BmgFrame;
 
 /*
@@ -13,6 +13,7 @@ import view.BmgFrame;
  */
 public class Principale {
     public static void main(String[] args) {
+    	//new BaseInformation("mysql", "com.mysql.jdbc.Driver", "BMG_DB", "root", "", "//localhost");
         new BmgFrame("BMG 2014", 1200, 800);
     }
 }

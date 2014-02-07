@@ -5,6 +5,7 @@
  */
 package view;
 
+import database.BaseSetting;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -12,43 +13,41 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //Bonjour
-
 /**
  * Class BmgFrame
+ *
  * @author blaise
  */
 public class BmgFrame extends JFrame {
+
+    BaseSetting bs = new BaseSetting();
     int width;
     int height;
-    
-    BmgMenuBar menu;
-    JPanel panMenu = new JPanel();
+
     JPanel panSouth = new JPanel();
-    BmgPanel panMain;
+    static BmgPanel panMain;
+    static BmgPanel panSettings;
 
     /**
      * Constructor who create the main window of BMG.
-     * @param string 
+     *
+     * @param string
      */
     public BmgFrame(String string, int width, int height) {
         super(string);
         this.width = width;
-        this.height= height;
-        
-        //Settings north and south panel
-        menu = new BmgMenuBar(width);
-        panMenu.add(menu);
-        panSouth.add(new BmgLabel("©M.Blaise, A.Nosal, J.Rische, J.Dzimbalka, for BMG 2013/2014", "green"));
+        this.height = height;
 
         setAllPanels();
         setFrameSettings();
     }
-    
+
     /**
      * This method aims at creating all panels at the beginning.
      */
     private void setAllPanels() {
-        panMain = new BmgPanel(panMenu, BmgCreatePanel.createMainPanel(width, height), panSouth);
+        panMain = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createMainPanel(width, height), new BmgPanelSouth(width));
+        panSettings = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSettings(bs, width, height), new BmgPanelSouth(width));
     }
 
     /**
@@ -64,10 +63,13 @@ public class BmgFrame extends JFrame {
         this.setVisible(true);
 
     }
-    
+
+    public BmgFrame fen() {
+        return this;
+    }
+
     public void setPanel(JPanel pan) {
-        this.getContentPane().removeAll();
-        this.pack();
+        
         this.setContentPane(pan);
         this.pack();
     }

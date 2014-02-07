@@ -23,6 +23,10 @@ public class BaseSetting {
     public BaseSetting() {
          if(testerConnexion()) System.out.println("Connexion console ok");
     }
+    
+    public void setInfo() {
+        this.bi = BaseInformation.lectureInformations();
+    }
 
     public boolean testerConnexion() {
         if (bi.getDbname().equals("")) {

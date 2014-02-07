@@ -3,56 +3,96 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
  * @author blaise
  */
 public class BmgMenuBar extends JMenuBar {
+
     JButton buttonIndex = new JButton("a");
     JMenu menuExercises = new JMenu("Exercises");
     JMenuItem itemGenerate = new JMenuItem("Generate");
     JMenuItem itemPractice = new JMenuItem("Practice");
-    
+
     JMenu menuAccount = new JMenu("Account");
     JMenuItem itemSignIn = new JMenuItem("Sign in");
     JMenuItem itemSignUp = new JMenuItem("Sign up now !");
-    
+
     JMenu menuSettings = new JMenu("Settings");
     JMenuItem itemBaseSettings = new JMenuItem("Base Settings");
-    
+    JMenuItem itemConnexionTest = new JMenuItem("Connexion Test");
+
     JMenu menuHelp = new JMenu("?");
     JMenuItem itemHelp = new JMenuItem("Help");
     JMenuItem itemAbout = new JMenuItem("About us");
-    
-    public BmgMenuBar(int width) {
+
+    BmgFrame fen;
+
+    public BmgMenuBar(BmgFrame fen) {
         super();
-        
-        setMenuSettings(width);
+        this.fen = fen;
+
+        setMenuSettings(fen.width);
     }
-    
+
     private void setMenuSettings(int width) {
         this.setPreferredSize(new Dimension(width, 30));
+        buttonIndex.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panMain);
+            }
+        });
         this.add(buttonIndex);
         menuExercises.add(itemGenerate);
         menuExercises.add(itemPractice);
         this.add(menuExercises);
-        
+
         menuAccount.add(itemSignIn);
         menuAccount.add(itemSignUp);
         this.add(menuAccount);
-        
+
+        itemBaseSettings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+        	fen.setPanel(BmgFrame.panSettings);
+            }
+        });
         menuSettings.add(itemBaseSettings);
-        this.add(menuSettings);
+        itemConnexionTest.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JOptionPane jop = new JOptionPane();
+                fen.bs.setInfo();
+                if (fen.bs.testerConnexion()) {
+                    jop.showMessageDialog(null, "Success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    jop.showMessageDialog(null, "Error !", "Database Connexion", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        });
+        menuSettings.add(itemConnexionTest);
+  
         
+        
+        this.add(menuSettings);
+
         menuHelp.add(itemHelp);
         menuHelp.add(itemAbout);
         this.add(menuHelp);
