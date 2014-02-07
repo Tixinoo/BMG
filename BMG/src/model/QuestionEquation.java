@@ -125,30 +125,48 @@ public class QuestionEquation extends Question {
     public void setLength(int length) {
         this.length = length;
     }
+    
+    public String encodeOperands() {
+        String res = new String();
+        Iterator<Integer> itopd = operands.iterator();
+		while (itopd.hasNext()) {
+			res = res + itopd.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+        return res;
+    }
+    
+    public String encodeUnknowns() {
+        String res= new String();
+        Iterator<Boolean> itukn = unknowns.iterator();
+		while (itukn.hasNext()) {
+			res = res + itukn.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+        return res;
+    }
+    
+    public String encodeOperators() {
+        String res = new String();
+        Iterator<Character> itopt = operators.iterator();
+		while (itopt.hasNext()) {
+			res = res + itopt.next() + ":";
+		}
+		res = res.substring(0, res.length()-1);
+        return res;
+    }
 
     /**
 	 * Encode the current question (object) in a string which can recreate this question by the decode() method
 	 * @return encoded question
 	 */
 	public String encode() {
-		Iterator<Integer> itopd = operands.iterator();
 		String res = "#QuestionEquation<";
-		while (itopd.hasNext()) {
-			res = res + itopd.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
+		res = res + encodeOperands();
 		res = res + "><";
-		Iterator<Boolean> itukn = unknowns.iterator();
-		while (itukn.hasNext()) {
-			res = res + itukn.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
+		res = res + encodeUnknowns();
 		res = res + "><";
-		Iterator<Character> itopt = operators.iterator();
-		while (itopt.hasNext()) {
-			res = res + itopt.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
+		res = res + encodeOperators();
 		res = res + "><" + length + ">";
 		res = res + super.encode();
 		return res;
