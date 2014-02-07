@@ -1,7 +1,11 @@
 package tests;
 
 import database.BaseSetting;
+import java.util.ArrayList;
 import model.Exercise;
+import model.Question;
+import model.QuestionCalculation;
+import model.Wording;
 import user.Screen;
 import user.User;
 import user.UserType;
@@ -119,76 +123,80 @@ public class ActiveRecord_Tests
 	
 	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("delete WG : OK");
 
-//	Wording wording_1 = new Wording("Wording1");
-//	b = wording_1.insert(bs);
-//	System.out.println(""+b+" insertion wording_1");
-//	Wording wording_2 = new Wording("Wording2");
-//	b = wording_2.insert(bs);
-//	System.out.println(""+b+" insertion wording_2");
-//	
-//	Wording w;
-//	w = Wording.findById(wording_2.getId_w(),bs);
-//	
-//	if (w != null) System.out.println(""+w.getId_w()+" | "+w.getText_w()+""); else System.out.println("insert W : pas OK");
-//	
-//	w.setText_w("...");
-//	w.update(bs);
-//	
-//	if (w != null) System.out.println(""+w.getId_w()+" | "+w.getText_w()+""); else System.out.println("update W : pas OK");
-//	
-//	w.delete(bs);
-//	w = Wording.findById(wording_2.getId_w(),bs);
-//	
-//	if (w != null) System.out.println(""+w.getId_w()+" | "+w.getText_w()+""); else System.out.println("delete W : OK");
+	Wording wording_1 = new Wording("Wording1");
+	b = wording_1.insert(bs);
+	System.out.println(""+b+" insertion wording_1");
+	Wording wording_2 = new Wording("Wording2");
+	b = wording_2.insert(bs);
+	System.out.println(""+b+" insertion wording_2");
 	
-//	QuestionCalculation questionCalculation_1 = new QuestionCalculation("Questioncalculation1",0,"operands","operators",0);
-//	b = questionCalculation_1.insert(bs);
-//	System.out.println(""+b+" insertion questionCalculation_1");
-//	QuestionCalculation questionCalculation_2 = new QuestionCalculation("QuestionCalculation2",0,"operands","operators",0);
-//	b = questionCalculation_2.insert(bs);
-//	System.out.println(""+b+" insertion questionCalculation_2");
-//	QuestionCalculation questionCalculation_3 = new QuestionCalculation("QuestionCalculation3",0,"operands","operators",0);
-//	b = questionCalculation_3.insert(bs);
-//	System.out.println(""+b+" insertion questionCalculation_3");
-//	
-//	QuestionCalculation qc;
-//	qc = QuestionCalculation.findById(questionCalculation_3.getId_qc(),bs);
-//	
-//	if (qc != null) System.out.println(""+qc.getId_qc()+" | "+qc.getText_qc()+""); else System.out.println("insert QC : pas OK");
-//	
-//	qc.setTitle_qc("...");
-//	qc.update(bs);
-//	
-//	if (qc != null) System.out.println(""+qc.getId_qc()+" | "+qc.getText_qc()+""); else System.out.println("update QC : pas OK");
-//	
-//	qc.delete(bs);
-//	qc = QuestionCalculation.findById(questionCalculation_3.getId_qc(),bs);
-//	
-//	if (qc != null) System.out.println(""+qc.getId_qc()+" | "+qc.getText_qc()+""); else System.out.println("delete QC : OK");
+	Wording w;
+	w = Wording.findById(wording_2.getId(),bs);
 	
-//	Exercise exercise_1 = new Exercise("Exercise1",/*wording*/,/*questions*/,"type",0,false);
-//	b = exercise_1.insert(bs);
-//	System.out.println(""+b+" insertion exercise_1");
-//	Exercise exercise_2 = new Exercise("Exercise2",/*wording*/,/*questions*/,"type",0,false);
-//	b = exercise_2.insert(bs);
-//	System.out.println(""+b+" insertion exercise_1");
-//	Exercise exercise_3 = new Exercise("Exercise3",/*wording*/,/*questions*/,"type",0,false);
-//	b = exercise_3.insert(bs);
-//	System.out.println(""+b+" insertion exercise_1");
-//	
-//	Exercise e;
-//	e = Exercise.findById(exercise_3.getId_e(),bs);
-//	
-//	if (e != null) System.out.println(""+e.getId_e()+" | "+e.getTitle_e()+""); else System.out.println("insert E : pas OK");
-//	
-//	e.setTitle_e("...");
-//	e.update(bs);
-//	
-//	if (e != null) System.out.println(""+e.getId_e()+" | "+e.getTitle_e()+""); else System.out.println("update E : pas OK");
-//	
-//	e.delete(bs);
-//	e = Exercise.findById(exercise_3.getId_e(),bs);
-//	
-//	if (e != null) System.out.println(""+e.getId_e()+" | "+e.getTitle_e()+""); else System.out.println("delete E : OK");
+	if (w != null) System.out.println(""+w.getId()+" | "+w.getText()+""); else System.out.println("insert W : pas OK");
+	
+	w.setText("...");
+	w.update(bs);
+	
+	if (w != null) System.out.println(""+w.getId()+" | "+w.getText()+""); else System.out.println("update W : pas OK");
+	
+	w.delete(bs);
+	w = Wording.findById(wording_2.getId(),bs);
+	
+	if (w != null) System.out.println(""+w.getId()+" | "+w.getText()+""); else System.out.println("delete W : OK");
+	
+	QuestionCalculation questionCalculation_1 = new QuestionCalculation("Questioncalculation1",0,new ArrayList<Integer>(),new ArrayList<Character>,0);
+	b = questionCalculation_1.insert(bs);
+	System.out.println(""+b+" insertion questionCalculation_1");
+	QuestionCalculation questionCalculation_2 = new QuestionCalculation("QuestionCalculation2",0,new ArrayList<Integer>(),new ArrayList<Character>,0);
+	b = questionCalculation_2.insert(bs);
+	System.out.println(""+b+" insertion questionCalculation_2");
+	QuestionCalculation questionCalculation_3 = new QuestionCalculation("QuestionCalculation3",0,new ArrayList<Integer>(),new ArrayList<Character>,0);
+	b = questionCalculation_3.insert(bs);
+	System.out.println(""+b+" insertion questionCalculation_3");
+	
+	QuestionCalculation qc;
+	qc = QuestionCalculation.findById(questionCalculation_3.getID(),bs);
+	
+	if (qc != null) System.out.println(""+qc.getID()+" | "+qc.getText()+""); else System.out.println("insert QC : pas OK");
+	
+	qc.setText("...");
+	qc.update(bs);
+	
+	if (qc != null) System.out.println(""+qc.getID()+" | "+qc.getText()+""); else System.out.println("update QC : pas OK");
+	
+	qc.delete(bs);
+	qc = QuestionCalculation.findById(questionCalculation_3.getID(),bs);
+	
+	if (qc != null) System.out.println(""+qc.getID()+" | "+qc.getText()+""); else System.out.println("delete QC : OK");
+	
+	ArrayList<Question> alq1 = new ArrayList<Question>();
+	ArrayList<Question> alq2 = new ArrayList<Question>();
+	ArrayList<Question> alq3 = new ArrayList<Question>();
+	
+	Exercise exercise_1 = new Exercise("Exercise1",wording_1,alq1,"type",0,false);
+	b = exercise_1.insert(bs);
+	System.out.println(""+b+" insertion exercise_1");
+	Exercise exercise_2 = new Exercise("Exercise2",wording_1,alq2,"type",0,false);
+	b = exercise_2.insert(bs);
+	System.out.println(""+b+" insertion exercise_1");
+	Exercise exercise_3 = new Exercise("Exercise3",wording_1,alq3,"type",0,false);
+	b = exercise_3.insert(bs);
+	System.out.println(""+b+" insertion exercise_1");
+	
+	Exercise e;
+	e = Exercise.findById(exercise_3.getId(),bs);
+	
+	if (e != null) System.out.println(""+e.getId()+" | "+e.getTitle()+""); else System.out.println("insert E : pas OK");
+	
+	e.setTitle("...");
+	e.update(bs);
+	
+	if (e != null) System.out.println(""+e.getId()+" | "+e.getTitle()+""); else System.out.println("update E : pas OK");
+	
+	e.delete(bs);
+	e = Exercise.findById(exercise_3.getId(),bs);
+	
+	if (e != null) System.out.println(""+e.getId()+" | "+e.getTitle()+""); else System.out.println("delete E : OK");
     }
 }
