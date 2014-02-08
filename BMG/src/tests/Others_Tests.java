@@ -9,7 +9,7 @@ public class Others_Tests
     {	    
 	double de = 3.50;
 	int it = 666;
-	String sg = "hello";
+	String sg = "hell";
 	char cr = '!';
 
 	char res = ' ';
@@ -33,7 +33,7 @@ public class Others_Tests
 	big_s_encode = w_encode.encodeValues();
 	
 	System.out.println("Obtenu :  "+big_s_encode);
-	System.out.println("Attendu : "+"d(3.50):i(666):s(hello):c(!)");
+	System.out.println("Attendu : "+"dbl:int:str:chr><3.50:666:hell:!");
 	
 	System.out.println("FIN TEST ENCODE_VALUES");
 	
@@ -43,14 +43,14 @@ public class Others_Tests
 	
 	Wording w_decode = new Wording("texte...",new Object[4]);
 	
-	String big_s_decode = "d(3.50):i(666):s(hello):c(!)";
+	String big_s_decode = "dbl:int:str:chr><3.50:666:hell:!";
 	Object[] t_obj_decode = null;
 	
-	t_obj_decode = w_decode.decodeValues(big_s_decode);
+	t_obj_decode = Wording.decodeValues(big_s_decode);
 	w_decode.setValues(t_obj_decode);
 	
 	System.out.println("Obtenu :  "+w_decode.encode());
-	System.out.println("Attendu : "+"#Wording<-1><$<texte...>$><3.50:666:hello:!>");
+	System.out.println("Attendu : "+"#Wording<-1><$<texte...>$><dbl:int:str:chr><3.50:666:hell:!>");
 	
 	System.out.println("FIN TEST DECODE_VALUES");
 
