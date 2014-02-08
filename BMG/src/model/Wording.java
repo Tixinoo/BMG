@@ -196,7 +196,7 @@ public class Wording implements iDbManager {
                     res[x] = Double.valueOf(tab[x]);
                     break;
                 case "str":
-                    res[x] = tab;
+                    res[x] = tab[x];
                     break;
                 case "chr":
                     res[x] = tab[x].charAt(0);
