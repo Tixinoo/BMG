@@ -14,10 +14,10 @@ public class Others_Tests
 
 	char res = ' ';
 
-	res = Wording.getType(de);	System.out.println(res);
-	res = Wording.getType(it);	System.out.println(res);
-	res = Wording.getType(sg);	System.out.println(res);
-	res = Wording.getType(cr);	System.out.println(res);
+//	res = Wording.getType(de);	System.out.println(res);
+//	res = Wording.getType(it);	System.out.println(res);
+//	res = Wording.getType(sg);	System.out.println(res);
+//	res = Wording.getType(cr);	System.out.println(res);
 	
 	System.out.println();
 	
