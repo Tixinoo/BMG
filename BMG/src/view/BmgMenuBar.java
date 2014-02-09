@@ -8,7 +8,9 @@ package view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -21,7 +23,7 @@ import javax.swing.JPanel;
  */
 public class BmgMenuBar extends JMenuBar {
 
-    JButton buttonIndex = new JButton("a");
+    JButton buttonIndex = new JButton(new ImageIcon("index_small.png"));
     JMenu menuExercises = new JMenu("Exercises");
     JMenuItem itemGenerate = new JMenuItem("Generate");
     JMenuItem itemPractice = new JMenuItem("Practice");
@@ -39,16 +41,18 @@ public class BmgMenuBar extends JMenuBar {
     JMenuItem itemAbout = new JMenuItem("About us");
 
     BmgFrame fen;
+    String s = "Not connected yet";
 
     public BmgMenuBar(BmgFrame fen) {
         super();
         this.fen = fen;
 
+        buttonIndex.setPreferredSize(new Dimension(40,40));
         setMenuSettings(fen.width);
     }
 
     private void setMenuSettings(int width) {
-        this.setPreferredSize(new Dimension(width, 30));
+        this.setPreferredSize(new Dimension(width, 40));
         buttonIndex.addActionListener(new ActionListener() {
 
             @Override
@@ -61,7 +65,21 @@ public class BmgMenuBar extends JMenuBar {
         menuExercises.add(itemPractice);
         this.add(menuExercises);
 
+        itemSignIn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panSignin);
+            }
+        });
         menuAccount.add(itemSignIn);
+        itemSignUp.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panSignup);
+            }
+        });
         menuAccount.add(itemSignUp);
         this.add(menuAccount);
 
@@ -96,6 +114,8 @@ public class BmgMenuBar extends JMenuBar {
         menuHelp.add(itemHelp);
         menuHelp.add(itemAbout);
         this.add(menuHelp);
-        this.add(BmgFrame.labelConnexion);
+        
+        JLabel labelConnexion = new JLabel(this.s);
+        this.add(labelConnexion);
     }
 }

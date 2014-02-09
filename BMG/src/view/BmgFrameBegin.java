@@ -57,6 +57,14 @@ public class BmgFrameBegin {
                 }
             });
             panSouth.add(buttonSignin);
+            buttonSignup.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    fen.setPanel(BmgFrame.panSignup);
+                    fermer();
+                }
+            });
             panSouth.add(buttonSignup);
 
             buttonLater.addActionListener(new ActionListener() {

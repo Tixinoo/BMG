@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  * @author blaise
  */
 public class BmgFrame extends JFrame {
-    static JLabel labelConnexion = new JLabel("Not connected yet");
+    
     BaseSetting bs = new BaseSetting();
     int width;
     int height;
@@ -27,6 +27,8 @@ public class BmgFrame extends JFrame {
     JPanel panSouth = new JPanel();
     static BmgPanel panMain;
     static BmgPanel panSettings;
+    static BmgPanel panSignup;
+    static BmgPanel panSignin;
 
     /**
      * Constructor who create the main window of BMG.
@@ -46,8 +48,10 @@ public class BmgFrame extends JFrame {
      * This method aims at creating all panels at the beginning.
      */
     private void setAllPanels() {
-        panMain = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createMainPanel(width, height), new BmgPanelSouth(width));
-        panSettings = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSettings(bs, width, height), new BmgPanelSouth(width));
+        panMain = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createMainPanel(fen(), bs, width, height), new BmgPanelSouth(width));
+        panSettings = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSettings(fen(), bs, width, height), new BmgPanelSouth(width));
+        panSignup = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSignup(fen(), bs, width, height), new BmgPanelSouth(width));
+        panSignin = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSignin(fen(), bs, width, height), new BmgPanelSouth(width));
     }
 
     /**

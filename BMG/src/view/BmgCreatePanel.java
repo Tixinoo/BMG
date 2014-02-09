@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.accessibility.AccessibleRole;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -36,7 +37,7 @@ public class BmgCreatePanel {
      * @param height
      * @return
      */
-    public static JPanel createMainPanel(int width, int height) {
+    public static JPanel createMainPanel(final BmgFrame fen, final BaseSetting bs, int width, int height) {
         int nb = 5;
         String colortitle = "green";
         String colortext = "black";
@@ -64,6 +65,13 @@ public class BmgCreatePanel {
         panAccount.add(bsignin);
         panAccount.add(new BmgLabel("You should create an account if you don't have ", colortext));
         BmgButton bsignup = new BmgButton("Sign up now !");
+        bsignup.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panSignup);
+            }
+        });
         panAccount.add(bsignup);
 
         //Panel Database Settings
@@ -73,6 +81,13 @@ public class BmgCreatePanel {
         panSettings.setLayout(new GridLayout(2, 2));
         panSettings.add(new BmgLabel("Change database settings : ", colortext));
         BmgButton bsettings = new BmgButton("Settings");
+        bsettings.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panSettings);
+            }
+        });
         panSettings.add(bsettings);
         panSettings.add(new BmgLabel("Test your database connexion : ", colortext));
         BmgButton btest = new BmgButton("-->Test");
@@ -83,8 +98,112 @@ public class BmgCreatePanel {
         pan.add(panSettings);
         return pan;
     }
+    
+    public static JPanel createPanelSignin(BmgFrame fen, final BaseSetting bs, int width, int height) {
+        JPanel pan = new JPanel();
+        int nb = 4;
 
-    public static JPanel createPanelSettings(final BaseSetting bs, int width, int height) {
+        BmgLabel label = new BmgLabel("You have an account ? Sign in now ", "red");
+        label.setPreferredSize(new Dimension(width-100, (height - 100) / (2*nb)));
+        pan.add(label, BorderLayout.NORTH);
+
+        JPanel panCenter = new JPanel();
+        panCenter.setLayout(new GridLayout(2, 2));
+        panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
+        JTextField[] jtfs = {
+            new JTextField(15),
+            new JTextField(15),
+            
+        };
+        JLabel[] labels = {
+            new JLabel("Email address : "),
+            new JLabel("Password : "),
+            
+        };
+        
+        for(int i=0;i<labels.length;i++) {
+            panCenter.add(labels[i]);
+            panCenter.add(jtfs[i]);
+        }
+        
+        JPanel panSouth = new JPanel();
+        panSouth.setLayout(new BorderLayout());
+        
+        BmgButton buttonSignin = new BmgButton("Sign in now !");
+        buttonSignin.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JOptionPane jop = new JOptionPane();
+                jop.showMessageDialog(null, "Sign in success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+        });
+        
+        panSouth.add(buttonSignin, BorderLayout.NORTH);
+       
+        pan.add(panCenter, BorderLayout.CENTER);
+        pan.add(panSouth, BorderLayout.SOUTH);
+
+        return pan;
+    }
+
+    public static JPanel createPanelSignup(BmgFrame fen, final BaseSetting bs, int width, int height) {
+        JPanel pan = new JPanel();
+        int nb = 2;
+
+        BmgLabel label = new BmgLabel("Sign up now, for free of course : ", "red");
+        label.setPreferredSize(new Dimension(width-100, (height - 100) / (2*nb)));
+        pan.add(label, BorderLayout.NORTH);
+
+        JPanel panCenter = new JPanel();
+        panCenter.setLayout(new GridLayout(6, 2));
+        panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
+        JTextField[] jtfs = {
+            new JTextField(15),
+            new JTextField(15),
+            new JTextField(15),
+            new JTextField(15),
+            new JTextField(15),
+            new JTextField(15)
+        };
+        JLabel[] labels = {
+            new JLabel(""),
+            new JLabel(""),
+            new JLabel(""),
+            new JLabel(""),
+            new JLabel(""),
+            new JLabel("")
+        };
+        
+        for(int i=0;i<labels.length;i++) {
+            panCenter.add(labels[i]);
+            panCenter.add(jtfs[i]);
+        }
+        
+        JPanel panSouth = new JPanel();
+        panSouth.setLayout(new BorderLayout());
+        
+        BmgButton buttonSignup = new BmgButton("Sign up now !");
+        buttonSignup.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                JOptionPane jop = new JOptionPane();
+                jop.showMessageDialog(null, "Sign up success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+        });
+        
+        panSouth.add(buttonSignup, BorderLayout.NORTH);
+       
+        pan.add(panCenter, BorderLayout.CENTER);
+        pan.add(panSouth, BorderLayout.SOUTH);
+
+        return pan;
+    }
+
+    public static JPanel createPanelSettings(final BmgFrame fen, final BaseSetting bs, int width, int height) {
         int nb = 2;
         JPanel pan = new JPanel();
         JLabel label = new JLabel("");
@@ -134,9 +253,9 @@ public class BmgCreatePanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 new BaseInformation(jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText(), jtfs[5].getText());
-               
+
                 bs.setInfo();
-                
+
                 JOptionPane jop = new JOptionPane();
                 if (bs.testerConnexion()) {
                     jop.showMessageDialog(null, "Success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
