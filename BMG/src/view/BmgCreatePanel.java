@@ -289,6 +289,26 @@ public class BmgCreatePanel {
         return pan;
     }
 
+    /**
+     * Method who create panel AboutUs, which print some information about our team.
+     * @param fen
+     * @param bs
+     * @param width
+     * @param height
+     * @return 
+     */
+    public static JPanel createPanelAboutUs(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+        JPanel pan = new JPanel();
+        
+        String s = "<span style=\"color: red;\">About us : </span><br/><br/>";
+        s += "We are 4 students of Technical High School called Université de Lorraine, in french.<br/>";
+        s += "And I have no idea to continue this label ...";
+        
+        pan.add(new BmgLabel(s, "blue"));
+        
+        return pan;
+    }
+    
     /* public static JPanel createMainPanel2(int width, int height) {
      JPanel panPrincipal = new JPanel();
      panPrincipal.setLayout(new BorderLayout());

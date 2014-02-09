@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -112,10 +113,18 @@ public class BmgMenuBar extends JMenuBar {
         this.add(menuSettings);
 
         menuHelp.add(itemHelp);
+        itemAbout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+        	fen.setPanel(BmgFrame.panAboutUs);
+            }
+        });
         menuHelp.add(itemAbout);
         this.add(menuHelp);
-        
-        JLabel labelConnexion = new JLabel(this.s);
+   
+        String slabel = "<html><p style=\"margin-left: 250px;\">" + this.s + "</p></html>";
+        JLabel labelConnexion = new JLabel(slabel);
         this.add(labelConnexion);
     }
 }

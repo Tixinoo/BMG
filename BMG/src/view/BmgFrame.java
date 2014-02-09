@@ -29,6 +29,7 @@ public class BmgFrame extends JFrame {
     static BmgPanel panSettings;
     static BmgPanel panSignup;
     static BmgPanel panSignin;
+    static BmgPanel panAboutUs;
 
     /**
      * Constructor who create the main window of BMG.
@@ -52,6 +53,7 @@ public class BmgFrame extends JFrame {
         panSettings = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSettings(fen(), bs, width, height), new BmgPanelSouth(width));
         panSignup = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSignup(fen(), bs, width, height), new BmgPanelSouth(width));
         panSignin = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSignin(fen(), bs, width, height), new BmgPanelSouth(width));
+        panAboutUs = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelAboutUs(fen(), bs, width, height), new BmgPanelSouth(width));
     }
 
     /**
