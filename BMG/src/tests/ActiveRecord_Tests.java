@@ -124,10 +124,13 @@ public class ActiveRecord_Tests
 	
 	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("delete WG : OK");
 
-	Wording wording_1 = new Wording("Wording1");
+	Object[] t_obj_1 = new Object[3]; t_obj_1[0] = 666; t_obj_1[1] = "hell"; t_obj_1[2] = 3.50;
+	Object[] t_obj_2 = new Object[3]; t_obj_2[0] = '!'; t_obj_2[1] = "hell"; t_obj_2[2] = 666;
+	
+	Wording wording_1 = new Wording("Wording1",t_obj_1);
 	b = wording_1.insert(bs);
 	System.out.println(""+b+" insertion wording_1");
-	Wording wording_2 = new Wording("Wording2");
+	Wording wording_2 = new Wording("Wording2",t_obj_2);
 	b = wording_2.insert(bs);
 	System.out.println(""+b+" insertion wording_2");
 	
@@ -153,13 +156,13 @@ public class ActiveRecord_Tests
 	ArrayList<Character> alc2 = new ArrayList<>(); alc2.add('-'); alc2.add('*'); alc2.add('/');
 	ArrayList<Character> alc3 = new ArrayList<>(); alc3.add('/'); alc3.add('/'); alc3.add('*');
 	
-	QuestionCalculation questionCalculation_1 = new QuestionCalculation("QuestionCalculation1",0); questionCalculation_1.setOperands(ali1); questionCalculation_1.setOperators(alc1);
+	QuestionCalculation questionCalculation_1 = new QuestionCalculation("QuestionCalculation1",2); questionCalculation_1.setOperands(ali1); questionCalculation_1.setOperators(alc1);
 	b = questionCalculation_1.insert(bs);
 	System.out.println(""+b+" insertion questionCalculation_1");
-	QuestionCalculation questionCalculation_2 = new QuestionCalculation("QuestionCalculation2",0); questionCalculation_2.setOperands(ali2); questionCalculation_2.setOperators(alc2);
+	QuestionCalculation questionCalculation_2 = new QuestionCalculation("QuestionCalculation2",3); questionCalculation_2.setOperands(ali2); questionCalculation_2.setOperators(alc2);
 	b = questionCalculation_2.insert(bs);
 	System.out.println(""+b+" insertion questionCalculation_2");
-	QuestionCalculation questionCalculation_3 = new QuestionCalculation("QuestionCalculation3",0); questionCalculation_3.setOperands(ali3); questionCalculation_3.setOperators(alc3);
+	QuestionCalculation questionCalculation_3 = new QuestionCalculation("QuestionCalculation3",1); questionCalculation_3.setOperands(ali3); questionCalculation_3.setOperators(alc3);
 	b = questionCalculation_3.insert(bs);
 	System.out.println(""+b+" insertion questionCalculation_3");
 	
@@ -178,19 +181,19 @@ public class ActiveRecord_Tests
 	
 	if (qc != null) System.out.println(""+qc.getID()+" | "+qc.getText()+""); else System.out.println("delete QC : OK");
 	
-	ArrayList<Question> alq1 = new ArrayList<Question>();
-	ArrayList<Question> alq2 = new ArrayList<Question>();
-	ArrayList<Question> alq3 = new ArrayList<Question>();
+	ArrayList<Question> alq1 = new ArrayList<Question>(); alq1.add(questionCalculation_2);  alq1.add(questionCalculation_1); 
+	ArrayList<Question> alq2 = new ArrayList<Question>(); alq1.add(questionCalculation_1);  alq1.add(questionCalculation_2); 
+	ArrayList<Question> alq3 = new ArrayList<Question>(); alq1.add(questionCalculation_2);  alq1.add(questionCalculation_2); 
 	
 	Exercise exercise_1 = new Exercise("Exercise1",wording_1,alq1,"type",0,false);
 	b = exercise_1.insert(bs);
 	System.out.println(""+b+" insertion exercise_1");
 	Exercise exercise_2 = new Exercise("Exercise2",wording_1,alq2,"type",0,false);
 	b = exercise_2.insert(bs);
-	System.out.println(""+b+" insertion exercise_1");
+	System.out.println(""+b+" insertion exercise_2");
 	Exercise exercise_3 = new Exercise("Exercise3",wording_1,alq3,"type",0,false);
 	b = exercise_3.insert(bs);
-	System.out.println(""+b+" insertion exercise_1");
+	System.out.println(""+b+" insertion exercise_3");
 	
 	Exercise e;
 	e = Exercise.findById(exercise_3.getId(),bs);
