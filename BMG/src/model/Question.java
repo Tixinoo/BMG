@@ -1,5 +1,8 @@
 package model;
 
+import database.BaseSetting;
+import interfaces.iDbManager;
+
 public abstract class Question {
 
     // ----- ATTRIBUTES -----
@@ -131,5 +134,9 @@ public abstract class Question {
     	}
     }
 
-	// ----------------------
+    // ----------------------
+	
+    // ----------------------
+    // ----- DB METHODS -----
+	
 }

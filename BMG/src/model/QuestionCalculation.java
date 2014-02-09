@@ -408,25 +408,25 @@ public class QuestionCalculation extends Question implements iDbManager {
     {
 	Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    String query = "INSERT INTO QuestionCalculation (text_qc,diff_qc,operands_qc,operators_qc,length_qc) VALUES (?,?,?,?,?)";
-//	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
-//	    p_statement.setString(1,this.text);
-//	    p_statement.setInt(2,this.difficulty);
-//	    p_statement.setString(3,this.encodeOperands());
-//	    p_statement.setString(4,this.encodeOperators());
-//	    p_statement.setInt(5,this.length);
-//	    p_statement.executeUpdate();
-//	    ResultSet rs = p_statement.getGeneratedKeys();
-//			
-//	    if (rs.next()) this.id = rs.getInt(1);		
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    String query = "INSERT INTO QuestionCalculation (text_qc,diff_qc,operands_qc,operators_qc,length_qc) VALUES (?,?,?,?,?)";
+	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+	    p_statement.setString(1,this.text);
+	    p_statement.setInt(2,this.difficulty);
+	    p_statement.setString(3,this.encodeOperands());
+	    p_statement.setString(4,this.encodeOperators());
+	    p_statement.setInt(5,this.length);
+	    p_statement.executeUpdate();
+	    ResultSet rs = p_statement.getGeneratedKeys();
+			
+	    if (rs.next()) this.id = rs.getInt(1);		
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -435,26 +435,26 @@ public class QuestionCalculation extends Question implements iDbManager {
     {
         Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    if (this.id < 0)
-//	    {
-//		String query = "UPDATE QuestionCalculation SET (text_qc = ? , diff_qc = ? , operands_qc = ? , operators_qc = ? , length_qc = ?) WHERE id_qf = ?";
-//		PreparedStatement p_statement = connection.prepareStatement(query);
-//		p_statement.setString(1,this.text);
-//		p_statement.setInt(2,this.difficulty);
-//		p_statement.setString(3,this.encodeOperands());
-//		p_statement.setString(4,this.encodeOperators());
-//		p_statement.setInt(5,this.length);
-//		p_statement.setInt(6,this.id);
-//		p_statement.executeUpdate();
-//	    }
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    if (this.id < 0)
+	    {
+		String query = "UPDATE QuestionCalculation SET (text_qc = ? , diff_qc = ? , operands_qc = ? , operators_qc = ? , length_qc = ?) WHERE id_qf = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setString(1,this.text);
+		p_statement.setInt(2,this.difficulty);
+		p_statement.setString(3,this.encodeOperands());
+		p_statement.setString(4,this.encodeOperators());
+		p_statement.setInt(5,this.length);
+		p_statement.setInt(6,this.id);
+		p_statement.executeUpdate();
+	    }
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -463,21 +463,21 @@ public class QuestionCalculation extends Question implements iDbManager {
     {
         Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    if (QuestionCalculation.findById(this.getID(), bs) != null)
-//	    {
-//		String query = "DELETE FROM QuestionCalculation WHERE id_qc = ?";
-//		PreparedStatement p_statement = connection.prepareStatement(query);
-//		p_statement.setInt(1,this.id);
-//		p_statement.executeUpdate();
-//	    }
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    if (QuestionCalculation.findById(this.getID(), bs) != null)
+	    {
+		String query = "DELETE FROM QuestionCalculation WHERE id_qc = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setInt(1,this.id);
+		p_statement.executeUpdate();
+	    }
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -489,34 +489,34 @@ public class QuestionCalculation extends Question implements iDbManager {
 	
 	QuestionCalculation questionCalculation = null;
 	
-//	try 
-//	{
-//	    String query = "SELECT * FROM QuestionCalculation WHERE id_qc = ?";
-//	    PreparedStatement p_statement = connection.prepareStatement(query);
-//	    p_statement.setInt(1,id);
-//	    
-//	    ResultSet rs = p_statement.executeQuery();
-//	    
-//	    if (rs.next())
-//	    {
-//		int idqc = rs.getInt("id_qc");
-//		String textqc = rs.getString("text_qc");
-//		int diffqc = rs.getInt("diff_qc");
-//		String operandsqc = rs.getString("operands_qc");
-//		ArrayList<Integer> alioprd = QuestionCalculation.decodeOperands(operandsqc);
-//		String operatorsqc = rs.getString("operators_qc");
-//		ArrayList<Character> alcoprr = QuestionCalculation.decodeOperators(operatorsqc);
-//		int lengthqc = rs.getInt("length_qc");
-//
-//		questionCalculation = new QuestionCalculation(idqc,textqc,diffqc,alioprd,alcoprr,lengthqc);
-//	    }
-//		    
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    String query = "SELECT * FROM QuestionCalculation WHERE id_qc = ?";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    p_statement.setInt(1,id);
+	    
+	    ResultSet rs = p_statement.executeQuery();
+	    
+	    if (rs.next())
+	    {
+		int idqc = rs.getInt("id_qc");
+		String textqc = rs.getString("text_qc");
+		int diffqc = rs.getInt("diff_qc");
+		String operandsqc = rs.getString("operands_qc");
+		ArrayList<Integer> alioprd = QuestionCalculation.decodeOperands(operandsqc);
+		String operatorsqc = rs.getString("operators_qc");
+		ArrayList<Character> alcoprr = QuestionCalculation.decodeOperators(operatorsqc);
+		int lengthqc = rs.getInt("length_qc");
+
+		questionCalculation = new QuestionCalculation(idqc,textqc,diffqc,alioprd,alcoprr,lengthqc);
+	    }
+		    
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return questionCalculation;
     }

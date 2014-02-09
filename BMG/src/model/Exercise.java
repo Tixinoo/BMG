@@ -384,28 +384,27 @@ public class Exercise implements iDbManager {
     {
         Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    String query = "INSERT INTO Exercise (id_w,title_e,type_e,diff_e,ready_e) VALUES (?,?,?,?,?)";
-//	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
-//	    p_statement.setInt(1,this.id_w);
-//	    p_statement.setString(2,this.title);
-	/*wording*/
+	try 
+	{
+	    String query = "INSERT INTO Exercise (id_w,title_e,type_e,diff_e,ready_e) VALUES (?,?,?,?,?)";
+	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+	    p_statement.setInt(1,this.wording.getId());
+	    p_statement.setString(2,this.title);
 	/*questions*/
-//	    p_statement.setString(3,this.type);
-//	    p_statement.setInt(4,this.difficulty);
-//	    p_statement.setBoolean(5,this.ready);
-//	    p_statement.executeUpdate();
-//	    ResultSet rs = p_statement.getGeneratedKeys();
-//	    
-//	    if (rs.next()) this.id = rs.getInt(1);
-//		    
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	    p_statement.setString(3,this.type);
+	    p_statement.setInt(4,this.difficulty);
+	    p_statement.setBoolean(5,this.ready);
+	    p_statement.executeUpdate();
+	    ResultSet rs = p_statement.getGeneratedKeys();
+	    
+	    if (rs.next()) this.id = rs.getInt(1);
+		    
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -414,28 +413,27 @@ public class Exercise implements iDbManager {
     {
         Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    if (this.id < 0)
-//	    {
-//		String query = "UPDATE Exercise SET (id_w = ? , title_e = ? , type_e = ? , diff_e = ? , ready_e = ?) WHERE id_e = ?";
-//		PreparedStatement p_statement = connection.prepareStatement(query);
-//		p_statement.setInt(1,this.id);
-//		p_statement.setString(2,this.title);
-	/*wording*/
+	try 
+	{
+	    if (this.id < 0)
+	    {
+		String query = "UPDATE Exercise SET (id_w = ? , title_e = ? , type_e = ? , diff_e = ? , ready_e = ?) WHERE id_e = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setInt(1,this.wording.getId());
+		p_statement.setString(2,this.title);
 	/*questions*/
-//		p_statement.setString(3,this.type);
-//		p_statement.setInt(4,this.difficulty);
-//		p_statement.setBoolean(5,this.ready);
-//		p_statement.setInt(6,this.id);
-//		p_statement.executeUpdate();
-//	    }
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+		p_statement.setString(3,this.type);
+		p_statement.setInt(4,this.difficulty);
+		p_statement.setBoolean(5,this.ready);
+		p_statement.setInt(6,this.id);
+		p_statement.executeUpdate();
+	    }
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -444,21 +442,21 @@ public class Exercise implements iDbManager {
     {
         Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    if (Exercise.findById(this.getId(),bs) != null)
-//	    {
-//		String query = "DELETE FROM Exercise WHERE id_e = ?";
-//		PreparedStatement p_statement = connection.prepareStatement(query);
-//		p_statement.setInt(1,this.id);
-//		p_statement.executeUpdate();
-//	    }
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    if (Exercise.findById(this.getId(),bs) != null)
+	    {
+		String query = "DELETE FROM Exercise WHERE id_e = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setInt(1,this.id);
+		p_statement.executeUpdate();
+	    }
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -470,36 +468,70 @@ public class Exercise implements iDbManager {
 	
 	Exercise exercise = null;
 	
-//	try 
-//	{
-//	    String query = "SELECT * FROM Exercise WHERE id_e = ?";
-//	    PreparedStatement p_statement = connection.prepareStatement(query);
-//	    p_statement.setInt(1,id);
-//	    
-//	    ResultSet rs = p_statement.executeQuery();
-//	    
-//	    if (rs.next())
-//	    {
-//		int ide = rs.getInt("id_e");
-//		int idw = rs.getInt("id_w");
-//		String titlee = rs.getString("title_e");
-	/*wording*/
+	try 
+	{
+	    String query = "SELECT * FROM Exercise WHERE id_e = ?";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    p_statement.setInt(1,id);
+	    
+	    ResultSet rs = p_statement.executeQuery();
+	    
+	    if (rs.next())
+	    {
+		int ide = rs.getInt("id_e");
+		int idw = rs.getInt("id_w");
+		String titlee = rs.getString("title_e");
 	/*questions*/
-//		String typee = rs.getString("type_e");
-//		String diffe = rs.getString("diff_e");
-//		String readye = rs.getString("ready_e");
-//	    
-//		exercise = new Exercise(ide,idw,titlee,typee,diffe,readye);
-//	    }
-//		    
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+		String typee = rs.getString("type_e");
+		int diffe = rs.getInt("diff_e");
+		int readye = rs.getInt("ready_e"); 
+		boolean readye_b = false; if (readye == 1) readye_b = true; 
+		Wording wordinge = Wording.findById(idw, bs);
+	    
+		exercise = new Exercise(ide,titlee,wordinge,new ArrayList<Question>(),typee,diffe,readye_b);
+	    }
+		    
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return exercise;
+    }
+    
+    public static ArrayList<Question> findById_AllQuestions(int id, BaseSetting bs)
+    {
+	Connection connection = bs.getConnection();
+	
+	ArrayList<Question> alq = new ArrayList<Question>();
+	
+	try 
+	{
+	    String query = "SELECT * FROM Contains WHERE id_e = ?";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    p_statement.setInt(1,id);
+	    
+	    ResultSet rs = p_statement.executeQuery();
+	    
+	    while (rs.next())
+	    {
+		int idq = rs.getInt("id_q");
+		
+		if (QuestionCalculation.findById(idq, bs) != null); alq.add(QuestionCalculation.findById(idq, bs));
+		if (QuestionFraction.findById(idq, bs) != null); alq.add(QuestionFraction.findById(idq, bs));
+		if (QuestionEquation.findById(idq, bs) != null); alq.add(QuestionEquation.findById(idq, bs));
+	    }
+		    
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
+	
+	return alq;
     }
 
     // ----------------------

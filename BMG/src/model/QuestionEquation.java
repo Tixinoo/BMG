@@ -1,5 +1,6 @@
 package model;
 
+import database.BaseSetting;
 import java.util.*;
 
 public class QuestionEquation extends Question {
@@ -257,21 +258,25 @@ public class QuestionEquation extends Question {
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
-    public String insert() {
-        return "";
+    public boolean insert(BaseSetting bs) 
+    {
+        return false;
     }
 
-    public String update() {
-        return "";
+    public boolean update(BaseSetting bs) 
+    {
+        return false;
     }
 
-    public String delete() {
-        return "";
+    public boolean delete(BaseSetting bs) 
+    {
+        return false;
     }
 
     /* FINDERS */
-    public static String findById(int id) {
-        return "";
+    public static QuestionEquation findById(int id, BaseSetting bs) 
+    {
+        return null;
     }
 
     // ----------------------

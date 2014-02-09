@@ -333,23 +333,23 @@ public class Wording implements iDbManager {
     {
 	Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    String query = "INSERT INTO Wording (text_w,values_w) VALUE (?,?)";
-//	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
-//	    p_statement.setString(1,""+this.text+"");
-//	    p_statement.setString(2,""+this.encodeValues()+"");
-//	    p_statement.executeUpdate();
-//	    ResultSet rs = p_statement.getGeneratedKeys();
-//	    
-//	    if (rs.next()) this.id = rs.getInt(1);
-//		    
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    String query = "INSERT INTO Wording (text_w,values_w) VALUE (?,?)";
+	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
+	    p_statement.setString(1,""+this.text+"");
+	    p_statement.setString(2,""+this.encodeValues()+"");
+	    p_statement.executeUpdate();
+	    ResultSet rs = p_statement.getGeneratedKeys();
+	    
+	    if (rs.next()) {this.id = rs.getInt(1); System.out.println(""+this.id);}
+		    
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -358,23 +358,23 @@ public class Wording implements iDbManager {
     {
 	Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    if (this.id < 0)
-//	    {
-//		String query = "UPDATE Wording SET (text_w = ? , values_w = ?) WHERE id_w = ?";
-//		PreparedStatement p_statement = connection.prepareStatement(query);
-//		p_statement.setString(1,this.text);
-//		p_statement.setString(2,this.encodeValues());
-//		p_statement.setInt(3,this.id);
-//		p_statement.executeUpdate();
-//	    }
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    if (this.id < 0)
+	    {
+		String query = "UPDATE Wording SET (text_w = ? , values_w = ?) WHERE id_w = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setString(1,this.text);
+		p_statement.setString(2,this.encodeValues());
+		p_statement.setInt(3,this.id);
+		p_statement.executeUpdate();
+	    }
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -383,21 +383,21 @@ public class Wording implements iDbManager {
     {
 	Connection connection = bs.getConnection();
 	
-//	try 
-//	{
-//	    if (Wording.findById(this.getId(),bs) != null)
-//	    {
-//		String query = "DELETE FROM Wording WHERE id_w = ?";
-//		PreparedStatement p_statement = connection.prepareStatement(query);
-//		p_statement.setInt(1,this.id);
-//		p_statement.executeUpdate();
-//	    }
-//	}  
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    if (Wording.findById(this.getId(),bs) != null)
+	    {
+		String query = "DELETE FROM Wording WHERE id_w = ?";
+		PreparedStatement p_statement = connection.prepareStatement(query);
+		p_statement.setInt(1,this.id);
+		p_statement.executeUpdate();
+	    }
+	}  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return true;
     }
@@ -409,29 +409,29 @@ public class Wording implements iDbManager {
 	
 	Wording wording = null;
 	
-//	try 
-//	{
-//	    String query = "SELECT * FROM Wording WHERE id_w = ?";
-//	    PreparedStatement p_statement = connection.prepareStatement(query);
-//	    p_statement.setInt(1,id);
-//	    
-//	    ResultSet rs = p_statement.executeQuery();
-//	    
-//	    if (rs.next())
-//	    {
-//		int idw = rs.getInt("id_w");
-//		String textw = rs.getString("text_w");
-//		String valuesw = rs.getString("values_w");
-//	    
-//		wording = new Wording(idw,textw,Wording.decodeValues(valuesw));
-//	    }
-//		    
-//	} 
-//	catch (SQLException sqle) 
-//	{
-//	    System.out.println("ERREUR");
-//	    sqle.printStackTrace();
-//	}
+	try 
+	{
+	    String query = "SELECT * FROM Wording WHERE id_w = ?";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    p_statement.setInt(1,id);
+	    
+	    ResultSet rs = p_statement.executeQuery();
+	    
+	    if (rs.next())
+	    {
+		int idw = rs.getInt("id_w");
+		String textw = rs.getString("text_w");
+		String valuesw = rs.getString("values_w");
+	    
+		wording = new Wording(idw,textw,Wording.decodeValues(valuesw));
+	    }
+		    
+	} 
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return wording;
     }
