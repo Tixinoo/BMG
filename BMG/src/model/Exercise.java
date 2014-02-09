@@ -421,7 +421,14 @@ public class Exercise implements iDbManager {
 		PreparedStatement p_statement = connection.prepareStatement(query);
 		p_statement.setInt(1,this.wording.getId());
 		p_statement.setString(2,this.title);
-	/*questions*/
+	
+	/*
+	questions : 
+	parcours de la liste de questions avec recupperation de l'id chaque question 
+	et 
+	insertion dans contains du couple (ide,idq) avec ide constant et idq de variant
+	*/
+		
 		p_statement.setString(3,this.type);
 		p_statement.setInt(4,this.difficulty);
 		p_statement.setBoolean(5,this.ready);
