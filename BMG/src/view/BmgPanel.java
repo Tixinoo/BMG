@@ -5,8 +5,8 @@
  */
 package view;
 
+// Here all imports needed for this class.
 import java.awt.BorderLayout;
-import java.awt.LayoutManager;
 import javax.swing.JPanel;
 
 /**
@@ -14,24 +14,25 @@ import javax.swing.JPanel;
  * @author Maxime Blaise
  */
 public class BmgPanel extends JPanel {
+    /**
+     * Center panel.
+     */
     JPanel pan = new JPanel();
-
-
+    
     /**
      * Constructeur qui se charge de créer la structure d'un panel.
-     * @param panMenu
-     * @param panCenter
-     * @param panSouth 
+     * @param fen
+     * @param pan
      */
     public BmgPanel(BmgFrame fen, JPanel pan) {
         //Initialisation du panel et de ses attributs
         super(new BorderLayout());
-        
-       
+  
         //Ajout des panels au panel principal
         this.add(fen.panMenu, BorderLayout.NORTH);
         this.add(pan, BorderLayout.CENTER);
         this.add(fen.panSouth, BorderLayout.SOUTH);
+        
         repaint();
     }
     

@@ -1,5 +1,6 @@
 package view;
 
+// Here all imports needed for this class.
 import javax.swing.JPanel;
 
 /**
