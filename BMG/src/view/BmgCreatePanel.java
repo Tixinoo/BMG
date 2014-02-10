@@ -142,12 +142,12 @@ public class BmgCreatePanel {
 
     /**
      * This method create the panel sign in.
-     * 
+     *
      * @param fen
      * @param bs
      * @param width
      * @param height
-     * @return 
+     * @return
      */
     public static JPanel createPanelSignin(final BmgFrame fen, final BaseSetting bs, int width, int height) {
         //Some settings of this panel.
@@ -165,13 +165,13 @@ public class BmgCreatePanel {
         JPanel panCenter = new JPanel();
         panCenter.setLayout(new GridLayout(2, 2));
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
-        
+
         //TextField
         JTextField[] jtfs = {
             new JTextField(15),
             new JTextField(15),};
         //Labels
-        
+
         JLabel[] labels = {
             new JLabel("Email address : "),
             new JLabel("Password : "),};
@@ -206,17 +206,33 @@ public class BmgCreatePanel {
         return pan;
     }
 
+    /**
+     * This method create the panel sign up
+     * 
+     * @param fen
+     * @param bs
+     * @param width
+     * @param height
+     * @return 
+     */
     public static JPanel createPanelSignup(BmgFrame fen, final BaseSetting bs, int width, int height) {
-        JPanel pan = new JPanel();
+        //Some settings
         int nb = 2;
+        String labelcolor = "red";
+        
+        //Create panel
+        JPanel pan = new JPanel();
 
-        BmgLabel label = new BmgLabel("Sign up now, for free of course : ", "red");
+        BmgLabel label = new BmgLabel("Sign up now, for free of course : ", labelcolor);
         label.setPreferredSize(new Dimension(width - 100, (height - 100) / (2 * nb)));
         pan.add(label, BorderLayout.NORTH);
 
+        //Center panel
         JPanel panCenter = new JPanel();
         panCenter.setLayout(new GridLayout(6, 2));
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
+        
+        //TextFields
         JTextField[] jtfs = {
             new JTextField(15),
             new JTextField(15),
@@ -225,6 +241,8 @@ public class BmgCreatePanel {
             new JTextField(15),
             new JTextField(15)
         };
+        
+        //Labels
         JLabel[] labels = {
             new JLabel(""),
             new JLabel(""),
@@ -234,11 +252,13 @@ public class BmgCreatePanel {
             new JLabel("")
         };
 
+        //Add components to panel
         for (int i = 0; i < labels.length; i++) {
             panCenter.add(labels[i]);
             panCenter.add(jtfs[i]);
         }
 
+        //Create panSouth, with button
         JPanel panSouth = new JPanel();
         panSouth.setLayout(new BorderLayout());
 
@@ -247,28 +267,44 @@ public class BmgCreatePanel {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Sign up success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+                actionSignUp();
 
             }
         });
 
         panSouth.add(buttonSignup, BorderLayout.NORTH);
 
+        //Add to panel sign up
         pan.add(panCenter, BorderLayout.CENTER);
         pan.add(panSouth, BorderLayout.SOUTH);
 
         return pan;
     }
 
+    /**
+     * This method create the panel settings.
+     * 
+     * @param fen
+     * @param bs
+     * @param width
+     * @param height
+     * @return 
+     */
     public static JPanel createPanelSettings(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+        //Some settings
         int nb = 2;
+        
+        //Create panel
         JPanel pan = new JPanel();
+        
         JLabel label = new JLabel("");
         label.setPreferredSize(new Dimension(width - 100, (height - 100) / (nb * 2)));
+          
+        //Center Panel
         JPanel panCenter = new JPanel();
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
 
+        //TextFields
         final JTextField[] jtfs = {
             new JTextField(15),
             new JTextField(15),
@@ -277,6 +313,8 @@ public class BmgCreatePanel {
             new JTextField(15),
             new JTextField(15)
         };
+        
+        //Labels
         JLabel[] labels = {
             new JLabel("Pilote : "),
             new JLabel("Driver : "),
@@ -286,12 +324,14 @@ public class BmgCreatePanel {
             new JLabel("Url : ")
         };
 
+        //Add components to panel
         panCenter.setLayout(new GridLayout(6, 2));
         for (int i = 0; i < jtfs.length; i++) {
             panCenter.add(labels[i]);
             panCenter.add(jtfs[i]);
         }
 
+        //Button and label, to register
         JButton buttonConfirm = new JButton("Register information");
         final BmgLabel labelRes = new BmgLabel("Waiting ...", "green");
         buttonConfirm.addActionListener(new ActionListener() {
@@ -300,10 +340,12 @@ public class BmgCreatePanel {
             public void actionPerformed(ActionEvent ae) {
                 new BaseInformation(jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText(), jtfs[5].getText());
                 JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Registration success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Registration success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
                 bs.setInfo();
             }
         });
+        
+        //Button and label, to test
         JButton buttonTest = new JButton("Connexion test");
         final BmgLabel labelTest = new BmgLabel("Waiting ...", "red");
         buttonTest.addActionListener(new ActionListener() {
@@ -324,6 +366,7 @@ public class BmgCreatePanel {
 
         });
 
+        //
         jtfs[0].setText(bs.getBi().getDriver());
         jtfs[1].setText(bs.getBi().getNamedriver());
         jtfs[2].setText(bs.getBi().getDbname());
@@ -331,24 +374,35 @@ public class BmgCreatePanel {
         jtfs[4].setText(bs.getBi().getPassword());
         jtfs[5].setText(bs.getBi().getUrl());
 
-        pan.add(label, BorderLayout.NORTH);
-        pan.add(panCenter, BorderLayout.CENTER);
-
+        //PanSouth, with button confirm and test
         JPanel panSouth = new JPanel();
         panSouth.add(buttonConfirm);
         panSouth.add(buttonTest);
+        
+        
+        //Add panels to main panel
+        pan.add(label, BorderLayout.NORTH);
+        pan.add(panCenter, BorderLayout.CENTER); 
         pan.add(panSouth, BorderLayout.SOUTH);
+        
         return pan;
     }
 
+    /**
+     * Test connection and print a popup which print result.
+     * 
+     * @param bs 
+     */
     public static void testConnection(BaseSetting bs) {
 
         JOptionPane jop = new JOptionPane();
+        
         if (bs.testerConnexion()) {
-            jop.showMessageDialog(null, "Success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
+            //Success
+            JOptionPane.showMessageDialog(null, "Success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            jop.showMessageDialog(null, "Error !", "Database Connexion", JOptionPane.ERROR_MESSAGE);
-
+            //Error
+            JOptionPane.showMessageDialog(null, "Error !", "Database Connexion", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -376,15 +430,23 @@ public class BmgCreatePanel {
 
     /**
      * This method is called when user push sign in button.
+     * 
      */
     public static void actionSignIn() {
         JOptionPane jop = new JOptionPane();
         JOptionPane.showMessageDialog(null, "Sign in success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
     }
-   
-    
+
+    /**
+     * This method is called when user push sign up button.
+     * 
+     */
+    public static void actionSignUp() {
+        JOptionPane jop = new JOptionPane();
+        JOptionPane.showMessageDialog(null, "Sign up success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+    }
     //Old code, but still useful sometimes.
-    
+
     /* public static JPanel createMainPanel2(int width, int height) {
      JPanel panPrincipal = new JPanel();
      panPrincipal.setLayout(new BorderLayout());
