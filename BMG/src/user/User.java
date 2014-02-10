@@ -20,6 +20,7 @@ package user;
 
 import database.BaseSetting;
 import database.Database;
+import exceptions.AccessDeniedException;
 import interfaces.iDbManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -315,7 +316,7 @@ public class User implements iDbManager
 	return b;
     }
     
-    public static boolean setConnected(BaseSetting bs, String eml, String pswd)
+    public static boolean setConnected(BaseSetting bs, String eml, String pswd) throws AccessDeniedException
     {
 	boolean b = false;
 	
@@ -325,6 +326,10 @@ public class User implements iDbManager
 	    u.setConnected_u(1);
 	    b = u.update(bs);
 	    b = (User.findById(u.getId_u(), bs).isConnected_u() == 1);
+	}
+	else
+	{
+	    throw new AccessDeniedException("Wrong combination of login/password!");
 	}
 	
 	return b;
