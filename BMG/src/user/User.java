@@ -329,7 +329,7 @@ public class User implements iDbManager
 	}
 	else
 	{
-	    throw new AccessDeniedException("Wrong combination of login/password!");
+	    throw new AccessDeniedException("Wrong combination of login/password or unknown user!");
 	}
 	
 	return b;
