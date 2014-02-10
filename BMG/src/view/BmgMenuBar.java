@@ -48,7 +48,8 @@ public class BmgMenuBar extends JMenuBar {
         super();
         this.fen = fen;
 
-        buttonIndex.setPreferredSize(new Dimension(40,40));
+        buttonIndex.setMaximumSize(new Dimension(40,40));
+        
         setMenuSettings(fen.width);
     }
 

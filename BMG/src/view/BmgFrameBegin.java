@@ -50,8 +50,7 @@ public class BmgFrameBegin {
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    JOptionPane jop = new JOptionPane();
-                    jop.showMessageDialog(null, "Maybe Connected, or not", "Connexion...", JOptionPane.INFORMATION_MESSAGE);
+                    BmgCreatePanel.actionSignIn();
 
                     fermer();
                 }

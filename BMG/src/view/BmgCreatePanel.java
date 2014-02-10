@@ -5,6 +5,7 @@
  */
 package view;
 
+// Here all imports needed for this class.
 import database.BaseInformation;
 import database.BaseSetting;
 import java.awt.BorderLayout;
@@ -12,9 +13,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.accessibility.AccessibleRole;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -22,25 +21,35 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
+ * class BmgCreatePanel
  *
- * @author blaise
+ * @author Maxime Blaise
  */
 public class BmgCreatePanel {
 
+    /**
+     * Simply empty constructor, because this class contains only static method.
+     */
     public BmgCreatePanel() {
+
     }
 
     /**
      * This method create the main panel.
      *
+     * @param fen
+     * @param bs
      * @param width
      * @param height
      * @return
      */
     public static JPanel createMainPanel(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+        // Some settings for this panel, size, color ...
         int nb = 5;
         String colortitle = "green";
         String colortext = "black";
+
+        //Create the main panel
         JPanel pan = new JPanel();
 
         //Panel Exercises
@@ -48,9 +57,13 @@ public class BmgCreatePanel {
         panExercises.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
         panExercises.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: " + colortitle + ";\">Training with exercises !</p></html>"));
         panExercises.setLayout(new GridLayout(2, 2));
+
+        //Button Generate in panel Exercises.
         panExercises.add(new BmgLabel("Automatically generate exercises : ", colortext));
         BmgButton bgenerate = new BmgButton("Generate");
         panExercises.add(bgenerate);
+
+        //Button Practice in panel Exercises.
         panExercises.add(new BmgLabel("Let's practice here : ", colortext));
         BmgButton bpractice = new BmgButton("Practice");
         panExercises.add(bpractice);
@@ -60,9 +73,22 @@ public class BmgCreatePanel {
         panAccount.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
         panAccount.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: " + colortitle + ";\">Account setting !</p></html>"));
         panAccount.setLayout(new GridLayout(2, 2));
+
+        //Add label
         panAccount.add(new BmgLabel("Sign in here : ", colortext));
+
+        //Button Sign in in panel Account
         BmgButton bsignin = new BmgButton("Sign in");
+        bsignin.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panSignin);
+            }
+        });
         panAccount.add(bsignin);
+
+        //Button Sign up in panel Account
         panAccount.add(new BmgLabel("You should create an account if you don't have ", colortext));
         BmgButton bsignup = new BmgButton("Sign up now !");
         bsignup.addActionListener(new ActionListener() {
@@ -79,7 +105,11 @@ public class BmgCreatePanel {
         panSettings.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
         panSettings.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: " + colortitle + ";\">Database setting !</p></html>"));
         panSettings.setLayout(new GridLayout(2, 2));
+
+        //Add label
         panSettings.add(new BmgLabel("Change database settings : ", colortext));
+
+        //Button Setting in panel Database Settings
         BmgButton bsettings = new BmgButton("Settings");
         bsettings.addActionListener(new ActionListener() {
 
@@ -89,59 +119,87 @@ public class BmgCreatePanel {
             }
         });
         panSettings.add(bsettings);
+
+        //Add label and button test in panel Database settings
         panSettings.add(new BmgLabel("Test your database connexion : ", colortext));
         BmgButton btest = new BmgButton("-->Test");
+        btest.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                testConnection(bs);
+            }
+        });
         panSettings.add(btest);
 
+        //Add all panels in main panel
         pan.add(panExercises);
         pan.add(panAccount);
         pan.add(panSettings);
+
         return pan;
     }
-    
-    public static JPanel createPanelSignin(BmgFrame fen, final BaseSetting bs, int width, int height) {
-        JPanel pan = new JPanel();
-        int nb = 4;
 
-        BmgLabel label = new BmgLabel("You have an account ? Sign in now ", "red");
-        label.setPreferredSize(new Dimension(width-100, (height - 100) / (2*nb)));
+    /**
+     * This method create the panel sign in.
+     * 
+     * @param fen
+     * @param bs
+     * @param width
+     * @param height
+     * @return 
+     */
+    public static JPanel createPanelSignin(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+        //Some settings of this panel.
+        int nb = 6;
+        String labelcolor = "red";
+
+        //Create this panel here
+        JPanel pan = new JPanel();
+
+        BmgLabel label = new BmgLabel("You have an account ? Sign in now ", labelcolor);
+        label.setPreferredSize(new Dimension(width - 100, (height - 100) / (5 * nb)));
         pan.add(label, BorderLayout.NORTH);
 
+        //Center panel, in which user can put information.
         JPanel panCenter = new JPanel();
         panCenter.setLayout(new GridLayout(2, 2));
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
+        
+        //TextField
         JTextField[] jtfs = {
             new JTextField(15),
-            new JTextField(15),
-            
-        };
+            new JTextField(15),};
+        //Labels
+        
         JLabel[] labels = {
             new JLabel("Email address : "),
-            new JLabel("Password : "),
-            
-        };
-        
-        for(int i=0;i<labels.length;i++) {
+            new JLabel("Password : "),};
+
+        //Add text field and label into panels.
+        for (int i = 0; i < labels.length; i++) {
             panCenter.add(labels[i]);
             panCenter.add(jtfs[i]);
         }
-        
+
+        //Create panel South , just for the moment a button.
         JPanel panSouth = new JPanel();
         panSouth.setLayout(new BorderLayout());
-        
+
+        //Button sign in
         BmgButton buttonSignin = new BmgButton("Sign in now !");
         buttonSignin.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(null, "Sign in success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
-                
+                actionSignIn();
+
             }
         });
-        
+
         panSouth.add(buttonSignin, BorderLayout.NORTH);
-       
+
+        //Add all panels into main panel.
         pan.add(panCenter, BorderLayout.CENTER);
         pan.add(panSouth, BorderLayout.SOUTH);
 
@@ -153,7 +211,7 @@ public class BmgCreatePanel {
         int nb = 2;
 
         BmgLabel label = new BmgLabel("Sign up now, for free of course : ", "red");
-        label.setPreferredSize(new Dimension(width-100, (height - 100) / (2*nb)));
+        label.setPreferredSize(new Dimension(width - 100, (height - 100) / (2 * nb)));
         pan.add(label, BorderLayout.NORTH);
 
         JPanel panCenter = new JPanel();
@@ -175,15 +233,15 @@ public class BmgCreatePanel {
             new JLabel(""),
             new JLabel("")
         };
-        
-        for(int i=0;i<labels.length;i++) {
+
+        for (int i = 0; i < labels.length; i++) {
             panCenter.add(labels[i]);
             panCenter.add(jtfs[i]);
         }
-        
+
         JPanel panSouth = new JPanel();
         panSouth.setLayout(new BorderLayout());
-        
+
         BmgButton buttonSignup = new BmgButton("Sign up now !");
         buttonSignup.addActionListener(new ActionListener() {
 
@@ -191,12 +249,12 @@ public class BmgCreatePanel {
             public void actionPerformed(ActionEvent ae) {
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Sign up success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
-                
+
             }
         });
-        
+
         panSouth.add(buttonSignup, BorderLayout.NORTH);
-       
+
         pan.add(panCenter, BorderLayout.CENTER);
         pan.add(panSouth, BorderLayout.SOUTH);
 
@@ -255,14 +313,7 @@ public class BmgCreatePanel {
                 new BaseInformation(jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText(), jtfs[5].getText());
 
                 bs.setInfo();
-
-                JOptionPane jop = new JOptionPane();
-                if (bs.testerConnexion()) {
-                    jop.showMessageDialog(null, "Success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    jop.showMessageDialog(null, "Error !", "Database Connexion", JOptionPane.ERROR_MESSAGE);
-
-                }
+                testConnection(bs);
 
                 /*if(bs.testerConnexion()) {
                  labelTest.set("Success !!");
@@ -270,6 +321,7 @@ public class BmgCreatePanel {
                  labelTest.set("Error !!");
                  }*/
             }
+
         });
 
         jtfs[0].setText(bs.getBi().getDriver());
@@ -289,25 +341,49 @@ public class BmgCreatePanel {
         return pan;
     }
 
+    public static void testConnection(BaseSetting bs) {
+
+        JOptionPane jop = new JOptionPane();
+        if (bs.testerConnexion()) {
+            jop.showMessageDialog(null, "Success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            jop.showMessageDialog(null, "Error !", "Database Connexion", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }
+
     /**
-     * Method who create panel AboutUs, which print some information about our team.
+     * Method who create panel AboutUs, which print some information about our
+     * team.
+     *
      * @param fen
      * @param bs
      * @param width
      * @param height
-     * @return 
+     * @return
      */
     public static JPanel createPanelAboutUs(final BmgFrame fen, final BaseSetting bs, int width, int height) {
         JPanel pan = new JPanel();
-        
+
         String s = "<span style=\"color: red;\">About us : </span><br/><br/>";
         s += "We are 4 students of Technical High School called Université de Lorraine, in french.<br/>";
         s += "And I have no idea to continue this label ...";
-        
+
         pan.add(new BmgLabel(s, "blue"));
-        
+
         return pan;
     }
+
+    /**
+     * This method is called when user push sign in button.
+     */
+    public static void actionSignIn() {
+        JOptionPane jop = new JOptionPane();
+        JOptionPane.showMessageDialog(null, "Sign in success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+    }
+   
+    
+    //Old code, but still useful sometimes.
     
     /* public static JPanel createMainPanel2(int width, int height) {
      JPanel panPrincipal = new JPanel();
