@@ -14,10 +14,8 @@ import javax.swing.JPanel;
  * @author Maxime Blaise
  */
 public class BmgPanel extends JPanel {
+    JPanel pan = new JPanel();
 
-    private JPanel panMenu;
-    private JPanel panCenter;
-    private JPanel panSouth;
 
     /**
      * Constructeur qui se charge de créer la structure d'un panel.
@@ -25,17 +23,17 @@ public class BmgPanel extends JPanel {
      * @param panCenter
      * @param panSouth 
      */
-    public BmgPanel(JPanel panMenu, JPanel panCenter, JPanel panSouth) {
+    public BmgPanel(BmgFrame fen, JPanel pan) {
         //Initialisation du panel et de ses attributs
         super(new BorderLayout());
-        this.panMenu = panMenu;
-        this.panCenter = panCenter;
-        this.panSouth = panSouth;
-
+        
+       
         //Ajout des panels au panel principal
-        this.add(this.panMenu, BorderLayout.NORTH);
-        this.add(this.panCenter, BorderLayout.CENTER);
-        this.add(this.panSouth, BorderLayout.SOUTH);
+        this.add(fen.panMenu, BorderLayout.NORTH);
+        this.add(pan, BorderLayout.CENTER);
+        this.add(fen.panSouth, BorderLayout.SOUTH);
+        repaint();
     }
-
+    
+    
 }

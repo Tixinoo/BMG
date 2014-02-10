@@ -19,17 +19,21 @@ import javax.swing.JPanel;
  * @author blaise
  */
 public class BmgFrame extends JFrame {
-    
+
     BaseSetting bs = new BaseSetting();
     int width;
     int height;
 
-    JPanel panSouth = new JPanel();
-    static BmgPanel panMain;
-    static BmgPanel panSettings;
-    static BmgPanel panSignup;
-    static BmgPanel panSignin;
-    static BmgPanel panAboutUs;
+    BmgPanelMenu panMenu;
+    BmgPanelSouth panSouth;
+
+    BmgPanel pan;
+
+    static JPanel panMain;
+    static JPanel panSettings;
+    static JPanel panSignup;
+    static JPanel panSignin;
+    static JPanel panAboutUs;
 
     /**
      * Constructor who create the main window of BMG.
@@ -41,6 +45,9 @@ public class BmgFrame extends JFrame {
         this.width = width;
         this.height = height;
 
+        panMenu = new BmgPanelMenu(fen());
+        panSouth = new BmgPanelSouth(width);
+
         setAllPanels();
         setFrameSettings();
     }
@@ -49,11 +56,11 @@ public class BmgFrame extends JFrame {
      * This method aims at creating all panels at the beginning.
      */
     private void setAllPanels() {
-        panMain = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createMainPanel(fen(), bs, width, height), new BmgPanelSouth(width));
-        panSettings = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSettings(fen(), bs, width, height), new BmgPanelSouth(width));
-        panSignup = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSignup(fen(), bs, width, height), new BmgPanelSouth(width));
-        panSignin = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelSignin(fen(), bs, width, height), new BmgPanelSouth(width));
-        panAboutUs = new BmgPanel(new BmgPanelMenu(fen()), BmgCreatePanel.createPanelAboutUs(fen(), bs, width, height), new BmgPanelSouth(width));
+        panMain = BmgCreatePanel.createMainPanel(fen(), bs, width, height);
+        panSettings = BmgCreatePanel.createPanelSettings(fen(), bs, width, height);
+        panSignin = BmgCreatePanel.createPanelSignin(fen(), bs, width, height);
+        panSignup = BmgCreatePanel.createPanelSignup(fen(), bs, width, height);
+        panAboutUs = BmgCreatePanel.createPanelAboutUs(fen(), bs, width, height);
     }
 
     /**
@@ -74,9 +81,9 @@ public class BmgFrame extends JFrame {
         return this;
     }
 
-    public void setPanel(JPanel pan) {
-        
-        this.setContentPane(pan);
+    public void setPanel(JPanel panel) {
+
+        this.setContentPane(new BmgPanel(fen(), panel));
         this.pack();
     }
 
