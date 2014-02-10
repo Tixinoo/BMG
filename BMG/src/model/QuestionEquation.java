@@ -38,14 +38,25 @@ public class QuestionEquation extends Question {
      */
     public QuestionEquation() {
         super();
-
+        this.text = "Solve.";
+        this.difficulty = 0;
+        this.operands = new ArrayList<Integer>();
+        this.unknowns = new ArrayList<Boolean>();
+        this.operators = new ArrayList<Character>();
+        this.length = 0;
     }
 
     /**
      * This constructor creates a question with the text given in parameter
      */
     public QuestionEquation(String QCtext) {
-
+        super();
+        this.text = QCtext;
+        this.difficulty = 0;
+        this.operands = new ArrayList<Integer>();
+        this.unknowns = new ArrayList<Boolean>();
+        this.operators = new ArrayList<Character>();
+        this.length = 0;
     }
 
     /**
@@ -53,7 +64,13 @@ public class QuestionEquation extends Question {
      * given in parameters
      */
     public QuestionEquation(String QCtext, int QCdifficulty) {
-
+        super();
+        this.text = QCtext;
+        this.difficulty = QCdifficulty;
+        this.operands = new ArrayList<Integer>();
+        this.unknowns = new ArrayList<Boolean>();
+        this.operators = new ArrayList<Character>();
+        this.length = 0;
     }
 
     // ----------------------
@@ -66,7 +83,21 @@ public class QuestionEquation extends Question {
      * Generate a random question with an equation
      */
     public void generate() {
-
+        char[] possible_operators = {'+', '-', '*', '/'};
+        this.length = (int) (Math.random() * 10) + 2;
+        System.out.println("	Random length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                if (i < this.length - 2) {
+                    this.unknowns.add(Math.random() < 0.3);
+                    this.operators.add(possible_operators[(int) (Math.random() * 4)]);
+                } else {
+                    this.unknowns.add(true);
+                    this.operators.add('=');
+                }
+            }
+        }
     }
 
     /**
@@ -74,7 +105,24 @@ public class QuestionEquation extends Question {
      * parameter
      */
     public void generate(int QClength) {
-
+        char[] possible_operators = {'+', '-', '*', '/'};
+        this.length = 2;
+        if (QClength > 2) {
+            this.length = QClength;
+        }
+        System.out.println("	Random length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                if (i < this.length - 2) {
+                    this.unknowns.add(Math.random() < 0.3);
+                    this.operators.add(possible_operators[(int) (Math.random() * 4)]);
+                } else {
+                    this.unknowns.add(true);
+                    this.operators.add('=');
+                }
+            }
+        }
     }
 
     /**
@@ -89,9 +137,24 @@ public class QuestionEquation extends Question {
      * Display a question with an equation
      */
     public String toString() {
-        String res = "		QuestionEquation";
-        res = res + "\n			Text: " + this.text;
-        res = res + "\n			Difficulty: " + this.difficulty;
+        String res = "      QuestionEquation";
+        res = res + "\n         Text: " + this.text;
+        res = res + "\n         Difficulty: " + this.difficulty;
+        res = res + "\n         Operands: " + this.operands;
+        res = res + "\n         Operators: " + this.operators;
+        res = res + "\n         Unknowns: " + this.unknowns;
+        res = res + "\n         Length: " + this.length;
+        Iterator<Integer> it_operands = this.operands.iterator();
+        Iterator<Character> it_operators = this.operators.iterator();
+        Iterator<Boolean> it_unknowns = this.unknowns.iterator();
+        res = res + it_operands.next();
+        while (it_operands.hasNext()) {
+            res = res + it_operators.next();
+            if (it_unknowns.next()) {
+                res = res + "x";
+            }
+            res = res + it_operands.next();
+        }
         return res;
     }
 

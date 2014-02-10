@@ -82,25 +82,23 @@ public class QuestionCalculation extends Question implements iDbManager {
         this.length = 0;
     }
 
-    QuestionCalculation(String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc)
-    {
-	super();
-	text = textqc;
-	difficulty = diffqc;
-	operands = operandsqc;
-	operators = operatorsqc;
-	length = lengthqc;
+    QuestionCalculation(String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc) {
+        super();
+        this.text = textqc;
+        this.difficulty = diffqc;
+        this.operands = operandsqc;
+        this.operators = operatorsqc;
+        this.length = lengthqc;
     }
     
-    QuestionCalculation(int idqc, String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc)
-    {
-	super();
-	id = idqc;
-	text = textqc;
-	difficulty = diffqc;
-	operands = operandsqc;
-	operators = operatorsqc;
-	length = lengthqc;
+    QuestionCalculation(int idqc, String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc) {
+        super();
+        this.id = idqc;
+        this.text = textqc;
+        this.difficulty = diffqc;
+        this.operands = operandsqc;
+        this.operators = operatorsqc;
+        this.length = lengthqc;
     }
 
     // ----------------------
