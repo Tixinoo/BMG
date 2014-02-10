@@ -6,16 +6,22 @@
 
 package view;
 
+// Here all imports needed for this class.
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JButton;
 
 /**
  *
- * @author Maxime
+ * @author Maxime Blaise
  */
 public class BmgButton extends JButton {
     
+    /**
+     * Constructor which set default PreferredSize and background color.
+     *
+     * @param name 
+     */
     public BmgButton(String name) {
         super(name);
         
@@ -23,6 +29,14 @@ public class BmgButton extends JButton {
         this.setBackground(Color.green);
     }
     
+    /**
+     * Create a button with width, height and color given.
+     * 
+     * @param name
+     * @param width
+     * @param height
+     * @param color 
+     */
     public BmgButton(String name, int width, int height, Color color) {
         super(name);
         
