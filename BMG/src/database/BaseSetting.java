@@ -21,7 +21,7 @@ public class BaseSetting {
     private ResultSet result_set;
 
     public BaseSetting() {
-         if(testerConnexion()) System.out.println("Connexion console ok");
+         //if(testerConnexion()) System.out.println("Connexion console ok");
     }
     
     public void setInfo() {
@@ -35,15 +35,15 @@ public class BaseSetting {
             url = "jdbc:" + bi.getDriver() + ":" + bi.getUrl() + "/" + bi.getDbname();
         }
         try {
-            System.out.println("url = " + url);
+            /*System.out.println("url = " + url);
             System.out.println("login = " + bi.getLogin());
-            System.out.println("pass = " + bi.getPassword());
+            System.out.println("pass = " + bi.getPassword());*/
             Class.forName(driver);
             connection = DriverManager.getConnection(url, bi.getLogin(), bi.getPassword());
             return true;
         } catch (Exception e) {
-            System.out.println("Exception : connexion");
-            e.printStackTrace();
+            /*System.out.println("Exception : connexion");
+            e.printStackTrace();*/
         }
         return false;
     }

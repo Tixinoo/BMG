@@ -27,6 +27,10 @@ public class BmgMenuBar extends JMenuBar {
     JMenu menuExercises = new JMenu("Exercises");
     JMenuItem itemGenerate = new JMenuItem("Generate");
     JMenuItem itemPractice = new JMenuItem("Practice");
+    JMenuItem itemSolve = new JMenuItem("Solve");
+    JMenuItem itemImport = new JMenuItem("Import");
+    JMenuItem itemExport = new JMenuItem("Export");
+    JMenuItem itemEdit = new JMenuItem("Edit");
 
     JMenu menuAccount = new JMenu("Account");
     JMenuItem itemSignIn = new JMenuItem("Sign in");
@@ -61,7 +65,7 @@ public class BmgMenuBar extends JMenuBar {
         this.setPreferredSize(new Dimension(width, 40));
 
         setIndexSettings();
-        
+
         setMenuExercisesSettings();
 
         setMenuAccountSettings();
@@ -75,13 +79,33 @@ public class BmgMenuBar extends JMenuBar {
         JLabel labelConnexion = new JLabel(slabel);
         this.add(labelConnexion);
     }
-    
+
     /**
      * Exercises menu.
      */
     private void setMenuExercisesSettings() {
+        //Add listener and add items.
+        addListenersMenuExercises();
+        addItemMenuExercises();
+    }
+
+    /**
+     * Add listeners in all items in menu exercises.
+     */
+    private void addListenersMenuExercises() {
+
+    }
+
+    /**
+     * Add all items into menu.
+     */
+    private void addItemMenuExercises() {
         menuExercises.add(itemGenerate);
         menuExercises.add(itemPractice);
+        menuExercises.add(itemSolve);
+        menuExercises.add(itemImport);
+        menuExercises.add(itemExport);
+        menuExercises.add(itemEdit);
         this.add(menuExercises);
     }
 
@@ -89,7 +113,16 @@ public class BmgMenuBar extends JMenuBar {
      * Help menu.
      */
     private void setMenuHelpSettings() {
-        menuHelp.add(itemHelp);
+        //Add listener and add items.
+        addListenersMenuHelp();
+        addItemMenuHelp();
+    }
+
+    /**
+     * Add listeners in all items in help menu.
+     */
+    private void addListenersMenuHelp() {
+        // About Us !
         itemAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -97,6 +130,13 @@ public class BmgMenuBar extends JMenuBar {
                 fen.setPanel(BmgFrame.panAboutUs);
             }
         });
+    }
+
+    /**
+     * Add items into help menu.
+     */
+    private void addItemMenuHelp() {
+        menuHelp.add(itemHelp);
         menuHelp.add(itemAbout);
         this.add(menuHelp);
     }
@@ -105,6 +145,15 @@ public class BmgMenuBar extends JMenuBar {
      * Menu base settings, with information of database and test connection.
      */
     private void setMenuBaseSettings() {
+        addListenersBaseMenu();
+        addItemBaseMenu();
+    }
+
+    /**
+     * Add listeners in all items in base menu.
+     */
+    private void addListenersBaseMenu() {
+        // Database settings
         itemBaseSettings.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -112,7 +161,8 @@ public class BmgMenuBar extends JMenuBar {
                 fen.setPanel(BmgFrame.panSettings);
             }
         });
-        menuSettings.add(itemBaseSettings);
+
+        //Connexion test
         itemConnexionTest.addActionListener(new ActionListener() {
 
             @Override
@@ -127,8 +177,14 @@ public class BmgMenuBar extends JMenuBar {
                 }
             }
         });
-        menuSettings.add(itemConnexionTest);
+    }
 
+    /**
+     * Add items into base menu.
+     */
+    private void addItemBaseMenu() {
+        menuSettings.add(itemBaseSettings);
+        menuSettings.add(itemConnexionTest);
         this.add(menuSettings);
     }
 
@@ -136,6 +192,15 @@ public class BmgMenuBar extends JMenuBar {
      * Set settings for account menu, with sign in and sign up.
      */
     private void setMenuAccountSettings() {
+        addListenersAccountMenu();
+        addItemAccountMenu();
+    }
+
+    /**
+     * Add listeners in all items in account menu.
+     */
+    private void addListenersAccountMenu() {
+        // Sign in
         itemSignIn.addActionListener(new ActionListener() {
 
             @Override
@@ -143,7 +208,8 @@ public class BmgMenuBar extends JMenuBar {
                 fen.setPanel(BmgFrame.panSignin);
             }
         });
-        menuAccount.add(itemSignIn);
+
+        // Sign up 
         itemSignUp.addActionListener(new ActionListener() {
 
             @Override
@@ -151,6 +217,13 @@ public class BmgMenuBar extends JMenuBar {
                 fen.setPanel(BmgFrame.panSignup);
             }
         });
+    }
+
+    /**
+     * Add items into account menu.
+     */
+    private void addItemAccountMenu() {
+        menuAccount.add(itemSignIn);
         menuAccount.add(itemSignUp);
         this.add(menuAccount);
     }
