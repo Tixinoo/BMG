@@ -8,6 +8,7 @@ import javax.swing.JPanel;
  * @Author Maxime Blaise
  */
 public class BmgPanelMenu extends JPanel {
+    BmgMenuBar menu;
 
     /**
      * Constructor which creates menu bar.
@@ -16,7 +17,11 @@ public class BmgPanelMenu extends JPanel {
         super();
 
         //Creation of menu bar, and add to panel.
-        BmgMenuBar menu = new BmgMenuBar(fen);
+        menu = new BmgMenuBar(fen);
         this.add(menu);
+    }
+    
+    public void setLabel(String s) {
+        menu.setLabel(s);
     }
 }

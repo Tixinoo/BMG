@@ -17,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -34,7 +35,7 @@ public class BmgFrameBegin {
      * @param bs
      * @param fen 
      */
-    public BmgFrameBegin(BaseSetting bs, final BmgFrame fen) {
+    public BmgFrameBegin(final BaseSetting bs, final BmgFrame fen) {
         if (bs.testerConnexion()) {
             //If connection is correct.
             JPanel pan = new JPanel();
@@ -43,8 +44,8 @@ public class BmgFrameBegin {
             JPanel panHaut = new JPanel();
             panHaut.setLayout(new GridLayout(2, 2));
             
-            JTextField saisiePseudo = new JTextField(15);
-            JTextField saisiePass = new JTextField(15);
+            final JTextField saisiePseudo = new JTextField(15);
+            final JPasswordField saisiePass = new JPasswordField(15);
             
             panHaut.add(new JLabel("Pseudo : "));
             panHaut.add(saisiePseudo);
@@ -64,7 +65,10 @@ public class BmgFrameBegin {
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    BmgCreatePanel.actionSignIn();
+                    char[] c = saisiePass.getPassword();
+                    String password = new String(c);
+                    System.out.println("Pass" + password);
+                    BmgCreatePanel.actionSignIn(fen, bs, saisiePseudo.getText(),password);
 
                     fermer();
                 }
@@ -74,7 +78,8 @@ public class BmgFrameBegin {
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    fen.setPanel(BmgFrame.panSignup);
+                    fen.setPanSignUp(saisiePseudo.getText(), saisiePass.getText());
+                    //fen.setPanel(BmgFrame.panSignup);
                     fermer();
                 }
             });

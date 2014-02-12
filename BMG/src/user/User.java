@@ -349,6 +349,7 @@ public class User implements iDbManager
 	    u.setConnected_u(1);
 	    b = u.update(bs);
 	    b = (User.findById(u.getId_u(), bs).isConnected_u() == 1);
+            b = true;
 	}
 	else
 	{

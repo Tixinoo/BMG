@@ -8,6 +8,8 @@ package view;
 // Here all imports needed for this class.
 import database.BaseInformation;
 import database.BaseSetting;
+import exceptions.AccessDeniedException;
+import exceptions.AlreadyExistsException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -16,13 +18,18 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import user.User;
 
 /**
  * class BmgCreatePanel
@@ -35,10 +42,12 @@ public class BmgCreatePanel {
     BaseSetting bs;
     int width;
     int height;
+    final String[] listSchool;
 
     public BmgCreatePanel(BmgFrame fen, BaseSetting bs, int width, int height) {
         this.fen = fen;
         this.bs = bs;
+        listSchool = Manipulation.getAllSchoolName(bs);
         this.width = width;
         this.height = height;
     }
@@ -160,14 +169,14 @@ public class BmgCreatePanel {
      */
     public JPanel createPanelSignin() {
         //Some settings of this panel.
-        int nb = 6;
+        int nb = 8;
         String labelcolor = "red";
 
         //Create this panel here
         JPanel pan = new JPanel();
 
         BmgLabel label = new BmgLabel("You have an account ? Sign in now ", labelcolor);
-        label.setPreferredSize(new Dimension(width - 100, (height - 100) / (5 * nb)));
+        label.setPreferredSize(new Dimension(width - 100, (height - 100) / (nb)));
         pan.add(label, BorderLayout.NORTH);
 
         //Center panel, in which user can put information.
@@ -176,9 +185,8 @@ public class BmgCreatePanel {
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
 
         //TextField
-        JTextField[] jtfs = {
-            new JTextField(15),
-            new JTextField(15),};
+        final JTextField saisieEmail = new JTextField(15);
+        final JPasswordField saisiePass = new JPasswordField(15);
         //Labels
 
         JLabel[] labels = {
@@ -186,11 +194,11 @@ public class BmgCreatePanel {
             new JLabel("Password : "),};
 
         //Add text field and label into panels.
-        for (int i = 0; i < labels.length; i++) {
-            panCenter.add(labels[i]);
-            panCenter.add(jtfs[i]);
-        }
-
+        panCenter.add(labels[0]);
+        panCenter.add(saisieEmail);
+        panCenter.add(labels[1]);
+        panCenter.add(saisiePass);
+        
         //Create panel South , just for the moment a button.
         JPanel panSouth = new JPanel();
         panSouth.setLayout(new BorderLayout());
@@ -201,7 +209,9 @@ public class BmgCreatePanel {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                actionSignIn();
+                char[] c = saisiePass.getPassword();
+                String pass = new String(c);
+                actionSignIn(fen, bs, saisieEmail.getText(), pass);
 
             }
         });
@@ -220,9 +230,9 @@ public class BmgCreatePanel {
      *
      * @return
      */
-    public JPanel createPanelSignup() {
+    public JPanel createPanelSignup(String email, String password) {
         //Some settings
-        int nb = 2;
+        int nb = 3;
         String labelcolor = "red";
 
         //Create panel
@@ -238,30 +248,37 @@ public class BmgCreatePanel {
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
 
         //TextFields
-        JTextField[] jtfs = {
+        final JTextField[] jtfs = {
             new JTextField(15),
             new JTextField(15),
-            new JTextField(15),
-            new JTextField(15),
-            new JTextField(15),
-            new JTextField(15)
-        };
+            new JTextField(15),};
+
+        final JComboBox<String> jcb = new JComboBox<String>(listSchool);
+        final JPasswordField jpf = new JPasswordField(15);
 
         //Labels
         JLabel[] labels = {
-            new JLabel(""),
-            new JLabel(""),
-            new JLabel(""),
-            new JLabel(""),
-            new JLabel(""),
-            new JLabel("")
-        };
+            new JLabel("Firstname : "),
+            new JLabel("Lastname : "),
+            new JLabel("School's name : "),
+            new JLabel("Email : "),
+            new JLabel("Password : "),};
+
+        //Fill in some blank with parameters
+        jtfs[2].setText(email);
+        jpf.setText(password);
 
         //Add components to panel
-        for (int i = 0; i < labels.length; i++) {
-            panCenter.add(labels[i]);
-            panCenter.add(jtfs[i]);
-        }
+        panCenter.add(labels[0]);
+        panCenter.add(jtfs[0]);
+        panCenter.add(labels[1]);
+        panCenter.add(jtfs[1]);
+        panCenter.add(labels[2]);
+        panCenter.add(jcb);
+        panCenter.add(labels[3]);
+        panCenter.add(jtfs[2]);
+        panCenter.add(labels[4]);
+        panCenter.add(jpf);
 
         //Create panSouth, with button
         JPanel panSouth = new JPanel();
@@ -272,7 +289,7 @@ public class BmgCreatePanel {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                actionSignUp();
+                actionSignUp(jtfs, jcb, jpf);
 
             }
         });
@@ -450,18 +467,57 @@ public class BmgCreatePanel {
      * This method is called when user push sign in button.
      *
      */
-    public static void actionSignIn() {
-        JOptionPane jop = new JOptionPane();
-        JOptionPane.showMessageDialog(null, "Sign in success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+    public static void actionSignIn(BmgFrame fen, BaseSetting bs, String email, String password) {
+        try {
+
+            JOptionPane jop = new JOptionPane();
+
+            if (User.setConnected(bs, email, password)) {
+                JOptionPane.showMessageDialog(null, "Sign in success !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+
+                //Edit label menu bar
+                fen.panMenu.setLabel("Connected as " + email);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error, false !", "Sign up information", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } catch (AccessDeniedException ex) {
+            //Logger.getLogger(BmgCreatePanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Access denied !", "Sign up information", JOptionPane.ERROR_MESSAGE);
+
+        }
     }
 
     /**
      * This method is called when user push sign up button.
      *
+     * @param bs
+     * @param saisies
      */
-    public static void actionSignUp() {
-        JOptionPane jop = new JOptionPane();
-        JOptionPane.showMessageDialog(null, "Sign up success (or not) !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+    public void actionSignUp(JTextField[] saisies, JComboBox jcb, JPasswordField jpf) {
+        //Try to register
+        try {
+            JOptionPane jop = new JOptionPane();
+            String school = listSchool[jcb.getSelectedIndex()];
+
+            char[] c = jpf.getPassword();
+            String password = new String(c);
+            if (User.signIn(bs, 1, saisies[0].getText(), saisies[1].getText(), school, saisies[2].getText(), password)) {
+                //Sign up success !
+                JOptionPane.showMessageDialog(null, "Sign up success !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                //Error ! don't know why
+                JOptionPane.showMessageDialog(null, "Error when sign up !", "Sign up information", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } catch (AlreadyExistsException ex) {
+            //Exception, raise when account already exist
+            JOptionPane.showMessageDialog(null, "Error ! Account already exist !", "Sign up information", JOptionPane.ERROR_MESSAGE);
+
+        }
     }
     //Old code, but still useful sometimes.
 
