@@ -21,6 +21,7 @@ package user;
 import database.BaseSetting;
 import database.Database;
 import exceptions.AccessDeniedException;
+import exceptions.AlreadyExistsException;
 import interfaces.iDbManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,6 +51,16 @@ public class User implements iDbManager
         email_u = emailu;
         pass_u = passu;
         connected_u = 0;
+    }
+    
+    public User(int idut, String fnameu, String lnameu, String schoolu, String emailu, String passu, int connectedu) {
+        id_ut = idut;
+        fname_u = fnameu;
+        lname_u = lnameu;
+        school_u = schoolu;
+        email_u = emailu;
+        pass_u = passu;
+        connected_u = connectedu;
     }
 
     public User(int idu, int idut, String fnameu, String lnameu, String schoolu, String emailu, String passu, int connectedu) {
@@ -300,10 +311,22 @@ public class User implements iDbManager
     }
 
     /* OTHERS */
-    public static boolean signIn(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) 
+    public static boolean signIn(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) throws AlreadyExistsException
     {
-        User u = new User(ut, fn, ln, sch, eml, pswd);
-        return u.insert(bs);
+        boolean b = false;
+	
+	if (checkPresence(bs,eml,pswd))
+	{
+	    throw new AlreadyExistsException("Sorry, this user already exists.");
+	}
+	else
+	{
+	    User u = new User(ut, fn, ln, sch, eml, pswd);
+	    b = u.insert(bs);
+	    b = (User.findById(u.getId_u(), bs) != null);
+	}
+	
+	return b;
     }
     
     public static boolean checkPresence(BaseSetting bs, String eml, String pswd)
