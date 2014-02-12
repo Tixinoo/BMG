@@ -9,12 +9,14 @@ import javax.swing.JPanel;
  */
 public class BmgPanelMenu extends JPanel {
     BmgMenuBar menu;
+    BmgFrame fen;
 
     /**
      * Constructor which creates menu bar.
      */
     public BmgPanelMenu(BmgFrame fen) {
         super();
+        this.fen = fen;
 
         //Creation of menu bar, and add to panel.
         menu = new BmgMenuBar(fen);
@@ -22,6 +24,6 @@ public class BmgPanelMenu extends JPanel {
     }
     
     public void setLabel(String s) {
-        menu.setLabel(s);
+        fen.setLabelConnection(s);
     }
 }

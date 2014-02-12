@@ -79,11 +79,27 @@ public class BmgCreatePanel {
         //Button Generate in panel Exercises.
         panExercises.add(new BmgLabel("Automatically generate exercises : ", colortext));
         BmgButton bgenerate = new BmgButton("Generate");
+            //listener
+        bgenerate.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panGenerate);
+            }
+        });
         panExercises.add(bgenerate);
 
         //Button Practice in panel Exercises.
         panExercises.add(new BmgLabel("Let's practice here : ", colortext));
         BmgButton bpractice = new BmgButton("Practice");
+            //listener
+        bpractice.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panPractice);
+            }
+        });
         panExercises.add(bpractice);
 
         //Panel Account
@@ -477,6 +493,9 @@ public class BmgCreatePanel {
 
                 //Edit label menu bar
                 fen.panMenu.setLabel("Connected as " + email);
+                
+                //Edit instance User
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Error, false !", "Sign up information", JOptionPane.ERROR_MESSAGE);
 

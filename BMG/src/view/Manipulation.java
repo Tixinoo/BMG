@@ -17,10 +17,22 @@ import java.util.logging.Logger;
  */
 public class Manipulation {
     //Class just with static method.
+    
+    private String label = "Not Connected yet";
 
     public Manipulation() {
 
     }
+
+   /* public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }*/
+    
+    
 
     public static String[] getAllSchoolName(BaseSetting bs) {
         

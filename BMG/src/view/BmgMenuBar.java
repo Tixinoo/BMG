@@ -54,7 +54,7 @@ public class BmgMenuBar extends JMenuBar {
     JMenuItem itemAbout = new JMenuItem("About us");
 
     BmgFrame fen;
-    String s = "Not connected yet";
+   // String s = "Not connected yet";
     String slabel;
     JLabel labelConnexion;
 
@@ -69,15 +69,17 @@ public class BmgMenuBar extends JMenuBar {
 
         buttonIndex.setMaximumSize(new Dimension(40, 40));
 
-        setLabel(s);
+        setLabel();
         setMenuSettings(fen.width);
     }
     
-    public void setLabel(String s) {
-        this.s = s;
-        this.slabel = "<html><p style=\"margin-left: 250px;\">" + this.s + "</p></html>";
+    public void setLabel() {
+        String s = fen.getLabelConnection();
+        this.slabel = "<html><p style=\"margin-left: 250px;\">" + s + "</p></html>";
         this.labelConnexion = new JLabel(slabel);
+        this.labelConnexion.repaint();
         
+        repaint();
     }
 
     private void setMenuSettings(int width) {

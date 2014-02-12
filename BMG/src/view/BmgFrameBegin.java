@@ -67,9 +67,9 @@ public class BmgFrameBegin {
                 public void actionPerformed(ActionEvent ae) {
                     char[] c = saisiePass.getPassword();
                     String password = new String(c);
-                    System.out.println("Pass" + password);
+                    
                     BmgCreatePanel.actionSignIn(fen, bs, saisiePseudo.getText(),password);
-
+                    fen.setPanel(BmgFrame.panMain);
                     fermer();
                 }
             });

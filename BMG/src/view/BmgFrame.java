@@ -10,6 +10,7 @@ import database.BaseSetting;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import user.User;
 
 //Bonjour
 /**
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
  * @author Maxime Blaise
  */
 public final class BmgFrame extends JFrame {
+
     //Needed fields.
     BaseSetting bs = new BaseSetting();
     int width;
@@ -38,8 +40,12 @@ public final class BmgFrame extends JFrame {
     static JPanel panAboutUs;
     static JPanel panGenerate;
     static JPanel panPractice;
-    
+
     BmgCreatePanel bcp;
+    
+    static String labelConnection = "not !";
+    
+    User currentUser = null;
 
     /**
      * Constructor who create the main window of BMG.
@@ -56,22 +62,22 @@ public final class BmgFrame extends JFrame {
         //Create these panel.
         panMenu = new BmgPanelMenu(fen());
         panSouth = new BmgPanelSouth(width);
-        
+
         bcp = new BmgCreatePanel(fen(), bs, width, height);
 
         //Create all panels for our program, once at beginning only !
         setAllPanels();
-        
+
         //Frame settings
         setFrameSettings();
     }
 
     /**
      * This method aims at creating all panels at the beginning.
-     * 
+     *
      */
     private void setAllPanels() {
-        
+
         panMain = bcp.createMainPanel();
         panSettings = bcp.createPanelSettings();
         panSignin = bcp.createPanelSignin();
@@ -85,24 +91,25 @@ public final class BmgFrame extends JFrame {
      * Method who change window's settings.
      */
     private void setFrameSettings() {
-        
+
         //All settings
         this.setPanel(panMain);
         this.setLocation(200, 100);
         this.setPreferredSize(new Dimension(width, height));
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         this.pack();
         this.setVisible(true);
-        
+
         //Begin frame, just once !
         BmgFrameBegin bmgFrameBegin = new BmgFrameBegin(bs, fen());
     }
 
     /**
      * Return this frame.
-     * @return 
+     *
+     * @return
      */
     public BmgFrame fen() {
         return this;
@@ -110,10 +117,11 @@ public final class BmgFrame extends JFrame {
 
     /**
      * Change only the center panel !
-     * @param panel 
+     *
+     * @param panel
      */
     public void setPanel(JPanel panel) {
-
+        //System.out.println(labelConnection);
         this.setContentPane(new BmgPanel(fen(), panel));
         this.pack();
     }
@@ -121,6 +129,18 @@ public final class BmgFrame extends JFrame {
     public void setPanSignUp(String string, String string0) {
         panSignup = bcp.createPanelSignup(string, string0);
         setPanel(panSignup);
+    }
+
+    public String getLabelConnection() {
+        return BmgFrame.labelConnection;
+    }
+    
+    public void setLabelConnection(String s) {
+        BmgFrame.labelConnection = s;
+        this.panMenu = new BmgPanelMenu(fen());
+        this.panMenu.repaint();
+        
+        this.panMenu.menu.repaint();
     }
 
 }
