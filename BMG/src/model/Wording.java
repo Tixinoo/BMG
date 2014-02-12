@@ -23,7 +23,7 @@ public class Wording implements iDbManager {
     /**
      * Wording's text
      */
-    private String text;
+    private String text;    // #@#
 
     /**
      * Wording's values
