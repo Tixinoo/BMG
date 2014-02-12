@@ -14,12 +14,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -34,20 +30,18 @@ import javax.swing.JTextField;
  * @author Maxime Blaise
  */
 public class BmgCreatePanel {
-     BmgFrame fen;
-     BaseSetting bs;
-     int width;
-     int height;
 
-     
+    BmgFrame fen;
+    BaseSetting bs;
+    int width;
+    int height;
+
     public BmgCreatePanel(BmgFrame fen, BaseSetting bs, int width, int height) {
         this.fen = fen;
         this.bs = bs;
         this.width = width;
         this.height = height;
     }
-
-    
 
     /**
      * This method create the main panel.
@@ -154,52 +148,9 @@ public class BmgCreatePanel {
 
         return pan;
     }
-    
-    public JPanel createPanelPractice() {
-        //Some settings
-        int nb = 4;
-        String color = "red";
-        //Create Panel
-        JPanel pan = new JPanel();
-        
-        //Label at first
-        JPanel panFirst = new JPanel();
-        panFirst.setPreferredSize(new Dimension(width, height/nb));
-        BmgLabel label = new BmgLabel("Ready to become brilliant ? Practice !", color);
-        panFirst.add(label);
-        
-        //Button choose file
-        JButton choosefile = new JButton("Browser..");
-        choosefile.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser jfc = new JFileChooser();
-                String monFichier = "";
-                String approve = "Enregistrer";
-                int resultatEnregistrer = jfc.showDialog(jfc, approve);
-                if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) {
-                    monFichier = jfc.getSelectedFile().toString();
-                    if (monFichier.endsWith(".txt") || monFichier.endsWith(".TXT")) {
-
-                    } else {
-                        monFichier += ".txt";
-                    }
-                }
-                try {
-                    try (BufferedReader out = new BufferedReader(new FileReader(monFichier))) {
-                        //Listerner , have to code !! not yet implemented
-                    }
-                } catch (IOException ex) {
-                    //Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        
-        pan.add(panFirst);
-        pan.add(choosefile);
-        
-        return pan;
+    public BmgPanelPracticeFirst createPanelPractice() {
+        return new BmgPanelPracticeFirst(fen, "");
     }
 
     /**
@@ -461,7 +412,7 @@ public class BmgCreatePanel {
 
     /**
      * Create panel in order to generate exercises.
-     * 
+     *
      * @param fen
      * @param bs
      * @param width
@@ -471,9 +422,9 @@ public class BmgCreatePanel {
     public JPanel createPanelGenerateExercises() {
         //create
         JPanel pan = new JPanel();
-        
+
         pan.add(new BmgLabel("Here you can (not yet) generate exercises : ", "red"));
-        
+
         return pan;
     }
 
