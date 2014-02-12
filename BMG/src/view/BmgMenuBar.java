@@ -6,16 +6,25 @@
 package view;
 
 // Here all imports needed for this class.
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.border.Border;
 
 /**
  *
@@ -93,13 +102,32 @@ public class BmgMenuBar extends JMenuBar {
      * Add listeners in all items in menu exercises.
      */
     private void addListenersMenuExercises() {
+        //Generate exercises
+        itemGenerate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_MASK));
+        itemGenerate.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panGenerate);
+            }
+        });
+
+        //Practice exercises !
+        itemPractice.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_MASK));
+        itemPractice.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panPractice);
+            }
+        });
     }
 
     /**
      * Add all items into menu.
      */
     private void addItemMenuExercises() {
+
         menuExercises.add(itemGenerate);
         menuExercises.add(itemPractice);
         menuExercises.add(itemSolve);
@@ -130,6 +158,46 @@ public class BmgMenuBar extends JMenuBar {
                 fen.setPanel(BmgFrame.panAboutUs);
             }
         });
+
+        itemHelp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+        itemHelp.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Dialog
+                JDialog dialog = createDialogHelp();
+            }
+        });
+    }
+
+    public JDialog createDialogHelp() {
+        final JDialog dialog = new JDialog();
+
+        JPanel pan = new JPanel();
+        pan.add(new BmgLabel("If you need help, we're not here !", "green"));
+
+        //Close button
+        JButton fermer = new JButton("Close");
+        fermer.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                dialog.dispose();
+
+            }
+        });
+
+        pan.add(fermer);
+        
+        //Dialog settings
+        dialog.setContentPane(pan);
+        dialog.setTitle("Help menu");
+        dialog.setLocation(300, 300);
+        dialog.setPreferredSize(new Dimension(400, 300));
+        dialog.pack();
+        dialog.setVisible(true);
+
+        return dialog;
     }
 
     /**
@@ -154,6 +222,7 @@ public class BmgMenuBar extends JMenuBar {
      */
     private void addListenersBaseMenu() {
         // Database settings
+        itemBaseSettings.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_MASK));
         itemBaseSettings.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -163,6 +232,7 @@ public class BmgMenuBar extends JMenuBar {
         });
 
         //Connexion test
+        itemConnexionTest.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_MASK));
         itemConnexionTest.addActionListener(new ActionListener() {
 
             @Override
@@ -232,6 +302,8 @@ public class BmgMenuBar extends JMenuBar {
      * Set settings for index button.
      */
     private void setIndexSettings() {
+        //Ajout raccourci clavier sur le button
+        //buttonIndex.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_MASK));
         buttonIndex.addActionListener(new ActionListener() {
 
             @Override

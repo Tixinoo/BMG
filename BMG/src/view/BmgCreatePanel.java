@@ -13,8 +13,16 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,13 +34,20 @@ import javax.swing.JTextField;
  * @author Maxime Blaise
  */
 public class BmgCreatePanel {
+     BmgFrame fen;
+     BaseSetting bs;
+     int width;
+     int height;
 
-    /**
-     * Simply empty constructor, because this class contains only static method.
-     */
-    public BmgCreatePanel() {
-
+     
+    public BmgCreatePanel(BmgFrame fen, BaseSetting bs, int width, int height) {
+        this.fen = fen;
+        this.bs = bs;
+        this.width = width;
+        this.height = height;
     }
+
+    
 
     /**
      * This method create the main panel.
@@ -43,7 +58,7 @@ public class BmgCreatePanel {
      * @param height
      * @return
      */
-    public static JPanel createMainPanel(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+    public JPanel createMainPanel() {
         // Some settings for this panel, size, color ...
         int nb = 5;
         String colortitle = "green";
@@ -139,17 +154,60 @@ public class BmgCreatePanel {
 
         return pan;
     }
+    
+    public JPanel createPanelPractice() {
+        //Some settings
+        int nb = 4;
+        String color = "red";
+        //Create Panel
+        JPanel pan = new JPanel();
+        
+        //Label at first
+        JPanel panFirst = new JPanel();
+        panFirst.setPreferredSize(new Dimension(width, height/nb));
+        BmgLabel label = new BmgLabel("Ready to become brilliant ? Practice !", color);
+        panFirst.add(label);
+        
+        //Button choose file
+        JButton choosefile = new JButton("Browser..");
+        choosefile.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jfc = new JFileChooser();
+                String monFichier = "";
+                String approve = "Enregistrer";
+                int resultatEnregistrer = jfc.showDialog(jfc, approve);
+                if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) {
+                    monFichier = jfc.getSelectedFile().toString();
+                    if (monFichier.endsWith(".txt") || monFichier.endsWith(".TXT")) {
+
+                    } else {
+                        monFichier += ".txt";
+                    }
+                }
+                try {
+                    try (BufferedReader out = new BufferedReader(new FileReader(monFichier))) {
+                        //Listerner , have to code !! not yet implemented
+                    }
+                } catch (IOException ex) {
+                    //Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        pan.add(panFirst);
+        pan.add(choosefile);
+        
+        return pan;
+    }
 
     /**
      * This method create the panel sign in.
      *
-     * @param fen
-     * @param bs
-     * @param width
-     * @param height
      * @return
      */
-    public static JPanel createPanelSignin(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+    public JPanel createPanelSignin() {
         //Some settings of this panel.
         int nb = 6;
         String labelcolor = "red";
@@ -208,18 +266,14 @@ public class BmgCreatePanel {
 
     /**
      * This method create the panel sign up
-     * 
-     * @param fen
-     * @param bs
-     * @param width
-     * @param height
-     * @return 
+     *
+     * @return
      */
-    public static JPanel createPanelSignup(BmgFrame fen, final BaseSetting bs, int width, int height) {
+    public JPanel createPanelSignup() {
         //Some settings
         int nb = 2;
         String labelcolor = "red";
-        
+
         //Create panel
         JPanel pan = new JPanel();
 
@@ -231,7 +285,7 @@ public class BmgCreatePanel {
         JPanel panCenter = new JPanel();
         panCenter.setLayout(new GridLayout(6, 2));
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
-        
+
         //TextFields
         JTextField[] jtfs = {
             new JTextField(15),
@@ -241,7 +295,7 @@ public class BmgCreatePanel {
             new JTextField(15),
             new JTextField(15)
         };
-        
+
         //Labels
         JLabel[] labels = {
             new JLabel(""),
@@ -283,23 +337,23 @@ public class BmgCreatePanel {
 
     /**
      * This method create the panel settings.
-     * 
+     *
      * @param fen
      * @param bs
      * @param width
      * @param height
-     * @return 
+     * @return
      */
-    public static JPanel createPanelSettings(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+    public JPanel createPanelSettings() {
         //Some settings
         int nb = 2;
-        
+
         //Create panel
         JPanel pan = new JPanel();
-        
+
         JLabel label = new JLabel("");
         label.setPreferredSize(new Dimension(width - 100, (height - 100) / (nb * 2)));
-          
+
         //Center Panel
         JPanel panCenter = new JPanel();
         panCenter.setPreferredSize(new Dimension(width - 100, (height - 100) / nb));
@@ -313,7 +367,7 @@ public class BmgCreatePanel {
             new JTextField(15),
             new JTextField(15)
         };
-        
+
         //Labels
         JLabel[] labels = {
             new JLabel("Pilote : "),
@@ -344,7 +398,7 @@ public class BmgCreatePanel {
                 bs.setInfo();
             }
         });
-        
+
         //Button and label, to test
         JButton buttonTest = new JButton("Connexion test");
         final BmgLabel labelTest = new BmgLabel("Waiting ...", "red");
@@ -378,25 +432,24 @@ public class BmgCreatePanel {
         JPanel panSouth = new JPanel();
         panSouth.add(buttonConfirm);
         panSouth.add(buttonTest);
-        
-        
+
         //Add panels to main panel
         pan.add(label, BorderLayout.NORTH);
-        pan.add(panCenter, BorderLayout.CENTER); 
+        pan.add(panCenter, BorderLayout.CENTER);
         pan.add(panSouth, BorderLayout.SOUTH);
-        
+
         return pan;
     }
 
     /**
      * Test connection and print a popup which print result.
-     * 
-     * @param bs 
+     *
+     * @param bs
      */
-    public static void testConnection(BaseSetting bs) {
+    public void testConnection(BaseSetting bs) {
 
         JOptionPane jop = new JOptionPane();
-        
+
         if (bs.testerConnexion()) {
             //Success
             JOptionPane.showMessageDialog(null, "Success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
@@ -407,16 +460,30 @@ public class BmgCreatePanel {
     }
 
     /**
-     * Method who create panel AboutUs, which print some information about our
-     * team.
-     *
+     * Create panel in order to generate exercises.
+     * 
      * @param fen
      * @param bs
      * @param width
      * @param height
+     * @return panel
+     */
+    public JPanel createPanelGenerateExercises() {
+        //create
+        JPanel pan = new JPanel();
+        
+        pan.add(new BmgLabel("Here you can (not yet) generate exercises : ", "red"));
+        
+        return pan;
+    }
+
+    /**
+     * Method who create panel AboutUs, which print some information about our
+     * team.
+     *
      * @return
      */
-    public static JPanel createPanelAboutUs(final BmgFrame fen, final BaseSetting bs, int width, int height) {
+    public JPanel createPanelAboutUs() {
         JPanel pan = new JPanel();
 
         String s = "<span style=\"color: red;\">About us : </span><br/><br/>";
@@ -430,7 +497,7 @@ public class BmgCreatePanel {
 
     /**
      * This method is called when user push sign in button.
-     * 
+     *
      */
     public static void actionSignIn() {
         JOptionPane jop = new JOptionPane();
@@ -439,7 +506,7 @@ public class BmgCreatePanel {
 
     /**
      * This method is called when user push sign up button.
-     * 
+     *
      */
     public static void actionSignUp() {
         JOptionPane jop = new JOptionPane();

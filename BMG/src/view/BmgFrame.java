@@ -36,6 +36,8 @@ public final class BmgFrame extends JFrame {
     static JPanel panSignup;
     static JPanel panSignin;
     static JPanel panAboutUs;
+    static JPanel panGenerate;
+    static JPanel panPractice;
 
     /**
      * Constructor who create the main window of BMG.
@@ -65,11 +67,14 @@ public final class BmgFrame extends JFrame {
      * 
      */
     private void setAllPanels() {
-        panMain = BmgCreatePanel.createMainPanel(fen(), bs, width, height);
-        panSettings = BmgCreatePanel.createPanelSettings(fen(), bs, width, height);
-        panSignin = BmgCreatePanel.createPanelSignin(fen(), bs, width, height);
-        panSignup = BmgCreatePanel.createPanelSignup(fen(), bs, width, height);
-        panAboutUs = BmgCreatePanel.createPanelAboutUs(fen(), bs, width, height);
+        BmgCreatePanel bcp = new BmgCreatePanel(fen(), bs, width, height);
+        panMain = bcp.createMainPanel();
+        panSettings = bcp.createPanelSettings();
+        panSignin = bcp.createPanelSignin();
+        panSignup = bcp.createPanelSignup();
+        panAboutUs = bcp.createPanelAboutUs();
+        panGenerate = bcp.createPanelGenerateExercises();
+        panPractice = bcp.createPanelPractice();
     }
 
     /**

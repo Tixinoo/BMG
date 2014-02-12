@@ -7,6 +7,7 @@
 package view;
 
 // Here all imports needed for this class.
+import java.awt.Dimension;
 import javax.swing.JLabel;
 
 /**
@@ -29,6 +30,14 @@ public class BmgLabel extends JLabel {
         
         super("<html><p style=\"color: "+color+"\">"+message+"</p></html>");
         this.color = color;
+    }
+    
+    public BmgLabel(String message, String color, int width, int height) {
+        
+        super("<html><p style=\"color: "+color+"\">"+message+"</p></html>");
+        this.color = color;
+        
+        this.setPreferredSize(new Dimension(width, height));
     }
     
     /**
