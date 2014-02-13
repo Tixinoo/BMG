@@ -182,7 +182,7 @@ public class QuestionPower extends Question {
      * Display a question of power calculation
      */
     public String toString() {
-        String res = "		QuestionFraction";
+        String res = "		QuestionPower";
         res = res + "\n			Text:       " + this.text;
         res = res + "\n			Difficulty: " + this.difficulty;
         res = res + "\n			Operands:   " + this.operands;
