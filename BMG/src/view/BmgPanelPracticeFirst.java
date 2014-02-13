@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.Exercise;
 
 /**
  *
@@ -59,7 +60,18 @@ public class BmgPanelPracticeFirst extends JPanel {
                     labelRes.setText("No file selected.");
                 } else {
                     String[] monFichierSplit = monFichier.split("/");
-                    labelRes.setText("<html><p stype=\"color: blue;\">" + monFichierSplit[monFichierSplit.length-1] + "</p></html>");
+                    String trueFileName = monFichierSplit[monFichierSplit.length-1];
+                    
+                    Exercise exercise = new Exercise();
+                    exercise.load(trueFileName);
+                    
+                    
+                    labelRes.setText("<html><p stype=\"color: blue;\">Résumé de : " + trueFileName + "</p>"
+                            + "<p>Title : " + exercise.getTitle() + "</p>"
+                            + "<p>Type : undefined !</p>" 
+                            + "<p>Difficulty : undefined ! </p>"
+                            + "<p>Number of questions : </p>"
+                            + "</html>");
                 }
 
             }
