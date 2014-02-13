@@ -64,7 +64,7 @@ public class Workgroup implements iDbManager
 	
 	try 
 	{
-	    String query = "INSERT INTO WorkGroup (name_wg) VALUE (?)";
+	    String query = "INSERT INTO Workgroup (name_wg) VALUE (?)";
 	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
 	    p_statement.setString(1,""+this.name_wg+"");
 	    p_statement.executeUpdate();
@@ -90,7 +90,7 @@ public class Workgroup implements iDbManager
 	{
 	    if (this.id_wg < 0)
 	    {
-		String query = "UPDATE WorkGroup SET name_wg = ? WHERE id_wg = ?";
+		String query = "UPDATE Workgroup SET name_wg = ? WHERE id_wg = ?";
 		PreparedStatement p_statement = connection.prepareStatement(query);
 		p_statement.setString(1,this.name_wg);
 		p_statement.setInt(2,this.id_wg);
@@ -114,7 +114,7 @@ public class Workgroup implements iDbManager
 	{
 	    if (Workgroup.findById(this.getId_wg(),bs) != null)
 	    {
-		String query = "DELETE FROM WorkGroup WHERE id_wg = ?";
+		String query = "DELETE FROM Workgroup WHERE id_wg = ?";
 		PreparedStatement p_statement = connection.prepareStatement(query);
 		p_statement.setInt(1,this.id_wg);
 		p_statement.executeUpdate();
@@ -134,11 +134,11 @@ public class Workgroup implements iDbManager
     {
         Connection connection = bs.getConnection();
 	
-	Workgroup workGroup = null;
+	Workgroup workgroup = null;
 	
 	try 
 	{
-	    String query = "SELECT * FROM WorkGroup WHERE id_wg = ?";
+	    String query = "SELECT * FROM Workgroup WHERE id_wg = ?";
 	    PreparedStatement p_statement = connection.prepareStatement(query);
 	    p_statement.setInt(1,id);
 	    
@@ -149,7 +149,7 @@ public class Workgroup implements iDbManager
 		int idwg = rs.getInt("id_wg");
 		String namewg = rs.getString("name_wg");
 	    
-		workGroup = new Workgroup(idwg,namewg);
+		workgroup = new Workgroup(idwg,namewg);
 	    }
 		    
 	} 
@@ -159,6 +159,6 @@ public class Workgroup implements iDbManager
 	    sqle.printStackTrace();
 	}
 	
-	return workGroup;
+	return workgroup;
     }
 }

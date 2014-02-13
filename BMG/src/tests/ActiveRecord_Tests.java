@@ -102,15 +102,15 @@ public class ActiveRecord_Tests
 	
 	if (sc != null) System.out.println(""+sc.getId_s()+" | "+sc.getName_s()+""); else System.out.println("delete S : OK");
 	
-	Workgroup workGroup_1 = new Workgroup("GroupeDeTravail1");
-	b = workGroup_1.insert(bs);
-	System.out.println(""+b+" insertion workGroup 1");
-	Workgroup workGroup_2 = new Workgroup("GroupeDeTravail2");
-	b = workGroup_2.insert(bs);
-	System.out.println(""+b+" insertion workGroup 2");
+	Workgroup workgroup_1 = new Workgroup("GroupeDeTravail1");
+	b = workgroup_1.insert(bs);
+	System.out.println(""+b+" insertion workgroup 1");
+	Workgroup workgroup_2 = new Workgroup("GroupeDeTravail2");
+	b = workgroup_2.insert(bs);
+	System.out.println(""+b+" insertion workgroup 2");
 	
 	Workgroup wg;
-	wg = Workgroup.findById(workGroup_2.getId_wg(),bs);
+	wg = Workgroup.findById(workgroup_2.getId_wg(),bs);
 	
 	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("insert WG : pas OK");
 	
@@ -120,7 +120,7 @@ public class ActiveRecord_Tests
 	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("update WG : pas OK");
 	
 	wg.delete(bs);
-	wg = Workgroup.findById(workGroup_2.getId_wg(),bs);
+	wg = Workgroup.findById(workgroup_2.getId_wg(),bs);
 	
 	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("delete WG : OK");
 
