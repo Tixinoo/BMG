@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class QuestionPower extends Question {
@@ -105,4 +106,98 @@ public class QuestionPower extends Question {
     // ----------------------
     // ------- METHODS ------
     // Inherited
+    /**
+     * Generate a random question with powers.
+     */
+    public void generate() {
+        char[] possible_operators = {'+', '-', '*'};
+        this.length = (int) (Math.random() * 10) + 2;
+        System.out.println("	Random length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            this.powers.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * 3)]);
+            }
+        }
+    }
+
+    /**
+     * Generate a random question with powers, with the length given in parameter.
+     */
+    public void generate(int QPlength) {
+        char[] possible_operators = {'+', '-', '*'};
+        this.length = 2;
+        if (QPlength > 0) {
+            this.length = QPlength;
+        }
+        System.out.println("	Chosen length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            this.powers.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * 3)]);
+            }
+        }
+    }
+
+    /**
+     * Generate a random question with powers, Operators are choosen in the ArrayList given in parameter.
+     */
+    public void generate(ArrayList<Character> QPoperators) {
+        Character[] possible_operators = new Character[QPoperators.size()];
+        possible_operators = QPoperators.toArray(possible_operators);
+        this.length = (int) (Math.random() * 10) + 2;
+        System.out.println("	Random length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            this.powers.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * QPoperators.size())]);
+            }
+        }
+    }
+
+    /**
+     * Generate a random question of powers, with the length given in parameter, Operators are choosen in the ArrayList given in parameter.
+     */
+    public void generate(ArrayList<Character> QPoperators, int QPlength) {
+        Character[] possible_operators = new Character[QPoperators.size()];
+        possible_operators = QPoperators.toArray(possible_operators);
+        this.length = 2;
+        if (QPlength > 0) {
+            this.length = QPlength;
+        }
+        System.out.println("	Chosen length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            this.powers.add((int) (Math.random() * 20) + 1);
+            if (i < this.length - 1) {
+                this.operators.add(possible_operators[(int) (Math.random() * QPoperators.size())]);
+            }
+        }
+    }
+    
+    /**
+     * Display a question of power calculation
+     */
+    public String toString() {
+        String res = "		QuestionFraction";
+        res = res + "\n			Text:       " + this.text;
+        res = res + "\n			Difficulty: " + this.difficulty;
+        res = res + "\n			Operands:   " + this.operands;
+        res = res + "\n			Powers:     " + this.powers;
+        res = res + "\n			Operators:  " + this.operators;
+        res = res + "\n			Operation:  ";
+        Iterator<Integer> it_operands = this.operands.iterator();
+        Iterator<Integer> it_powers = this.powers.iterator();
+        Iterator<Character> it_operators = this.operators.iterator();
+        res = res + "(" + it_operands.next() + "^" + it_powers.next() + ")";
+        while (it_operands.hasNext()) {
+            res = res + it_operators.next() + "(" + it_operands.next() + "^" + it_powers.next() + ")";
+        }
+        // res = res + "\n-----------------------";
+        return res;
+    }
+    
 }
