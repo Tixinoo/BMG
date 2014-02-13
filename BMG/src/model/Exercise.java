@@ -232,11 +232,11 @@ public class Exercise implements iDbManager {
      */
     public String toString() {
         String res = "--> EXERCISE";
-        res = res + "\n	Statement: " + this.wording;
-        res = res + "\n	Type: " + this.type;
+        res = res + "\n	Statement:  " + this.wording;
+        res = res + "\n	Type:       " + this.type;
         res = res + "\n	Difficulty: " + this.difficulty;
-        res = res + "\n	Ready: " + this.ready;
-        res = res + "\n	Questions: \n";
+        res = res + "\n	Ready:      " + this.ready;
+        res = res + "\n	Questions:  \n";
         Iterator<Question> it = this.questions.iterator();
         while (it.hasNext()) {
             res = res + it.next() + "\n";
@@ -249,7 +249,6 @@ public class Exercise implements iDbManager {
         this.update_ready();
         System.out.println(this.isReady());
         if (this.isReady()) {
-            System.out.println("HEHEHE");
             res = "<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
             res = res + wording.encode() + "\n";
             Iterator<Question> itq = questions.iterator();
@@ -323,6 +322,11 @@ public class Exercise implements iDbManager {
                                         QuestionEquation qe = QuestionEquation.decode(str);
                                         System.out.println(qe);
                                         res.addQuestion(qe);
+                                        break;
+                                    case "#QuestionPower":
+                                        QuestionPower qp = QuestionPower.decode(str);
+                                        System.out.println(qp);
+                                        res.addQuestion(qp);
                                         break;
                                     case "#Wording":
                                         Wording w = Wording.decode(str);

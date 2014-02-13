@@ -11,7 +11,7 @@ public class QuestionPower extends Question {
     /**
      * Operands of the power calculation.
      */
-    private ArrayList<Integer> operands;
+    private int operand;
 
     /**
      * Operators of the power calculation.
@@ -38,7 +38,7 @@ public class QuestionPower extends Question {
         super();
         this.text = "Calculate.";
         this.difficulty = 0;
-        this.operands = new ArrayList<Integer>();
+        this.operand = 0;
         this.operators = new ArrayList<Character>();
         this.powers = new ArrayList<Integer>();
         this.length = 0;
@@ -56,7 +56,7 @@ public class QuestionPower extends Question {
             this.text = "...";
         }
         this.difficulty = 0;
-        this.operands = new ArrayList<Integer>();
+        this.operand = 0;
         this.operators = new ArrayList<Character>();
         this.powers = new ArrayList<Integer>();
         this.length = 0;
@@ -78,28 +78,28 @@ public class QuestionPower extends Question {
         } else {
             this.difficulty = 0;
         }
-        this.operands = new ArrayList<Integer>();
+        this.operand = 0;
         this.operators = new ArrayList<Character>();
         this.powers = new ArrayList<Integer>();
         this.length = 0;
     }
 
-    QuestionPower(String textqc, int QPdiff, ArrayList<Integer> QPoperands, ArrayList<Character> QPoperators, ArrayList<Integer> QPpowers, int QPlength) {
+    QuestionPower(String textqc, int QPdiff, int QPoperand, ArrayList<Character> QPoperators, ArrayList<Integer> QPpowers, int QPlength) {
         super();
         this.text = textqc;
         this.difficulty = QPdiff;
-        this.operands = QPoperands;
+        this.operand = QPoperand;
         this.operators = QPoperators;
         this.powers = QPpowers;
         this.length = QPlength;
     }
     
-    QuestionPower(int QPid, String QPtext, int QPdiff, ArrayList<Integer> QPoperands, ArrayList<Character> QPoperators, int QPlength) {
+    QuestionPower(int QPid, String QPtext, int QPdiff, int QPoperand, ArrayList<Character> QPoperators, int QPlength) {
         super();
         this.id = QPid;
         this.text = QPtext;
         this.difficulty = QPdiff;
-        this.operands = QPoperands;
+        this.operand = QPoperand;
         this.operators = QPoperators;
         this.length = QPlength;
     }
@@ -111,14 +111,14 @@ public class QuestionPower extends Question {
      * Generate a random question with powers.
      */
     public void generate() {
-        char[] possible_operators = {'+', '-', '*', '/'};
+        char[] possible_operators = {'*', '/'};
         this.length = (int) (Math.random() * 10) + 2;
         System.out.println("	Random length: " + this.length);
+        this.operand = (int) (Math.random() * 20) + 1;
         for (int i = 0; i < this.length; i++) {
-            this.operands.add((int) (Math.random() * 20) + 1);
             this.powers.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
-                this.operators.add(possible_operators[(int) (Math.random() * 3)]);
+                this.operators.add(possible_operators[(int) Math.random()]);
             }
         }
     }
@@ -133,8 +133,8 @@ public class QuestionPower extends Question {
             this.length = QPlength;
         }
         System.out.println("	Chosen length: " + this.length);
+        this.operand = (int) (Math.random() * 20) + 1;
         for (int i = 0; i < this.length; i++) {
-            this.operands.add((int) (Math.random() * 20) + 1);
             this.powers.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
                 this.operators.add(possible_operators[(int) (Math.random() * 3)]);
@@ -150,8 +150,8 @@ public class QuestionPower extends Question {
         possible_operators = QPoperators.toArray(possible_operators);
         this.length = (int) (Math.random() * 10) + 2;
         System.out.println("	Random length: " + this.length);
+        this.operand = (int) (Math.random() * 20) + 1;
         for (int i = 0; i < this.length; i++) {
-            this.operands.add((int) (Math.random() * 20) + 1);
             this.powers.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
                 this.operators.add(possible_operators[(int) (Math.random() * QPoperators.size())]);
@@ -170,13 +170,28 @@ public class QuestionPower extends Question {
             this.length = QPlength;
         }
         System.out.println("	Chosen length: " + this.length);
+        this.operand = (int) (Math.random() * 20) + 1;
         for (int i = 0; i < this.length; i++) {
-            this.operands.add((int) (Math.random() * 20) + 1);
             this.powers.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
                 this.operators.add(possible_operators[(int) (Math.random() * QPoperators.size())]);
             }
         }
+    }
+    
+    public double solve() {
+        double res = 0;
+        Iterator<Integer> itPower = powers.iterator();
+        Iterator<Character> itOperator = operators.iterator();
+        res = itPower.next();
+        while (itPower.hasNext()) {
+            if (itOperator.next() == '*') {
+                res += itPower.next();
+            } else {
+                res -= itPower.next();
+            }
+        }
+        return res;
     }
     
     /**
@@ -186,35 +201,34 @@ public class QuestionPower extends Question {
         String res = "		QuestionPower";
         res = res + "\n			Text:       " + this.text;
         res = res + "\n			Difficulty: " + this.difficulty;
-        res = res + "\n			Operands:   " + this.operands;
+        res = res + "\n			Operand:    " + this.operand;
         res = res + "\n			Powers:     " + this.powers;
         res = res + "\n			Operators:  " + this.operators;
         res = res + "\n			Operation:  ";
-        Iterator<Integer> it_operands = this.operands.iterator();
         Iterator<Integer> it_powers = this.powers.iterator();
         Iterator<Character> it_operators = this.operators.iterator();
-        res = res + "(" + it_operands.next() + "^" + it_powers.next() + ")";
-        while (it_operands.hasNext()) {
-            res = res + it_operators.next() + "(" + it_operands.next() + "^" + it_powers.next() + ")";
+        res = res + "(" + operand + "^" + it_powers.next() + ")";
+        while (it_operators.hasNext()) {
+            res = res + it_operators.next() + "(" + operand + "^" + it_powers.next() + ")";
         }
         // res = res + "\n-----------------------";
         return res;
     }
     
-    public ArrayList<Integer> getOperands() {
-        return operands;
+    public int getOperand() {
+        return operand;
     }
 
-    public void setOperands(ArrayList<Integer> operands) {
-        this.operands = operands;
+    public void setOperand(int operand) {
+        this.operand = operand;
     }
 
     public ArrayList<Integer> getPowers() {
         return powers;
     }
 
-    public void setPowers(ArrayList<Integer> denominators) {
-        this.powers = denominators;
+    public void setPowers(ArrayList<Integer> powers) {
+        this.powers = powers;
     }
 
     public ArrayList<Character> getOperators() {
@@ -231,16 +245,6 @@ public class QuestionPower extends Question {
 
     public void setLength(int length) {
         this.length = length;
-    }
-    
-    public String encodeOperands() {
-        String res = new String();
-		Iterator<Integer> itnum = operands.iterator();
-        while (itnum.hasNext()) {
-			res = res + itnum.next() + ":";
-		}
-		res = res.substring(0, res.length()-1);
-        return res;
     }
     
     public String encodePowers() {
@@ -269,7 +273,7 @@ public class QuestionPower extends Question {
 	 */
 	public String encode() {
 		String res = "#QuestionPower<";
-        res = res + encodeOperands();
+        res = res + operand;
 		res = res + "><";
 		res = res + encodePowers();
 		res = res + "><";
@@ -278,16 +282,6 @@ public class QuestionPower extends Question {
 		res = res + super.encode();
 		return res;
 	}
-    
-    public static ArrayList<Integer> decodeOperands(String str) {
-        ArrayList<Integer> res = new ArrayList<Integer>();
-        String[] tab = str.split(":");
-        for (int x=0; x<tab.length; x++) {
-            res.add(Integer.valueOf(tab[x]));
-        }
-        assert res.size() > 0 : "empty numerators table";
-        return res;
-    }
     
     public static ArrayList<Integer> decodePowers(String str) {
         ArrayList<Integer> res = new ArrayList<Integer>();
@@ -314,63 +308,62 @@ public class QuestionPower extends Question {
 	 * @param str encoded question
 	 * @return decoded question (object)
 	 */
-	public static QuestionFraction decode(String str) {
-		QuestionFraction res = null;
-		if (str.substring(0,17).compareTo("#QuestionFraction") == 0) {
-			res = new QuestionFraction();
-			int i = 17;
-			if (str.charAt(i) == '<') {
-				while (str.charAt(i) != '>') {
-					i++;
-				}
-				ArrayList<Integer> tmp_num = decodeOperands(str.substring(18,i));
-				res.setNumerators(tmp_num);
-				
-				i++;
-				int beginning = i;
-				if (str.charAt(i) == '<') {
-					while (str.charAt(i) != '>') {
-						i++;
-					}
-					ArrayList<Integer> tmp_dnm = decodePowers(str.substring(beginning+1,i));
-					res.setDenominators(tmp_dnm);
-				
-					i++;
-					beginning = i;
-					if (str.charAt(i) == '<') {
-						while (str.charAt(i) != '>') {
-							i++;
-						}
-						ArrayList<Character> tmp_opt = decodeOperators(str.substring(beginning+1,i));
-						assert tmp_opt.size() == tmp_opt.size()+1 : "incorrect size of operators table";
-						res.setOperators(tmp_opt);
-						
-						i++;
-						beginning = i;
-						if (str.charAt(i) == '<') {
-							while (str.charAt(i) != '>') {
-								i++;
-							}
-							int tmp_lth = Integer.valueOf(str.substring(beginning+1,i));
-							assert tmp_lth < 0 : "negative length";
-							res.setLength(tmp_lth);
-							
-							i++;
-							str = str.substring(i);
-							Question.decode(res, str);
-						} else {
-							res = null;
-						}
-					} else {
-						res = null;
-					}
-				} else {
-					res = null;
-				}
-			} else {
-				res =null;
-			}
-		}
+	public static QuestionPower decode(String str) {
+		QuestionPower res = null;
+        if (str.substring(0,14).compareTo("#QuestionPower") == 0) {
+            res = new QuestionPower();
+            int i = 14;
+            if (str.charAt(i) == '<') {
+                while (str.charAt(i) != '>') {
+                    i++;
+                }
+                res.setOperand(Integer.valueOf(str.substring(15, i)));
+
+                i++;
+                int beginning = i;
+                if (str.charAt(i) == '<') {
+                    while (str.charAt(i) != '>') {
+                        i++;
+                    }
+                    ArrayList<Integer> tmp_pow = decodePowers(str.substring(beginning+1,i));
+                    res.setPowers(tmp_pow);
+
+                    i++;
+                    beginning = i;
+                    if (str.charAt(i) == '<') {
+                        while (str.charAt(i) != '>') {
+                            i++;
+                        }
+                        ArrayList<Character> tmp_opt = decodeOperators(str.substring(beginning+1,i));
+                        assert tmp_opt.size() == tmp_opt.size()+1 : "incorrect size of operators table";
+                        res.setOperators(tmp_opt);
+
+                        i++;
+                        beginning = i;
+                        if (str.charAt(i) == '<') {
+                            while (str.charAt(i) != '>') {
+                                i++;
+                            }
+                            int tmp_lth = Integer.valueOf(str.substring(beginning+1,i));
+                            assert tmp_lth < 0 : "negative length";
+                            res.setLength(tmp_lth);
+
+                            i++;
+                            str = str.substring(i);
+                            Question.decode(res, str);
+                        } else {
+                            res = null;
+                        }
+                    } else {
+                        res = null;
+                    }
+                } else {
+                    res = null;
+                }
+            } else {
+                res =null;
+            }
+        }
 		return res;
 	}
     

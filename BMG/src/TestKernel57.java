@@ -28,11 +28,11 @@ public class TestKernel57 {
 		qcal.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate lacus eu odio ultricies porta.");
 		
 		String str = qcal.encode();
-		System.out.println("encode 1 qcal :" + str);
+		//System.out.println("encode 1 qcal :" + str);
 		QuestionCalculation qcal2 = QuestionCalculation.decode(str);
-		System.out.println("decode 1 qcal2 : " + qcal2);
+		//System.out.println("decode 1 qcal2 : " + qcal2);
 		str = qcal2.encode();
-		System.out.println(str+ "\n");
+		//System.out.println(str+ "\n");
 		
 		QuestionFraction qfra = new QuestionFraction();
 		ArrayList<Integer> num = new ArrayList<Integer>();
@@ -56,7 +56,7 @@ public class TestKernel57 {
 		qfra.setDifficulty(3);
 		qfra.setID(8);
 		qfra.setText("Sed vulputate lacus eu odio ultricies porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-		System.out.println(qfra.encode()+ "\n");
+		//System.out.println(qfra.encode()+ "\n");
 		
 		QuestionEquation qequ = new QuestionEquation();
 		opd = new ArrayList<Integer>();
@@ -80,7 +80,11 @@ public class TestKernel57 {
 		//System.out.println(qequ.encode());
         
         QuestionPower qpow = new QuestionPower();
-        qpow.setOperands(opd);
+        opt = new ArrayList<Character>();
+        opt.add('*');
+        opt.add('/');
+        opt.add('*');
+        qpow.setOperand(4);
         qpow.setPowers(dnm);
         qpow.setOperators(opt);
         qpow.setLength(4);
@@ -99,10 +103,13 @@ public class TestKernel57 {
 		ex.addQuestion(qfra);
         ex.addQuestion(qpow);
 		ex.update_ready();
+        System.out.println("\n\n" + ex);
 		str = ex.encode();
 		System.out.println("\n\n" + str);
 		Exercise e = Exercise.decode(str);
 		System.out.println(e);
+        
+        System.out.println(qpow.solve());
 		
 	}
 
