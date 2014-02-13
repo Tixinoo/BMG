@@ -3,6 +3,7 @@ import model.Exercise;
 import model.QuestionCalculation;
 import model.QuestionEquation;
 import model.QuestionFraction;
+import model.QuestionPower;
 import model.Wording;
 
 
@@ -77,6 +78,15 @@ public class TestKernel57 {
 		qequ.setUnknowns(ukn);
 		qequ.setLength(4);
 		//System.out.println(qequ.encode());
+        
+        QuestionPower qpow = new QuestionPower();
+        qpow.setOperands(opd);
+        qpow.setPowers(dnm);
+        qpow.setOperators(opt);
+        qpow.setLength(4);
+        qpow.setDifficulty(3);
+		qpow.setID(8);
+		qpow.setText("Sed vulputate lacus eu odio ultricies porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
 		
 		Exercise ex = new Exercise();
 		ex.setTitle("machin");
@@ -87,6 +97,7 @@ public class TestKernel57 {
 		ex.setDifficulty(4);
 		ex.addQuestion(qcal);
 		ex.addQuestion(qfra);
+        ex.addQuestion(qpow);
 		ex.update_ready();
 		str = ex.encode();
 		System.out.println("\n\n" + str);
