@@ -16,8 +16,9 @@ public class Main {
             System.out.println("1 - Calculation part");
             System.out.println("2 - Fraction part");
             System.out.println("3 - Equation part");
-            System.out.println("4 - Save/Load part");
-            System.out.println("5 - Practice part");
+            System.out.println("4 - Power part");
+            System.out.println("5 - Save/Load part");
+            System.out.println("6 - Practice part");
             int sel = sc.nextInt();
             switch (sel - 1) {
 
@@ -256,6 +257,84 @@ public class Main {
 
                     break;
                 case 3:
+                    System.out.println("-------> A random question with power <-------");
+                    QuestionPower qp1 = new QuestionPower();
+                    qp1.generate();
+                    System.out.println(qp1);
+                    double res1p = qp1.solve();
+                    System.out.println("Result1: " + res1p);
+                    System.out.println("---------------------------------------------------------------------\n");
+/*
+                    System.out.println("\n-------> A calculation with a given length <-------");
+                    sc = new Scanner(System.in);
+                    System.out.print("Length? ");
+                    int l = sc.nextInt();
+                    QuestionCalculation qc2 = new QuestionCalculation();
+                    qc2.generate(l);
+                    System.out.println(qc2);
+                    double res2 = qc2.solve();
+                    System.out.println("Result2: " + res2);
+                    System.out.println("---------------------------------------------------------------------\n");
+
+                    System.out.println("\n-------> A calculation with selected operators <-------");
+                    sc = new Scanner(System.in);
+                    char op = '+';
+                    ArrayList<Character> operators = new ArrayList<Character>();
+                    while (op != '0') {
+                        System.out.print("Operator? ");
+                        op = sc.next().charAt(0);
+                        if (op != '0') {
+                            operators.add(op);
+                        }
+                    }
+                    QuestionCalculation qc3 = new QuestionCalculation();
+                    qc3.generate(operators);
+                    System.out.println(qc3);
+                    double res3 = qc3.solve();
+                    System.out.println("Result3: " + res3);
+                    System.out.println("---------------------------------------------------------------------\n");
+
+                    System.out.println("\n-------> A calculation with selected operators and given length <-------");
+                    sc = new Scanner(System.in);
+                    System.out.print("Length? ");
+                    int l2 = sc.nextInt();
+                    char op2 = '+';
+                    ArrayList<Character> operators2 = new ArrayList<Character>();
+                    while (op2 != '0') {
+                        System.out.print("Operator? ");
+                        op2 = sc.next().charAt(0);
+                        if (op2 != '0') {
+                            operators2.add(op2);
+                        }
+                    }
+                    QuestionCalculation qc4 = new QuestionCalculation();
+                    qc4.generate(operators2, l2);
+                    System.out.println(qc4);
+                    double res4 = qc4.solve();
+                    System.out.println("Result4: " + res4);
+                    System.out.println("---------------------------------------------------------------------\n");
+
+                    System.out.println("\n-------> An exercise with these questions <-------");
+                    Exercise ex1 = new Exercise("calculation");
+                    ex1.setWording(new Wording());
+                    ex1.addQuestion(qc1);
+                    ex1.addQuestion(qc2);
+                    ex1.addQuestion(qc3);
+                    ex1.addQuestion(qc4);
+                    System.out.println(ex1);
+                    System.out.println("---------------------------------------------------------------------\n");
+
+                    System.out.println("\n-------> An exercise with a given type <-------");
+                    System.out.println("Type? ");
+                    String t = sc.next();
+                    System.out.println("");
+                    Exercise ex2 = new Exercise(t);
+                    ex2.generate();
+                    System.out.println(ex2);
+                    System.out.println("---------------------------------------------------------------------\n");*/
+
+                    break;
+                case 4:
                     System.out.println("\n-------> An exercise with a given type <-------");
                     System.out.println("Type? ");
                     String t3 = sc.next();
@@ -274,9 +353,9 @@ public class Main {
                     Exercise ex5load = new Exercise();
                     ex5load.load("ex-1.bmg");
                     System.out.println(ex5);
-                    
+
                     break;
-                case 4:
+                case 5:
                     System.out.println("\n-------> Practice an exercise with a given type <-------");
                     System.out.println("Type? ");
                     String tp = sc.next();
