@@ -80,12 +80,15 @@ public class QuestionEquation extends Question {
         System.out.println("	Random length: " + this.length);
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
+            if (i == 0) {
+                this.unknowns.add(true);
+            } else {
+                this.unknowns.add(Math.random() < 0.3);
+            }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
-                    this.unknowns.add(Math.random() < 0.3);
                     this.operators.add(possible_operators[(int) (Math.random() * 4)]);
                 } else {
-                    this.unknowns.add(true);
                     this.operators.add('=');
                 }
             }
@@ -95,22 +98,56 @@ public class QuestionEquation extends Question {
     /**
      * Generate a random question with an equation with the length given in parameter
      */
+    /*public void generate(int QClength) {
+     char[] possible_operators = {'+', '-', '*', '/'};
+     this.length = 2;
+     if (QClength > 2) {
+     this.length = QClength;
+     }
+     System.out.println("	Chosen length: " + this.length);
+     for (int i = 0; i < this.length; i++) {
+     this.operands.add((int) (Math.random() * 20) + 1);
+     if (i < this.length - 1) {
+     if (i < this.length - 2) {
+     this.unknowns.add(Math.random() < 0.3);
+     this.operators.add(possible_operators[(int) (Math.random() * 4)]);
+     } else {
+     this.unknowns.add(true);
+     this.operators.add('=');
+     }
+     }
+     }
+     }*/
     public void generate(int QClength) {
-        char[] possible_operators = {'+', '-', '*', '/'};
+        char[] possible_operators = {'+', '-', '*', '/', '='};
+        boolean equal_exists = false;
+        int random_op = 5;
         this.length = 2;
         if (QClength > 2) {
             this.length = QClength;
         }
-        System.out.println("	Random length: " + this.length);
+        System.out.println("	Chosen length: " + this.length);
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
+            if (i == 0) {
+                this.unknowns.add(true);
+            } else {
+                this.unknowns.add(Math.random() < 0.3);
+            }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
-                    this.unknowns.add(Math.random() < 0.3);
-                    this.operators.add(possible_operators[(int) (Math.random() * 4)]);
+                    Character op = possible_operators[(int) (Math.random() * random_op)];
+                    this.operators.add(op);
+                    if (op == '=') {
+                        equal_exists = true;
+                        random_op = 4;
+                    }
                 } else {
-                    this.unknowns.add(true);
-                    this.operators.add('=');
+                    if (!equal_exists) {
+                        this.operators.add('=');
+                    } else {
+                        this.operators.add(possible_operators[(int) (Math.random() * 4)]);
+                    }
                 }
             }
         }
@@ -121,6 +158,45 @@ public class QuestionEquation extends Question {
      */
     public double solve() {
         double res = 0;
+        Iterator<Integer> it_operands = this.operands.iterator();
+        Iterator<Character> it_operators = this.operators.iterator();
+        Iterator<Boolean> it_unknowns = this.unknowns.iterator();
+        ArrayList<Integer> operands_qc1l = new ArrayList<Integer>();
+        ArrayList<Character> operators_qc1l = new ArrayList<Character>();
+        ArrayList<Integer> operands_qc2l = new ArrayList<Integer>();
+        ArrayList<Character> operators_qc2l = new ArrayList<Character>();
+        ArrayList<Integer> operands_qc1r = new ArrayList<Integer>();
+        ArrayList<Character> operators_qc1r = new ArrayList<Character>();
+        ArrayList<Integer> operands_qc2r = new ArrayList<Integer>();
+        ArrayList<Character> operators_qc2r = new ArrayList<Character>();
+        boolean after_equal = false;
+        if (!it_unknowns.next()) {
+            operands_qc1l.add(it_operands.next());
+        } else {
+            operands_qc2l.add(it_operands.next());
+        }
+        while (it_operands.hasNext()) {
+            if (it_operators.hasNext()) {
+                after_equal = (it_operators.next() == '=');
+            }
+            if (!after_equal) {
+                if (!it_unknowns.next()) {
+                    operands_qc1l.add(it_operands.next());
+                } else {
+                    operands_qc2l.add(it_operands.next());
+                }
+            } else {
+                if (!it_unknowns.next()) {
+                    operands_qc1r.add(it_operands.next());
+                } else {
+                    operands_qc2r.add(it_operands.next());
+                }
+            }
+        }
+        System.out.println(operands_qc1l);
+        System.out.println(operands_qc1r);
+        System.out.println(operands_qc2l);
+        System.out.println(operands_qc2r);
         return res;
     }
 
@@ -128,23 +204,30 @@ public class QuestionEquation extends Question {
      * Display a question with an equation
      */
     public String toString() {
-        String res = "      QuestionEquation";
-        res = res + "\n         Text: " + this.text;
-        res = res + "\n         Difficulty: " + this.difficulty;
-        res = res + "\n         Operands: " + this.operands;
-        res = res + "\n         Operators: " + this.operators;
-        res = res + "\n         Unknowns: " + this.unknowns;
-        res = res + "\n         Length: " + this.length;
+        String res = "		QuestionEquation";
+        res = res + "\n			Text: " + this.text;
+        res = res + "\n			Difficulty: " + this.difficulty;
+        res = res + "\n			Operands: " + this.operands;
+        res = res + "\n			Operators: " + this.operators;
+        res = res + "\n			Unknowns: " + this.unknowns;
+        res = res + "\n			Equation: ";
         Iterator<Integer> it_operands = this.operands.iterator();
         Iterator<Character> it_operators = this.operators.iterator();
         Iterator<Boolean> it_unknowns = this.unknowns.iterator();
         res = res + it_operands.next();
         while (it_operands.hasNext()) {
-            res = res + it_operators.next();
             if (it_unknowns.next()) {
-                res = res + "x";
+                res = res + "x ";
+            } else {
+                res = res + " ";
             }
+            res = res + it_operators.next() + " ";
             res = res + it_operands.next();
+        }
+        if (it_unknowns.next()) {
+            res = res + "x ";
+        } else {
+            res = res + " ";
         }
         return res;
     }

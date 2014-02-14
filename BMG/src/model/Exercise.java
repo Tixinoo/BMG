@@ -139,10 +139,52 @@ public class Exercise implements iDbManager {
                         this.addQuestion(qf);
                     }
                     break;
+                case "equation":
+                    for (int i = 0; i < 10; i++) {
+                        QuestionEquation qe = new QuestionEquation();
+                        qe.generate();
+                        this.addQuestion(qe);
+                    }
+                    break;
                 default:
                     break;
             }
         }
+    }
+    
+    public void generate(ArrayList<Character> a) {
+        if (this.type != "") {
+            switch (type) {
+                case "calculation":
+                    for (int i = 0; i < 10; i++) {
+                        QuestionCalculation qc = new QuestionCalculation();
+                        qc.generate(a);
+                        this.addQuestion(qc);
+                    }
+                    break;
+            }
+        }
+    }
+    
+    public void practiceCalculation(Practice p) {
+        Scanner sc = new Scanner(System.in);
+        Iterator<Question> it_questions = this.questions.iterator();
+        while(it_questions.hasNext()) {
+            QuestionCalculation q = (QuestionCalculation)it_questions.next();
+            System.out.println(q);
+            System.out.print("Your answer? ");
+            double answer = sc.nextDouble();
+            if (answer == q.solve()) {
+                System.out.print("  --> Right!\n");
+                p.addRight(this.questions.indexOf(q));
+            } else {
+                System.out.print("  --> Wrong!\n");
+                p.addWrong(this.questions.indexOf(q));
+            }
+        }
+        p.updateSuccess();
+        p.setExecution_time((new Date().getSeconds()) - p.getExecution_date().getSeconds());
+        System.out.println("Finish in " + p.getExecution_time() + " seconds !\nScore:"+p.getSuccess()+"% ("+p.getExecution_date()+")");
     }
 
     /**

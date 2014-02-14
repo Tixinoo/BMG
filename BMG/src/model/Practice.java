@@ -49,8 +49,46 @@ public class Practice {
         this.practiced_exercise = e;
     }
     
-    public void updateSuccess() {
-        this.success = (this.right_answers.size() * 100.0 * 1.0) / (this.wrong_answers.size() * 1.0); 
+    public void addRight(int r) {
+        this.right_answers.add(r);
     }
+    
+    public void addWrong(int w) {
+        this.wrong_answers.add(w);
+    }
+    
+    public void updateSuccess() {
+        this.success = ( (double)this.right_answers.size() / ( (double)this.right_answers.size() + (double)this.wrong_answers.size() ) ) * 100.0;
+    }
+
+    public int getExecution_time() {
+        return execution_time;
+    }
+
+    public Date getExecution_date() {
+        return execution_date;
+    }
+
+    public double getSuccess() {
+        return success;
+    }
+
+    public ArrayList<Integer> getWrong_answers() {
+        return wrong_answers;
+    }
+
+    public ArrayList<Integer> getRight_answers() {
+        return right_answers;
+    }
+
+    public Exercise getPracticed_exercise() {
+        return practiced_exercise;
+    }
+
+    public void setExecution_time(int execution_time) {
+        this.execution_time = execution_time;
+    }
+    
+    
     
 }

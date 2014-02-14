@@ -256,7 +256,7 @@ public class QuestionCalculation extends Question implements iDbManager {
         while (it_operands.hasNext()) {
             res = res + it_operators.next() + it_operands.next();
         }
-        // res = res + "\n-----------------------";
+        res = res + "\n			" + this.solve();
         return res;
     }
 
