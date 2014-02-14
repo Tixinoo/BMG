@@ -259,6 +259,42 @@ public class User implements iDbManager
         return user;
     }
     
+    public static User findByEmail(String eml,BaseSetting bs) 
+    {
+        Connection connection = bs.getConnection();
+
+        User user = null;
+
+        try {
+            String query = "SELECT * FROM User WHERE email_u = ?";
+            PreparedStatement p_statement = connection.prepareStatement(query);
+            p_statement.setString(1, eml);
+
+            ResultSet rs = p_statement.executeQuery();
+
+            if (rs.next()) {
+                int idu = rs.getInt("id_u");
+                int idut = rs.getInt("id_ut");
+                String fnameu = rs.getString("fname_u");
+                String lnameu = rs.getString("lname_u");
+                String schoolu = rs.getString("school_u");
+                String emailu = rs.getString("email_u");
+                String passu = rs.getString("pass_u");
+                int connectedu = rs.getInt("connected_u");
+
+                user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
+            }
+
+        }  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
+
+        return user;
+    }
+    
     public static User findByLogs(String eml, String pswd, BaseSetting bs) 
     {
 	Connection connection = bs.getConnection();
