@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EncodeException;
+import exceptions.DecodeException;
 import database.BaseSetting;
 import interfaces.iDbManager;
 import java.sql.Connection;
@@ -313,7 +315,7 @@ public class QuestionCalculation extends Question implements iDbManager {
      *
      * @return encoded question
      */
-    public String encode() {
+    public String encode() throws EncodeException {
         
         String res = "#QuestionCalculaion<";
         res = res + encodeOperands();
@@ -350,7 +352,7 @@ public class QuestionCalculation extends Question implements iDbManager {
      * @param str encoded question
      * @return decoded question (object)
      */
-    public static QuestionCalculation decode(String str) {
+    public static QuestionCalculation decode(String str) throws DecodeException {
         QuestionCalculation res = null;
         if (str.substring(0, 19).compareTo("#QuestionCalculaion") == 0) {
             res = new QuestionCalculation();
@@ -387,13 +389,19 @@ public class QuestionCalculation extends Question implements iDbManager {
                         Question.decode(res, str);
                     } else {
                         res = null;
+                        throw new DecodeException();
                     }
                 } else {
                     res = null;
+                    throw new DecodeException();
                 }
             } else {
                 res = null;
+                throw new DecodeException();
             }
+        } else {
+            res = null;
+            throw new DecodeException();
         }
         return res;
     }

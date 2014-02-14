@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EncodeException;
+import exceptions.DecodeException;
 import database.BaseSetting;
 import java.util.*;
 
@@ -264,7 +266,7 @@ public class QuestionEquation extends Question {
         this.length = length;
     }
 
-    public String encodeOperands() {
+    public String encodeOperands() throws EncodeException {
         String res = new String();
         Iterator<Integer> itopd = operands.iterator();
         while (itopd.hasNext()) {
@@ -274,7 +276,7 @@ public class QuestionEquation extends Question {
         return res;
     }
 
-    public String encodeUnknowns() {
+    public String encodeUnknowns() throws EncodeException {
         String res = new String();
         Iterator<Boolean> itukn = unknowns.iterator();
         while (itukn.hasNext()) {
@@ -284,7 +286,7 @@ public class QuestionEquation extends Question {
         return res;
     }
 
-    public String encodeOperators() {
+    public String encodeOperators() throws EncodeException {
         String res = new String();
         Iterator<Character> itopt = operators.iterator();
         while (itopt.hasNext()) {
@@ -299,7 +301,7 @@ public class QuestionEquation extends Question {
      *
      * @return encoded question
      */
-    public String encode() {
+    public String encode() throws EncodeException {
         String res = "#QuestionEquation<";
         res = res + encodeOperands();
         res = res + "><";
@@ -317,7 +319,7 @@ public class QuestionEquation extends Question {
      * @param str encoded question
      * @return decoded question (object)
      */
-    public static QuestionEquation decode(String str) {
+    public static QuestionEquation decode(String str) throws DecodeException {
         QuestionEquation res = null;
         if (str.substring(0, 17).compareTo("#QuestionEquation") == 0) {
             res = new QuestionEquation();
@@ -378,16 +380,23 @@ public class QuestionEquation extends Question {
                             Question.decode(res, str);
                         } else {
                             res = null;
+                            throw new DecodeException();
                         }
                     } else {
                         res = null;
+                        throw new DecodeException();
                     }
                 } else {
                     res = null;
+                    throw new DecodeException();
                 }
             } else {
                 res = null;
+                throw new DecodeException();
             }
+        } else {
+            res = null;
+            throw new DecodeException();
         }
         return res;
     }

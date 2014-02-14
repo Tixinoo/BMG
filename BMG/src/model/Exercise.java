@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EncodeException;
+import exceptions.DecodeException;
 import database.BaseSetting;
 import interfaces.iDbManager;
 import java.io.*;
@@ -286,7 +288,7 @@ public class Exercise implements iDbManager {
         return res;
     }
 
-    public String encode() {
+    public String encode() throws EncodeException {
         String res = null;
         this.update_ready();
         System.out.println(this.isReady());
@@ -297,11 +299,13 @@ public class Exercise implements iDbManager {
             while (itq.hasNext()) {
                 res = res + itq.next().encode() + "\n";
             }
+        } else {
+            throw new EncodeException();
         }
         return res;
     }
 
-    public static Exercise decode(String str) {
+    public static Exercise decode(String str) throws DecodeException {
         Exercise res = null;
         if (str.charAt(0) == '<') {
             res = new Exercise();
@@ -382,15 +386,19 @@ public class Exercise implements iDbManager {
                         }
                     } else {
                         res = null;
+                        throw new DecodeException();
                     }
                 } else {
                     res = null;
+                    throw new DecodeException();
                 }
             } else {
                 res = null;
+                throw new DecodeException();
             }
         } else {
             res = null;
+            throw new DecodeException();
         }
         return res;
     }
@@ -404,7 +412,9 @@ public class Exercise implements iDbManager {
         } catch (FileNotFoundException fnfe) {
             System.out.println("ERROR : file can not be found");
         } catch (IOException ioe) {
-            System.out.println("ERREUR : in/out failure");
+            System.out.println("ERROR : in/out failure");
+        } catch (EncodeException ee) {
+            System.out.println("ERROR : encoding failue");
         }
     }
 
@@ -417,7 +427,9 @@ public class Exercise implements iDbManager {
         } catch (FileNotFoundException fnfe) {
             System.out.println("ERROR : file can not be found");
         } catch (IOException ioe) {
-            System.out.println("ERREUR : in/out failure");
+            System.out.println("ERROR : in/out failure");
+        } catch (DecodeException de) {
+            System.out.println("ERROR : decoding failure");
         }
         return res;
     }
