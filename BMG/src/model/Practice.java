@@ -2,6 +2,9 @@ package model;
 
 import database.BaseSetting;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -10,6 +13,10 @@ import java.util.ArrayList;
  * @author tixinoo
  */
 public class Practice {
+    
+    private int id_u;
+    
+    private int id_e;
     
     /**
      * 
@@ -95,7 +102,27 @@ public class Practice {
     {
 	Connection connection = bs.getConnection();
 	
-	
+	try {
+            String query = "INSERT INTO Practice (id_u,id_e) VALUES (?,?)";
+            PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+            p_statement.setInt(1, this.id_u);
+            p_statement.setInt(2, this.id_e);
+            p_statement.executeUpdate();
+            ResultSet rs = p_statement.getGeneratedKeys();
+
+            if (rs.next()) {
+                this.id_u = rs.getInt(1);
+		this.id_e = rs.getInt(2);
+            }
+            
+            return true;
+
+        }  
+	catch (SQLException sqle) 
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
 	
 	return false;
     }
