@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EncodeException;
+import exceptions.DecodeException;
 import database.BaseSetting;
 import java.util.*;
 
@@ -310,7 +312,7 @@ public class QuestionFraction extends Question {
 	 * Encode the current question (object) in a string which can recreate this question by the decode() method
 	 * @return encoded question
 	 */
-	public String encode() {
+	public String encode() throws EncodeException {
 		String res = "#QuestionFraction<";
         res = res + encodeNumerators();
 		res = res + "><";
@@ -357,7 +359,7 @@ public class QuestionFraction extends Question {
 	 * @param str encoded question
 	 * @return decoded question (object)
 	 */
-	public static QuestionFraction decode(String str) {
+	public static QuestionFraction decode(String str) throws DecodeException {
 		QuestionFraction res = null;
 		if (str.substring(0,17).compareTo("#QuestionFraction") == 0) {
 			res = new QuestionFraction();
@@ -403,17 +405,24 @@ public class QuestionFraction extends Question {
 							Question.decode(res, str);
 						} else {
 							res = null;
+                            throw new DecodeException();
 						}
 					} else {
 						res = null;
+                        throw new DecodeException();
 					}
 				} else {
 					res = null;
+                    throw new DecodeException();
 				}
 			} else {
 				res =null;
+                throw new DecodeException();
 			}
-		}
+		} else {
+            res = null;
+            throw new DecodeException();
+        }
 		return res;
 	}
 

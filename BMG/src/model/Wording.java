@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EncodeException;
+import exceptions.DecodeException;
 import database.BaseSetting;
 import interfaces.iDbManager;
 import java.sql.Connection;
@@ -162,14 +164,14 @@ public class Wording implements iDbManager {
         return res;
     }
 
-    public String encode() {
+    public String encode() throws EncodeException {
 		String res = "#Wording<" + id + "><$<" + text + ">$><";
         res = res + encodeValues();
 		res = res + ">";
 		return res;
 	}
     
-    public static Object[] decodeValues(String str) {
+    public static Object[] decodeValues(String str) throws DecodeException {
         Object[] res;
         int i=0;
         int beginning = i;
@@ -208,11 +210,12 @@ public class Wording implements iDbManager {
             }
         } else {
             res = null;
+            throw new DecodeException();
         }
         return res;
     }
     
-	public static Wording decode(String str) {
+	public static Wording decode(String str) throws DecodeException {
 	    Wording res = null;
         if (str.substring(0, 8).compareTo("#Wording") == 0) {
             res = new Wording();
@@ -253,9 +256,11 @@ public class Wording implements iDbManager {
                                     res.setValues(decodeValues(str.substring(beginning+1, i)));
                                 } else {
                                     res = null;
+                                    throw new DecodeException();
                                 }
 		                    } else {
 		                    	res = null;
+                                throw new DecodeException();
 		                    }
 	                    } else {
 	                    	res.setValues(null);
@@ -265,13 +270,19 @@ public class Wording implements iDbManager {
 	                    str.substring(i);
                     } else {
                     	res = null;
+                        throw new DecodeException();
                     }
                 } else {
                 	res = null;
+                    throw new DecodeException();
                 }
             } else {
             	res = null;
+                throw new DecodeException();
             }
+        } else {
+            res = null;
+            throw new DecodeException();
         }
     	return res;
     }
@@ -432,6 +443,11 @@ public class Wording implements iDbManager {
 	    System.out.println("ERREUR");
 	    sqle.printStackTrace();
 	}
+    catch (DecodeException de)
+    {
+        System.out.println("ERREUR");
+        de.printStackTrace();
+    }
 	
 	return wording;
     }

@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EncodeException;
+import exceptions.DecodeException;
 import database.BaseSetting;
 import interfaces.iDbManager;
 
@@ -77,7 +79,7 @@ public abstract class Question {
         }
     }
     
-    public String encode() {
+    public String encode() throws EncodeException {
 		String res = "<" + id + "><$<" + text + ">$><" + difficulty + ">";
 		return res;
 	}
@@ -92,7 +94,7 @@ public abstract class Question {
 	}
 
 
-	public static void decode(Question qtn, String str) {
+	public static void decode(Question qtn, String str) throws DecodeException {
     	if (str.charAt(0) == '<') {
     		int i = 1;
     		while (str.charAt(i) != '>') {
@@ -129,9 +131,15 @@ public abstract class Question {
             		}
             		i++;
             		str = str.substring(i);
+                } else {
+                    throw new DecodeException();
                 }
+            } else {
+                throw new DecodeException();
             }
-    	}
+    	} else {
+            throw new DecodeException();
+        }
     }
 
     // ----------------------

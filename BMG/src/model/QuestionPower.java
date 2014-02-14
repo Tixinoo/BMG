@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.EncodeException;
+import exceptions.DecodeException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -247,7 +249,7 @@ public class QuestionPower extends Question {
         this.length = length;
     }
     
-    public String encodePowers() {
+    public String encodePowers() throws EncodeException {
         String res = new String();
         Iterator<Integer> itdnm = powers.iterator();
 		while (itdnm.hasNext()) {
@@ -257,7 +259,7 @@ public class QuestionPower extends Question {
         return res;
     }
     
-    public String encodeOperators() {
+    public String encodeOperators() throws EncodeException {
         String res = new String();
         Iterator<Character> itopt = operators.iterator();
 		while (itopt.hasNext()) {
@@ -271,7 +273,7 @@ public class QuestionPower extends Question {
 	 * Encode the current question (object) in a string which can recreate this question by the decode() method
 	 * @return encoded question
 	 */
-	public String encode() {
+	public String encode() throws EncodeException {
 		String res = "#QuestionPower<";
         res = res + operand;
 		res = res + "><";
@@ -283,7 +285,7 @@ public class QuestionPower extends Question {
 		return res;
 	}
     
-    public static ArrayList<Integer> decodePowers(String str) {
+    public static ArrayList<Integer> decodePowers(String str) throws DecodeException {
         ArrayList<Integer> res = new ArrayList<Integer>();
         String[] tab = str.split(":");
         for (int x=0; x<tab.length; x++) {
@@ -293,7 +295,7 @@ public class QuestionPower extends Question {
         return res;
     }
     
-    public static ArrayList<Character> decodeOperators(String str) {
+    public static ArrayList<Character> decodeOperators(String str) throws DecodeException {
         ArrayList<Character> res = new ArrayList<Character>();
         String[] tab = str.split(":");
         for (int x=0; x<tab.length; x++) {
@@ -308,7 +310,7 @@ public class QuestionPower extends Question {
 	 * @param str encoded question
 	 * @return decoded question (object)
 	 */
-	public static QuestionPower decode(String str) {
+	public static QuestionPower decode(String str) throws DecodeException {
 		QuestionPower res = null;
         if (str.substring(0,14).compareTo("#QuestionPower") == 0) {
             res = new QuestionPower();
@@ -353,16 +355,23 @@ public class QuestionPower extends Question {
                             Question.decode(res, str);
                         } else {
                             res = null;
+                            throw new DecodeException();
                         }
                     } else {
                         res = null;
+                        throw new DecodeException();
                     }
                 } else {
                     res = null;
+                    throw new DecodeException();
                 }
             } else {
                 res =null;
+                throw new DecodeException();
             }
+        } else {
+            res = null;
+            throw new DecodeException();
         }
 		return res;
 	}

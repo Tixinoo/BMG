@@ -1,5 +1,9 @@
 package tests;
 
+import exceptions.DecodeException;
+import exceptions.EncodeException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Wording;
 
 public class Others_Tests 
@@ -45,11 +49,17 @@ public class Others_Tests
 
 	String big_s_decode = "dbl:int:str:chr><3.50:666:hell:!";
 	Object[] t_obj_decode = null;
-
-	t_obj_decode = Wording.decodeValues(big_s_decode);
+    try {
+        t_obj_decode = Wording.decodeValues(big_s_decode);
+    } catch (DecodeException ex) {
+        Logger.getLogger(Others_Tests.class.getName()).log(Level.SEVERE, null, ex);
+    }
 	w_decode.setValues(t_obj_decode);
-
-	System.out.println("Obtenu :  " + w_decode.encode());
+    try {
+        System.out.println("Obtenu :  " + w_decode.encode());
+    } catch (EncodeException ex) {
+        Logger.getLogger(Others_Tests.class.getName()).log(Level.SEVERE, null, ex);
+    }
 	System.out.println("Attendu : " + "#Wording<-1><$<texte...>$><dbl:int:str:chr><3.50:666:hell:!>");
 
 	System.out.println("FIN TEST DECODE_VALUES");

@@ -1,3 +1,5 @@
+import exceptions.DecodeException;
+import exceptions.EncodeException;
 import java.util.ArrayList;
 import model.Exercise;
 import model.QuestionCalculation;
@@ -27,13 +29,17 @@ public class TestKernel57 {
 		qcal.setID(2);
 		qcal.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate lacus eu odio ultricies porta.");
 		
-		String str = qcal.encode();
+        String str = new String();
+        try {
+		str = qcal.encode();
 		//System.out.println("encode 1 qcal :" + str);
 		QuestionCalculation qcal2 = QuestionCalculation.decode(str);
 		//System.out.println("decode 1 qcal2 : " + qcal2);
 		str = qcal2.encode();
 		//System.out.println(str+ "\n");
-		
+        } catch (EncodeException ee) {
+        } catch (DecodeException de) {}
+        
 		QuestionFraction qfra = new QuestionFraction();
 		ArrayList<Integer> num = new ArrayList<Integer>();
 		num.add(12);
@@ -103,11 +109,14 @@ public class TestKernel57 {
 		ex.addQuestion(qfra);
         ex.addQuestion(qpow);
 		ex.update_ready();
+        try {
         System.out.println("\n\n" + ex);
 		str = ex.encode();
 		System.out.println("\n\n" + str);
 		Exercise e = Exercise.decode(str);
 		System.out.println(e);
+        } catch (EncodeException ee) {
+        } catch (DecodeException de) {}
         
         System.out.println(qpow.solve());
 		
