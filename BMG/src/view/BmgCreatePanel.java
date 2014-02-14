@@ -486,10 +486,11 @@ public class BmgCreatePanel {
                 JOptionPane.showMessageDialog(null, "Sign in success !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
 
                 //Edit label menu bar
-                fen.panMenu.setLabel("Connected as " + email);
+                fen.panMenu.setLabel(">Connected as " + email);
                 
                 //Edit instance User
                 
+                fen.setPanel(BmgFrame.panMain);
             } else {
                 JOptionPane.showMessageDialog(null, "Error, false !", "Sign up information", JOptionPane.ERROR_MESSAGE);
 
