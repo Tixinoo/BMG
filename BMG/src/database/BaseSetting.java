@@ -21,7 +21,8 @@ public class BaseSetting {
     private ResultSet result_set;
 
     public BaseSetting() {
-         if(testerConnexion()) System.out.println("Connexion console ok");
+         //if(testerConnexion()) System.out.println("Connexion console ok");
+         testerConnexion();
     }
     
     public void setInfo() {
