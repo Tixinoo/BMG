@@ -1,5 +1,7 @@
 package model;
 
+import database.BaseSetting;
+import java.sql.Connection;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -89,6 +91,36 @@ public class Practice {
         this.execution_time = execution_time;
     }
     
+    public boolean insert(BaseSetting bs)
+    {
+	Connection connection = bs.getConnection();
+	
+	
+	
+	return false;
+    }
     
+    public boolean update(BaseSetting bs)
+    {
+	Connection connection = bs.getConnection();
+	
+	return false;
+    }
+    
+    public boolean delete(BaseSetting bs)
+    {
+	Connection connection = bs.getConnection();
+	
+	return false;
+    }
+    
+    public static Practice findById(int idu, int ide, BaseSetting bs)
+    {
+	Connection connection = bs.getConnection();
+	
+	Practice practice = null;
+	
+	return practice;
+    }
     
 }
