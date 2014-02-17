@@ -211,7 +211,7 @@ public class Practice {
                 String execd = rs.getString("execution_date");
                 String exect = rs.getString("execution_time");
                 double s = rs.getDouble("success");
-                String wa = rs.getString("wrrong_answers");
+                String wa = rs.getString("wrong_answers");
 
                 /*constructeur*/
             }
