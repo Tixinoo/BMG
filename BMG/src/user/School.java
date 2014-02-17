@@ -219,7 +219,7 @@ public class School implements iDbManager
 		int idsch = rs.getInt("id_sch");
 		String namesch = rs.getString("name_sch");
 		String typesch = rs.getString("type_sch");
-		String streetsch = rs.getString("streetsch");
+		String streetsch = rs.getString("street_sch");
 		String citysch = rs.getString("city_sch");
 		String postalcodesch = rs.getString("postalcode_sch");
 		
