@@ -267,13 +267,21 @@ public class School implements iDbManager
     
     public static String[] researchAllSchool_Name(BaseSetting bs) throws NotFoundException
     {
-	School[] ts1 = School.researchAllSchool(bs);
-	String[] ts2 = new String[ts1.length];
+	School[] ts1;
+	ts1 = School.researchAllSchool(bs);
 	
-	for (int i = 0 ; i < ts2.length ; i++)
+	String[] ts2;
+	
+	if (ts1.length > 0)
 	{
-	    ts2[i] = ts1[i].getName_sch();
+	    ts2 = new String[ts1.length];
+	    
+	    for (int i = 0 ; i < ts2.length ; i++)
+	    {
+		ts2[i] = ts1[i].getName_sch();
+	    }
 	}
+	else throw new NotFoundException();
 	
 	return ts2;
     }
