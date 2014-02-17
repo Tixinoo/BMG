@@ -515,9 +515,11 @@ public class BmgCreatePanel {
             JOptionPane jop = new JOptionPane();
             String school = listSchool[jcb.getSelectedIndex()];
 
+	    int i_school = Integer.parseInt(school);
+	    
             char[] c = jpf.getPassword();
             String password = new String(c);
-            if (User.signIn(bs, 1, saisies[0].getText(), saisies[1].getText(), school, saisies[2].getText(), password)) {
+            if (User.signIn(bs, 1, saisies[0].getText(), saisies[1].getText(), i_school, saisies[2].getText(), password)) {
                 //Sign up success !
                 JOptionPane.showMessageDialog(null, "Sign up success !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
 
