@@ -202,6 +202,41 @@ public class School implements iDbManager
 	return al_school;
     }
     
+    public static ArrayList<School> findAll(BaseSetting bs)
+    {
+	Connection connection = bs.getConnection();
+	
+	ArrayList<School> al_school = new ArrayList<>();
+	
+	try
+	{
+	    String query = "SELECT * FROM School";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    ResultSet rs = p_statement.executeQuery();
+	    
+	    while (rs.next())
+	    {
+		int idsch = rs.getInt("id_sch");
+		String namesch = rs.getString("name_sch");
+		String typesch = rs.getString("type_sch");
+		String streetsch = rs.getString("streetsch");
+		String citysch = rs.getString("city_sch");
+		String postalcodesch = rs.getString("postalcode_sch");
+		
+		School school = new School(idsch,namesch,typesch,streetsch,citysch,postalcodesch);
+		
+		al_school.add(school);
+	    }
+	}
+	catch (SQLException sqle)
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
+	
+	return al_school;
+    }
+    
     public static School[] researchSchool(BaseSetting bs, String name) throws NotFoundException
     {
 	ArrayList<School> als = findByName(name,bs);
@@ -214,6 +249,33 @@ public class School implements iDbManager
 	    throw new NotFoundException();
 		
 	return ts;
+    }
+    
+    public static School[] researchAllSchool(BaseSetting bs) throws NotFoundException
+    {
+	ArrayList<School> als = findAll(bs);
+	
+	School[] ts = null;
+	
+	if (als.size() > 0)
+	    ts = new School[als.size()];
+	else
+	    throw new NotFoundException();
+	
+	return ts;
+    }
+    
+    public static String[] researchAllSchool_Name(BaseSetting bs) throws NotFoundException
+    {
+	School[] ts1 = School.researchAllSchool(bs);
+	String[] ts2 = new String[ts1.length];
+	
+	for (int i = 0 ; i < ts2.length ; i++)
+	{
+	    ts2[i] = ts1[i].getName_sch();
+	}
+	
+	return ts2;
     }
     
 }

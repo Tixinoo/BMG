@@ -10,11 +10,14 @@ import database.BaseInformation;
 import database.BaseSetting;
 import exceptions.AccessDeniedException;
 import exceptions.AlreadyExistsException;
+import exceptions.NotFoundException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import user.School;
 import user.User;
 
 /**
@@ -36,12 +40,22 @@ public class BmgCreatePanel {
     BaseSetting bs;
     int width;
     int height;
-    final String[] listSchool;
+    /*final*/ String[] listSchool;
 
     public BmgCreatePanel(BmgFrame fen, BaseSetting bs, int width, int height) {
         this.fen = fen;
         this.bs = bs;
-        listSchool = Manipulation.getAllSchoolName(bs);
+//	this.listSchool = Manipulation.getAllSchoolName(bs);
+	
+	try 
+	{  
+	    this.listSchool = School.researchAllSchool_Name(bs);
+	} 
+	catch (NotFoundException nfe) 
+	{
+	    /* GESTION DE L'EXCEPTION A RAJOUTER */
+	}
+	
         this.width = width;
         this.height = height;
     }
