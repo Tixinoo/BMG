@@ -47,7 +47,9 @@ public class SignIn_Tests
 					String s_email = jtf_email.getText();
 					String s_pass = jpf_pass.getText();
 					
-					User u = new User(idut,s_fname,s_lname,s_school,s_email,s_pass);
+					int i_school = Integer.parseInt(s_school);
+					
+					User u = new User(idut,s_fname,s_lname,i_school,s_email,s_pass);
 					u.insert(bs);
 					
 					int id = User.findById(u.getId_u(),bs).getId_u();

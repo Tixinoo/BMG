@@ -7,6 +7,7 @@ import model.Exercise;
 import model.Question;
 import model.QuestionCalculation;
 import model.Wording;
+import user.School;
 import user.Screen;
 import user.User;
 import user.UserType;
@@ -20,6 +21,31 @@ public class ActiveRecord_Tests
 	boolean b = true;
 	
 	BaseSetting bs = new BaseSetting();
+	
+	School school_1 = new School("Ecole1","Type1","Rue1","Ville1","CodePostal1");
+	b = school_1.insert(bs);
+	System.out.println(""+b+" insertion school 1");
+	School school_2 = new School("Ecole2","Type2","Rue2","Ville2","CodePostal2");
+	b = school_2.insert(bs);
+	System.out.println(""+b+" insertion school 2");
+	School school_3 = new School("Ecole3","Type3","Rue3","Ville3","CodePostal3");
+	b = school_3.insert(bs);
+	System.out.println(""+b+" insertion school 3");
+	
+	School sch;
+	sch = School.findById(school_3.getId_sch(),bs); 
+	
+	if (sch != null) System.out.println(""+sch.getId_sch()+" | "+sch.getName_sch()+""); else System.out.println("find SCH : pas OK");
+	
+	sch.setName("...");
+	sch.update(bs);
+	
+	if (sch != null) System.out.println(""+sch.getId_sch()+""+sch.getName_sch()+""); else System.out.println("update SCH : pas OK");
+	
+	sch.delete(bs);
+	sch = School.findById(school_3.getId_sch(),bs);
+	
+	if (sch != null) System.out.println(""+sch.getId_sch()+""+sch.getName_sch()+""); else System.out.println("delete SCH : OK");
 	
 	UserType userType_1 = new UserType("Groupe1");
 	b = userType_1.insert(bs);
@@ -40,17 +66,17 @@ public class ActiveRecord_Tests
 	b = userType_6.insert(bs);
 	System.out.println(""+b+" insertion userType 6");
 	
-	User user_1 = new User(userType_5.getId_ut(),"Prenom1","Nom1","Ecole1","Email1","MdP1");
+	User user_1 = new User(userType_5.getId_ut(),"Prenom1","Nom1",1,"Email1","MdP1");
 	b = user_1.insert(bs);
 	System.out.println(""+b+" insertion user 1");
-	User user_2 = new User(userType_4.getId_ut(),"Prenom2","Nom2","Ecole2","Email2","MdP2");
+	User user_2 = new User(userType_4.getId_ut(),"Prenom2","Nom2",2,"Email2","MdP2");
 	b = user_2.insert(bs);
 	System.out.println(""+b+" insertion user 2");
 	
 	User u;
 	u = User.findById(user_2.getId_u(),bs);
 	
-	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("insert U : pas OK");
+	if (u != null) System.out.println(""+u.getId_u()+" | "+u.getFname_u()+""); else System.out.println("find U : pas OK");
 	
 	u.setFname_u("...");
 	u.update(bs);
@@ -65,7 +91,7 @@ public class ActiveRecord_Tests
 	UserType ut;
 	ut = UserType.findById(userType_6.getId_ut(),bs);
 	
-	if (ut != null) System.out.println(""+ut.getId_ut()+" | "+ut.getName_ut()+""); else System.out.println("insert UT : pas OK");
+	if (ut != null) System.out.println(""+ut.getId_ut()+" | "+ut.getName_ut()+""); else System.out.println("find UT : pas OK");
 	
 	ut.setName_ut("...");
 	ut.update(bs);
@@ -90,7 +116,7 @@ public class ActiveRecord_Tests
 	Screen sc;
 	sc = Screen.findById(screen_3.getId_s(),bs);
 	
-	if (sc != null) System.out.println(""+sc.getId_s()+" | "+sc.getName_s()+""); else System.out.println("insert S : pas OK");
+	if (sc != null) System.out.println(""+sc.getId_s()+" | "+sc.getName_s()+""); else System.out.println("find S : pas OK");
 	
 	sc.setName_s("...");
 	sc.update(bs);
@@ -112,7 +138,7 @@ public class ActiveRecord_Tests
 	Workgroup wg;
 	wg = Workgroup.findById(workgroup_2.getId_wg(),bs);
 	
-	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("insert WG : pas OK");
+	if (wg != null) System.out.println(""+wg.getId_wg()+" | "+wg.getName_wg()+""); else System.out.println("find WG : pas OK");
 	
 	wg.setName_wg("...");
 	wg.update(bs);
@@ -137,7 +163,7 @@ public class ActiveRecord_Tests
 	Wording w;
 	w = Wording.findById(wording_2.getId(),bs);
 	
-	if (w != null) System.out.println(""+w.getId()+" | "+w.getText()+""); else System.out.println("insert W : pas OK");
+	if (w != null) System.out.println(""+w.getId()+" | "+w.getText()+""); else System.out.println("find W : pas OK");
 	
 	w.setText("...");
 	w.update(bs);
@@ -169,7 +195,7 @@ public class ActiveRecord_Tests
 	QuestionCalculation qc;
 	qc = QuestionCalculation.findById(questionCalculation_3.getID(),bs);
 	
-	if (qc != null) System.out.println(""+qc.getID()+" | "+qc.getText()+""); else System.out.println("insert QC : pas OK");
+	if (qc != null) System.out.println(""+qc.getID()+" | "+qc.getText()+""); else System.out.println("find QC : pas OK");
 	
 	qc.setText("...");
 	qc.update(bs);
@@ -198,7 +224,7 @@ public class ActiveRecord_Tests
 	Exercise e;
 	e = Exercise.findById(exercise_3.getId(),bs);
 	
-	if (e != null) System.out.println(""+e.getId()+" | "+e.getTitle()+""); else System.out.println("insert E : pas OK");
+	if (e != null) System.out.println(""+e.getId()+" | "+e.getTitle()+""); else System.out.println("find E : pas OK");
 	
 	e.setTitle("...");
 	e.update(bs);
