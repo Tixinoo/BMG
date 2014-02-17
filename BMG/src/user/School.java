@@ -38,6 +38,21 @@ public class School implements iDbManager
 	city_sch = c;
 	postalCode_sch = pc;
     }
+    
+    public int getId_sch()
+    {
+	return this.id_sch;
+    }
+    
+    public String getName_sch()
+    {
+	return this.name_sch;
+    }
+    
+    public void setName(String name)
+    {
+	this.name_sch = name;
+    }
 
     @Override
     public boolean insert(BaseSetting bs) 
