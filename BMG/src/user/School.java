@@ -92,15 +92,18 @@ public class School implements iDbManager
 	
 	try
 	{
-	    String query = "UPDATE School SET (name_sch = ?, type_sch = ?, street_sch = ?, city_sch = ?, postalcode_sch = ?) WHERE id_sch = ?";
-	    PreparedStatement p_statement = connection.prepareStatement(query);
-	    p_statement.setString(1,this.name_sch);
-	    p_statement.setString(2,this.type_sch);
-	    p_statement.setString(3,this.street_sch);
-	    p_statement.setString(4,this.city_sch);
-	    p_statement.setString(5,this.postalCode_sch);
-	    p_statement.setInt(6,this.id_sch);
-	    p_statement.executeUpdate();
+            if (this.id_sch < 0)
+            {
+                String query = "UPDATE School SET (name_sch = ? , type_sch = ? , street_sch = ? , city_sch = ? , postalcode_sch = ?) WHERE id_sch = ?";
+                PreparedStatement p_statement = connection.prepareStatement(query);
+                p_statement.setString(1,this.name_sch);
+                p_statement.setString(2,this.type_sch);
+                p_statement.setString(3,this.street_sch);
+                p_statement.setString(4,this.city_sch);
+                p_statement.setString(5,this.postalCode_sch);
+                p_statement.setInt(6,this.id_sch);
+                p_statement.executeUpdate();
+            }
 	}
 	catch (SQLException sqle)
 	{
