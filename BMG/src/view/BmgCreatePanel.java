@@ -47,14 +47,14 @@ public class BmgCreatePanel {
         this.bs = bs;
 //	this.listSchool = Manipulation.getAllSchoolName(bs);
 	
-	try 
-	{  
-	    this.listSchool = School.researchAllSchool_Name(bs);
-	} 
-	catch (NotFoundException nfe) 
-	{
-	    /* GESTION DE L'EXCEPTION A RAJOUTER */
-	}
+//	try 
+//	{  
+//	    this.listSchool = School.researchAllSchool_Name(bs);
+//	} 
+//	catch (NotFoundException nfe) 
+//	{
+//	    /* GESTION DE L'EXCEPTION A RAJOUTER */
+//	}
 	
         this.width = width;
         this.height = height;
