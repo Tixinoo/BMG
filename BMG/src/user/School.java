@@ -140,7 +140,7 @@ public class School implements iDbManager
 	
 	try
 	{
-	    String query = "SELECT * FROM School WHERE id = ?";
+	    String query = "SELECT * FROM School WHERE id_sch = ?";
 	    PreparedStatement p_statement = connection.prepareStatement(query);
 	    p_statement.setInt(1,id);
 	    ResultSet rs = p_statement.executeQuery();

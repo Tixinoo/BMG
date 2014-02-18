@@ -35,40 +35,40 @@ public class User implements iDbManager
 
     private int id_u;
     private int id_ut;
+    private int id_sch;
     private String fname_u;
     private String lname_u;
-    private int school_u;
     private String email_u;
     private String pass_u;
     private int connected_u;
 
     /* CONSTRUCTOR */
-    public User(int idut, String fnameu, String lnameu, int schoolu, String emailu, String passu) {
+    public User(int idut, int idsch, String fnameu, String lnameu, String emailu, String passu) {
         id_ut = idut;
+        id_sch = idsch;
         fname_u = fnameu;
         lname_u = lnameu;
-        school_u = schoolu;
         email_u = emailu;
         pass_u = passu;
         connected_u = 0;
     }
     
-    public User(int idut, String fnameu, String lnameu, int schoolu, String emailu, String passu, int connectedu) {
+    public User(int idut, int idsch, String fnameu, String lnameu, String emailu, String passu, int connectedu) {
         id_ut = idut;
+        id_sch = idsch;
         fname_u = fnameu;
         lname_u = lnameu;
-        school_u = schoolu;
         email_u = emailu;
         pass_u = passu;
         connected_u = connectedu;
     }
 
-    public User(int idu, int idut, String fnameu, String lnameu, int schoolu, String emailu, String passu, int connectedu) {
+    public User(int idu, int idut, int idsch, String fnameu, String lnameu, String emailu, String passu, int connectedu) {
         id_u = idu;
         id_ut = idut;
+        id_sch = idsch;
         fname_u = fnameu;
         lname_u = lnameu;
-        school_u = schoolu;
         email_u = emailu;
         pass_u = passu;
         connected_u = connectedu;
@@ -90,7 +90,17 @@ public class User implements iDbManager
     public void setId_ut(int id_ut) {
         this.id_ut = id_ut;
     }
+    
+    public int getId_sch()
+    {
+        return id_sch;
+    }
 
+    public void setId_sch(int idsch)
+    {
+        id_sch = idsch;
+    }
+    
     public String getFname_u() {
         return fname_u;
     }
@@ -105,14 +115,6 @@ public class User implements iDbManager
 
     public void setLname_u(String lname_u) {
         this.lname_u = lname_u;
-    }
-
-    public int getSchool_u() {
-        return school_u;
-    }
-
-    public void setSchool_u(int school_u) {
-        this.school_u = school_u;
     }
 
     public String getEmail_u() {
@@ -145,12 +147,12 @@ public class User implements iDbManager
         Connection connection = bs.getConnection();
 
         try {
-            String query = "INSERT INTO User (id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
+            String query = "INSERT INTO User (id_ut,id_sch,fname_u,lname_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
             PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             p_statement.setInt(1, this.id_ut);
-            p_statement.setString(2, this.fname_u);
-            p_statement.setString(3, this.lname_u);
-            p_statement.setInt(4, this.school_u);
+            p_statement.setInt(2, this.id_sch);
+            p_statement.setString(3, this.fname_u);
+            p_statement.setString(4, this.lname_u);
             p_statement.setString(5, this.email_u);
             p_statement.setString(6, this.pass_u);
             p_statement.setInt(7, this.connected_u);
@@ -179,12 +181,12 @@ public class User implements iDbManager
 
         try {
             if (this.id_u < 0) {
-                String query = "UPDATE User SET (id_ut = ? , fname_u = ? , lname_u = ? , school_u = ? , email_u = ? , pass_u = sha(?) , connected_u = ?) WHERE id_u = ?";
+                String query = "UPDATE User SET (id_ut = ? , id_sch = ? , fname_u = ? , lname_u = ? , email_u = ? , pass_u = sha(?) , connected_u = ?) WHERE id_u = ?";
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_ut);
-                p_statement.setString(2, this.fname_u);
-                p_statement.setString(3, this.lname_u);
-                p_statement.setInt(4, this.school_u);
+                p_statement.setInt(2, this.id_sch);
+                p_statement.setString(3, this.fname_u);
+                p_statement.setString(4, this.lname_u);
                 p_statement.setString(5, this.email_u);
                 p_statement.setString(6, this.pass_u);
                 p_statement.setInt(7, this.connected_u);
@@ -239,14 +241,14 @@ public class User implements iDbManager
             if (rs.next()) {
                 int idu = rs.getInt("id_u");
                 int idut = rs.getInt("id_ut");
+                int idsch = rs.getInt("id_sch");
                 String fnameu = rs.getString("fname_u");
                 String lnameu = rs.getString("lname_u");
-                int schoolu = rs.getInt("school_u");
                 String emailu = rs.getString("email_u");
                 String passu = rs.getString("pass_u");
                 int connectedu = rs.getInt("connected_u");
 
-                user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
+                user = new User(idu, idut, idsch, fnameu, lnameu, emailu, passu, connectedu);
             }
 
         }  
@@ -275,14 +277,14 @@ public class User implements iDbManager
             if (rs.next()) {
                 int idu = rs.getInt("id_u");
                 int idut = rs.getInt("id_ut");
+                int idsch = rs.getInt("id_sch");
                 String fnameu = rs.getString("fname_u");
                 String lnameu = rs.getString("lname_u");
-                int schoolu = rs.getInt("school_u");
                 String emailu = rs.getString("email_u");
                 String passu = rs.getString("pass_u");
                 int connectedu = rs.getInt("connected_u");
 
-                user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
+                user = new User(idu, idut, idsch, fnameu, lnameu, emailu, passu, connectedu);
             }
 
         }  
@@ -326,14 +328,14 @@ public class User implements iDbManager
 	    {
                 int idu = rs.getInt("id_u");
                 int idut = rs.getInt("id_ut");
+                int idsch = rs.getInt("id_sch");
                 String fnameu = rs.getString("fname_u");
                 String lnameu = rs.getString("lname_u");
-                int schoolu = rs.getInt("school_u");
                 String emailu = rs.getString("email_u");
                 String passu = rs.getString("pass_u");
                 int connectedu = rs.getInt("connected_u");
 
-                user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
+                user = new User(idu, idut, idsch, fnameu, lnameu, emailu, passu, connectedu);
             }
 
         } 
@@ -347,7 +349,7 @@ public class User implements iDbManager
     }
 
     /* OTHERS */
-    public static boolean signIn(BaseSetting bs, int ut, String fn, String ln, int sch, String eml, String pswd) throws AlreadyExistsException
+    public static boolean signIn(BaseSetting bs, int ut, int sch, String fn, String ln, String eml, String pswd) throws AlreadyExistsException
     {
         boolean b = false;
 	
@@ -357,7 +359,7 @@ public class User implements iDbManager
 	}
 	else
 	{
-	    User u = new User(ut, fn, ln, sch, eml, pswd);
+	    User u = new User(ut, sch, fn, ln, eml, pswd);
 	    b = u.insert(bs);
 	    b = (User.findById(u.getId_u(), bs) != null);
 	}

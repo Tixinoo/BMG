@@ -49,7 +49,7 @@ public class SignIn_Tests
 					
 					int i_school = Integer.parseInt(s_school);
 					
-					User u = new User(idut,s_fname,s_lname,i_school,s_email,s_pass);
+					User u = new User(idut,i_school,s_fname,s_lname,s_email,s_pass);
 					u.insert(bs);
 					
 					int id = User.findById(u.getId_u(),bs).getId_u();

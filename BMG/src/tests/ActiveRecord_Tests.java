@@ -21,14 +21,15 @@ public class ActiveRecord_Tests
 	boolean b = true;
 	
 	BaseSetting bs = new BaseSetting();
+        //bs.setInfo();
 	
-	School school_1 = new School("Ecole1","Type1","Rue1","Ville1","CodePostal1");
+	School school_1 = new School("Ecole1","Type1","Rue1","Ville1","CPostal1");
 	b = school_1.insert(bs);
 	System.out.println(""+b+" insertion school 1");
-	School school_2 = new School("Ecole2","Type2","Rue2","Ville2","CodePostal2");
+	School school_2 = new School("Ecole2","Type2","Rue2","Ville2","CPostal2");
 	b = school_2.insert(bs);
 	System.out.println(""+b+" insertion school 2");
-	School school_3 = new School("Ecole3","Type3","Rue3","Ville3","CodePostal3");
+	School school_3 = new School("Ecole3","Type3","Rue3","Ville3","CPostal3");
 	b = school_3.insert(bs);
 	System.out.println(""+b+" insertion school 3");
 	
@@ -40,7 +41,7 @@ public class ActiveRecord_Tests
 	sch.setName("...");
 	sch.update(bs);
 	
-	if (sch != null) System.out.println(""+sch.getId_sch()+""+sch.getName_sch()+""); else System.out.println("update SCH : pas OK");
+	if (sch != null) System.out.println(""+sch.getId_sch()+" | "+sch.getName_sch()+""); else System.out.println("update SCH : pas OK");
 	
 	sch.delete(bs);
 	sch = School.findById(school_3.getId_sch(),bs);
@@ -66,10 +67,10 @@ public class ActiveRecord_Tests
 	b = userType_6.insert(bs);
 	System.out.println(""+b+" insertion userType 6");
 	
-	User user_1 = new User(userType_5.getId_ut(),"Prenom1","Nom1",1,"Email1","MdP1");
+	User user_1 = new User(userType_5.getId_ut(),school_2.getId_sch(),"Prenom1","Nom1","Email1","MdP1");
 	b = user_1.insert(bs);
 	System.out.println(""+b+" insertion user 1");
-	User user_2 = new User(userType_4.getId_ut(),"Prenom2","Nom2",2,"Email2","MdP2");
+	User user_2 = new User(userType_4.getId_ut(),school_1.getId_sch(),"Prenom2","Nom2","Email2","MdP2");
 	b = user_2.insert(bs);
 	System.out.println(""+b+" insertion user 2");
 	
