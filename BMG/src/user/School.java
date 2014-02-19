@@ -289,4 +289,13 @@ public class School implements iDbManager
 	return ts2;
     }
     
+    public static boolean addSchool(BaseSetting bs, String n, String t, String s, String c, String pc)
+    {
+        School sch = new School(n, t, s, c, pc);
+        
+        boolean b = sch.insert(bs);
+        
+        return b;
+    }
+    
 }
