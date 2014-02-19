@@ -4,6 +4,7 @@ import database.BaseSetting;
 import java.util.ArrayList;
 import java.util.Collection;
 import model.Exercise;
+import model.Practice;
 import model.Question;
 import model.QuestionCalculation;
 import model.Wording;
@@ -236,5 +237,36 @@ public class ActiveRecord_Tests
 	e = Exercise.findById(exercise_3.getId(),bs);
 	
 	if (e != null) System.out.println(""+e.getId()+" | "+e.getTitle()+""); else System.out.println("delete E : OK");
+        
+//        Practice practice_1 = new Practice();
+//        b = practice_1.insert(bs);
+//        System.out.println(""+b+" insertion practice_1");
+//        Practice practice_2 = new Practice();
+//        b = practice_2.insert(bs);
+//        System.out.println(""+b+" insertion practice_2");
+//        Practice practice_3 = new Practice();
+//        b = practice_3.insert(bs);
+//        System.out.println(""+b+" insertion practice_3");
+//        Practice practice_4 = new Practice();
+//        b = practice_4.insert(bs);
+//        System.out.println(""+b+" insertion practice_4");
+//        Practice practice_5 = new Practice();
+//        b = practice_5.insert(bs);
+//        System.out.println(""+b+" insertion practice_5");
+//        
+//        Practice pr;
+//        pr = Practice.findById(practice_5.getId_p(),bs);
+//        
+//        if (pr != null) System.out.println(""+pr.getId_p()+" | "+pr.getExecution_time()+""); else System.out.println("find PR : pas OK");
+//        
+//        pr.setExecution_time(30);
+//        pr.update(bs);
+//        
+//        if (pr != null) System.out.println(""+pr.getId_p()+" | "+pr.getExecution_time()+""); else System.out.println("update PR : pas OK");
+//        
+//        pr.delete(bs);
+//        pr = Practice.findById(practice_5.getId_p(),bs);
+//        
+//        if (pr != null) System.out.println(""+pr.getId_p()+" | "+pr.getExecution_time()+""); else System.out.println("delete PR : OK");
     }
 }
