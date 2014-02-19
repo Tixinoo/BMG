@@ -1,18 +1,16 @@
 package model;
 
 import database.BaseSetting;
+import exceptions.EncodeException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
 import user.User;
 
-/**
- *
- * @author tixinoo
- */
 public class Practice {
     
     private int id_p;
@@ -71,6 +69,40 @@ public class Practice {
     
     public void updateSuccess() {
         this.success = ( (double)this.right_answers.size() / ( (double)this.right_answers.size() + (double)this.wrong_answers.size() ) ) * 100.0;
+    }
+    
+    public String encodeWrongAnswers() throws EncodeException {
+        String res = new String();
+        if (wrong_answers.size() > 0) {
+            Iterator<Integer> itwan = wrong_answers.iterator();
+            while (itwan.hasNext()) {
+                res = res + itwan.next() + ":";
+            }
+            res = res.substring(0, res.length() - 1);
+        }
+        return res;
+    }
+    
+    public String encodeRightAnswers() throws EncodeException {
+        String res = new String();
+        if (right_answers.size() > 0) {
+            Iterator<Integer> itran = right_answers.iterator();
+            while (itran.hasNext()) {
+                res = res + itran.next() + ":";
+            }
+            res = res.substring(0, res.length() - 1);
+        }
+        return res;
+    }
+    
+    public String encode() throws EncodeException {
+        String res = "#Practice<";
+        res = res + id_p + "><" + id_u + "><" + id_e + "><";
+        res = res + execution_date + "><" + execution_time + "><" + success + ">\n";
+        res = res + encodeWrongAnswers() + "\n";
+        res = res + encodeRightAnswers() + "\n";
+        res = res + practiced_exercise.encode();
+        return res;
     }
 
     public int getExecution_time() {
