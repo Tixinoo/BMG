@@ -312,7 +312,37 @@ public class QuestionEquation extends Question {
         res = res + super.encode();
         return res;
     }
-
+    
+    public static ArrayList<Integer> decodeOperands(String str) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        String[] tab = str.split(":");
+        for (int x = 0; x < tab.length; x++) {
+            res.add(Integer.valueOf(tab[x]));
+        }
+        assert res.size() > 0 : "empty operands table";
+        return res;
+    }
+    
+    public static ArrayList<Boolean> decodeUnknowns(String str) {
+        ArrayList<Boolean> res = new ArrayList<Boolean>();
+        String[] tab = str.split(":");
+        for (int x = 0; x < tab.length; x++) {
+            res.add(Boolean.valueOf(tab[x]));
+        }
+        assert res.size() > 0 : "empty unknowns table";
+        return res;
+    }
+    
+    public static ArrayList<Character> decodeOperators(String str) {
+        ArrayList<Character> res = new ArrayList<Character>();
+        String[] tab = str.split(":");
+        for (int x = 0; x < tab.length; x++) {
+            res.add(tab[x].charAt(0));
+        }
+        assert res.size() > 0 : "empty operators table";
+        return res;
+    }
+    
     /**
      * Decode the string generate by the encode() method of this class
      *
@@ -328,12 +358,7 @@ public class QuestionEquation extends Question {
                 while (str.charAt(i) != '>') {
                     i++;
                 }
-                String[] tab = str.substring(18, i).split(":");
-                ArrayList<Integer> tmp_opd = new ArrayList<Integer>();
-                for (int x = 0; x < tab.length; x++) {
-                    tmp_opd.add(Integer.valueOf(tab[x]));
-                }
-                assert tmp_opd.size() > 0 : "empty operands table";
+                ArrayList<Integer> tmp_opd = decodeOperands(str.substring(18, i));
                 res.setOperands(tmp_opd);
 
                 i++;
@@ -342,12 +367,7 @@ public class QuestionEquation extends Question {
                     while (str.charAt(i) != '>') {
                         i++;
                     }
-                    tab = str.substring(beginning + 1, i).split(":");
-                    ArrayList<Boolean> tmp_ukn = new ArrayList<Boolean>();
-                    for (int x = 0; x < tab.length; x++) {
-                        tmp_ukn.add(Boolean.valueOf(tab[x]));
-                    }
-                    assert tmp_ukn.size() > 0 : "empty unknowns table";
+                    ArrayList<Boolean> tmp_ukn = decodeUnknowns(str.substring(beginning + 1, i));
                     res.setUnknowns(tmp_ukn);
 
                     i++;
@@ -356,12 +376,7 @@ public class QuestionEquation extends Question {
                         while (str.charAt(i) != '>') {
                             i++;
                         }
-                        tab = str.substring(beginning + 1, i).split(":");
-                        ArrayList<Character> tmp_opt = new ArrayList<Character>();
-                        for (int x = 0; x < tab.length; x++) {
-                            tmp_opt.add(tab[x].charAt(0));
-                        }
-                        assert tmp_opt.size() > 0 : "empty operators table";
+                        ArrayList<Character> tmp_opt = decodeOperators(str.substring(beginning + 1, i));
                         assert tmp_opt.size() == tmp_opt.size() + 1 : "incorrect size of operators table";
                         res.setOperators(tmp_opt);
 
