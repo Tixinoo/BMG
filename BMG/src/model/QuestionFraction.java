@@ -3,6 +3,10 @@ package model;
 import exceptions.EncodeException;
 import exceptions.DecodeException;
 import database.BaseSetting;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class QuestionFraction extends Question {
@@ -77,6 +81,27 @@ public class QuestionFraction extends Question {
         this.numerators = new ArrayList<Integer>();
         this.denominators = new ArrayList<Integer>();
         this.operators = new ArrayList<Character>();
+    }
+    
+    public QuestionFraction(String textqf, int diffqf, ArrayList<Integer> numerqf, ArrayList<Integer> denomqf, ArrayList<Character> operqf)
+    {
+        super();
+        this.text = textqf;
+        this.difficulty = diffqf;
+        this.numerators = numerqf;
+        this.denominators = denomqf;
+        this.operators = operqf;
+    }
+    
+    public QuestionFraction(int idqf, String textqf, int diffqf, ArrayList<Integer> numerqf, ArrayList<Integer> denomqf, ArrayList<Character> operqf)
+    {
+        super();
+        this.id = idqf;
+        this.text = textqf;
+        this.difficulty = diffqf;
+        this.numerators = numerqf;
+        this.denominators = denomqf;
+        this.operators = operqf;
     }
 
     // ----------------------
@@ -432,23 +457,92 @@ public class QuestionFraction extends Question {
     /* MISE A JOURS */
     public boolean insert(BaseSetting bs) 
     {
+        Connection connection = bs.getConnection();
+        
+        try
+        {
+            String query = "";
+            PreparedStatement p_statement = connection.prepareStatement(query);
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+        
         return false;
     }
 
     public boolean update(BaseSetting bs) 
     {
+        Connection connection = bs.getConnection();
+        
+        try
+        {
+            String query = "";
+            PreparedStatement p_statement = connection.prepareStatement(query);
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+        
         return false;
     }
 
     public boolean delete(BaseSetting bs) 
     {
+        Connection connection = bs.getConnection();
+        
+        try
+        {
+            String query = "";
+            PreparedStatement p_statement = connection.prepareStatement(query);
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+        
         return false;
     }
 
     /* FINDERS */
     public static QuestionFraction findById(int id, BaseSetting bs) 
     {
-        return null;
+        Connection connection = bs.getConnection();
+        
+        QuestionFraction questionFraction = null;
+        
+        try
+        {
+            String query = "SELECT * FROM QuestionFraction WHERE id_qf = ?";
+            PreparedStatement p_statement = connection.prepareStatement(query);
+            p_statement.setInt(1,id);
+            
+            ResultSet rs = p_statement.executeQuery();
+            
+            if (rs.next())
+            {
+                int idqf = rs.getInt("id_qf");
+                String textqf = rs.getString("text_qf");
+                int diffqf = rs.getInt("diff_qf");
+                ArrayList<Integer> numerqf = null;
+                ArrayList<Integer> denomqf = null;
+                ArrayList<Character> operqf = null;
+                
+                questionFraction = new QuestionFraction(idqf,textqf,diffqf,numerqf,denomqf,operqf);
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+        
+        return questionFraction;
     }
 
     // ----------------------
