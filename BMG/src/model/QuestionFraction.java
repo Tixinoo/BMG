@@ -529,9 +529,12 @@ public class QuestionFraction extends Question {
                 int idqf = rs.getInt("id_qf");
                 String textqf = rs.getString("text_qf");
                 int diffqf = rs.getInt("diff_qf");
-                ArrayList<Integer> numerqf = null;
-                ArrayList<Integer> denomqf = null;
-                ArrayList<Character> operqf = null;
+                String s_numerqf = rs.getString("numerators");
+                ArrayList<Integer> numerqf = QuestionFraction.decodeNumerators(s_numerqf);
+                String s_denomqf = rs.getString("denominators");
+                ArrayList<Integer> denomqf = QuestionFraction.decodeDenominators(s_denomqf);
+                String s_operqf = rs.getString("operators");
+                ArrayList<Character> operqf = QuestionFraction.decodeOperators(s_operqf);
                 
                 questionFraction = new QuestionFraction(idqf,textqf,diffqf,numerqf,denomqf,operqf);
             }
