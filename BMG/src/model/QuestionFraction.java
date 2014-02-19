@@ -497,8 +497,9 @@ public class QuestionFraction extends Question {
         
         try
         {
-            String query = "";
+            String query = "DELETE FROM QuestionFraction WHERE id_qf = ?";
             PreparedStatement p_statement = connection.prepareStatement(query);
+            p_statement.setInt(1,id);
         }
         catch (SQLException sqle)
         {
