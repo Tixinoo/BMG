@@ -110,7 +110,11 @@ public class QuestionEquation extends Question {
             if (i == 0) {
                 this.unknowns.add(1);
             } else {
-                this.unknowns.add((int) (Math.random() * (order+1)));
+                if (Math.random() < 0.45) {
+                    this.unknowns.add((int) (Math.random() * (order + 1)));
+                } else {
+                    this.unknowns.add(0);
+                }
             }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
@@ -121,7 +125,7 @@ public class QuestionEquation extends Question {
             }
         }
     }
-    
+
     /**
      * Generate a random question with an equation with the length given in parameter
      */
@@ -185,69 +189,69 @@ public class QuestionEquation extends Question {
      */
     public double[] solve() {
         /*double res = 0;
-        Iterator<Integer> it_operands = this.operands.iterator();
-        Iterator<Character> it_operators = this.operators.iterator();
-        Iterator<Boolean> it_unknowns = this.unknowns.iterator();
-        ArrayList<Integer> operands_qc1l = new ArrayList<Integer>();
-        ArrayList<Character> operators_qc1l = new ArrayList<Character>();
-        ArrayList<Integer> operands_qc2l = new ArrayList<Integer>();
-        ArrayList<Character> operators_qc2l = new ArrayList<Character>();
-        ArrayList<Integer> operands_qc1r = new ArrayList<Integer>();
-        ArrayList<Character> operators_qc1r = new ArrayList<Character>();
-        ArrayList<Integer> operands_qc2r = new ArrayList<Integer>();
-        ArrayList<Character> operators_qc2r = new ArrayList<Character>();
-        boolean after_equal = false;
-        if (!it_unknowns.next()) {
-            operands_qc1l.add(it_operands.next());
-        } else {
-            operands_qc2l.add(it_operands.next());
-        }
-        while (it_operands.hasNext()) {
-            if (it_operators.hasNext()) {
-                after_equal = (it_operators.next() == '=');
-            }
-            if (!after_equal) {
-                if (!it_unknowns.next()) {
-                    operands_qc1l.add(it_operands.next());
-                } else {
-                    operands_qc2l.add(it_operands.next());
-                }
-            } else {
-                if (!it_unknowns.next()) {
-                    operands_qc1r.add(it_operands.next());
-                } else {
-                    operands_qc2r.add(it_operands.next());
-                }
-            }
-        }
-        System.out.println(operands_qc1l);
-        System.out.println(operands_qc1r);
-        System.out.println(operands_qc2l);
-        System.out.println(operands_qc2r);
-        return res;*/
-        
+         Iterator<Integer> it_operands = this.operands.iterator();
+         Iterator<Character> it_operators = this.operators.iterator();
+         Iterator<Boolean> it_unknowns = this.unknowns.iterator();
+         ArrayList<Integer> operands_qc1l = new ArrayList<Integer>();
+         ArrayList<Character> operators_qc1l = new ArrayList<Character>();
+         ArrayList<Integer> operands_qc2l = new ArrayList<Integer>();
+         ArrayList<Character> operators_qc2l = new ArrayList<Character>();
+         ArrayList<Integer> operands_qc1r = new ArrayList<Integer>();
+         ArrayList<Character> operators_qc1r = new ArrayList<Character>();
+         ArrayList<Integer> operands_qc2r = new ArrayList<Integer>();
+         ArrayList<Character> operators_qc2r = new ArrayList<Character>();
+         boolean after_equal = false;
+         if (!it_unknowns.next()) {
+         operands_qc1l.add(it_operands.next());
+         } else {
+         operands_qc2l.add(it_operands.next());
+         }
+         while (it_operands.hasNext()) {
+         if (it_operators.hasNext()) {
+         after_equal = (it_operators.next() == '=');
+         }
+         if (!after_equal) {
+         if (!it_unknowns.next()) {
+         operands_qc1l.add(it_operands.next());
+         } else {
+         operands_qc2l.add(it_operands.next());
+         }
+         } else {
+         if (!it_unknowns.next()) {
+         operands_qc1r.add(it_operands.next());
+         } else {
+         operands_qc2r.add(it_operands.next());
+         }
+         }
+         }
+         System.out.println(operands_qc1l);
+         System.out.println(operands_qc1r);
+         System.out.println(operands_qc2l);
+         System.out.println(operands_qc2r);
+         return res;*/
+
         double[] res = new double[0];
         if (!operands.isEmpty()) {
             int order = 0;
             int o;
-            for (Iterator<Integer> it = unknowns.iterator(); it.hasNext(); ) {
+            for (Iterator<Integer> it = unknowns.iterator(); it.hasNext();) {
                 o = it.next();
                 if (o > order) {
                     order = o;
                 }
             }
             res = new double[order];
-            
+
             ArrayList<Double> equation = new ArrayList<Double>();
             equation.add((double) operands.get(0));
-            for (int i=1; i < operands.size(); i++) {
-                if (operators.get(i-1) == '-') {
+            for (int i = 1; i < operands.size(); i++) {
+                if (operators.get(i - 1) == '-') {
                     equation.add((double) operands.get(i) * -1);
                 } else {
                     equation.add((double) operands.get(i));
                 }
             }
-            int i=0;
+            int i = 0;
             while (i < operators.size()) {
                 if (operators.get(i) == '=') {
                     i++;
@@ -261,7 +265,7 @@ public class QuestionEquation extends Question {
             if (order == 1) {
                 double knownsSum = 0;
                 double unknownsSum = 0;
-                for (i=0; i < equation.size(); i++) {
+                for (i = 0; i < equation.size(); i++) {
                     if (unknowns.get(i) == 1) {
                         unknownsSum += equation.get(i);
                     } else {
@@ -275,7 +279,7 @@ public class QuestionEquation extends Question {
                 double b = 0;
                 double c = 0;
                 double delta;
-                for (i=0; i < equation.size(); i++) {
+                for (i = 0; i < equation.size(); i++) {
                     if (unknowns.get(i) == 2) {
                         a += equation.get(i);
                     } else if (unknowns.get(i) == 2) {
@@ -412,7 +416,7 @@ public class QuestionEquation extends Question {
         res = res + super.encode();
         return res;
     }
-    
+
     public static ArrayList<Integer> decodeOperands(String str) {
         ArrayList<Integer> res = new ArrayList<Integer>();
         String[] tab = str.split(":");
@@ -422,7 +426,7 @@ public class QuestionEquation extends Question {
         assert res.size() > 0 : "empty operands table";
         return res;
     }
-    
+
     public static ArrayList<Integer> decodeUnknowns(String str) {
         ArrayList<Integer> res = new ArrayList<Integer>();
         String[] tab = str.split(":");
@@ -432,7 +436,7 @@ public class QuestionEquation extends Question {
         assert res.size() > 0 : "empty unknowns table";
         return res;
     }
-    
+
     public static ArrayList<Character> decodeOperators(String str) {
         ArrayList<Character> res = new ArrayList<Character>();
         String[] tab = str.split(":");
@@ -442,7 +446,7 @@ public class QuestionEquation extends Question {
         assert res.size() > 0 : "empty operators table";
         return res;
     }
-    
+
     /**
      * Decode the string generate by the encode() method of this class
      *

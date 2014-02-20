@@ -242,6 +242,18 @@ public class QuestionCalculation extends Question implements iDbManager {
         return res;
     }
 
+    public String getText() {
+        String res = "";
+        Iterator<Integer> it_operands = this.operands.iterator();
+        Iterator<Character> it_operators = this.operators.iterator();
+        res = res + it_operands.next();
+        while (it_operands.hasNext()) {
+            res = res + it_operators.next() + it_operands.next();
+        }
+        res = res + "\n			" + this.solve();
+        return res;
+    }
+    
     /**
      * Display a question of calculation.
      */
