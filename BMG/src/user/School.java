@@ -19,6 +19,11 @@ public class School implements iDbManager
     private String city_sch;
     private String postalCode_sch;
     
+    public School(String n)
+    {
+        name_sch = n;
+    }
+    
     public School(String n, String t, String s, String c, String pc)
     {
 	id_sch = -1;
@@ -298,4 +303,52 @@ public class School implements iDbManager
         return b;
     }
     
+    public static boolean addSchoolName(BaseSetting bs, String n) throws Exception
+    {
+        School sch = new School(n, null, null, null, null);
+        
+        boolean b = sch.insert(bs);
+        
+        if (b)
+            return b;
+        else
+            throw new Exception();
+    }
+    
+    public static String[] getAllSchoolName(BaseSetting bs) throws Exception
+    {
+        Connection connection = bs.getConnection();
+	
+	ArrayList<String> al_school = new ArrayList<>();
+	String[] ts_school = null;
+        
+	try
+	{
+	    String query = "SELECT name_sch FROM School";
+	    PreparedStatement p_statement = connection.prepareStatement(query);
+	    ResultSet rs = p_statement.executeQuery();
+	    
+	    while (rs.next())
+	    {
+		String namesch = rs.getString("name_sch");
+                
+		al_school.add(namesch);
+	    }
+            
+            if (al_school.isEmpty()) ts_school = new String[al_school.size()];
+            else throw new Exception();
+            
+            for (int i = 0; i < ts_school.length; i++)
+            {
+                ts_school[i] = al_school.get(i);
+            }
+	}
+	catch (SQLException sqle)
+	{
+	    System.out.println("ERREUR");
+	    sqle.printStackTrace();
+	}
+	
+	return ts_school;
+    }
 }
