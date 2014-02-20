@@ -203,13 +203,13 @@ public class QuestionEquation extends Question {
         
         double res = 0.0;
         if (!operands.isEmpty()) {
-            ArrayList<Integer> equation = new ArrayList<Integer>();
-            equation.add(operands.get(0));
+            ArrayList<Double> equation = new ArrayList<Double>();
+            equation.add((double) operands.get(0));
             for (int i=1; i < operands.size(); i++) {
                 if (operators.get(i-1) == '-') {
-                    equation.add(operands.get(i) * -1);
+                    equation.add((double) operands.get(i) * -1);
                 } else {
-                    equation.add(operands.get(i));
+                    equation.add((double) operands.get(i));
                 }
                 i++;
             }
@@ -232,7 +232,7 @@ public class QuestionEquation extends Question {
                     knownsSum += equation.get(i);
                 }
             }
-            knownsSum *= -1;
+            knownsSum *= -1.0;
             res = (double) (knownsSum / unknownsSum);
         }
         return res;
