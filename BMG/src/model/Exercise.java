@@ -434,7 +434,14 @@ public class Exercise implements iDbManager {
         Exercise res = null;
         try {
             BufferedReader file = new BufferedReader(new FileReader(fname));
-            res = Exercise.decode(file.toString());
+            String ss = "", lecture = "";
+            /* */
+            while((lecture=file.readLine() ) != null) {
+                ss += lecture;
+            }
+            /* */
+            //res = Exercise.decode(file.toString());
+            res = Exercise.decode(ss);
             file.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("ERROR : file can not be found");
