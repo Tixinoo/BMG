@@ -17,7 +17,7 @@ public class QuestionEquation extends Question {
     /**
      * Placements of the unknowns in the equation
      */
-    private ArrayList<Boolean> unknowns;
+    private ArrayList<Integer> unknowns;
 
     /**
      * Operators of the equation ('=' included)
@@ -39,7 +39,7 @@ public class QuestionEquation extends Question {
         this.text = "Solve.";
         this.difficulty = 0;
         this.operands = new ArrayList<Integer>();
-        this.unknowns = new ArrayList<Boolean>();
+        this.unknowns = new ArrayList<Integer>();
         this.operators = new ArrayList<Character>();
         this.length = 0;
     }
@@ -52,7 +52,7 @@ public class QuestionEquation extends Question {
         this.text = QCtext;
         this.difficulty = 0;
         this.operands = new ArrayList<Integer>();
-        this.unknowns = new ArrayList<Boolean>();
+        this.unknowns = new ArrayList<Integer>();
         this.operators = new ArrayList<Character>();
         this.length = 0;
     }
@@ -65,7 +65,7 @@ public class QuestionEquation extends Question {
         this.text = QCtext;
         this.difficulty = QCdifficulty;
         this.operands = new ArrayList<Integer>();
-        this.unknowns = new ArrayList<Boolean>();
+        this.unknowns = new ArrayList<Integer>();
         this.operators = new ArrayList<Character>();
         this.length = 0;
     }
@@ -83,9 +83,9 @@ public class QuestionEquation extends Question {
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i == 0) {
-                this.unknowns.add(true);
+                this.unknowns.add(1);
             } else {
-                this.unknowns.add(Math.random() < 0.3);
+                this.unknowns.add((int) (Math.random() * 3));
             }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
@@ -132,9 +132,9 @@ public class QuestionEquation extends Question {
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i == 0) {
-                this.unknowns.add(true);
+                this.unknowns.add(1);
             } else {
-                this.unknowns.add(Math.random() < 0.3);
+                this.unknowns.add((int) (Math.random() * 3));
             }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
@@ -159,7 +159,7 @@ public class QuestionEquation extends Question {
      * Solve a question with an equation
      */
     public double solve() {
-        double res = 0;
+        /*double res = 0;
         Iterator<Integer> it_operands = this.operands.iterator();
         Iterator<Character> it_operators = this.operators.iterator();
         Iterator<Boolean> it_unknowns = this.unknowns.iterator();
@@ -199,6 +199,42 @@ public class QuestionEquation extends Question {
         System.out.println(operands_qc1r);
         System.out.println(operands_qc2l);
         System.out.println(operands_qc2r);
+        return res;*/
+        
+        double res = 0;
+        if (!operands.isEmpty()) {
+            ArrayList<Integer> equation = new ArrayList<Integer>();
+            equation.add(operands.get(0));
+            for (int i=1; i < operands.size(); i++) {
+                if (operators.get(i-1) == '-') {
+                    equation.add(operands.get(i) * -1);
+                } else {
+                    equation.add(operands.get(i));
+                }
+                i++;
+            }
+            int i=0;
+            while (i < operators.size()) {
+                if (operators.get(i) == '=') {
+                    for (i++; i < operands.size(); i++) {
+                        equation.set(i, -equation.get(i));
+                    }
+                    break;
+                }
+                i++;
+            }
+            int knownsSum = 0;
+            int unknownsSum = 0;
+            for (i=0; i < equation.size(); i++) {
+                if (unknowns.get(i) == 1) {
+                    unknownsSum += equation.get(i);
+                } else {
+                    knownsSum += equation.get(i);
+                }
+            }
+            knownsSum *= -1;
+            res = (double) (knownsSum / unknownsSum);
+        }
         return res;
     }
 
@@ -215,19 +251,23 @@ public class QuestionEquation extends Question {
         res = res + "\n			Equation: ";
         Iterator<Integer> it_operands = this.operands.iterator();
         Iterator<Character> it_operators = this.operators.iterator();
-        Iterator<Boolean> it_unknowns = this.unknowns.iterator();
+        Iterator<Integer> it_unknowns = this.unknowns.iterator();
         res = res + it_operands.next();
         while (it_operands.hasNext()) {
-            if (it_unknowns.next()) {
+            if (it_unknowns.next() == 1) {
                 res = res + "x ";
+            } else if (it_unknowns.next() == 2) {
+                res = res + "x² ";
             } else {
                 res = res + " ";
             }
             res = res + it_operators.next() + " ";
             res = res + it_operands.next();
         }
-        if (it_unknowns.next()) {
+        if (it_unknowns.next() == 1) {
             res = res + "x ";
+        } else if (it_unknowns.next() == 2) {
+            res = res + "x² ";
         } else {
             res = res + " ";
         }
@@ -242,11 +282,11 @@ public class QuestionEquation extends Question {
         this.operands = operands;
     }
 
-    public ArrayList<Boolean> getUnknowns() {
+    public ArrayList<Integer> getUnknowns() {
         return unknowns;
     }
 
-    public void setUnknowns(ArrayList<Boolean> unknowns) {
+    public void setUnknowns(ArrayList<Integer> unknowns) {
         this.unknowns = unknowns;
     }
 
@@ -278,7 +318,7 @@ public class QuestionEquation extends Question {
 
     public String encodeUnknowns() throws EncodeException {
         String res = new String();
-        Iterator<Boolean> itukn = unknowns.iterator();
+        Iterator<Integer> itukn = unknowns.iterator();
         while (itukn.hasNext()) {
             res = res + itukn.next() + ":";
         }
@@ -323,11 +363,11 @@ public class QuestionEquation extends Question {
         return res;
     }
     
-    public static ArrayList<Boolean> decodeUnknowns(String str) {
-        ArrayList<Boolean> res = new ArrayList<Boolean>();
+    public static ArrayList<Integer> decodeUnknowns(String str) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
         String[] tab = str.split(":");
         for (int x = 0; x < tab.length; x++) {
-            res.add(Boolean.valueOf(tab[x]));
+            res.add(Integer.valueOf(tab[x]));
         }
         assert res.size() > 0 : "empty unknowns table";
         return res;
@@ -367,7 +407,7 @@ public class QuestionEquation extends Question {
                     while (str.charAt(i) != '>') {
                         i++;
                     }
-                    ArrayList<Boolean> tmp_ukn = decodeUnknowns(str.substring(beginning + 1, i));
+                    ArrayList<Integer> tmp_ukn = decodeUnknowns(str.substring(beginning + 1, i));
                     res.setUnknowns(tmp_ukn);
 
                     i++;
