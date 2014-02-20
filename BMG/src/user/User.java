@@ -262,14 +262,14 @@ public class User implements iDbManager
             if (rs.next()) {
                 int idu = rs.getInt("id_u");
                 int idut = rs.getInt("id_ut");
-                int idsch = rs.getInt("id_sch");
                 String fnameu = rs.getString("fname_u");
                 String lnameu = rs.getString("lname_u");
+                String schoolu = rs.getString("school_u");
                 String emailu = rs.getString("email_u");
                 String passu = rs.getString("pass_u");
                 int connectedu = rs.getInt("connected_u");
 
-                user = new User(idu, idut, idsch, fnameu, lnameu, emailu, passu, connectedu);
+                user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
             }
 
         }  
