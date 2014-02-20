@@ -371,7 +371,7 @@ public class User implements iDbManager
 	{
 	    User u = new User(ut, fn, ln, sch, eml, pswd);
 	    b = u.insert(bs);
-	    b = (User.findById(u.getId_u(), bs) != null);
+//	    b = (User.findById(u.getId_u(), bs) != null);
 	}
 	
 	return b;
