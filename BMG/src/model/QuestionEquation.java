@@ -201,7 +201,7 @@ public class QuestionEquation extends Question {
         System.out.println(operands_qc2r);
         return res;*/
         
-        double res = 0;
+        double res = 0.0;
         if (!operands.isEmpty()) {
             ArrayList<Integer> equation = new ArrayList<Integer>();
             equation.add(operands.get(0));
