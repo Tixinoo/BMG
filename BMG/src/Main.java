@@ -16,9 +16,10 @@ public class Main {
             System.out.println("1 - Calculation part");
             System.out.println("2 - Fraction part");
             System.out.println("3 - Equation part");
-            System.out.println("4 - Power part");
-            System.out.println("5 - Save/Load part");
-            System.out.println("6 - Practice part");
+            System.out.println("4 - Custom part");
+            System.out.println("5 - Power part");
+            System.out.println("6 - Save/Load part");
+            System.out.println("7 - Practice part");
             int sel = sc.nextInt();
             switch (sel - 1) {
 
@@ -257,6 +258,30 @@ public class Main {
 
                     break;
                 case 3:
+                    System.out.println("-------> A custom question <-------");
+                    QuestionCustom qcu = new QuestionCustom();
+                    sc = new Scanner(System.in);
+                    System.out.println("Wording ?");
+                    String tcu = sc.nextLine();
+                    System.out.println("Solution type ?\n1- int\n2- double\n3- string");
+                    int i = new Integer(sc.next());
+                    if (i == 1) {
+                        int sol = new Integer(sc.next());
+                        qcu = new QuestionCustom<Integer>(tcu,sol);
+                    }
+                    if (i == 2) {
+                        double sol = new Double(sc.next());
+                        qcu = new QuestionCustom<Double>(tcu,sol);
+                    }
+                    if (i == 3) {
+                        String sol = sc.nextLine();
+                        qcu = new QuestionCustom<String>(tcu,sol);
+                    }
+                    System.out.println(qcu);
+                    System.out.println("---------------------------------------------------------------------\n");
+                    
+                    break;
+                case 4:
                     System.out.println("-------> A random question with power <-------");
                     QuestionPower qp1 = new QuestionPower();
                     qp1.generate();
@@ -334,7 +359,7 @@ public class Main {
                     System.out.println("---------------------------------------------------------------------\n");*/
 
                     break;
-                case 4:
+                case 5:
                     System.out.println("\n-------> An exercise with a given type <-------");
                     System.out.println("Type? ");
                     String t3 = sc.next();
@@ -355,7 +380,7 @@ public class Main {
                     System.out.println(ex5);
 
                     break;
-                case 5:
+                case 6:
                     System.out.println("\n-------> Practice an exercise with a given type <-------");
                     System.out.println("Type? ");
                     String tp = sc.next();

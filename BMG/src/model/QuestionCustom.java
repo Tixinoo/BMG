@@ -131,7 +131,7 @@ public class QuestionCustom<SolutionType> extends Question {
     // ------- METHODS ------
     
     // Inherited
-
+    
     /**
      * True if the object given in parameter equals the solution
      */
