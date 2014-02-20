@@ -98,6 +98,31 @@ public class QuestionEquation extends Question {
     }
 
     /**
+     * Generate a random question with an equation
+     */
+    public void generate(int order, ArrayList<Character> QCoperators) {
+        Character[] possible_operators = new Character[QCoperators.size()];
+        possible_operators = QCoperators.toArray(possible_operators);
+        this.length = (int) (Math.random() * 10) + 2;
+        System.out.println("	Random length: " + this.length);
+        for (int i = 0; i < this.length; i++) {
+            this.operands.add((int) (Math.random() * 20) + 1);
+            if (i == 0) {
+                this.unknowns.add(1);
+            } else {
+                this.unknowns.add((int) (Math.random() * (order+1)));
+            }
+            if (i < this.length - 1) {
+                if (i < this.length - 2) {
+                    this.operators.add(possible_operators[(int) (Math.random() * QCoperators.size())]);
+                } else {
+                    this.operators.add('=');
+                }
+            }
+        }
+    }
+    
+    /**
      * Generate a random question with an equation with the length given in parameter
      */
     /*public void generate(int QClength) {
