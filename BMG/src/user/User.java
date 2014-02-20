@@ -44,6 +44,17 @@ public class User implements iDbManager
     private int connected_u;
 
     /* CONSTRUCTOR */
+    public User(int id_u, int id_ut, String fname_u, String lname_u, String school_u, String email_u, String pass_u, int connected_u)
+    {
+        this.id_u = id_u;
+        this.id_ut = id_ut;
+        this.fname_u = fname_u;
+        this.lname_u = lname_u;
+        this.school_u = school_u;
+        this.email_u = email_u;
+        this.pass_u = pass_u;
+    }
+    
     public User(int id_ut, String fname_u, String lname_u, String school_u, String email_u, String pass_u) {
         this.id_ut = id_ut;
         this.fname_u = fname_u;
@@ -338,14 +349,14 @@ public class User implements iDbManager
 	    {
                 int idu = rs.getInt("id_u");
                 int idut = rs.getInt("id_ut");
-                int idsch = rs.getInt("id_sch");
                 String fnameu = rs.getString("fname_u");
                 String lnameu = rs.getString("lname_u");
+                String schoolu = rs.getString("school_u");
                 String emailu = rs.getString("email_u");
                 String passu = rs.getString("pass_u");
                 int connectedu = rs.getInt("connected_u");
 
-                user = new User(idu, idut, idsch, fnameu, lnameu, emailu, passu, connectedu);
+                user = new User(idu, idut, fnameu, lnameu, schoolu, emailu, passu, connectedu);
             }
 
         } 
