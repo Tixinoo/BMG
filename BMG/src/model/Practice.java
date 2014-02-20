@@ -56,6 +56,10 @@ public class Practice {
         this.practiced_exercise = e;
     }
 
+    public Practice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void addRight(int r) {
         this.right_answers.add(r);
     }
@@ -135,7 +139,7 @@ public class Practice {
         return id_p;
     }
 
-    public boolean insert(BaseSetting bs) {
+    public boolean insert(BaseSetting bs) throws EncodeException {
         Connection connection = bs.getConnection();
 
         int id_e = practiced_exercise.getId();
@@ -143,14 +147,14 @@ public class Practice {
         try {
             if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
 
-                String query = "INSERT INTO Practice (id_u,id_e,execution_date,execution_time,success,wrong_answers) VALUES (?,?,?,?,?,?)";
+                String query = "INSERT INTO PracticeAn (id_u,id_e,execution_date,execution_time,success,wrong_answers) VALUES (?,?,?,?,?,?)";
                 PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
                 p_statement.setInt(1, this.id_u);
                 p_statement.setInt(2, id_e);
                 p_statement.setString(3, "date");
                 p_statement.setString(4, "time");
                 p_statement.setDouble(5, this.success);
-                p_statement.setString(6, "wrong answers");
+                p_statement.setString(6, this.encodeWrongAnswers());
                 p_statement.executeUpdate();
                 ResultSet rs = p_statement.getGeneratedKeys();
 
@@ -169,21 +173,21 @@ public class Practice {
         return false;
     }
 
-    public boolean update(BaseSetting bs) {
+    public boolean update(BaseSetting bs) throws EncodeException {
         Connection connection = bs.getConnection();
 
         int id_e = practiced_exercise.getId();
         
         try {
             if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
-                String query = "UPDATE Practice SET (id_u = ? , id_e = ? , execution_date = ? , execution_time = ? , success = ? , wrong_answers = ?) WHERE id_p = ?";
+                String query = "UPDATE PracticeAn SET (id_u = ? , id_e = ? , execution_date = ? , execution_time = ? , success = ? , wrong_answers = ?) WHERE id_p = ?";
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_u);
                 p_statement.setInt(2, id_e);
                 p_statement.setString(3, "date");
                 p_statement.setString(4, "time");
                 p_statement.setDouble(5, this.success);
-                p_statement.setString(6, "wrong answers");
+                p_statement.setString(6, this.encodeWrongAnswers());
                 p_statement.setInt(7, this.id_p);
                 p_statement.executeUpdate();
             }
@@ -219,7 +223,7 @@ public class Practice {
         Practice practice = null;
 
         try {
-            String query = "SELECT * FROM Practice WHERE id_p = ?";
+            String query = "SELECT * FROM PracticeAn WHERE id_p = ?";
             PreparedStatement p_statement = connection.prepareStatement(query);
             p_statement.setInt(1, id_p);
 
@@ -251,7 +255,7 @@ public class Practice {
         ArrayList<Practice> al_practice = new ArrayList<>();
 
         try {
-            String query = "SELECT * FROM Practice WHERE id_u = ? AND id_e = ?";
+            String query = "SELECT * FROM PracticeAn WHERE id_u = ? AND id_e = ?";
             PreparedStatement p_statement = connection.prepareStatement(query);
             p_statement.setInt(1, id_u);
             p_statement.setInt(2, id_e);
