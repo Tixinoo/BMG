@@ -15,6 +15,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -41,8 +43,8 @@ public class BmgCreatePanel {
     public BmgCreatePanel(BmgFrame fen, BaseSetting bs, int width, int height) {
         this.fen = fen;
         this.bs = bs;
-	this.listSchool = Manipulation.getAllSchoolName(bs);
-        
+        this.listSchool = Manipulation.getAllSchoolName(bs);
+
         this.width = width;
         this.height = height;
     }
@@ -74,7 +76,7 @@ public class BmgCreatePanel {
         //Button Generate in panel Exercises.
         panExercises.add(new BmgLabel("Automatically generate exercises : ", colortext));
         BmgButton bgenerate = new BmgButton("Generate");
-            //listener
+        //listener
         bgenerate.addActionListener(new ActionListener() {
 
             @Override
@@ -87,7 +89,7 @@ public class BmgCreatePanel {
         //Button Practice in panel Exercises.
         panExercises.add(new BmgLabel("Let's practice here : ", colortext));
         BmgButton bpractice = new BmgButton("Practice");
-            //listener
+        //listener
         bpractice.addActionListener(new ActionListener() {
 
             @Override
@@ -209,7 +211,7 @@ public class BmgCreatePanel {
         panCenter.add(saisieEmail);
         panCenter.add(labels[1]);
         panCenter.add(saisiePass);
-        
+
         //Create panel South , just for the moment a button.
         JPanel panSouth = new JPanel();
         panSouth.setLayout(new BorderLayout());
@@ -226,6 +228,33 @@ public class BmgCreatePanel {
 
             }
         });
+
+        KeyListener key = new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent ke) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                //if enter
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    char[] c = saisiePass.getPassword();
+                    String pass = new String(c);
+                    actionSignIn(fen, bs, saisieEmail.getText(), pass);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+
+            }
+        };
+        
+        //Add Key Listener 
+        saisiePass.addKeyListener(key);
+        saisieEmail.addKeyListener(key);
 
         panSouth.add(buttonSignin, BorderLayout.NORTH);
 
@@ -307,6 +336,35 @@ public class BmgCreatePanel {
 
             }
         });
+
+        //KeyListener 
+        KeyListener key = new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                //Action s'il appui sur la touche entrée
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    //Méthode méthode que l'action avec la souris
+                    actionSignUp(jtfs, jcb, jpf);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        };
+
+        //Add key listener
+        for (JTextField jtfAjoutListener : jtfs) {
+            jtfAjoutListener.addKeyListener(key);
+        }
+
+        //Add key listener in JPassWordField
+        jpf.addKeyListener(key);
 
         panSouth.add(buttonSignup, BorderLayout.NORTH);
 
@@ -487,9 +545,8 @@ public class BmgCreatePanel {
 
                 //Edit label menu bar
                 fen.panMenu.setLabel(">Connected as " + email);
-                
+
                 //Edit instance User
-                
                 fen.setPanel(BmgFrame.panMain);
             } else {
                 JOptionPane.showMessageDialog(null, "Error, false !", "Sign up information", JOptionPane.ERROR_MESSAGE);
@@ -516,11 +573,10 @@ public class BmgCreatePanel {
             JOptionPane jop = new JOptionPane();
             String school = listSchool[jcb.getSelectedIndex()];
 
-	    /*
-            Je ne sais pas ce que viens faire cette ligne ici
+            /*
+             Je ne sais pas ce que viens faire cette ligne ici
              int i_school = Integer.parseInt(school);
-            */
-	    
+             */
             char[] c = jpf.getPassword();
             String password = new String(c);
             if (User.signUp(bs, 1, saisies[0].getText(), saisies[1].getText(), listSchool[jcb.getSelectedIndex()], saisies[2].getText(), password)) {
