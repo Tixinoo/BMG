@@ -38,11 +38,21 @@ public class User implements iDbManager
     private int id_sch;
     private String fname_u;
     private String lname_u;
+    private String school_u;
     private String email_u;
     private String pass_u;
     private int connected_u;
 
     /* CONSTRUCTOR */
+    public User(int id_ut, String fname_u, String lname_u, String school_u, String email_u, String pass_u) {
+        this.id_ut = id_ut;
+        this.fname_u = fname_u;
+        this.lname_u = lname_u;
+        this.school_u = school_u;
+        this.email_u = email_u;
+        this.pass_u = pass_u;
+    }
+    
     public User(int idut, int idsch, String fnameu, String lnameu, String emailu, String passu) {
         id_ut = idut;
         id_sch = idsch;
@@ -349,7 +359,7 @@ public class User implements iDbManager
     }
 
     /* OTHERS */
-    public static boolean signIn(BaseSetting bs, int ut, int sch, String fn, String ln, String eml, String pswd) throws AlreadyExistsException
+    public static boolean signUp(BaseSetting bs, int ut, String fn, String ln, String sch, String eml, String pswd) throws AlreadyExistsException
     {
         boolean b = false;
 	
@@ -359,7 +369,7 @@ public class User implements iDbManager
 	}
 	else
 	{
-	    User u = new User(ut, sch, fn, ln, eml, pswd);
+	    User u = new User(ut, fn, ln, sch, eml, pswd);
 	    b = u.insert(bs);
 	    b = (User.findById(u.getId_u(), bs) != null);
 	}
