@@ -157,12 +157,12 @@ public class User implements iDbManager
         Connection connection = bs.getConnection();
 
         try {
-            String query = "INSERT INTO User (id_ut,id_sch,fname_u,lname_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
+            String query = "INSERT INTO User (id_ut,fname_u,lname_u,school_u,email_u,pass_u,connected_u) VALUES (?,?,?,?,?,sha(?),?)";
             PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             p_statement.setInt(1, this.id_ut);
-            p_statement.setInt(2, this.id_sch);
-            p_statement.setString(3, this.fname_u);
-            p_statement.setString(4, this.lname_u);
+            p_statement.setString(2, this.fname_u);
+            p_statement.setString(3, this.lname_u);
+            p_statement.setString(4, this.school_u);
             p_statement.setString(5, this.email_u);
             p_statement.setString(6, this.pass_u);
             p_statement.setInt(7, this.connected_u);
