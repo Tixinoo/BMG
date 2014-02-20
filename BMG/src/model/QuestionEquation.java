@@ -254,9 +254,10 @@ public class QuestionEquation extends Question {
         Iterator<Integer> it_unknowns = this.unknowns.iterator();
         res = res + it_operands.next();
         while (it_operands.hasNext()) {
-            if (it_unknowns.next() == 1) {
+            int u = it_unknowns.next();
+            if (u == 1) {
                 res = res + "x ";
-            } else if (it_unknowns.next() == 2) {
+            } else if (u == 2) {
                 res = res + "x² ";
             } else {
                 res = res + " ";
@@ -264,9 +265,10 @@ public class QuestionEquation extends Question {
             res = res + it_operators.next() + " ";
             res = res + it_operands.next();
         }
-        if (it_unknowns.next() == 1) {
+        int u = it_unknowns.next();
+        if (u == 1) {
             res = res + "x ";
-        } else if (it_unknowns.next() == 2) {
+        } else if (u == 2) {
             res = res + "x² ";
         } else {
             res = res + " ";
