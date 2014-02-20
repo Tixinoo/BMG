@@ -44,12 +44,12 @@ public class Manipulation {
             ArrayList<String> list = new ArrayList<String>();
             try {
                 //
-                String query = "SELECT * from School";
+                String query = "SELECT name_sch from School";
                 bs.setStatement(bs.getConnection().createStatement());
                 bs.setResult_set(bs.getStatement().executeQuery(query));
 
                 while (bs.getResult_set().next()) {
-                    list.add(bs.getResult_set().getString("name"));
+                    list.add(bs.getResult_set().getString("name_sch"));
                 }
                 String res[] = new String[list.size()];
 

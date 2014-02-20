@@ -10,14 +10,11 @@ import database.BaseInformation;
 import database.BaseSetting;
 import exceptions.AccessDeniedException;
 import exceptions.AlreadyExistsException;
-import exceptions.NotFoundException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import user.School;
 import user.User;
 
 /**
@@ -40,22 +36,13 @@ public class BmgCreatePanel {
     BaseSetting bs;
     int width;
     int height;
-    /*final*/ String[] listSchool;
+    String[] listSchool;
 
     public BmgCreatePanel(BmgFrame fen, BaseSetting bs, int width, int height) {
         this.fen = fen;
         this.bs = bs;
-//	this.listSchool = Manipulation.getAllSchoolName(bs);
-	
-	try 
-	{  
-	    this.listSchool = School.researchAllSchool_Name(bs);
-	} 
-	catch (NotFoundException nfe) 
-	{
-	    /* GESTION DE L'EXCEPTION A RAJOUTER */
-	}
-	
+	this.listSchool = Manipulation.getAllSchoolName(bs);
+        
         this.width = width;
         this.height = height;
     }
@@ -252,6 +239,8 @@ public class BmgCreatePanel {
     /**
      * This method create the panel sign up
      *
+     * @param email
+     * @param password
      * @return
      */
     public JPanel createPanelSignup(String email, String password) {
@@ -277,6 +266,7 @@ public class BmgCreatePanel {
             new JTextField(15),
             new JTextField(15),};
 
+        //String[] listSchool = School.;
         final JComboBox<String> jcb = new JComboBox<String>(listSchool);
         final JPasswordField jpf = new JPasswordField(15);
 
@@ -330,10 +320,6 @@ public class BmgCreatePanel {
     /**
      * This method create the panel settings.
      *
-     * @param fen
-     * @param bs
-     * @param width
-     * @param height
      * @return
      */
     public JPanel createPanelSettings() {
@@ -384,7 +370,7 @@ public class BmgCreatePanel {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new BaseInformation(jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText(), jtfs[5].getText());
+                BaseInformation baseInformation = new BaseInformation(jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText(), jtfs[5].getText());
                 JOptionPane jop = new JOptionPane();
                 JOptionPane.showMessageDialog(null, "Registration success !", "Database Connexion", JOptionPane.INFORMATION_MESSAGE);
                 bs.setInfo();
@@ -398,7 +384,7 @@ public class BmgCreatePanel {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                new BaseInformation(jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText(), jtfs[5].getText());
+                BaseInformation baseInformation = new BaseInformation(jtfs[0].getText(), jtfs[1].getText(), jtfs[2].getText(), jtfs[3].getText(), jtfs[4].getText(), jtfs[5].getText());
 
                 bs.setInfo();
                 testConnection(bs);
@@ -454,10 +440,6 @@ public class BmgCreatePanel {
     /**
      * Create panel in order to generate exercises.
      *
-     * @param fen
-     * @param bs
-     * @param width
-     * @param height
      * @return panel
      */
     public JPanel createPanelGenerateExercises() {
@@ -490,6 +472,10 @@ public class BmgCreatePanel {
     /**
      * This method is called when user push sign in button.
      *
+     * @param fen
+     * @param bs
+     * @param email
+     * @param password
      */
     public static void actionSignIn(BmgFrame fen, BaseSetting bs, String email, String password) {
         try {
@@ -520,8 +506,9 @@ public class BmgCreatePanel {
     /**
      * This method is called when user push sign up button.
      *
-     * @param bs
      * @param saisies
+     * @param jcb
+     * @param jpf
      */
     public void actionSignUp(JTextField[] saisies, JComboBox jcb, JPasswordField jpf) {
         //Try to register
@@ -529,11 +516,14 @@ public class BmgCreatePanel {
             JOptionPane jop = new JOptionPane();
             String school = listSchool[jcb.getSelectedIndex()];
 
-	    int i_school = Integer.parseInt(school);
+	    /*
+            Je ne sais pas ce que viens faire cette ligne ici
+             int i_school = Integer.parseInt(school);
+            */
 	    
             char[] c = jpf.getPassword();
             String password = new String(c);
-            if (User.signIn(bs, 1, i_school, saisies[0].getText(), saisies[1].getText(), saisies[2].getText(), password)) {
+            if (User.signUp(bs, 1, saisies[0].getText(), saisies[1].getText(), listSchool[jcb.getSelectedIndex()], saisies[2].getText(), password)) {
                 //Sign up success !
                 JOptionPane.showMessageDialog(null, "Sign up success !", "Sign up information", JOptionPane.INFORMATION_MESSAGE);
 
