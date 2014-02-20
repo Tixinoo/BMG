@@ -236,24 +236,20 @@ public class QuestionEquation extends Question {
                 } else {
                     equation.add((double) operands.get(i));
                 }
-                i++;
             }
             int i=0;
-            System.out.println(operands.size() + " " + equation.size());
             while (i < operators.size()) {
-                System.out.println(i); ////////////////////////
                 if (operators.get(i) == '=') {
                     i++;
                     for (; i < operands.size(); i++) {
-                        System.out.println("    " + i); ////////////////////////////////////
                         equation.set(i, -equation.get(i));
                     }
                     break;
                 }
                 i++;
             }
-            int knownsSum = 0;
-            int unknownsSum = 0;
+            double knownsSum = 0;
+            double unknownsSum = 0;
             for (i=0; i < equation.size(); i++) {
                 if (unknowns.get(i) == 1) {
                     unknownsSum += equation.get(i);
