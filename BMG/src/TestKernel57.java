@@ -70,11 +70,11 @@ public class TestKernel57 {
 		opd.add(84);
 		opd.add(45);
 		opd.add(90);
-		ArrayList<Boolean> ukn = new ArrayList<Boolean>();
-		ukn.add(false);
-		ukn.add(false);
-		ukn.add(true);
-		ukn.add(false);
+		ArrayList<Integer> ukn = new ArrayList<Integer>();
+		ukn.add(0);
+		ukn.add(0);
+		ukn.add(1);
+		ukn.add(0);
 		opt = new ArrayList<Character>();
 		opt.add('+');
 		opt.add('/');
@@ -119,6 +119,12 @@ public class TestKernel57 {
         } catch (DecodeException de) {}
         
         System.out.println(qpow.solve());
+        
+        System.out.println();
+        double d = 1.0 / 3;
+        System.out.println(d);
+        
+        System.out.println(d * 3);
 		
 	}
 
