@@ -13,6 +13,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,17 +27,27 @@ import javax.swing.JTextField;
  * @author Maxime Blaise
  */
 public class BmgFrameBegin {
+
     /**
      * dialog, only if database connection exists.
      */
     JDialog dialog = new JDialog();
 
+    final BaseSetting bs;
+
+    final BmgFrame fen;
+
     /**
      * Constructor.
+     *
      * @param bs
-     * @param fen 
+     * @param fen
      */
     public BmgFrameBegin(final BaseSetting bs, final BmgFrame fen) {
+        //Initialise fields
+        this.bs = bs;
+        this.fen = fen;
+
         if (bs.testerConnexion()) {
             //If connection is correct.
             JPanel pan = new JPanel();
@@ -43,10 +55,10 @@ public class BmgFrameBegin {
             //PanHaut,in which user can put his pseudo and password
             JPanel panHaut = new JPanel();
             panHaut.setLayout(new GridLayout(2, 2));
-            
+
             final JTextField saisiePseudo = new JTextField(15);
             final JPasswordField saisiePass = new JPasswordField(15);
-            
+
             panHaut.add(new JLabel("Pseudo : "));
             panHaut.add(saisiePseudo);
             panHaut.add(new JLabel("Password : "));
@@ -55,7 +67,7 @@ public class BmgFrameBegin {
             //PanelSouth, which contains button and listeners.
             JPanel panSouth = new JPanel();
             panSouth.setLayout(new GridLayout(3, 1));
-            
+
             //Buttons
             BmgButton buttonSignin = new BmgButton("Sign in", 300, 40, Color.yellow);
             BmgButton buttonSignup = new BmgButton("Sign up", 300, 40, Color.yellow);
@@ -65,14 +77,37 @@ public class BmgFrameBegin {
 
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    char[] c = saisiePass.getPassword();
-                    String password = new String(c);
-                    
-                    BmgCreatePanel.actionSignIn(fen, bs, saisiePseudo.getText(),password);
-                    fen.setPanel(BmgFrame.panMain);
-                    fermer();
+
+                    actionSignIn(saisiePseudo, saisiePass);
                 }
             });
+            
+            //KeyListener 
+            KeyListener key = new KeyListener() {
+
+                @Override
+                public void keyTyped(KeyEvent ke) {
+
+                }
+
+                @Override
+                public void keyPressed(KeyEvent ke) {
+                    //if entrer
+                    if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                        actionSignIn(saisiePseudo, saisiePass);
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent ke) {
+
+                }
+            };
+            
+            //Add Key Listener
+            saisiePseudo.addKeyListener(key);
+            saisiePass.addKeyListener(key);
+            
             panSouth.add(buttonSignin);
             buttonSignup.addActionListener(new ActionListener() {
 
@@ -110,9 +145,9 @@ public class BmgFrameBegin {
         } else {
             //Wrong connection
             JOptionPane jop = new JOptionPane();
-            
+
             String[] choix = {"Setting database now", "No thank's, maybe later"};
-            
+
             //Just show small dialog whith 2 buttons.
             int rang = JOptionPane.showOptionDialog(null,
                     "What would you want to do ?",
@@ -132,6 +167,15 @@ public class BmgFrameBegin {
             }
         }
 
+    }
+
+    public void actionSignIn(JTextField saisiePseudo, JPasswordField saisiePass) {
+        char[] c = saisiePass.getPassword();
+        String password = new String(c);
+
+        BmgCreatePanel.actionSignIn(fen, bs, saisiePseudo.getText(), password);
+        fen.setPanel(BmgFrame.panMain);
+        fermer();
     }
 
     public void fermer() {
