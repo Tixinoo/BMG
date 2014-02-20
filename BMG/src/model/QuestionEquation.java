@@ -183,7 +183,7 @@ public class QuestionEquation extends Question {
     /**
      * Solve a question with an equation
      */
-    public double solve() {
+    public double[] solve() {
         /*double res = 0;
         Iterator<Integer> it_operands = this.operands.iterator();
         Iterator<Character> it_operators = this.operators.iterator();
@@ -226,8 +226,18 @@ public class QuestionEquation extends Question {
         System.out.println(operands_qc2r);
         return res;*/
         
-        double res = 0.0;
+        double[] res = new double[0];
         if (!operands.isEmpty()) {
+            int order = 0;
+            int o;
+            for (Iterator<Integer> it = unknowns.iterator(); it.hasNext(); ) {
+                o = it.next();
+                if (o > order) {
+                    order = o;
+                }
+            }
+            res = new double[order];
+            
             ArrayList<Double> equation = new ArrayList<Double>();
             equation.add((double) operands.get(0));
             for (int i=1; i < operands.size(); i++) {
@@ -248,17 +258,40 @@ public class QuestionEquation extends Question {
                 }
                 i++;
             }
-            double knownsSum = 0;
-            double unknownsSum = 0;
-            for (i=0; i < equation.size(); i++) {
-                if (unknowns.get(i) == 1) {
-                    unknownsSum += equation.get(i);
+            if (order == 1) {
+                double knownsSum = 0;
+                double unknownsSum = 0;
+                for (i=0; i < equation.size(); i++) {
+                    if (unknowns.get(i) == 1) {
+                        unknownsSum += equation.get(i);
+                    } else {
+                        knownsSum += equation.get(i);
+                    }
+                }
+                knownsSum *= -1.0;
+                res[0] = (double) (knownsSum / unknownsSum);
+            } else if (order == 2) {
+                double a = 0;
+                double b = 0;
+                double c = 0;
+                double delta;
+                for (i=0; i < equation.size(); i++) {
+                    if (unknowns.get(i) == 2) {
+                        a += equation.get(i);
+                    } else if (unknowns.get(i) == 2) {
+                        b += equation.get(i);
+                    } else {
+                        c += equation.get(i);
+                    }
+                }
+                delta = Math.pow(b, 2) - 4 * a * c;
+                if (delta == 0.0) {
+                    res[0] = -b / (2 * a);
                 } else {
-                    knownsSum += equation.get(i);
+                    res[0] = -b - Math.sqrt(delta) / (2 * a);
+                    res[1] = -b + Math.sqrt(delta) / (2 * a);
                 }
             }
-            knownsSum *= -1.0;
-            res = (double) (knownsSum / unknownsSum);
         }
         return res;
     }
