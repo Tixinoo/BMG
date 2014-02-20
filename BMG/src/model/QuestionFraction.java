@@ -461,8 +461,17 @@ public class QuestionFraction extends Question {
         
         try
         {
-            String query = "";
+            String query = "INSERT INTO QuestionFraction (text_qf, diff_qf , numerators, denominators, operators, length) VALUES (?,?,?,?,?,?)";
             PreparedStatement p_statement = connection.prepareStatement(query);
+            p_statement.setString(1, this.text);
+            p_statement.setInt(2, this.difficulty);
+            p_statement.setString(3, this.encodeNumerators());
+            p_statement.setString(4, this.encodeDenominators());
+            p_statement.setString(5, this.encodeOperators());
+            p_statement.setInt(6, this.length);
+            ResultSet rs = p_statement.getGeneratedKeys();
+            
+            if (rs.next()) this.id = rs.getInt(1);
         }
         catch (SQLException sqle)
         {
@@ -479,8 +488,19 @@ public class QuestionFraction extends Question {
         
         try
         {
-            String query = "";
-            PreparedStatement p_statement = connection.prepareStatement(query);
+            if (this.id < 0)
+            {
+                String query = "UPDATE QuestionFraction SET (text_qf = ? , diff_qf = ? , numerators = ? , denominators = ? , operators = ? , length = ?) WHERE id_qf = ?";
+                PreparedStatement p_statement = connection.prepareStatement(query);
+                p_statement.setString(1, this.text);
+                p_statement.setInt(2, this.id);
+                p_statement.setString(3, this.encodeNumerators());
+                p_statement.setString(4, this.encodeDenominators());
+                p_statement.setString(5, this.encodeOperators());
+                p_statement.setInt(6, this.length);
+                p_statement.setInt(7, this.id);
+                p_statement.executeUpdate();
+            }
         }
         catch (SQLException sqle)
         {
@@ -497,9 +517,13 @@ public class QuestionFraction extends Question {
         
         try
         {
-            String query = "DELETE FROM QuestionFraction WHERE id_qf = ?";
-            PreparedStatement p_statement = connection.prepareStatement(query);
-            p_statement.setInt(1,id);
+            if (QuestionFraction.findById(id, bs) != null)
+            {
+                String query = "DELETE FROM QuestionFraction WHERE id_qf = ?";
+                PreparedStatement p_statement = connection.prepareStatement(query);
+                p_statement.setInt(1,id);
+                p_statement.executeUpdate();
+            }
         }
         catch (SQLException sqle)
         {
