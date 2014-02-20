@@ -418,7 +418,6 @@ public class Exercise implements iDbManager {
     public void save() {
         try {
             BufferedWriter file = new BufferedWriter(new FileWriter("ex" + id + ".bmg"));
-            System.out.println("coucou;"+this.encode());
             file.write(this.encode());
             file.close();
         } catch (FileNotFoundException fnfe) {
