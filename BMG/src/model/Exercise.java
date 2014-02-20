@@ -293,7 +293,7 @@ public class Exercise implements iDbManager {
         this.update_ready();
         System.out.println(this.isReady());
         if (this.isReady()) {
-            res = "<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
+            res = "#Exercise<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
             res = res + wording.encode() + "\n";
             Iterator<Question> itq = questions.iterator();
             while (itq.hasNext()) {
@@ -307,13 +307,13 @@ public class Exercise implements iDbManager {
 
     public static Exercise decode(String str) throws DecodeException {
         Exercise res = null;
-        if (str.charAt(0) == '<') {
+        if (str.substring(0,10).compareTo("#Exercise<") == 0) {
             res = new Exercise();
-            int i = 1;
+            int i = 11;
             while (str.charAt(i) != '>') {
                 i++;
             }
-            res.setID(Integer.valueOf(str.substring(1, i)));
+            res.setID(Integer.valueOf(str.substring(10, i)));
 
             i++;
             int beginning = i;
