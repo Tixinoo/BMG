@@ -434,16 +434,13 @@ public class Exercise implements iDbManager {
         Exercise res = null;
         try {
             BufferedReader file = new BufferedReader(new FileReader(fname));
-            String ss = "";
+            String str = new String();
             int i = 0;
-            /* */
             while((i=file.read() ) != (-1)) {
                 char c = (char)i;
-                ss += c;
+                str += c;
             }
-            /* */
-            //res = Exercise.decode(file.toString());
-            res = Exercise.decode(ss);
+            res = Exercise.decode(str);
             file.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("ERROR : file can not be found");
