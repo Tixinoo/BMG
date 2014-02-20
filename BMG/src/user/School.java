@@ -320,7 +320,6 @@ public class School implements iDbManager
         Connection connection = bs.getConnection();
 	
 	ArrayList<String> al_school = new ArrayList<>();
-	String[] ts_school = null;
         
 	try
 	{
@@ -330,18 +329,14 @@ public class School implements iDbManager
 	    
 	    while (rs.next())
 	    {
+                System.out.println(rs.getString(1));
+//                System.out.println(rs.getString("name_sch"));
 		String namesch = rs.getString("name_sch");
                 
 		al_school.add(namesch);
 	    }
             
-            if (al_school.isEmpty()) ts_school = new String[al_school.size()];
-            else throw new Exception();
-            
-            for (int i = 0; i < ts_school.length; i++)
-            {
-                ts_school[i] = al_school.get(i);
-            }
+            if (al_school.isEmpty()) throw new Exception();
 	}
 	catch (SQLException sqle)
 	{
@@ -349,6 +344,9 @@ public class School implements iDbManager
 	    sqle.printStackTrace();
 	}
 	
-	return ts_school;
+        String[] ts_school = new String[al_school.size()];
+        ts_school = al_school.toArray(ts_school);
+        
+        return ts_school;
     }
 }

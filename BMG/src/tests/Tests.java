@@ -12,12 +12,10 @@ public class Tests
         {
             BaseSetting bs = new BaseSetting();
             
-            String[] tab;
-            
             School.addSchoolName(bs,"ECOLE 1");
             School.addSchoolName(bs,"ECOLE 2");
             School.addSchoolName(bs,"ECOLE 3");
-            tab = School.getAllSchoolName(bs);
+            String[] tab = School.getAllSchoolName(bs);
         } 
         catch (Exception e) 
         {
