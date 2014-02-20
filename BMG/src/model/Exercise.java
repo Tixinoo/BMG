@@ -271,6 +271,18 @@ public class Exercise implements iDbManager {
 	return title;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+    
+    public int getNumberOfQuestions() {
+        return this.questions.size();
+    }
+
     /**
      * Display an exercise
      */
