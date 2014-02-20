@@ -3,9 +3,12 @@ package exceptions;
 
 public class EncodeException extends Exception {
     
-    public EncodeException() {}
+    public EncodeException() {
+        printStackTrace();
+    }
     
     public EncodeException(String str) {
         super(str);
+        printStackTrace();
     }
 }
