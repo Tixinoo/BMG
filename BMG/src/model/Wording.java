@@ -109,7 +109,7 @@ public class Wording implements iDbManager {
         String res = "";
         res = res + "\n		Text: " + this.text;
         res = res + "\n		Values: ";
-        if (this.values.length == 0) {
+        if (this.values == null) {
             res = res + "nothing";
         } else {
             for (int i = 0; i < this.values.length; i++) {

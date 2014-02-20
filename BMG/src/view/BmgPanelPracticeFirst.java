@@ -9,10 +9,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Exercise;
 
 /**
@@ -44,6 +51,9 @@ public class BmgPanelPracticeFirst extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jfc = new JFileChooser();
+                //FileNameExtensionFilter filter = new FileNameExtensionFilter("bmg");
+                //jfc.setCurrentDirectory(new File("$HOME/Documents"));
+                //jfc.setFileFilter(filter);
                 String monFichier = "";
                 String approve = "Enregistrer";
                 int resultatEnregistrer = jfc.showDialog(jfc, approve);
@@ -62,15 +72,33 @@ public class BmgPanelPracticeFirst extends JPanel {
                     String[] monFichierSplit = monFichier.split("/");
                     String trueFileName = monFichierSplit[monFichierSplit.length-1];
                     
-                    Exercise exercise = new Exercise();
-                    exercise.load(trueFileName);
+                    //Exercise exercise = new Exercise();
                     
+                    FileReader file;
+                    try {
+                        file = new FileReader(filename);
+                        BufferedReader br = new BufferedReader(file);
+                        
+                        System.out.println(br.toString());
+                        
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(BmgPanelPracticeFirst.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
+                    System.out.println(filename);
+                    
+                    Exercise exercise = Exercise.load(filename);
+                    
+                    if(exercise == null) {
+                        System.out.println("EXERCISE NULL");
+                    }
+                    //Label with summary
                     labelRes.setText("<html><p stype=\"color: blue;\">Résumé de : " + trueFileName + "</p>"
                             + "<p>Title : " + exercise.getTitle() + "</p>"
-                            + "<p>Type : undefined !</p>" 
-                            + "<p>Difficulty : undefined ! </p>"
-                            + "<p>Number of questions : </p>"
+                            + "<p>Type : " +exercise.getType()+ "</p>" 
+                            + "<p>Difficulty : "+exercise.getDifficulty()+"</p>"
+                            + "<p>Number of questions : "+exercise.getNumberOfQuestions()+"</p>"
+                            + "<p>siogheruhgurehgerhgtuohioh</p>"
                             + "</html>");
                 }
 

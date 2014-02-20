@@ -434,10 +434,12 @@ public class Exercise implements iDbManager {
         Exercise res = null;
         try {
             BufferedReader file = new BufferedReader(new FileReader(fname));
-            String ss = "", lecture = "";
+            String ss = "";
+            int i = 0;
             /* */
-            while((lecture=file.readLine() ) != null) {
-                ss += lecture;
+            while((i=file.read() ) != (-1)) {
+                char c = (char)i;
+                ss += c;
             }
             /* */
             //res = Exercise.decode(file.toString());
