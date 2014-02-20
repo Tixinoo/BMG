@@ -182,7 +182,17 @@ public class Main {
                 case 2:
                     System.out.println("-------> A random equation <-------");
                     QuestionEquation qe1 = new QuestionEquation();
-                    qe1.generate();
+                    sc = new Scanner(System.in);
+                    char opcu = '+';
+                    ArrayList<Character> operatorscu = new ArrayList<Character>();
+                    while (opcu != '0') {
+                        System.out.print("Operator? ");
+                        opcu = sc.next().charAt(0);
+                        if (opcu != '0') {
+                            operatorscu.add(opcu);
+                        }
+                    }
+                    qe1.generate(1,operatorscu);
                     System.out.println(qe1);
                     double res1e = qe1.solve();
                     System.out.println("Result1: " + res1e);
