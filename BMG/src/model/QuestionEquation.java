@@ -239,9 +239,13 @@ public class QuestionEquation extends Question {
                 i++;
             }
             int i=0;
+            System.out.println(operands.size() + " " + equation.size());
             while (i < operators.size()) {
+                System.out.println(i); ////////////////////////
                 if (operators.get(i) == '=') {
-                    for (i++; i < operands.size(); i++) {
+                    i++;
+                    for (; i < operands.size(); i++) {
+                        System.out.println("    " + i); ////////////////////////////////////
                         equation.set(i, -equation.get(i));
                     }
                     break;

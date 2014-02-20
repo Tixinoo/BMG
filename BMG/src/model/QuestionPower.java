@@ -120,7 +120,7 @@ public class QuestionPower extends Question {
         for (int i = 0; i < this.length; i++) {
             this.powers.add((int) (Math.random() * 20) + 1);
             if (i < this.length - 1) {
-                this.operators.add(possible_operators[(int) Math.random()]);
+                this.operators.add(possible_operators[(int) (Math.random() * 2)]);
             }
         }
     }
