@@ -17,8 +17,6 @@ public class Practice {
 
     private int id_u;
 
-    private int id_e;
-
     /**
      *
      */
@@ -96,6 +94,7 @@ public class Practice {
 
     public String encode() throws EncodeException {
         String res = "#Practice<";
+        int id_e = practiced_exercise.getId();
         res = res + id_p + "><" + id_u + "><" + id_e + "><";
         res = res + execution_date + "><" + execution_time + "><" + success + ">\n";
         res = res + encodeWrongAnswers() + "\n";
@@ -139,13 +138,15 @@ public class Practice {
     public boolean insert(BaseSetting bs) {
         Connection connection = bs.getConnection();
 
+        int id_e = practiced_exercise.getId();
+        
         try {
             if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
 
                 String query = "INSERT INTO Practice (id_u,id_e,execution_date,execution_time,success,wrong_answers) VALUES (?,?,?,?,?,?)";
                 PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
                 p_statement.setInt(1, this.id_u);
-                p_statement.setInt(2, this.id_e);
+                p_statement.setInt(2, id_e);
                 p_statement.setString(3, "date");
                 p_statement.setString(4, "time");
                 p_statement.setDouble(5, this.success);
@@ -171,12 +172,14 @@ public class Practice {
     public boolean update(BaseSetting bs) {
         Connection connection = bs.getConnection();
 
+        int id_e = practiced_exercise.getId();
+        
         try {
             if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
                 String query = "UPDATE Practice SET (id_u = ? , id_e = ? , execution_date = ? , execution_time = ? , success = ? , wrong_answers = ?) WHERE id_p = ?";
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_u);
-                p_statement.setInt(2, this.id_e);
+                p_statement.setInt(2, id_e);
                 p_statement.setString(3, "date");
                 p_statement.setString(4, "time");
                 p_statement.setDouble(5, this.success);
@@ -212,7 +215,7 @@ public class Practice {
 
     public static Practice findById(int id_p, BaseSetting bs) {
         Connection connection = bs.getConnection();
-
+        
         Practice practice = null;
 
         try {
@@ -244,7 +247,7 @@ public class Practice {
 
     public static ArrayList<Practice> findByIds(int id_u, int id_e, BaseSetting bs) {
         Connection connection = bs.getConnection();
-
+        
         ArrayList<Practice> al_practice = new ArrayList<>();
 
         try {
