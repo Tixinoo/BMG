@@ -12,44 +12,43 @@ import java.util.Iterator;
 import user.User;
 
 public class Practice {
-    
+
     private int id_p;
-    
+
     private int id_u;
-    
+
     private int id_e;
-    
+
     /**
-     * 
+     *
      */
     private int execution_time;
-    
+
     /**
-     * 
+     *
      */
     private Date execution_date;
-    
+
     /**
-     * 
+     *
      */
     private double success;
-    
+
     /**
-     * 
+     *
      */
     private ArrayList<Integer> wrong_answers;
-    
+
     /**
-     * 
+     *
      */
     private ArrayList<Integer> right_answers;
-    
+
     /**
-     * 
+     *
      */
     private Exercise practiced_exercise;
-    
-    
+
     public Practice(Exercise e) {
         this.execution_time = 0;
         this.execution_date = new Date();
@@ -58,19 +57,19 @@ public class Practice {
         this.right_answers = new ArrayList<Integer>();
         this.practiced_exercise = e;
     }
-    
+
     public void addRight(int r) {
         this.right_answers.add(r);
     }
-    
+
     public void addWrong(int w) {
         this.wrong_answers.add(w);
     }
-    
+
     public void updateSuccess() {
-        this.success = ( (double)this.right_answers.size() / ( (double)this.right_answers.size() + (double)this.wrong_answers.size() ) ) * 100.0;
+        this.success = ((double) this.right_answers.size() / ((double) this.right_answers.size() + (double) this.wrong_answers.size())) * 100.0;
     }
-    
+
     public String encodeWrongAnswers() throws EncodeException {
         String res = new String();
         if (wrong_answers.size() > 0) {
@@ -82,7 +81,7 @@ public class Practice {
         }
         return res;
     }
-    
+
     public String encodeRightAnswers() throws EncodeException {
         String res = new String();
         if (right_answers.size() > 0) {
@@ -94,7 +93,7 @@ public class Practice {
         }
         return res;
     }
-    
+
     public String encode() throws EncodeException {
         String res = "#Practice<";
         res = res + id_p + "><" + id_u + "><" + id_e + "><";
@@ -132,55 +131,48 @@ public class Practice {
     public void setExecution_time(int execution_time) {
         this.execution_time = execution_time;
     }
-    
-    public int getId_p()
-    {
-	return id_p;
-    }
-    
-    public boolean insert(BaseSetting bs)
-    {
-	Connection connection = bs.getConnection();
-	
-	try {
-            if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null)
-	    {
-		
-	    String query = "INSERT INTO Practice (id_u,id_e,execution_date,execution_time,success,wrong_answers) VALUES (?,?,?,?,?,?)";
-            PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-            p_statement.setInt(1, this.id_u);
-            p_statement.setInt(2, this.id_e);
-	    p_statement.setString(3, "date");
-	    p_statement.setString(4, "time");
-	    p_statement.setDouble(5, this.success);
-	    p_statement.setString(6, "wrong answers");
-            p_statement.executeUpdate();
-            ResultSet rs = p_statement.getGeneratedKeys();
 
-            if (rs.next()) {
-                this.id_p = rs.getInt(1);
+    public int getId_p() {
+        return id_p;
+    }
+
+    public boolean insert(BaseSetting bs) {
+        Connection connection = bs.getConnection();
+
+        try {
+            if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
+
+                String query = "INSERT INTO Practice (id_u,id_e,execution_date,execution_time,success,wrong_answers) VALUES (?,?,?,?,?,?)";
+                PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+                p_statement.setInt(1, this.id_u);
+                p_statement.setInt(2, this.id_e);
+                p_statement.setString(3, "date");
+                p_statement.setString(4, "time");
+                p_statement.setDouble(5, this.success);
+                p_statement.setString(6, "wrong answers");
+                p_statement.executeUpdate();
+                ResultSet rs = p_statement.getGeneratedKeys();
+
+                if (rs.next()) {
+                    this.id_p = rs.getInt(1);
+                }
+
+                return true;
+
             }
-            
-            return true;
+        } catch (SQLException sqle) {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
 
-	    }
-        }  
-	catch (SQLException sqle) 
-	{
-	    System.out.println("ERREUR");
-	    sqle.printStackTrace();
-	}
-	
-	return false;
+        return false;
     }
-    
-    public boolean update(BaseSetting bs)
-    {
-	Connection connection = bs.getConnection();
-	
-	try {
-	    if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null)
-	    {
+
+    public boolean update(BaseSetting bs) {
+        Connection connection = bs.getConnection();
+
+        try {
+            if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
                 String query = "UPDATE Practice SET (id_u = ? , id_e = ? , execution_date = ? , execution_time = ? , success = ? , wrong_answers = ?) WHERE id_p = ?";
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_u);
@@ -191,47 +183,39 @@ public class Practice {
                 p_statement.setString(6, "wrong answers");
                 p_statement.setInt(7, this.id_p);
                 p_statement.executeUpdate();
-	    }
-        }  
-	catch (SQLException sqle) 
-	{
-	    System.out.println("ERREUR");
-	    sqle.printStackTrace();
-	}
-	
-	return false;
+            }
+        } catch (SQLException sqle) {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+
+        return false;
     }
-    
-    public boolean delete(BaseSetting bs)
-    {
-	Connection connection = bs.getConnection();
-	
-	try 
-        {
-            if (Practice.findById(this.getId_p(),bs) != null) 
-            {
+
+    public boolean delete(BaseSetting bs) {
+        Connection connection = bs.getConnection();
+
+        try {
+            if (Practice.findById(this.getId_p(), bs) != null) {
                 String query = "DELETE FROM Practice WHERE id_p = ?";
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_p);
                 p_statement.executeUpdate();
             }
-        } 
-	catch (SQLException sqle) 
-	{
-	    System.out.println("ERREUR");
-	    sqle.printStackTrace();
-	}
-	
-	return false;
+        } catch (SQLException sqle) {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+
+        return false;
     }
-    
-    public static Practice findById(int id_p, BaseSetting bs)
-    {
-	Connection connection = bs.getConnection();
-	
-	Practice practice = null;
-	
-	try {
+
+    public static Practice findById(int id_p, BaseSetting bs) {
+        Connection connection = bs.getConnection();
+
+        Practice practice = null;
+
+        try {
             String query = "SELECT * FROM Practice WHERE id_p = ?";
             PreparedStatement p_statement = connection.prepareStatement(query);
             p_statement.setInt(1, id_p);
@@ -250,28 +234,25 @@ public class Practice {
                 /*constructeur*/
             }
 
-        }  
-	catch (SQLException sqle) 
-	{
-	    System.out.println("ERREUR");
-	    sqle.printStackTrace();
-	}
-	
-	return practice;
+        } catch (SQLException sqle) {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+
+        return practice;
     }
-    
-        public static ArrayList<Practice> findByIds(int id_u, int id_e, BaseSetting bs)
-    {
-	Connection connection = bs.getConnection();
-	
-	ArrayList<Practice> al_practice = new ArrayList<>();
-	
-	try {
+
+    public static ArrayList<Practice> findByIds(int id_u, int id_e, BaseSetting bs) {
+        Connection connection = bs.getConnection();
+
+        ArrayList<Practice> al_practice = new ArrayList<>();
+
+        try {
             String query = "SELECT * FROM Practice WHERE id_u = ? AND id_e = ?";
             PreparedStatement p_statement = connection.prepareStatement(query);
             p_statement.setInt(1, id_u);
-	    p_statement.setInt(2, id_e);
-	    
+            p_statement.setInt(2, id_e);
+
             ResultSet rs = p_statement.executeQuery();
 
             while (rs.next()) {
@@ -284,18 +265,15 @@ public class Practice {
                 String wa = rs.getString("wrrong_answers");
 
                 /*constructeur*/
-		
-		al_practice.add(null);
+                al_practice.add(null);
             }
 
-        }  
-	catch (SQLException sqle) 
-	{
-	    System.out.println("ERREUR");
-	    sqle.printStackTrace();
-	}
-	
-	return al_practice;
+        } catch (SQLException sqle) {
+            System.out.println("ERREUR");
+            sqle.printStackTrace();
+        }
+
+        return al_practice;
     }
-    
+
 }
