@@ -319,6 +319,7 @@ public class Exercise implements iDbManager {
 
     public static Exercise decode(String str) throws DecodeException {
         Exercise res = null;
+        System.out.println(str.substring(0,10));
         if (str.substring(0,10).compareTo("#Exercise<") == 0) {
             res = new Exercise();
             int i = 11;
