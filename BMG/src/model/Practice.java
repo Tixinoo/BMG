@@ -106,6 +106,26 @@ public class Practice {
         res = res + practiced_exercise.encode();
         return res;
     }
+    
+    public static ArrayList<Integer> decodeRightAnswers(String str) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        String[] tab = str.split(":");
+        for (int x = 0; x < tab.length; x++) {
+            res.add(Integer.valueOf(tab[x]));
+        }
+        assert res.size() > 0 : "empty right answers table";
+        return res;
+    }
+    
+    public static ArrayList<Integer> decodeWrongAnswers(String str) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        String[] tab = str.split(":");
+        for (int x = 0; x < tab.length; x++) {
+            res.add(Integer.valueOf(tab[x]));
+        }
+        assert res.size() > 0 : "empty wrong answers table";
+        return res;
+    }
 
     public int getExecution_time() {
         return execution_time;
