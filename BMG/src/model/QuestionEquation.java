@@ -282,7 +282,7 @@ public class QuestionEquation extends Question {
                 for (i = 0; i < equation.size(); i++) {
                     if (unknowns.get(i) == 2) {
                         a += equation.get(i);
-                    } else if (unknowns.get(i) == 2) {
+                    } else if (unknowns.get(i) == 1) {
                         b += equation.get(i);
                     } else {
                         c += equation.get(i);
