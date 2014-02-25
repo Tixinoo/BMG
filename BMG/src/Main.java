@@ -30,7 +30,7 @@ public class Main {
                     System.out.println("-------> A random calculation <-------");
                     QuestionCalculation qc1 = new QuestionCalculation();
                     qc1.generate();
-                    System.out.println(qc1);
+                    System.out.println(qc1.getText());
                     double res1 = qc1.solve();
                     System.out.println("Result1: " + res1);
                     System.out.println("---------------------------------------------------------------------\n");
