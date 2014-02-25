@@ -90,7 +90,9 @@ public class BmgPanelPractice {
 
             //Affichage
             panCenter.add(new BmgLabel("<br/><br/>C'est fini"
-                    + "<br/><br/>Score : " + practice.getSuccess() + "%", "white", 20));
+                    + "<br/><br/>Score : " + practice.getSuccess() + "%"
+                    + "<br/>Temps d'execution : " + practice.getExecution_time() + "sec"
+                    + "<br/><br/>Date d'execution : " + practice.getExecution_date(), "white", 20));
 
         } else {
 
@@ -108,6 +110,8 @@ public class BmgPanelPractice {
             //Champ de saisie
             final JTextField saisie = new JTextField(5);
             saisie.setPreferredSize(new Dimension(50, 30));
+
+            saisie.setEnabled(true);
 
             KeyListener key = new KeyListener() {
 

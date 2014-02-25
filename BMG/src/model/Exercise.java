@@ -57,7 +57,7 @@ public class Exercise implements iDbManager {
     public Exercise() {
         this.id = -1;
         this.title = "Exercise";
-        this.wording = null;
+        this.wording = new Wording();
         this.questions = new ArrayList<Question>();
         this.type = "";
         this.difficulty = 0;
@@ -66,11 +66,12 @@ public class Exercise implements iDbManager {
 
     /**
      * This constructor creates an exercise of the type given in parameter All others characteristics are random
+     * @param Etype
      */
     public Exercise(String Etype) {
         this.id = -1;
         this.title = "Exercise";
-        this.wording = null;
+        this.wording = new Wording();
         this.questions = new ArrayList<Question>();
         this.difficulty = 0;
         if (Etype != null) {
@@ -83,11 +84,13 @@ public class Exercise implements iDbManager {
 
     /**
      * This constructor creates an exercise of the type and of a difficulty given in parameters
+     * @param Etype
+     * @param Edifficulty
      */
     public Exercise(String Etype, int Edifficulty) {
         this.id = -1;
         this.title = "Exercise";
-        this.wording = null;
+        this.wording = new Wording();
         this.questions = new ArrayList<Question>();
         this.type = "";
         if (Edifficulty >= 0) {
@@ -470,6 +473,9 @@ public class Exercise implements iDbManager {
     /* MISE A JOURS */
     public boolean insert(BaseSetting bs) 
     {
+        //Insertion du Wording 
+        this.wording.insert(bs);
+        
         Connection connection = bs.getConnection();
 	
 	try 

@@ -24,16 +24,18 @@ import model.Exercise;
  *
  * @author blaise
  */
-public class BmgPanelPracticeFirst extends JPanel {
+public class BmgPanelExport extends JPanel {
 
     String filename = "";
     JLabel labelRes = new JLabel("No file selected.");
     JButton buttonOk = new JButton("GO");
+    BmgFrame fen;
 
     Exercise ex = null;
-    public BmgPanelPracticeFirst(final BmgFrame fen, String name) {
+    public BmgPanelExport(final BmgFrame fen, String name) {
         //Some settings
         this.filename = name;
+        this.fen = fen;
         int nb = 10;
         String color = "red";
 
@@ -95,7 +97,7 @@ public class BmgPanelPracticeFirst extends JPanel {
 
                     String style = "style=\"color: blue; font-size: 12px;\"";
                     //Label with summary
-                    labelRes.setText("<html><p style=\"color: green;font-size: 15px;\">Résumé de : " + trueFileName + "<br/><br/></p>"
+                   labelRes.setText("<html><p style=\"color: green;font-size: 15px;\">Résumé de : " + trueFileName + "<br/><br/></p>"
                             + "<p><span " + style + ">Title : </span>" + exercise.getTitle() + "<br/></p>"
                             + "<p><span " + style + ">Type : </span>" + exercise.getType() + "<br/></p>"
                             + "<p><span " + style + ">Difficulty : </span>" + exercise.getDifficulty() + "<br/></p>"
@@ -120,19 +122,23 @@ public class BmgPanelPracticeFirst extends JPanel {
         panSouth.add(labelRes);
 
         //Button GO
-        buttonOk = new JButton("Let's Practice");
+        buttonOk = new JButton("Exporter");
         //Listener
         buttonOk.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent ae) {
-                BmgPanelPractice bmgPanelPractice = new BmgPanelPractice(fen, ex);
+                actionExporter(ex);
             }
         });
         panSouth.add(buttonOk);
 
         this.add(panSouth);
 
+    }
+    
+    public void actionExporter(Exercise e) {
+        e.insert(fen.bs);
     }
 
     public void addSomething(Component c) {
