@@ -194,8 +194,8 @@ public class Main {
                     }
                     qe1.generate(1,operatorscu);
                     System.out.println(qe1);
-                    double res1e = qe1.solve();
-                    System.out.println("Result1: " + res1e);
+                    double[] res1e = qe1.solve();
+                    System.out.println("Result1: " + res1e[0]);
                     System.out.println("---------------------------------------------------------------------\n");
 
                     System.out.println("\n-------> An equation with a given length <-------");
@@ -205,8 +205,9 @@ public class Main {
                     QuestionEquation qe2 = new QuestionEquation();
                     qe2.generate(le);
                     System.out.println(qe2);
-                    double res2e = qe2.solve();
-                    System.out.println("Result2: " + res2e);
+                    double[] res2e = qe2.solve();
+                    System.out.println("Result2(x1): " + res2e[0]);
+                    System.out.println("Result2(x1): " + res2e[1]);
                     System.out.println("---------------------------------------------------------------------\n");
                     /*
                      System.out.println("\n-------> A question with fractions with selected operators <-------");
