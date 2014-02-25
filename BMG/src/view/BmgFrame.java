@@ -42,10 +42,12 @@ public final class BmgFrame extends JFrame {
     static JPanel panPractice;
 
     BmgCreatePanel bcp;
-    
+
     static String labelConnection = ">Not connected yet";
-    
+
     User currentUser = null;
+
+    boolean nobegin = false;
 
     /**
      * Constructor who create the main window of BMG.
@@ -53,11 +55,13 @@ public final class BmgFrame extends JFrame {
      * @param string
      * @param width
      * @param height
+     * @param nb
      */
-    public BmgFrame(String string, int width, int height) {
+    public BmgFrame(String string, int width, int height, boolean nb) {
         super(string);
         this.width = width;
         this.height = height;
+        this.nobegin = nb;
 
         //Create these panel.
         panMenu = new BmgPanelMenu(fen());
@@ -103,7 +107,10 @@ public final class BmgFrame extends JFrame {
         this.setVisible(true);
 
         //Begin frame, just once !
-        BmgFrameBegin bmgFrameBegin = new BmgFrameBegin(bs, fen());
+        if (nobegin) {
+            BmgFrameBegin bmgFrameBegin = new BmgFrameBegin(bs, fen());
+
+        }
     }
 
     /**
@@ -134,12 +141,12 @@ public final class BmgFrame extends JFrame {
     public String getLabelConnection() {
         return BmgFrame.labelConnection;
     }
-    
+
     public void setLabelConnection(String s) {
         BmgFrame.labelConnection = s;
         this.panMenu = new BmgPanelMenu(fen());
         this.panMenu.repaint();
-        
+
         this.panMenu.menu.repaint();
     }
 

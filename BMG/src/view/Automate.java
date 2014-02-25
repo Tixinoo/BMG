@@ -3,7 +3,6 @@ package view;
 import java.util.Scanner;
 import database.BaseSetting;
 import java.sql.SQLException;
-import user.School;
 
 public class Automate {
 
@@ -16,39 +15,56 @@ public class Automate {
             case "-adds":
                 addSchool();
                 break;
+                
+            case "-nb":
+                BmgFrame bmgFrame = new BmgFrame("BMG 2014", 800, 600, false);
+                break;
         }
     }
 
+    /**
+     * Méthode qui permet d'ajouter une école à la base.
+     * Et relance le programme avec l'école ajoutée.
+     * 
+     */
     public static void addSchool() {
+        
+        //Connexion à la base
         BaseSetting bs = new BaseSetting();
+        
         if (bs.testerConnexion()) {
-            //Ask name
-            Scanner sc = new Scanner(System.in);
-            System.out.println("School's name");
-            String name = sc.nextLine();
-
-            if (addSchoolWithName(bs, name)) {
-                System.out.println(getColor(91) + "Add success !\n" + getColor(92) + "Run BMG Program now ? (Y/n)" + getColor(0));
-                String again = sc.nextLine();
-
-                if (again.equals("Y") || again.equals("y")) {
-                    BmgFrame frame = new BmgFrame("BMG 2014", 800, 600);
+            try (Scanner sc = new Scanner(System.in)) {
+                
+                //On récupère le nom de l'école voulu
+                System.out.println("School's name");
+                String name = sc.nextLine();
+                
+                //Insertion dans la base
+                if (addSchoolWithName(bs, name)) {
+                    
+                    //Insertion success
+                    System.out.println(getColor(91) + "Add success !\n" + getColor(92) + "Run BMG Program now ? (Y/n)" + getColor(0));
+                    String again = sc.nextLine();
+                    
+                    //Lancemenent du programme
+                    if (again.equals("Y") || again.equals("y")) {
+                        BmgFrame frame = new BmgFrame("BMG 2014", 800, 600, true);
+                    } else {
+                        
+                    }
                 } else {
-
-                }
-            } else {
-                System.out.println(getColor(91) + "Ohoh, error...  Try again ? (Y/n)" + getColor(0));
-                String again = sc.nextLine();
-
-                if (again.equals("Y") || again.equals("y")) {
-                    addSchool();
-                } else {
-
+                    
+                    //Erreur lors de l'insertion
+                    System.out.println(getColor(91) + "Ohoh, error...  Try again ? (Y/n)" + getColor(0));
+                    String again = sc.nextLine();
+                    
+                    if (again.equals("Y") || again.equals("y")) {
+                        addSchool();
+                    } else {
+                        
+                    }
                 }
             }
-
-            //Add school
-            sc.close();
         }
     }
 

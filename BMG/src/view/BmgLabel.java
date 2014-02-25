@@ -32,6 +32,13 @@ public class BmgLabel extends JLabel {
         this.color = color;
     }
     
+    public BmgLabel(String message, String color, int taille) {
+        super("<html><p style=\"color: "+color+";font-size: "+taille+"px;\">"+message+"</p></html>");
+        this.color = color;
+        
+        
+    }
+    
     public BmgLabel(String message, String color, int width, int height) {
         
         super("<html><p style=\"color: "+color+"\">"+message+"</p></html>");
