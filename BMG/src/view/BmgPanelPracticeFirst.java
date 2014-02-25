@@ -30,7 +30,9 @@ public class BmgPanelPracticeFirst extends JPanel {
 
     String filename = "";
     JLabel labelRes = new JLabel("No file selected.");
+    JButton buttonOk = new JButton("GO");
 
+    Exercise ex = null;
     public BmgPanelPracticeFirst(final BmgFrame fen, String name) {
         //Some settings
         this.filename = name;
@@ -70,52 +72,66 @@ public class BmgPanelPracticeFirst extends JPanel {
                     labelRes.setText("No file selected.");
                 } else {
                     String[] monFichierSplit = monFichier.split("/");
-                    String trueFileName = monFichierSplit[monFichierSplit.length-1];
-                    
+                    String trueFileName = monFichierSplit[monFichierSplit.length - 1];
+
                     //Exercise exercise = new Exercise();
-                    
                     FileReader file;
                     try {
                         file = new FileReader(filename);
                         BufferedReader br = new BufferedReader(file);
-                        
+
                         System.out.println(br.toString());
-                        
+
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(BmgPanelPracticeFirst.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+
                     System.out.println(filename);
-                    
-                    Exercise exercise = Exercise.load(filename);
-                    
-                    if(exercise == null) {
+
+                    final Exercise exercise = Exercise.load(filename);
+                    ex = exercise;
+
+                    if (exercise == null) {
                         System.out.println("EXERCISE NULL");
                     }
+
+                    String style = "style=\"color: blue; font-size: 12px;\"";
                     //Label with summary
-                    labelRes.setText("<html><p stype=\"color: blue;\">Résumé de : " + trueFileName + "</p>"
-                            + "<p>Title : " + exercise.getTitle() + "</p>"
-                            + "<p>Type : " +exercise.getType()+ "</p>" 
-                            + "<p>Difficulty : "+exercise.getDifficulty()+"</p>"
-                            + "<p>Number of questions : "+exercise.getNumberOfQuestions()+"</p>"
-                            + "<p>siogheruhgurehgerhgtuohioh</p>"
+                    labelRes.setText("<html><p style=\"color: green;font-size: 15px;\">Résumé de : " + trueFileName + "<br/><br/></p>"
+                            + "<p><span " + style + ">Title : </span>" + exercise.getTitle() + "<br/></p>"
+                            + "<p><span " + style + ">Type : </span>" + exercise.getType() + "<br/></p>"
+                            + "<p><span " + style + ">Difficulty : </span>" + exercise.getDifficulty() + "<br/></p>"
+                            + "<p><span " + style + ">Number of questions : </span>" + exercise.getNumberOfQuestions() + "<br/></p>"
                             + "</html>");
+
                 }
 
             }
         });
 
         this.add(panFirst);
-        
+
         JPanel panChoose = new JPanel();
-        panChoose.setPreferredSize(new Dimension(fen.width, fen.height / nb));
+        panChoose.setPreferredSize(new Dimension(fen.width, 100));
         panChoose.add(choosefile);
         this.add(panChoose);
 
         JPanel panSouth = new JPanel();
-        panSouth.setPreferredSize(new Dimension(fen.width, fen.height / nb));
+        panSouth.setPreferredSize(new Dimension(fen.width, 500));
 
         panSouth.add(labelRes);
+
+        //Button GO
+        buttonOk = new JButton("Let's Practice");
+        //Listener
+        buttonOk.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                BmgPanelPractice bmgPanelPractice = new BmgPanelPractice(fen, ex);
+            }
+        });
+        panSouth.add(buttonOk);
 
         this.add(panSouth);
 

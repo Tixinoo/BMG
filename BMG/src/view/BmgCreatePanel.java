@@ -48,6 +48,8 @@ public class BmgCreatePanel {
         this.width = width;
         this.height = height;
     }
+    
+
 
     /**
      * This method create the main panel.
