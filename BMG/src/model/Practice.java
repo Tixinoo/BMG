@@ -70,6 +70,7 @@ public class Practice {
 
     public void updateSuccess() {
         this.success = ((double) this.right_answers.size() / ((double) this.right_answers.size() + (double) this.wrong_answers.size())) * 100.0;
+        this.execution_time = new Date().getSeconds() - this.execution_date.getSeconds();
     }
 
     public String encodeWrongAnswers() throws EncodeException {
