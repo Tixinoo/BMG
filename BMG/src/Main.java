@@ -203,16 +203,11 @@ public class Main {
 
                     System.out.println("\n-------> An equation with a given length <-------");
                     sc = new Scanner(System.in);
-                    System.out.print("Length? ");
-                    int le = sc.nextInt();
+                    //System.out.print("Length? ");
+                    //int le = sc.nextInt();
                     QuestionEquation qe2 = new QuestionEquation();
-                    qe2.generate(le);
+                    qe2.generate(2,operatorscu);
                     System.out.println(qe2);
-                    try {                                                                   //
-                        System.out.println(qe2.encode());                                   //
-                    } catch (EncodeException ex) {                                          //////// à retirer
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex); //
-                    }                                                                       //
                     double[] res2e = qe2.solve();
                     if (res2e.length > 1) {
                         System.out.println("Result2(x1): " + res2e[0]);
