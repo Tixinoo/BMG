@@ -287,6 +287,10 @@ public class Exercise implements iDbManager {
         return this.wording.getText();
     }
     
+    public Question getQuestion(int questionNumber) {
+        return this.questions.get(questionNumber);
+    }
+    
     public String getQuestionText(int questionNumber) {
         return this.questions.get(questionNumber).getText();
     }
