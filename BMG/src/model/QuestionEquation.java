@@ -81,16 +81,27 @@ public class QuestionEquation extends Question {
         this.length = (int) (Math.random() * 10) + 2;
         System.out.println("	Random length: " + this.length);
         boolean order0 = true;
+        int opd;
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i == 0) {
                 this.unknowns.add(1);
             } else {
-                this.unknowns.add((int) (Math.random() * 3));
+                opd = (int) (Math.random() * 3);
+                if (opd > 0) {
+                    order0 = false;
+                } else {
+                    order0 = true;
+                }
+                this.unknowns.add(opd);
             }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
-                    this.operators.add(possible_operators[(int) (Math.random() * 4)]);
+                    if (!order0) {
+                        this.operators.add(possible_operators[(int) (Math.random() * 2)]);
+                    } else {
+                        this.operators.add(possible_operators[(int) (Math.random() * 4)]);
+                    }
                 } else {
                     this.operators.add('=');
                 }
