@@ -120,6 +120,7 @@ public class BmgPanelPractice {
                     if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
                         //if enter
                         action(saisie.getText());
+                        setPanel();
                     }
                 }
 
