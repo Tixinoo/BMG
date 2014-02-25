@@ -247,6 +247,12 @@ public class QuestionEquation extends Question {
             for (int i = 1; i < operands.size(); i++) {
                 if (operators.get(i - 1) == '-') {
                     equation.add((double) operands.get(i) * -1);
+                } else if (operators.get(i - 1) == '/') {
+                    equation.set(equation.size(), equation.get(equation.size()) / ((double) operands.get(i)));
+                    equation.add(0.0);
+                } else if (operators.get(i - 1) == '*') {
+                    equation.set(equation.size(), equation.get(equation.size()) * ((double) operands.get(i)));
+                    equation.add(0.0);
                 } else {
                     equation.add((double) operands.get(i));
                 }
@@ -292,9 +298,10 @@ public class QuestionEquation extends Question {
                 if (delta == 0.0) {
                     res[0] = -b / (2 * a);
                 } else {
-                    res[0] = -b - Math.sqrt(delta) / (2 * a);
-                    res[1] = -b + Math.sqrt(delta) / (2 * a);
+                    res[0] = (-b - Math.sqrt(delta)) / (2.0 * a);
+                    res[1] = (-b + Math.sqrt(delta)) / (2.0 * a);
                 }
+                System.out.println(a + " " + b + " " + c + " " + delta);
             }
         }
         return res;

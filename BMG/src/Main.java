@@ -1,6 +1,9 @@
 
+import exceptions.EncodeException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.*;
 
 public class Main {
@@ -205,7 +208,11 @@ public class Main {
                     QuestionEquation qe2 = new QuestionEquation();
                     qe2.generate(le);
                     System.out.println(qe2);
-                    System.out.println(qe2.encode());
+                    try {                                                                   //
+                        System.out.println(qe2.encode());                                   //
+                    } catch (EncodeException ex) {                                          //////// à retirer
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex); //
+                    }                                                                       //
                     double[] res2e = qe2.solve();
                     if (res2e.length > 1) {
                         System.out.println("Result2(x1): " + res2e[0]);
