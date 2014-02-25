@@ -138,9 +138,8 @@ public class Wording implements iDbManager {
     
     public String encodeValues() {
         String res = new String();
-		String types = "emp";
         if (values != null && values.length > 0) {
-            types = "";
+            String types = "";
             for (int i = 0; i<values.length; i++) {
                 if (values[i] instanceof Integer) {
                     types = types + "int:";
