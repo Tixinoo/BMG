@@ -155,12 +155,14 @@ public class Wording implements iDbManager {
                 }
             }
             types = types.substring(0, types.length()-1);
+            res = res + types + "><";
+            for (int i = 0; i<values.length; i++) {
+                res = res + values[i] + ":";
+            }
+            res = res.substring(0, res.length()-1);
+        } else {
+            res = res + "emp><";
         }
-        res = res + types + "><";
-		for (int i = 0; i<values.length; i++) {
-			res = res + values[i] + ":";
-		}
-		res = res.substring(0, res.length()-1);
         return res;
     }
 

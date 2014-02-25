@@ -80,6 +80,7 @@ public class QuestionEquation extends Question {
         char[] possible_operators = {'+', '-', '*', '/'};
         this.length = (int) (Math.random() * 10) + 2;
         System.out.println("	Random length: " + this.length);
+        boolean order0 = true;
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i == 0) {
