@@ -205,9 +205,14 @@ public class Main {
                     QuestionEquation qe2 = new QuestionEquation();
                     qe2.generate(le);
                     System.out.println(qe2);
+                    System.out.println(qe2.encode());
                     double[] res2e = qe2.solve();
-                    System.out.println("Result2(x1): " + res2e[0]);
-                    System.out.println("Result2(x1): " + res2e[1]);
+                    if (res2e.length > 1) {
+                        System.out.println("Result2(x1): " + res2e[0]);
+                        System.out.println("Result2(x2): " + res2e[1]);
+                    } else {
+                        System.out.println("Result2: " + res2e[0]);
+                    }
                     System.out.println("---------------------------------------------------------------------\n");
                     /*
                      System.out.println("\n-------> A question with fractions with selected operators <-------");
