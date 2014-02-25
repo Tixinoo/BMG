@@ -500,6 +500,12 @@ public class Exercise implements iDbManager {
 	    sqle.printStackTrace();
 	}
 	
+        //Insertions des questions
+        //Parcourt des de toutes les questions de l'exercice
+            //On insert la question
+            //On insert dans 'Contains' le couple (this.getID(),question.getID()) !
+        //Fin
+        
 	return true;
     }
 
