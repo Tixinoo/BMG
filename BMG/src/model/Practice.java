@@ -55,6 +55,16 @@ public class Practice {
         this.right_answers = new ArrayList<Integer>();
         this.practiced_exercise = e;
     }
+    
+    public Practice(int idu, Exercise e) {
+        this.id_u = idu;
+        this.execution_time = 0;
+        this.execution_date = new Date();
+        this.success = 0.0;
+        this.wrong_answers = new ArrayList<Integer>();
+        this.right_answers = new ArrayList<Integer>();
+        this.practiced_exercise = e;
+    }
 
     public Practice() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
