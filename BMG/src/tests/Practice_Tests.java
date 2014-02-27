@@ -20,9 +20,9 @@ public class Practice_Tests
         
         UserType ut0 = new UserType("type");
         
-        User u0 = new User(ut0.getId_ut(),"prenom","nom","ecole","email@email.com","password");
-        User u1 = new User(ut0.getId_ut(),"prenom","nom","ecole","email@email.com","password");
-        User u2 = new User(ut0.getId_ut(),"prenom","nom","ecole","email@email.com","password");
+        User u0 = new User(ut0.getId_ut(),"prenom0","nom0","ecole0","email0@email.com","password");
+        User u1 = new User(ut0.getId_ut(),"prenom1","nom1","ecole1","email1@email.com","password");
+        User u2 = new User(ut0.getId_ut(),"prenom2","nom2","ecole2","email2@email.com","password");
         
         Practice p0 = new Practice(u0.getId_u(),e1);
         Practice p1 = new Practice(u0.getId_u(),e2);
