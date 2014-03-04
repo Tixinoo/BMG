@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Manipulation {
     //Class just with static method.
 
-    private String label = "Not Connected yet";
+   //// private String label = "Not Connected yet";
 
     public Manipulation() {
 
