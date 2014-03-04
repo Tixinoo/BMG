@@ -80,20 +80,21 @@ public class QuestionEquation extends Question {
         char[] possible_operators = {'+', '-', '*', '/'};
         this.length = (int) (Math.random() * 10) + 2;
         System.out.println("	Random length: " + this.length);
-        boolean order0 = true;
-        int opd;
+        boolean order0;
+        int ukn;
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i == 0) {
                 this.unknowns.add(1);
+                order0 = false;
             } else {
-                opd = (int) (Math.random() * 3);
-                if (opd > 0) {
+                ukn = (int) (Math.random() * 3);
+                if (ukn > 0) {
                     order0 = false;
                 } else {
                     order0 = true;
                 }
-                this.unknowns.add(opd);
+                this.unknowns.add(ukn);
             }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
@@ -115,22 +116,33 @@ public class QuestionEquation extends Question {
     public void generate(int order, ArrayList<Character> QCoperators) {
         Character[] possible_operators = new Character[QCoperators.size()];
         possible_operators = QCoperators.toArray(possible_operators);
+        char needed_operators[] = {'+', '-'};
         this.length = (int) (Math.random() * 10) + 2;
         System.out.println("	Random length: " + this.length);
+        boolean order0;
+        int ukn;
         for (int i = 0; i < this.length; i++) {
             this.operands.add((int) (Math.random() * 20) + 1);
             if (i == 0) {
                 this.unknowns.add(1);
+                order0 = false;
             } else {
                 if (Math.random() < 0.45) {
-                    this.unknowns.add((int) (Math.random() * (order + 1)));
+                    ukn = (int) (Math.random() * (order + 1));
+                    order0 = false;
                 } else {
-                    this.unknowns.add(0);
+                    ukn = 0;
+                    order0 = true;
                 }
+                this.unknowns.add(ukn);
             }
             if (i < this.length - 1) {
                 if (i < this.length - 2) {
-                    this.operators.add(possible_operators[(int) (Math.random() * QCoperators.size())]);
+                    if (!order0) {
+                        this.operators.add(needed_operators[(int) (Math.random() * 2)]);
+                    } else {
+                        this.operators.add(possible_operators[(int) (Math.random() * QCoperators.size())]);
+                    }
                 } else {
                     this.operators.add('=');
                 }
