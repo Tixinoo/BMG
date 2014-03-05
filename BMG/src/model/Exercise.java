@@ -4,12 +4,20 @@ import exceptions.EncodeException;
 import exceptions.DecodeException;
 import database.BaseSetting;
 import interfaces.iDbManager;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class Exercise implements iDbManager {
 
@@ -58,7 +66,7 @@ public class Exercise implements iDbManager {
         this.id = -1;
         this.title = "Exercise";
         this.wording = new Wording();
-        this.questions = new ArrayList<Question>();
+        this.questions = new ArrayList<>();
         this.type = "";
         this.difficulty = 0;
         this.ready = false;
@@ -66,13 +74,13 @@ public class Exercise implements iDbManager {
 
     /**
      * This constructor creates an exercise of the type given in parameter All others characteristics are random
-     * @param Etype
+     * @param Etype Exercise's type
      */
     public Exercise(String Etype) {
         this.id = -1;
         this.title = "Exercise";
         this.wording = new Wording();
-        this.questions = new ArrayList<Question>();
+        this.questions = new ArrayList<>();
         this.difficulty = 0;
         if (Etype != null) {
             this.type = Etype;
@@ -84,14 +92,14 @@ public class Exercise implements iDbManager {
 
     /**
      * This constructor creates an exercise of the type and of a difficulty given in parameters
-     * @param Etype
-     * @param Edifficulty
+     * @param Etype Exercise's type
+     * @param Edifficulty Exercise difficulty
      */
     public Exercise(String Etype, int Edifficulty) {
         this.id = -1;
         this.title = "Exercise";
         this.wording = new Wording();
-        this.questions = new ArrayList<Question>();
+        this.questions = new ArrayList<>();
         this.type = "";
         if (Edifficulty >= 0) {
             this.difficulty = Edifficulty;
@@ -101,25 +109,44 @@ public class Exercise implements iDbManager {
         this.ready = false;
     }
     
-    public Exercise(String ti, Wording w, ArrayList<Question> alq, String ty, int d, boolean r) 
+    /**
+     * This constructor creates an exercise of the type and of a difficulty given in parameters
+     * @param Etitle Exercise's title
+     * @param Ewording  Exercise's wording
+     * @param Equestions Exercise's questions ArrayList
+     * @param Etype Exercise's type
+     * @param Edifficulty Exercise difficulty
+     * @param Eready Exercise's status
+     */
+    public Exercise(String Etitle, Wording Ewording, ArrayList<Question> Equestions, String Etype, int Edifficulty, boolean Eready) 
     {
-        title = ti;
-        wording = w;
-        questions = alq;
-        type = ty;
-	difficulty = d;
-        ready = r;
+        this.title = Etitle;
+        this.wording = Ewording;
+        this.questions = Equestions;
+        this.type = Etype;
+        this.difficulty = Edifficulty;
+        this.ready = Eready;
     }
     
-    public Exercise(int i, String ti, Wording w, ArrayList<Question> alq, String ty, int d, boolean r) 
+    /**
+     * This constructor creates an exercise of the type and of a difficulty given in parameters
+     * @param Eid Exercise's ID
+     * @param Etitle Exercise's title
+     * @param Ewording  Exercise's wording
+     * @param Equestions Exercise's questions ArrayList
+     * @param Etype Exercise's type
+     * @param Edifficulty Exercise difficulty
+     * @param Eready Exercise's status
+     */
+    public Exercise(int Eid, String Etitle, Wording Ewording, ArrayList<Question> Equestions, String Etype, int Edifficulty, boolean Eready) 
     {
-        id = i;
-        title = ti;
-        wording = w;
-        questions = alq;
-        type = ty;
-        difficulty = d;
-        ready = r;
+        this.id = Eid;
+        this.title = Etitle;
+        this.wording = Ewording;
+        this.questions = Equestions;
+        this.type = Etype;
+        this.difficulty = Edifficulty;
+        this.ready = Eready;
     }
 
     // ----------------------
@@ -128,50 +155,50 @@ public class Exercise implements iDbManager {
      * Generate a random exercise with 10 randoms questions, type must be precised in the attribute.
      */
     public void generate() {
-        if (this.type != "") {
-            switch (type) {
-                case "calculation":
-                    for (int i = 0; i < 10; i++) {
-                        QuestionCalculation qc = new QuestionCalculation();
-                        qc.generate();
-                        this.addQuestion(qc);
-                    }
-                    break;
-                case "fraction":
-                    for (int i = 0; i < 10; i++) {
-                        QuestionFraction qf = new QuestionFraction();
-                        qf.generate();
-                        this.addQuestion(qf);
-                    }
-                    break;
-                case "equation":
-                    for (int i = 0; i < 10; i++) {
-                        QuestionEquation qe = new QuestionEquation();
-                        qe.generate();
-                        this.addQuestion(qe);
-                    }
-                    break;
-                default:
-                    break;
+        if (this.type.compareTo("") != 0) {
+            if (type.compareTo("calculation") == 0) {
+                for (int i = 0; i < 10; i++) {
+                    QuestionCalculation qc = new QuestionCalculation();
+                    qc.generate();
+                    this.addQuestion(qc);
+                }
+            } else if (type.compareTo("fraction") == 0) {
+                for (int i = 0; i < 10; i++) {
+                    QuestionFraction qf = new QuestionFraction();
+                    qf.generate();
+                    this.addQuestion(qf);
+                }
+            } else if (type.compareTo("equation") == 0) {
+                for (int i = 0; i < 10; i++) {
+                    QuestionEquation qe = new QuestionEquation();
+                    qe.generate();
+                    this.addQuestion(qe);
+                }
             }
         }
     }
     
-    public void generate(ArrayList<Character> a) {
-        if (this.type != "") {
-            switch (type) {
-                case "calculation":
-                    for (int i = 0; i < 10; i++) {
-                        QuestionCalculation qc = new QuestionCalculation();
-                        qc.generate(a);
-                        this.addQuestion(qc);
-                    }
-                    break;
+    /**
+     * 
+     * @param Eoperators
+     */
+    public void generate(ArrayList<Character> Eoperators) {
+        if (this.type.compareTo("") != 0) {
+            if (type.compareTo("calculation") == 0) {
+                for (int i = 0; i < 10; i++) {
+                    QuestionCalculation qc = new QuestionCalculation();
+                    qc.generate(Eoperators);
+                    this.addQuestion(qc);
+                }
             }
         }
     }
     
-    public void practiceCalculation(Practice p) {
+    /**
+     * 
+     * @param Epractice 
+     */
+    public void practiceCalculation(Practice Epractice) {
         Scanner sc = new Scanner(System.in);
         Iterator<Question> it_questions = this.questions.iterator();
         while(it_questions.hasNext()) {
@@ -181,19 +208,20 @@ public class Exercise implements iDbManager {
             double answer = sc.nextDouble();
             if (answer == q.solve()) {
                 System.out.print("  --> Right!\n");
-                p.addRight(this.questions.indexOf(q));
+                Epractice.addRight(this.questions.indexOf(q));
             } else {
                 System.out.print("  --> Wrong!\n");
-                p.addWrong(this.questions.indexOf(q));
+                Epractice.addWrong(this.questions.indexOf(q));
             }
         }
-        p.updateSuccess();
-        p.setExecution_time((new Date().getSeconds()) - p.getExecution_date().getSeconds());
-        System.out.println("Finish in " + p.getExecution_time() + " seconds !\nScore:"+p.getSuccess()+"% ("+p.getExecution_date()+")");
+        Epractice.updateSuccess();
+        Epractice.setExecution_time((new Date().getSeconds()) - Epractice.getExecution_date().getSeconds());
+        System.out.println("Finish in " + Epractice.getExecution_time() + " seconds !\nScore:"+Epractice.getSuccess()+"% ("+Epractice.getExecution_date()+")");
     }
 
     /**
      * Add a question to the exercise
+     * @param Equestion New question
      */
     public void addQuestion(Question Equestion) {
         if (Equestion != null) {
@@ -214,6 +242,7 @@ public class Exercise implements iDbManager {
 
     /**
      * True if the exercise is ready to be used
+     * @return Exercise's status
      */
     public boolean isReady() {
         return this.ready;
@@ -221,6 +250,7 @@ public class Exercise implements iDbManager {
 
     /**
      *
+     * @param Ewording
      */
     public void setWording(Wording Ewording) {
         if (Ewording != null) {
@@ -231,6 +261,7 @@ public class Exercise implements iDbManager {
 
     /**
      *
+     * @param Etype
      */
     public void setType(String Etype) {
         if (Etype != null) {
@@ -238,13 +269,18 @@ public class Exercise implements iDbManager {
             this.update_ready();
         }
     }
-
+    
+    /**
+     * 
+     * @param Etitle 
+     */
     public void setTitle(String Etitle) {
         this.title = Etitle;
     }
 
     /**
      *
+     * @param Edifficulty
      */
     public void setDifficulty(int Edifficulty) {
         if (Edifficulty >= 0) {
@@ -255,6 +291,7 @@ public class Exercise implements iDbManager {
 
     /**
      *
+     * @param Eid
      */
     public void setID(int Eid) {
         if (Eid > 0) {
@@ -264,43 +301,77 @@ public class Exercise implements iDbManager {
         }
     }
     
-    public int getId()
-    {
-	return id;
+    /**
+     * 
+     * @return 
+     */
+    public int getId() {
+        return id;
     }
     
-    public String getTitle()
-    {
-	return title;
+    /**
+     * 
+     * @return 
+     */
+    public String getTitle() {
+        return title;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public String getType() {
         return type;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public int getDifficulty() {
         return difficulty;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public int getNumberOfQuestions() {
         return this.questions.size();
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public String getWordingText() {
         return this.wording.getText();
     }
     
+    /**
+     * 
+     * @param questionNumber
+     * @return 
+     */
     public Question getQuestion(int questionNumber) {
         return this.questions.get(questionNumber);
     }
     
+    /**
+     * 
+     * @param questionNumber
+     * @return 
+     */
     public String getQuestionText(int questionNumber) {
         return this.questions.get(questionNumber).getText();
     }
     
     /**
      * Display an exercise
+     * @return 
      */
+    @Override
     public String toString() {
         String res = "--> EXERCISE";
         res = res + "\n	Statement:  " + this.wording;
@@ -314,9 +385,14 @@ public class Exercise implements iDbManager {
         }
         return res;
     }
-
+    
+    /**
+     * Encode the exercise as a string
+     * @return Encoded exercise string
+     * @throws EncodeException 
+     */
     public String encode() throws EncodeException {
-        String res = null;
+        String res;
         this.update_ready();
         System.out.println(this.isReady());
         if (this.isReady()) {
@@ -327,86 +403,87 @@ public class Exercise implements iDbManager {
                 res = res + itq.next().encode() + "\n";
             }
         } else {
+            res = null;
             throw new EncodeException();
         }
         return res;
     }
-
-    public static Exercise decode(String str) throws DecodeException {
-        Exercise res = null;
-        System.out.println(str.substring(0,10));
-        if (str.substring(0,10).compareTo("#Exercise<") == 0) {
+    
+    /**
+     * Recreate an Exercise from an encoded string
+     * @param encodedExercise
+     * @return Decoded exercise
+     * @throws DecodeException 
+     */
+    public static Exercise decode(String encodedExercise) throws DecodeException {
+        Exercise res;
+        System.out.println(encodedExercise.substring(0,10));
+        if (encodedExercise.substring(0,10).compareTo("#Exercise<") == 0) {
             res = new Exercise();
             int i = 11;
-            while (str.charAt(i) != '>') {
+            while (encodedExercise.charAt(i) != '>') {
                 i++;
             }
-            res.setID(Integer.valueOf(str.substring(10, i)));
+            res.setID(Integer.valueOf(encodedExercise.substring(10, i)));
 
             i++;
             int beginning = i;
-            if (str.charAt(i) == '<') {
-                while (str.charAt(i) != '>') {
+            if (encodedExercise.charAt(i) == '<') {
+                while (encodedExercise.charAt(i) != '>') {
                     i++;
                 }
-                res.setTitle(str.substring(beginning + 1, i));
+                res.setTitle(encodedExercise.substring(beginning + 1, i));
 
                 i++;
                 beginning = i;
-                if (str.charAt(i) == '<') {
-                    while (str.charAt(i) != '>') {
+                if (encodedExercise.charAt(i) == '<') {
+                    while (encodedExercise.charAt(i) != '>') {
                         i++;
                     }
-                    res.setType(str.substring(beginning + 1, i));
+                    res.setType(encodedExercise.substring(beginning + 1, i));
 
                     i++;
                     beginning = i;
-                    if (str.charAt(i) == '<') {
-                        while (str.charAt(i) != '>') {
+                    if (encodedExercise.charAt(i) == '<') {
+                        while (encodedExercise.charAt(i) != '>') {
                             i++;
                         }
-                        res.setDifficulty(Integer.valueOf(str.substring(beginning + 1, i)));
+                        res.setDifficulty(Integer.valueOf(encodedExercise.substring(beginning + 1, i)));
 
                         i++;
-                        str = str.substring(i);
+                        encodedExercise = encodedExercise.substring(i);
 
                         i = 0;
                         beginning = 0;
-                        while (str.length() != i) {
-                            if (str.charAt(i) == '#') {
-                                str = str.substring(i);
-                                System.out.println(str);
+                        while (encodedExercise.length() != i) {
+                            if (encodedExercise.charAt(i) == '#') {
+                                encodedExercise = encodedExercise.substring(i);
+                                System.out.println(encodedExercise);
                                 i = 0;
-                                while (str.charAt(i) != '<') {
+                                while (encodedExercise.charAt(i) != '<') {
                                     i++;
                                 }
-                                String qtype = str.substring(beginning, i);
-                                switch (qtype) {
-                                    case "#QuestionCalculaion":
-                                        QuestionCalculation qc = QuestionCalculation.decode(str);
-                                        System.out.println(qc);
-                                        res.addQuestion(qc);
-                                        break;
-                                    case "#QuestionFraction":
-                                        QuestionFraction qf = QuestionFraction.decode(str);
-                                        System.out.println(qf);
-                                        res.addQuestion(qf);
-                                        break;
-                                    case "#QuestionEquation":
-                                        QuestionEquation qe = QuestionEquation.decode(str);
-                                        System.out.println(qe);
-                                        res.addQuestion(qe);
-                                        break;
-                                    case "#QuestionPower":
-                                        QuestionPower qp = QuestionPower.decode(str);
-                                        System.out.println(qp);
-                                        res.addQuestion(qp);
-                                        break;
-                                    case "#Wording":
-                                        Wording w = Wording.decode(str);
-                                        System.out.println(w);
-                                        res.setWording(w);
-                                        break;
+                                String qtype = encodedExercise.substring(beginning, i);
+                                if (qtype.compareTo("#QuestionCalculaion") == 0) {
+                                    QuestionCalculation qc = QuestionCalculation.decode(encodedExercise);
+                                    System.out.println(qc);
+                                    res.addQuestion(qc);
+                                } else if (qtype.compareTo("#QuestionFraction") == 0) {
+                                    QuestionFraction qf = QuestionFraction.decode(encodedExercise);
+                                    System.out.println(qf);
+                                    res.addQuestion(qf);
+                                } else if (qtype.compareTo("#QuestionEquation") == 0) {
+                                    QuestionEquation qe = QuestionEquation.decode(encodedExercise);
+                                    System.out.println(qe);
+                                    res.addQuestion(qe);
+                                } else if (qtype.compareTo("#QuestionPower") == 0) {
+                                    QuestionPower qp = QuestionPower.decode(encodedExercise);
+                                    System.out.println(qp);
+                                    res.addQuestion(qp);
+                                } else if (qtype.compareTo("#Wording") == 0) {
+                                    Wording w = Wording.decode(encodedExercise);
+                                    System.out.println(w);
+                                    res.setWording(w);
                                 }
                                 i = 0;
                             }
@@ -430,12 +507,13 @@ public class Exercise implements iDbManager {
         }
         return res;
     }
-
+    
+    /**
+     * 
+     */
     public void save() {
-        try {
-            BufferedWriter file = new BufferedWriter(new FileWriter("ex" + id + ".bmg"));
+        try (BufferedWriter file = new BufferedWriter(new FileWriter("ex" + id + ".bmg"))) {
             file.write(this.encode());
-            file.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("ERROR : file can not be found");
         } catch (IOException ioe) {
@@ -444,19 +522,22 @@ public class Exercise implements iDbManager {
             System.out.println("ERROR : encoding failue");
         }
     }
-
+    
+    /**
+     * 
+     * @param fname
+     * @return 
+     */
     public static Exercise load(String fname) {
         Exercise res = null;
-        try {
-            BufferedReader file = new BufferedReader(new FileReader(fname));
+        try (BufferedReader file = new BufferedReader(new FileReader(fname))) {
             String str = new String();
-            int i = 0;
+            int i;
             while((i=file.read() ) != (-1)) {
                 char c = (char)i;
                 str += c;
             }
             res = Exercise.decode(str);
-            file.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("ERROR : file can not be found");
         } catch (IOException ioe) {
@@ -471,6 +552,7 @@ public class Exercise implements iDbManager {
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
+    @Override
     public boolean insert(BaseSetting bs) 
     {
         //Insertion du Wording 
@@ -509,6 +591,7 @@ public class Exercise implements iDbManager {
 	return true;
     }
 
+    @Override
     public boolean update(BaseSetting bs) 
     {
         Connection connection = bs.getConnection();
@@ -545,6 +628,7 @@ public class Exercise implements iDbManager {
 	return true;
     }
 
+    @Override
     public boolean delete(BaseSetting bs) 
     {
         Connection connection = bs.getConnection();
