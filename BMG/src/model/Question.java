@@ -2,14 +2,17 @@ package model;
 
 import exceptions.EncodeException;
 import exceptions.DecodeException;
-import database.BaseSetting;
-import interfaces.iDbManager;
 
+/**
+ * Abstract Question object containing it base components
+ * @author Antoine NOSAl
+ * @author Julien RISCHE
+ */
 public abstract class Question {
 
     // ----- ATTRIBUTES -----
     /**
-     * Question'id
+     * Question'ID
      */
     protected int id;
 
@@ -25,99 +28,141 @@ public abstract class Question {
 
     // ----------------------
     // ---- CONSTRUCTORS ----
+    /**
+     * Empty constructor for Question
+     */
     public Question() {
         this.id = -1;
     }
-
-    public Question(String textq, int diffq) {
-        text = textq;
-        difficulty = diffq;
+    
+    /**
+     * Question constructor giving text and difficulty
+     * @param Qtext Question's text
+     * @param Qdifficulty Question's difficulty level
+     */
+    public Question(String Qtext, int Qdifficulty) {
+        this.text = Qtext;
+        this.difficulty = Qdifficulty;
     }
-
-    public Question(int idq, String textq, int diffq) {
-        id = idq;
-        text = textq;
-        difficulty = diffq;
+    
+    /**
+     * Question constructor giving ID, text and difficulty level
+     * @param Qid Question's ID number
+     * @param Qtext Question's text
+     * @param Qdifficulty Question's difficulty
+     */
+    public Question(int Qid, String Qtext, int Qdifficulty) {
+        this.id = Qid;
+        this.text = Qtext;
+        this.difficulty = Qdifficulty;
     }
 
     // ----------------------
     // ------- METHODS ------
     /**
-     *
+     * Set Question's text
+     * @param Qtext New Question's text
      */
     public void setText(String Qtext) {
         if (Qtext != null) {
             this.text = Qtext;
         }
     }
-
+    
+    /**
+     * Question's ID accessor
+     * @return Question's ID Number
+     */
     public int getID() {
-        return id;
+        return this.id;
     }
-
-    public void setID(int id) {
-        this.id = id;
+    /**
+     * Set Question's ID number
+     * @param Qid Question's new ID number
+     */
+    public void setID(int Qid) {
+        this.id = Qid;
     }
 
     /**
-     *
+     * Set Question's difficulty level
+     * @param Qdifficulty QUestion's new difficulty
      */
     public void setDifficulty(int Qdifficulty) {
         if (Qdifficulty >= 0) {
             this.difficulty = Qdifficulty;
         }
     }
-
+    
+    /**
+     * Encode the Question as a string
+     * @return Encoded question string
+     * @throws EncodeException 
+     */
     public String encode() throws EncodeException {
         String res = "<" + id + "><$<" + text + ">$><" + difficulty + ">";
         return res;
     }
-
+    
+    /**
+     * Question's text accessor
+     * @return Question's text
+     */
     public String getText() {
-        return text;
+        return this.text;
     }
-
+    
+    /**
+     * Question's difficulty level accessor
+     * @return Question's difficulty
+     */
     public int getDifficulty() {
         return difficulty;
     }
-
-    public static void decode(Question qtn, String str) throws DecodeException {
-        if (str.charAt(0) == '<') {
+    
+    /**
+     * Recreate a Question from an encoded string
+     * @param decodedQuestion Question object in which place decoded Question
+     * @param encodedQuestion Encoded question string
+     * @throws DecodeException 
+     */
+    public static void decode(Question decodedQuestion, String encodedQuestion) throws DecodeException {
+        if (encodedQuestion.charAt(0) == '<') {
             int i = 1;
-            while (str.charAt(i) != '>') {
+            while (encodedQuestion.charAt(i) != '>') {
                 i++;
             }
             if (i > 1) {
-                qtn.setID(Integer.valueOf(str.substring(1, i)));
+                decodedQuestion.setID(Integer.valueOf(encodedQuestion.substring(1, i)));
             } else {
-                qtn.setID(-1);
+                decodedQuestion.setID(-1);
             }
 
             i++;
             int beginning = i;
-            if (str.substring(i, i + 3).compareTo("<$<") == 0) {
-                while (str.substring(i, i + 3).compareTo(">$>") != 0) {
+            if (encodedQuestion.substring(i, i + 3).compareTo("<$<") == 0) {
+                while (encodedQuestion.substring(i, i + 3).compareTo(">$>") != 0) {
                     i++;
                 }
                 if (beginning < i - 1) {
-                    qtn.setText(str.substring(beginning + 3, i));
+                    decodedQuestion.setText(encodedQuestion.substring(beginning + 3, i));
                 } else {
-                    qtn.setText(null);
+                    decodedQuestion.setText(null);
                 }
                 i += 3;
 
                 beginning = i;
-                if (str.charAt(0) == '<') {
-                    while (str.charAt(i) != '>') {
+                if (encodedQuestion.charAt(0) == '<') {
+                    while (encodedQuestion.charAt(i) != '>') {
                         i++;
                     }
                     if (i - 1 > beginning) {
-                        qtn.setDifficulty(Integer.valueOf(str.substring(beginning + 1, i)));
+                        decodedQuestion.setDifficulty(Integer.valueOf(encodedQuestion.substring(beginning + 1, i)));
                     } else {
-                        qtn.setDifficulty(0);
+                        decodedQuestion.setDifficulty(0);
                     }
                     i++;
-                    str = str.substring(i);
+                    encodedQuestion = encodedQuestion.substring(i); //do not remove this line
                 } else {
                     throw new DecodeException();
                 }
@@ -128,8 +173,5 @@ public abstract class Question {
             throw new DecodeException();
         }
     }
-
-    // ----------------------
-    // ----------------------
-    // ----- DB METHODS -----
+    
 }

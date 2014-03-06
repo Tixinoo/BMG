@@ -29,7 +29,7 @@ public class Exercise implements iDbManager {
 
     // ----- ATTRIBUTES -----
     /**
-     * Exercise's id
+     * Exercise's ID
      */
     private int id;
 
@@ -401,7 +401,7 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * Encode the exercise as a string
+     * Encode the Exercise as a string
      * @return Encoded exercise string
      * @throws EncodeException 
      */
@@ -425,7 +425,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Recreate an Exercise from an encoded string
-     * @param encodedExercise
+     * @param encodedExercise Encoded exercise string
      * @return Decoded exercise
      * @throws DecodeException 
      */
