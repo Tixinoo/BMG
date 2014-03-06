@@ -255,8 +255,8 @@ public class Exercise implements iDbManager {
     }
 
     /**
-     * 
-     * @param Ewording
+     * Set Exercise's wording
+     * @param Ewording Exercise's new wording
      */
     public void setWording(Wording Ewording) {
         if (Ewording != null) {
@@ -266,8 +266,8 @@ public class Exercise implements iDbManager {
     }
 
     /**
-     *
-     * @param Etype
+     * Set Exercise's type
+     * @param Etype Exercise's new type
      */
     public void setType(String Etype) {
         if (Etype != null) {
@@ -277,16 +277,16 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * 
-     * @param Etitle 
+     * Set Exercise's title
+     * @param Etitle Exercise's new title
      */
     public void setTitle(String Etitle) {
         this.title = Etitle;
     }
 
     /**
-     *
-     * @param Edifficulty
+     * Set Exercise's difficulty level
+     * @param Edifficulty Exercise's new difficulty
      */
     public void setDifficulty(int Edifficulty) {
         if (Edifficulty >= 0) {
@@ -296,8 +296,8 @@ public class Exercise implements iDbManager {
     }
 
     /**
-     *
-     * @param Eid
+     * Set Exercise's ID number
+     * @param Eid Exercise's new ID number
      */
     public void setID(int Eid) {
         if (Eid > 0) {
@@ -308,74 +308,82 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * 
-     * @return 
+     * ID number accessor
+     * @return Exercise's ID number
      */
     public int getId() {
         return id;
     }
     
     /**
-     * 
-     * @return 
+     * Title accessor
+     * @return Exercise's title
      */
     public String getTitle() {
         return title;
     }
     
     /**
-     * 
-     * @return 
+     * Type accessor
+     * @return Exercise's type
      */
     public String getType() {
         return type;
     }
     
     /**
-     * 
-     * @return 
+     * Difficulty level accessor
+     * @return Exercise's difficulty
      */
     public int getDifficulty() {
         return difficulty;
     }
     
     /**
-     * 
-     * @return 
+     * Give the number of questions contained in the Exercise
+     * @return Number of questions
      */
     public int getNumberOfQuestions() {
         return this.questions.size();
     }
     
     /**
-     * 
-     * @return 
+     * Wording text accessor
+     * @return Wording's text
      */
     public String getWordingText() {
         return this.wording.getText();
     }
     
     /**
-     * 
-     * @param questionNumber
-     * @return 
+     * Give one of the questions cointained in the Exercise
+     * @param questionNumber Number of the asked Question in Exercise's list
+     * @return Question asked (if existing)
      */
     public Question getQuestion(int questionNumber) {
-        return this.questions.get(questionNumber);
+        Question res = null;
+        if ((questionNumber >= 0) && (questionNumber < questions.size())) {
+            res = this.questions.get(questionNumber);
+        }
+        return res;
     }
     
     /**
-     * 
-     * @param questionNumber
-     * @return 
+     * Give text from one of the questions cointained in the Exercise
+     * @param questionNumber Number of the asked Question in Exercise's list
+     * @return Question's text (if existing)
      */
     public String getQuestionText(int questionNumber) {
-        return this.questions.get(questionNumber).getText();
+        String res = null;
+        if ((questionNumber >= 0) && (questionNumber < questions.size())) {
+            res = this.questions.get(questionNumber).getText();
+        }
+        return res;
     }
     
     /**
-     * Display an exercise
-     * @return 
+     * Give a text description of the Exercise
+     * @return Exercise's text description
      */
     @Override
     public String toString() {
@@ -515,7 +523,7 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * 
+     * Encode the Exercise and save it in a file called : ex<ID>.bmg
      */
     public void save() {
         try (BufferedWriter file = new BufferedWriter(new FileWriter("ex" + id + ".bmg"))) {
@@ -530,9 +538,9 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * 
-     * @param fname
-     * @return 
+     * Recreate an Exercise by loading a file and decoding the string it contain
+     * @param fname Exercise's save file
+     * @return Exercise loaded
      */
     public static Exercise load(String fname) {
         Exercise res = null;
