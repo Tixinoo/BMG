@@ -8,10 +8,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+/**
+ * 
+ * @author Joseph DZIMBALKA
+ * @author Antoine NOSAL
+ * @author Julien RISCHE
+ */
 public class QuestionCalculation extends Question implements iDbManager {
 
     // ----- ATTRIBUTES -----
@@ -49,6 +54,7 @@ public class QuestionCalculation extends Question implements iDbManager {
     /**
      * This constructor creates a question,
      * with the text given in parameter.
+     * @param QCtext
      */
     public QuestionCalculation(String QCtext) {
         super();
@@ -58,14 +64,16 @@ public class QuestionCalculation extends Question implements iDbManager {
             this.text = "...";
         }
         this.difficulty = 0;
-        this.operands = new ArrayList<Integer>();
-        this.operators = new ArrayList<Character>();
+        this.operands = new ArrayList<>();
+        this.operators = new ArrayList<>();
         this.length = 0;
     }
 
     /**
      * This constructor creates a question,
      * with the text and the difficulty given in parameters.
+     * @param QCtext
+     * @param QCdifficulty
      */
     public QuestionCalculation(String QCtext, int QCdifficulty) {
         super();
@@ -79,28 +87,45 @@ public class QuestionCalculation extends Question implements iDbManager {
         } else {
             this.difficulty = 0;
         }
-        this.operands = new ArrayList<Integer>();
-        this.operators = new ArrayList<Character>();
+        this.operands = new ArrayList<>();
+        this.operators = new ArrayList<>();
         this.length = 0;
     }
-
-    QuestionCalculation(String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc) {
+    
+    /**
+     * 
+     * @param QCtext
+     * @param QCdifficulty
+     * @param QCoperands
+     * @param QCoperators
+     * @param QClength 
+     */
+    QuestionCalculation(String QCtext, int QCdifficulty, ArrayList<Integer> QCoperands, ArrayList<Character> QCoperators, int QClength) {
         super();
-        this.text = textqc;
-        this.difficulty = diffqc;
-        this.operands = operandsqc;
-        this.operators = operatorsqc;
-        this.length = lengthqc;
+        this.text = QCtext;
+        this.difficulty = QCdifficulty;
+        this.operands = QCoperands;
+        this.operators = QCoperators;
+        this.length = QClength;
     }
     
-    QuestionCalculation(int idqc, String textqc, int diffqc, ArrayList<Integer> operandsqc, ArrayList<Character> operatorsqc, int lengthqc) {
+    /**
+     * 
+     * @param QCid
+     * @param QCtext
+     * @param QCdifficulty
+     * @param QCoperands
+     * @param QCoperators
+     * @param QClength 
+     */
+    QuestionCalculation(int QCid, String QCtext, int QCdifficulty, ArrayList<Integer> QCoperands, ArrayList<Character> QCoperators, int QClength) {
         super();
-        this.id = idqc;
-        this.text = textqc;
-        this.difficulty = diffqc;
-        this.operands = operandsqc;
-        this.operators = operatorsqc;
-        this.length = lengthqc;
+        this.id = QCid;
+        this.text = QCtext;
+        this.difficulty = QCdifficulty;
+        this.operands = QCoperands;
+        this.operators = QCoperators;
+        this.length = QClength;
     }
 
     // ----------------------
@@ -124,6 +149,7 @@ public class QuestionCalculation extends Question implements iDbManager {
     /**
      * Generate a random question of calculation,
      * with the length given in parameter.
+     * @param QClength
      */
     public void generate(int QClength) {
         char[] possible_operators = {'+', '-', '*', '/'};
@@ -143,6 +169,7 @@ public class QuestionCalculation extends Question implements iDbManager {
     /**
      * Generate a random question of calculation,
      * Operators are choosen in the ArrayList given in parameter.
+     * @param QCoperators
      */
     public void generate(ArrayList<Character> QCoperators) {
         Character[] possible_operators = new Character[QCoperators.size()];
@@ -161,6 +188,8 @@ public class QuestionCalculation extends Question implements iDbManager {
      * Generate a random question of calculation,
      * with the length given in parameter,
      * Operators are choosen in the ArrayList given in parameter.
+     * @param QCoperators
+     * @param QClength
      */
     public void generate(ArrayList<Character> QCoperators, int QClength) {
         Character[] possible_operators = new Character[QCoperators.size()];
@@ -179,14 +208,13 @@ public class QuestionCalculation extends Question implements iDbManager {
     }
 
     /**
-     * Solve a question of calculation.
+     * Solve a calculation question.
+     * @return 
      */
     public double solve() {
-        double res = 0;
-        Object[] operands_array = new Object[this.operands.size()];
-        operands_array = this.operands.toArray();
-        Object[] operators_array = new Object[this.operators.size()];
-        operators_array = this.operators.toArray();
+        double res = 0.0;
+        Object[] operands_array = this.operands.toArray();
+        Object[] operators_array = this.operators.toArray();
         char operator, old_operator;
         int i;
         for (i = 0; i < operands_array.length; i++) {
@@ -241,7 +269,12 @@ public class QuestionCalculation extends Question implements iDbManager {
         res = (double) (operands_array[operands_array.length - 1]);
         return res;
     }
-
+    
+    /**
+     * QuestionCalculation's text accessor
+     * @return QuestionCalculation's text
+     */
+    @Override
     public String getText() {
         String res = "";
         Iterator<Integer> it_operands = this.operands.iterator();
@@ -254,8 +287,10 @@ public class QuestionCalculation extends Question implements iDbManager {
     }
     
     /**
-     * Display a question of calculation.
+     * Give a text description of the QuestionCalculation object
+     * @return QuestionCalculation's description
      */
+    @Override
     public String toString() {
         String res = "		QuestionCalculation";
         res = res + "\n			Text: " + this.text;
@@ -272,31 +307,59 @@ public class QuestionCalculation extends Question implements iDbManager {
         res = res + "\n			" + this.solve();
         return res;
     }
-
+    
+    /**
+     * QuestionCalculation's operands accessor
+     * @return Operands's ArrayList
+     */
     public ArrayList<Integer> getOperands() {
-        return operands;
+        return this.operands;
     }
-
+    
+    /**
+     * Set QuestionCalculation's operands
+     * @param operands  QuestionCalculation new operands's ArrayList
+     */
     public void setOperands(ArrayList<Integer> operands) {
         this.operands = operands;
     }
-
+    
+    /**
+     * QuestionCalculation's operators accessor
+     * @return Operators's ArrayList
+     */
     public ArrayList<Character> getOperators() {
         return operators;
     }
-
+    
+    /**
+     * Set QuestionCalculation's operators
+     * @param operators  QuestionCalculation new operators's ArrayList
+     */
     public void setOperators(ArrayList<Character> operators) {
         this.operators = operators;
     }
-
+    
+    /**
+     * QuestionCalculation's length accessor
+     * @return QuestionCalculation's length
+     */
     public int getLength() {
-        return length;
+        return this.length;
     }
-
+    
+    /**
+     * Set QuestionCalculation's length
+     * @param length QuestionCalculation new length
+     */
     public void setLength(int length) {
         this.length = length;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String encodeOperands() {
         String res = new String();
         if (operands.size() > 0) {
@@ -309,6 +372,10 @@ public class QuestionCalculation extends Question implements iDbManager {
         return res;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String encodeOperators() {
         String res = new String();
         if (operators.size() > 0) {
@@ -323,9 +390,10 @@ public class QuestionCalculation extends Question implements iDbManager {
 
     /**
      * Encode the current question (object) in a string which can recreate this question by the decode() method
-     *
      * @return encoded question
+     * @throws exceptions.EncodeException
      */
+    @Override
     public String encode() throws EncodeException {
         
         String res = "#QuestionCalculaion<";
@@ -337,67 +405,77 @@ public class QuestionCalculation extends Question implements iDbManager {
         return res;
     }
     
-    public static ArrayList<Integer> decodeOperands(String str) {
-        ArrayList<Integer> res = new ArrayList<Integer>();
-        String[] tab = str.split(":");
-        for (int x = 0; x < tab.length; x++) {
-            res.add(Integer.valueOf(tab[x]));
+    /**
+     * 
+     * @param encodedOperands
+     * @return 
+     */
+    public static ArrayList<Integer> decodeOperands(String encodedOperands) {
+        ArrayList<Integer> res = new ArrayList<>();
+        String[] tab = encodedOperands.split(":");
+        for (String val : tab) {
+            res.add(Integer.valueOf(val));
         }
         assert res.size() > 0 : "empty operands table";
         return res;
     }
     
-    public static ArrayList<Character> decodeOperators(String str) {
-        ArrayList<Character> res = new ArrayList<Character>();
-        String[] tab = str.split(":");
-        for (int x = 0; x < tab.length; x++) {
-            res.add(tab[x].charAt(0));
+    /**
+     * 
+     * @param encodedOperators
+     * @return 
+     */
+    public static ArrayList<Character> decodeOperators(String encodedOperators) {
+        ArrayList<Character> res = new ArrayList<>();
+        String[] tab = encodedOperators.split(":");
+        for (String val : tab) {
+            res.add(val.charAt(0));
         }
         assert res.size() > 0 : "empty operators table";
         return res;
     }
 
     /**
-     * Decode the string generate by the encode() method of this class
-     *
-     * @param str encoded question
+     * Decode the encodedQuestionCalculationing generate by the encode() method of this class
+     * @param encodedQuestionCalculation encoded question
      * @return decoded question (object)
+     * @throws exceptions.DecodeException
      */
-    public static QuestionCalculation decode(String str) throws DecodeException {
-        QuestionCalculation res = null;
-        if (str.substring(0, 19).compareTo("#QuestionCalculaion") == 0) {
+    public static QuestionCalculation decode(String encodedQuestionCalculation) throws DecodeException {
+        QuestionCalculation res;
+        if (encodedQuestionCalculation.substring(0, 19).compareTo("#QuestionCalculaion") == 0) {
             res = new QuestionCalculation();
             int i = 19;
-            if (str.charAt(i) == '<') {
-                while (str.charAt(i) != '>') {
+            if (encodedQuestionCalculation.charAt(i) == '<') {
+                while (encodedQuestionCalculation.charAt(i) != '>') {
                     i++;
                 }
-                ArrayList<Integer> tmp_opd = decodeOperands(str.substring(20, i));
+                ArrayList<Integer> tmp_opd = decodeOperands(encodedQuestionCalculation.substring(20, i));
                 res.setOperands(tmp_opd);
 
                 i++;
                 int beginning = i;
-                if (str.charAt(i) == '<') {
-                    while (str.charAt(i) != '>') {
+                if (encodedQuestionCalculation.charAt(i) == '<') {
+                    while (encodedQuestionCalculation.charAt(i) != '>') {
                         i++;
                     }
-                    ArrayList<Character> tmp_opt = decodeOperators(str.substring(beginning + 1, i));
+                    ArrayList<Character> tmp_opt = decodeOperators(encodedQuestionCalculation.substring(beginning + 1, i));
                     assert tmp_opt.size() == tmp_opt.size() + 1 : "incorrect size of operators table";
                     res.setOperators(tmp_opt);
 
                     i++;
                     beginning = i;
-                    if (str.charAt(i) == '<') {
-                        while (str.charAt(i) != '>') {
+                    if (encodedQuestionCalculation.charAt(i) == '<') {
+                        while (encodedQuestionCalculation.charAt(i) != '>') {
                             i++;
                         }
-                        int tmp_lth = Integer.valueOf(str.substring(beginning + 1, i));
+                        int tmp_lth = Integer.valueOf(encodedQuestionCalculation.substring(beginning + 1, i));
                         assert tmp_lth < 0 : "negative length";
                         res.setLength(tmp_lth);
 
                         i++;
-                        str = str.substring(i);
-                        Question.decode(res, str);
+                        encodedQuestionCalculation = encodedQuestionCalculation.substring(i);
+                        Question.decode(res, encodedQuestionCalculation);
                     } else {
                         res = null;
                         throw new DecodeException();
@@ -421,6 +499,7 @@ public class QuestionCalculation extends Question implements iDbManager {
     // ----- DB METHODS -----
 
     /* MISE A JOURS */
+    @Override
     public boolean insert(BaseSetting bs) 
     {
 	Connection connection = bs.getConnection();
@@ -448,6 +527,7 @@ public class QuestionCalculation extends Question implements iDbManager {
 	return true;
     }
 
+    @Override
     public boolean update(BaseSetting bs) 
     {
         Connection connection = bs.getConnection();
@@ -476,6 +556,7 @@ public class QuestionCalculation extends Question implements iDbManager {
 	return true;
     }
 
+    @Override
     public boolean delete(BaseSetting bs) 
     {
         Connection connection = bs.getConnection();
