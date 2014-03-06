@@ -19,6 +19,12 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * Exercise object containing all it components
+ * @author Joseph DZIMBALKA
+ * @author Antoine NOSAl
+ * @author Julien RISCHE
+ */
 public class Exercise implements iDbManager {
 
     // ----- ATTRIBUTES -----
@@ -179,8 +185,8 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * 
-     * @param Eoperators
+     * Generate an Exercise this 10 questions using given operators
+     * @param Eoperators List of allowed operators
      */
     public void generate(ArrayList<Character> Eoperators) {
         if (this.type.compareTo("") != 0) {
@@ -195,8 +201,8 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * 
-     * @param Epractice 
+     * Join a Practice object to the Exercise
+     * @param Epractice Practice object
      */
     public void practiceCalculation(Practice Epractice) {
         Scanner sc = new Scanner(System.in);
@@ -249,7 +255,7 @@ public class Exercise implements iDbManager {
     }
 
     /**
-     *
+     * 
      * @param Ewording
      */
     public void setWording(Wording Ewording) {
