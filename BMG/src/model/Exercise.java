@@ -29,32 +29,32 @@ public class Exercise implements iDbManager {
 
     // ----- ATTRIBUTES -----
     /**
-     * Exercise's ID
+     * Exercise ID
      */
     private int id;
 
     /**
-     * Exercise's title
+     * Exercise title
      */
     private String title;
 
     /**
-     * Exercise's statement
+     * Exercise statement
      */
     private Wording wording;
 
     /**
-     * Exercise's questions
+     * Exercise questions
      */
     private ArrayList<Question> questions;
 
     /**
-     * Exercise's type
+     * Exercise type
      */
     private String type;
 
     /**
-     * Exercise's difficulty '0' corresponds to an unknown difficulty '1' corresponds to the easiest difficulty
+     * Exercise difficulty '0' corresponds to an unknown difficulty '1' corresponds to the easiest difficulty
      */
     private int difficulty;
 
@@ -80,7 +80,7 @@ public class Exercise implements iDbManager {
 
     /**
      * This constructor creates an exercise of the type given in parameter All others characteristics are random
-     * @param Etype Exercise's type
+     * @param Etype Exercise type
      */
     public Exercise(String Etype) {
         this.id = -1;
@@ -98,7 +98,7 @@ public class Exercise implements iDbManager {
 
     /**
      * This constructor creates an exercise of the type and of a difficulty given in parameters
-     * @param Etype Exercise's type
+     * @param Etype Exercise type
      * @param Edifficulty Exercise difficulty
      */
     public Exercise(String Etype, int Edifficulty) {
@@ -117,12 +117,12 @@ public class Exercise implements iDbManager {
     
     /**
      * This constructor creates an exercise of the type and of a difficulty given in parameters
-     * @param Etitle Exercise's title
-     * @param Ewording  Exercise's wording
-     * @param Equestions Exercise's questions ArrayList
-     * @param Etype Exercise's type
+     * @param Etitle Exercise title
+     * @param Ewording  Exercise wording
+     * @param Equestions Exercise questions ArrayList
+     * @param Etype Exercise type
      * @param Edifficulty Exercise difficulty
-     * @param Eready Exercise's status
+     * @param Eready Exercise status
      */
     public Exercise(String Etitle, Wording Ewording, ArrayList<Question> Equestions, String Etype, int Edifficulty, boolean Eready) 
     {
@@ -136,13 +136,13 @@ public class Exercise implements iDbManager {
     
     /**
      * This constructor creates an exercise of the type and of a difficulty given in parameters
-     * @param Eid Exercise's ID
-     * @param Etitle Exercise's title
-     * @param Ewording  Exercise's wording
-     * @param Equestions Exercise's questions ArrayList
-     * @param Etype Exercise's type
+     * @param Eid Exercise ID
+     * @param Etitle Exercise title
+     * @param Ewording  Exercise wording
+     * @param Equestions Exercise questions ArrayList
+     * @param Etype Exercise type
      * @param Edifficulty Exercise difficulty
-     * @param Eready Exercise's status
+     * @param Eready Exercise status
      */
     public Exercise(int Eid, String Etitle, Wording Ewording, ArrayList<Question> Equestions, String Etype, int Edifficulty, boolean Eready) 
     {
@@ -248,15 +248,15 @@ public class Exercise implements iDbManager {
 
     /**
      * True if the exercise is ready to be used
-     * @return Exercise's status
+     * @return Exercise status
      */
     public boolean isReady() {
         return this.ready;
     }
 
     /**
-     * Set Exercise's wording
-     * @param Ewording Exercise's new wording
+     * Set Exercise wording
+     * @param Ewording Exercise new wording
      */
     public void setWording(Wording Ewording) {
         if (Ewording != null) {
@@ -266,8 +266,8 @@ public class Exercise implements iDbManager {
     }
 
     /**
-     * Set Exercise's type
-     * @param Etype Exercise's new type
+     * Set Exercise type
+     * @param Etype Exercise new type
      */
     public void setType(String Etype) {
         if (Etype != null) {
@@ -277,16 +277,16 @@ public class Exercise implements iDbManager {
     }
     
     /**
-     * Set Exercise's title
-     * @param Etitle Exercise's new title
+     * Set Exercise title
+     * @param Etitle Exercise new title
      */
     public void setTitle(String Etitle) {
         this.title = Etitle;
     }
 
     /**
-     * Set Exercise's difficulty level
-     * @param Edifficulty Exercise's new difficulty
+     * Set Exercise difficulty level
+     * @param Edifficulty Exercise new difficulty
      */
     public void setDifficulty(int Edifficulty) {
         if (Edifficulty >= 0) {
@@ -296,8 +296,8 @@ public class Exercise implements iDbManager {
     }
 
     /**
-     * Set Exercise's ID number
-     * @param Eid Exercise's new ID number
+     * Set Exercise ID number
+     * @param Eid Exercise new ID number
      */
     public void setID(int Eid) {
         if (Eid > 0) {
@@ -309,7 +309,7 @@ public class Exercise implements iDbManager {
     
     /**
      * ID number accessor
-     * @return Exercise's ID number
+     * @return Exercise ID number
      */
     public int getId() {
         return id;
@@ -317,7 +317,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Title accessor
-     * @return Exercise's title
+     * @return Exercise title
      */
     public String getTitle() {
         return title;
@@ -325,7 +325,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Type accessor
-     * @return Exercise's type
+     * @return Exercise type
      */
     public String getType() {
         return type;
@@ -333,7 +333,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Difficulty level accessor
-     * @return Exercise's difficulty
+     * @return Exercise difficulty
      */
     public int getDifficulty() {
         return difficulty;
@@ -349,7 +349,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Wording text accessor
-     * @return Wording's text
+     * @return Wording text
      */
     public String getWordingText() {
         return this.wording.getText();
@@ -357,7 +357,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Give one of the questions cointained in the Exercise
-     * @param questionNumber Number of the asked Question in Exercise's list
+     * @param questionNumber Number of the asked Question in Exercise list
      * @return Question asked (if existing)
      */
     public Question getQuestion(int questionNumber) {
@@ -370,8 +370,8 @@ public class Exercise implements iDbManager {
     
     /**
      * Give text from one of the questions cointained in the Exercise
-     * @param questionNumber Number of the asked Question in Exercise's list
-     * @return Question's text (if existing)
+     * @param questionNumber Number of the asked Question in Exercise list
+     * @return Question text (if existing)
      */
     public String getQuestionText(int questionNumber) {
         String res = null;
@@ -383,7 +383,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Give a text description of the Exercise
-     * @return Exercise's text description
+     * @return Exercise text description
      */
     @Override
     public String toString() {
@@ -539,7 +539,7 @@ public class Exercise implements iDbManager {
     
     /**
      * Recreate an Exercise by loading a file and decoding the string it contain
-     * @param fname Exercise's save file
+     * @param fname Exercise save file
      * @return Exercise loaded
      */
     public static Exercise load(String fname) {

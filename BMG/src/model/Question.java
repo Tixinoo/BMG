@@ -17,12 +17,12 @@ public abstract class Question {
     protected int id;
 
     /**
-     * Question's text
+     * Question text
      */
     protected String text;
 
     /**
-     * Question's difficulty '0' corresponds to an unknow difficulty '1' corresponds to the easiest difficulty
+     * Question difficulty '0' corresponds to an unknow difficulty '1' corresponds to the easiest difficulty
      */
     protected int difficulty;
 
@@ -37,8 +37,8 @@ public abstract class Question {
     
     /**
      * Question constructor giving text and difficulty
-     * @param Qtext Question's text
-     * @param Qdifficulty Question's difficulty level
+     * @param Qtext Question text
+     * @param Qdifficulty Question difficulty level
      */
     public Question(String Qtext, int Qdifficulty) {
         this.text = Qtext;
@@ -47,9 +47,9 @@ public abstract class Question {
     
     /**
      * Question constructor giving ID, text and difficulty level
-     * @param Qid Question's ID number
-     * @param Qtext Question's text
-     * @param Qdifficulty Question's difficulty
+     * @param Qid Question ID number
+     * @param Qtext Question text
+     * @param Qdifficulty Question difficulty
      */
     public Question(int Qid, String Qtext, int Qdifficulty) {
         this.id = Qid;
@@ -60,8 +60,8 @@ public abstract class Question {
     // ----------------------
     // ------- METHODS ------
     /**
-     * Set Question's text
-     * @param Qtext New Question's text
+     * Set Question text
+     * @param Qtext New Question text
      */
     public void setText(String Qtext) {
         if (Qtext != null) {
@@ -70,23 +70,23 @@ public abstract class Question {
     }
     
     /**
-     * Question's ID accessor
-     * @return Question's ID Number
+     * Question ID accessor
+     * @return Question ID Number
      */
     public int getID() {
         return this.id;
     }
     /**
-     * Set Question's ID number
-     * @param Qid Question's new ID number
+     * Set Question ID number
+     * @param Qid Question new ID number
      */
     public void setID(int Qid) {
         this.id = Qid;
     }
 
     /**
-     * Set Question's difficulty level
-     * @param Qdifficulty QUestion's new difficulty
+     * Set Question difficulty level
+     * @param Qdifficulty QUestion new difficulty
      */
     public void setDifficulty(int Qdifficulty) {
         if (Qdifficulty >= 0) {
@@ -105,16 +105,16 @@ public abstract class Question {
     }
     
     /**
-     * Question's text accessor
-     * @return Question's text
+     * Question text accessor
+     * @return Question text
      */
     public String getText() {
         return this.text;
     }
     
     /**
-     * Question's difficulty level accessor
-     * @return Question's difficulty
+     * Question difficulty level accessor
+     * @return Question difficulty
      */
     public int getDifficulty() {
         return difficulty;
