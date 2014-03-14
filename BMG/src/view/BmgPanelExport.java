@@ -144,13 +144,14 @@ public class BmgPanelExport extends JPanel {
         });
         
         panSouth.add(buttonOk);
+        panSouth.add(boutonExportPDF);
 
         this.add(panSouth);
 
     }
     
     public void actionExporterPDF(Exercise e) {
-        
+        e.exportToFile();
     }
     
     public void actionExporter(Exercise e) {
