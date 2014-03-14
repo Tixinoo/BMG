@@ -627,7 +627,7 @@ public class Exercise implements iDbManager {
         } catch (IOException ioe) {
             System.out.println("ERROR : in/out failure");
         } catch (EncodeException ee) {
-            System.out.println("ERROR : encoding failue");
+            System.out.println("ERROR : encoding failure");
         }
     }
 
