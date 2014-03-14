@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import user.User;
 
@@ -25,7 +27,7 @@ public class Practice {
     /**
      *
      */
-    private Date execution_date;
+    private Calendar execution_date;
 
     /**
      *
@@ -49,7 +51,7 @@ public class Practice {
 
     public Practice(Exercise e) {
         this.execution_time = 0;
-        this.execution_date = new Date();
+        this.execution_date = new GregorianCalendar();
         this.success = 0.0;
         this.wrong_answers = new ArrayList<Integer>();
         this.right_answers = new ArrayList<Integer>();
@@ -59,7 +61,8 @@ public class Practice {
     public Practice(int idu, Exercise e) {
         this.id_u = idu;
         this.execution_time = 0;
-        this.execution_date = new Date();
+        this.execution_date = new GregorianCalendar();
+        this.execution_date.setTime(new Date());
         this.success = 0.0;
         this.wrong_answers = new ArrayList<Integer>();
         this.right_answers = new ArrayList<Integer>();
@@ -80,7 +83,10 @@ public class Practice {
 
     public void updateSuccess() {
         this.success = ((double) this.right_answers.size() / ((double) this.right_answers.size() + (double) this.wrong_answers.size())) * 100.0;
-        this.execution_time = new Date().getSeconds() - this.execution_date.getSeconds();
+        Calendar currentDate = new GregorianCalendar();
+        currentDate.setTime(new Date());
+        //this.execution_time = new Date().getSeconds() - this.execution_date.getSeconds();
+        this.execution_time = currentDate.get(Calendar.SECOND) - this.execution_date.get(Calendar.SECOND);
     }
 
     public String encodeWrongAnswers() throws EncodeException {
@@ -143,7 +149,7 @@ public class Practice {
     }
 
     public Date getExecution_date() {
-        return execution_date;
+        return execution_date.getTime();
     }
 
     public double getSuccess() {
