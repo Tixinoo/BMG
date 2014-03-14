@@ -111,19 +111,6 @@ public class QuestionCustom<SolutionType> extends Question {
     // ------- METHODS ------
     
     // Inherited
-    
-    /**
-     * True if the object given in parameter equals the solution
-     */
-    public boolean checkAnswer(SolutionType QCanswer) {
-        boolean res = false;
-        if (QCanswer != null) {
-            if (this.solution == QCanswer) {
-                res = true;
-            }
-        }
-        return res;
-    }
 
     public void setSolution(SolutionType[] solution) {
         this.solution = solution;
@@ -141,6 +128,8 @@ public class QuestionCustom<SolutionType> extends Question {
                     res.append("chr:");
                 } else if (value instanceof String) {
                     res.append("str:");
+                } else if (value instanceof Boolean) {
+                    res.append("bln:");
                 } else if (value == null) {
                     res.append("nul:");
                 } else {
