@@ -123,7 +123,7 @@ public abstract class Question {
         return difficulty;
     }
     
-    public boolean insert(BaseSetting bs) {return false;}
+    public abstract boolean insert(BaseSetting bs);
     
     /**
      * Recreate a Question from an encoded string

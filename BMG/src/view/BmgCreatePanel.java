@@ -17,14 +17,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import model.Exercise;
 import user.User;
 
 /**
@@ -48,8 +55,6 @@ public class BmgCreatePanel {
         this.width = width;
         this.height = height;
     }
-    
-
 
     /**
      * This method create the main panel.
@@ -253,7 +258,7 @@ public class BmgCreatePanel {
 
             }
         };
-        
+
         //Add Key Listener 
         saisiePass.addKeyListener(key);
         saisieEmail.addKeyListener(key);
@@ -504,9 +509,213 @@ public class BmgCreatePanel {
      */
     public JPanel createPanelGenerateExercises() {
         //create
+
+        // Données : 
+        int longueurExercice = 10;
+
         JPanel pan = new JPanel();
 
-        pan.add(new BmgLabel("Here you can (not yet) generate exercises : ", "red"));
+        // Panel haut
+        JPanel panHaut = new JPanel();
+        panHaut.add(new BmgLabel("Here you can (not yet) generate exercises : ", "red"));
+
+        // Panel center
+        JPanel panCenter = new JPanel();
+
+        final String[] tabChoixType = {
+            "Calcul arithmétique",
+            "Calcul fractionnaire",
+            "Equation",
+            "Puissance"
+        };
+        final JComboBox choixType = new JComboBox(tabChoixType);
+
+        // Slide
+        final JSlider slide = new JSlider();
+        final JLabel labelInfo = new JLabel("Valeur actuelle : " + 10);
+
+        slide.setMaximum(30);
+        slide.setMinimum(2);
+        slide.setValue(10);
+        slide.setPaintTicks(true);
+        slide.setPaintLabels(true);
+        slide.setMinorTickSpacing(3);
+        slide.setMajorTickSpacing(3);
+        slide.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent event) {
+                labelInfo.setText("Valeur actuelle : "
+                        + ((JSlider) event.getSource()).getValue());
+            }
+        });
+
+        // Center1
+        JPanel panCenter1 = new JPanel();
+        panCenter1.setPreferredSize(new Dimension(fen.width, 200));
+
+        panCenter1.setLayout(new GridLayout(4, 3));
+        String couleur = "black";
+
+        final JTextField choixNom = new JTextField(12);
+        panCenter1.add(new BmgLabel("Nom de l'exercice : ", couleur));
+        panCenter1.add(choixNom);
+        panCenter1.add(new JLabel(""));
+        panCenter1.add(new BmgLabel("Type : ", couleur));
+        panCenter1.add(choixType);
+
+        JButton boutonAleatoire = new JButton("Aléatoire !");
+        boutonAleatoire.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //TODO
+                double numeroAleatoire = Math.random() * 30;
+                slide.setValue((int) numeroAleatoire);
+
+                labelInfo.setText("Valeur actuelle : " + (int) numeroAleatoire);
+
+                numeroAleatoire = Math.random() * 4;
+                int num = (int) numeroAleatoire;
+
+                choixType.setSelectedIndex(num);
+            }
+        });
+
+        panCenter1.add(boutonAleatoire);
+        panCenter1.add(new BmgLabel("Nombre de questions : ", couleur));
+        panCenter1.add(slide);
+        panCenter1.add(labelInfo);
+
+        final JRadioButton jrbPlus = new JRadioButton("+");
+        final JRadioButton jrbMoins = new JRadioButton("-");
+        final JRadioButton jrbFois = new JRadioButton("*");
+        final JRadioButton jrbDiv = new JRadioButton("/");
+
+        panCenter1.add(new BmgLabel("Opérateurs : ", couleur));
+
+        JPanel panCenter11 = new JPanel();
+        panCenter11.setLayout(new GridLayout(2, 2));
+        panCenter11.add(jrbPlus);
+        panCenter11.add(jrbMoins);
+        panCenter11.add(jrbFois);
+        panCenter11.add(jrbDiv);
+        
+        panCenter1.add(panCenter11);
+
+        // Valider
+        final JPanel panCenter2 = new JPanel();
+        panCenter2.setPreferredSize(new Dimension(fen.width / 2, fen.height / 4));
+        panCenter2.setLayout(new BorderLayout());
+
+        final BmgLabel labelSum = new BmgLabel("", "red");
+        labelSum.setPreferredSize(new Dimension(fen.width, 100));
+
+        // Confirm
+        final JButton confirm = new JButton("Confirmer");
+        //confirm.setPreferredSize(new Dimension(fen.width/2, 50));
+        confirm.setVisible(false);
+
+        JButton valider = new JButton("Valider");
+
+        final BmgLabel labFin = new BmgLabel("", "green");
+        labFin.setVisible(false);
+
+        valider.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //TODO
+
+                // Récap
+                String s = "Vous avez choisi<br/>";
+
+                s += "Nom : " + choixNom.getText() + "<br/>";
+                s += "Type : " + tabChoixType[choixType.getSelectedIndex()] + "<br/>";
+                s += "Nombre de questions : " + slide.getValue() + "<br/>";
+
+                // Génération des opérateurs
+                final ArrayList<Character> operateurs = new ArrayList<>();
+                if (jrbPlus.isSelected()) {
+                    operateurs.add('+');
+                }
+                if (jrbMoins.isSelected()) {
+                    operateurs.add('-');
+                }
+                if (jrbFois.isSelected()) {
+                    operateurs.add('*');
+                }
+                if (jrbDiv.isSelected()) {
+                    operateurs.add('/');
+                }
+
+                s += "Opérateurs : ";
+                for (char c : operateurs) {
+                    s += " " + c;
+                }
+                s += "<br/>";
+
+                labelSum.set(s);
+
+                // Listener confirm
+                confirm.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        // Récupération du type
+                        String type = getType(choixType.getSelectedIndex());
+                        
+                        // Création de l'exercice
+                        Exercise e = new Exercise(choixNom.getText(), type);
+                        e.generate(slide.getValue(), operateurs);
+                        e.save();
+                        
+                        labFin.set("Success !");
+                        labFin.setVisible(true);
+                    }
+
+                    private String getType(int selectedIndex) {
+                        String type = "";
+                        switch(selectedIndex) {
+                            case 0:
+                                type = "calculation";
+                                break;
+                            case 1: 
+                                type = "fraction";
+                                break;
+                            case 2: 
+                                type = "equation";
+                                break;
+                            case 3:
+                                type = "power";
+                                break;
+                        }
+                        
+                        return type;
+                    }
+                });
+                confirm.setVisible(true);
+
+            }
+        });
+
+        panCenter2.add(valider, BorderLayout.NORTH);
+        panCenter2.add(labelSum, BorderLayout.CENTER);
+
+        JPanel panCenterTmp = new JPanel();
+        panCenterTmp.setLayout(new BoxLayout(panCenterTmp, BoxLayout.PAGE_AXIS));
+        panCenterTmp.add(confirm);
+        panCenterTmp.add(labFin);
+
+        panCenter2.add(panCenterTmp, BorderLayout.SOUTH);
+
+        // Layout
+        pan.setLayout(new BorderLayout());
+        pan.add(panHaut, BorderLayout.NORTH);
+
+        panCenter.add(panCenter1);
+        panCenter.add(panCenter2);
+
+        pan.add(panCenter, BorderLayout.CENTER);
 
         return pan;
     }
