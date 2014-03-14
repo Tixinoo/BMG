@@ -66,28 +66,22 @@ public class Exercise_Tests
         alq.add(qc1);
         alq.add(qc2);
         
-        Exercise e = new Exercise("Titre", w, alq, "Exercice de calculs", 1, true);
+        Exercise e1 = new Exercise("Titre1", w, alq, "Exercice de calculs", 1, true);       
+        Exercise e2 = new Exercise("Titre2", w, alq, "Exercice de calculs", 1, true);
+        Exercise e3 = new Exercise("Titre3", w, alq, "Exercice de calculs", 1, true);
+        Exercise e4 = new Exercise("Titre4", w, alq, "Exercice de calculs", 1, true);
         
         // INSERTION EXERCISE
-        e.insert(bs);
+        e1.insert(bs);
+        e2.insert(bs);
+        e3.insert(bs);
+        e4.insert(bs);
         
         System.out.println("INSERT E OK");
         
-        ArrayList<Question> newalq = Exercise.findById_AllQuestions(e.getId(), bs);
+        ArrayList<Exercise> ale = Exercise.findAll(bs);
         
-        System.out.println(newalq.toString());
-        
-//        if (newalq != null)
-//        {
-//            if (!(newalq.isEmpty()))
-//            {
-//                for (Question q : newalq)
-//                {
-//                    System.out.println("test");
-//                    System.out.println("test"+q.getID());
-//                }
-//            }
-//        }
+        System.out.println(ale);
     }
     
 }

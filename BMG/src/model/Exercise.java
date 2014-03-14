@@ -838,7 +838,7 @@ public class Exercise implements iDbManager {
 
         try {
             String query = "SELECT * FROM Exercise";
-            Exercise e = new Exercise();
+            Exercise e = null;
             PreparedStatement p_statement = connection.prepareStatement(query);
             ResultSet rs = p_statement.executeQuery();
 
@@ -855,6 +855,7 @@ public class Exercise implements iDbManager {
                 }
                 Wording wordinge = Wording.findById(idw, bs);
                 e = new Exercise(ide, titlee, wordinge, Exercise.findById_AllQuestions(ide, bs), typee, diffe, readye_b);
+                ale.add(e);
             }
         } catch (SQLException sqle) {
             System.out.println("ERREUR");
