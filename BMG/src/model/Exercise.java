@@ -686,6 +686,11 @@ public class Exercise implements iDbManager {
 //            Iterator it = questions.iterator();
 //            
 //            while (it.hasNext())
+            
+            System.out.println("DEBUT AFFICHAGE LISTE");
+            System.out.println(questions.toString());
+            System.out.println("FIN AFFICHAGE LISTE");
+            
             for (Question q : questions) {
                 //(Question)(it.next()).insert(bs);
 
