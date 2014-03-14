@@ -6,8 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import user.User;
 
@@ -25,7 +28,7 @@ public class Practice {
     /**
      *
      */
-    private Date execution_date;
+    private Calendar execution_date;
 
     /**
      *
@@ -49,17 +52,18 @@ public class Practice {
 
     public Practice(Exercise e) {
         this.execution_time = 0;
-        this.execution_date = new Date();
+        this.execution_date = new GregorianCalendar();
         this.success = 0.0;
         this.wrong_answers = new ArrayList<Integer>();
         this.right_answers = new ArrayList<Integer>();
         this.practiced_exercise = e;
     }
-    
+
     public Practice(int idu, Exercise e) {
         this.id_u = idu;
         this.execution_time = 0;
-        this.execution_date = new Date();
+        this.execution_date = new GregorianCalendar();
+        this.execution_date.setTime(new Date());
         this.success = 0.0;
         this.wrong_answers = new ArrayList<Integer>();
         this.right_answers = new ArrayList<Integer>();
@@ -80,7 +84,10 @@ public class Practice {
 
     public void updateSuccess() {
         this.success = ((double) this.right_answers.size() / ((double) this.right_answers.size() + (double) this.wrong_answers.size())) * 100.0;
-        this.execution_time = new Date().getSeconds() - this.execution_date.getSeconds();
+        Calendar currentDate = new GregorianCalendar();
+        currentDate.setTime(new Date());
+        //this.execution_time = new Date().getSeconds() - this.execution_date.getSeconds();
+        this.execution_time = currentDate.get(Calendar.SECOND) - this.execution_date.get(Calendar.SECOND);
     }
 
     public String encodeWrongAnswers() throws EncodeException {
@@ -117,7 +124,7 @@ public class Practice {
         res = res + practiced_exercise.encode();
         return res;
     }
-    
+
     public static ArrayList<Integer> decodeRightAnswers(String str) {
         ArrayList<Integer> res = new ArrayList<Integer>();
         String[] tab = str.split(":");
@@ -127,7 +134,7 @@ public class Practice {
         assert res.size() > 0 : "empty right answers table";
         return res;
     }
-    
+
     public static ArrayList<Integer> decodeWrongAnswers(String str) {
         ArrayList<Integer> res = new ArrayList<Integer>();
         String[] tab = str.split(":");
@@ -143,7 +150,14 @@ public class Practice {
     }
 
     public Date getExecution_date() {
-        return execution_date;
+        return execution_date.getTime();
+    }
+
+    public String getExecution_dateString() {
+        Date currentDate = this.execution_date.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy à hh:mm");
+        return format.format(currentDate);
+        //return "" + this.execution_date.get(Calendar.DAY_OF_MONTH) + " " + this.execution_date.get(Calendar.MONTH) + " " + this.execution_date.get(Calendar.YEAR);
     }
 
     public double getSuccess() {
@@ -152,6 +166,22 @@ public class Practice {
 
     public ArrayList<Integer> getWrong_answers() {
         return wrong_answers;
+    }
+
+    public String getWrong_answersString() {
+        System.out.println("r:" + this.right_answers);
+        System.out.println("w:" + this.wrong_answers);
+        String wanswers = "";
+        Iterator it = this.wrong_answers.iterator();
+        while (it.hasNext()) {
+            wanswers = wanswers + ((int) it.next() + 1);
+            if (it.hasNext()) {
+                wanswers = wanswers + ", ";
+            } else {
+                System.out.println("kiki");
+            }
+        }
+        return wanswers;
     }
 
     public ArrayList<Integer> getRight_answers() {
@@ -174,7 +204,7 @@ public class Practice {
         Connection connection = bs.getConnection();
 
         int id_e = practiced_exercise.getId();
-        
+
         try {
             if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
 
@@ -208,7 +238,7 @@ public class Practice {
         Connection connection = bs.getConnection();
 
         int id_e = practiced_exercise.getId();
-        
+
         try {
             if (User.findById(this.id_u, bs) != null && Exercise.findById(id_e, bs) != null) {
                 String query = "UPDATE PracticeAn SET (id_u = ? , id_e = ? , execution_date = ? , execution_time = ? , success = ? , wrong_answers = ?) WHERE id_p = ?";
@@ -250,7 +280,7 @@ public class Practice {
 
     public static Practice findById(int id_p, BaseSetting bs) {
         Connection connection = bs.getConnection();
-        
+
         Practice practice = null;
 
         try {
@@ -282,7 +312,7 @@ public class Practice {
 
     public static ArrayList<Practice> findByIds(int id_u, int id_e, BaseSetting bs) {
         Connection connection = bs.getConnection();
-        
+
         ArrayList<Practice> al_practice = new ArrayList<>();
 
         try {
