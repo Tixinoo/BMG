@@ -506,7 +506,7 @@ public class Exercise implements iDbManager {
                 if (question != null) {
                     res = res + question.encode() + "\n";
                 } else {
-                    throw new EncodeException("Null value in questions ArrayList");
+                    throw new EncodeException("Null value in questions ArrayList of Exercise");
                 }
             }
         } else {
