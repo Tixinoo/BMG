@@ -781,6 +781,7 @@ public class Exercise implements iDbManager {
                 p_statement_2.setInt(1, this.getId());
                 p_statement_2.setInt(2, q.getID());
                 p_statement_2.executeUpdate();
+                p_statement_2.close();
             }
 
         } catch (SQLException sqle) {

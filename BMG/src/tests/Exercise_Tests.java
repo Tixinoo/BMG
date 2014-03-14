@@ -80,8 +80,6 @@ public class Exercise_Tests
         System.out.println("INSERT E OK");
         
         ArrayList<Exercise> ale = Exercise.findAll(bs);
-        
-        System.out.println(ale);
     }
     
 }
