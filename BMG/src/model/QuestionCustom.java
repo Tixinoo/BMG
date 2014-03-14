@@ -1,7 +1,8 @@
 package model;
 
 import database.BaseSetting;
-import java.util.*;
+import exceptions.EncodeException;
+import java.util.ArrayList;
 
 public class QuestionCustom<SolutionType> extends Question {
 
@@ -17,7 +18,7 @@ public class QuestionCustom<SolutionType> extends Question {
     /**
      * List of the types of the attributes.
      */
-    private ArrayList<String> types;
+    private ArrayList<Character> types;
 
     /**
      * List of the values of the attributes.
@@ -40,9 +41,9 @@ public class QuestionCustom<SolutionType> extends Question {
         super();
         this.text = "Answer.";
         this.difficulty = 0;
-        this.names = new ArrayList<String>();
-        this.types = new ArrayList<String>();
-        this.values = new ArrayList<Object>();
+        this.names = new ArrayList<>();
+        this.types = new ArrayList<>();
+        this.values = new ArrayList<>();
         this.solution = null;
     }
 
@@ -58,9 +59,9 @@ public class QuestionCustom<SolutionType> extends Question {
             this.text = "...";
         }
         this.difficulty = 0;
-        this.names = new ArrayList<String>();
-        this.types = new ArrayList<String>();
-        this.values = new ArrayList<Object>();
+        this.names = new ArrayList<>();
+        this.types = new ArrayList<>();
+        this.values = new ArrayList<>();
         this.solution = null;
     }
     
@@ -76,9 +77,9 @@ public class QuestionCustom<SolutionType> extends Question {
             this.text = "...";
         }
         this.difficulty = 0;
-        this.names = new ArrayList<String>();
-        this.types = new ArrayList<String>();
-        this.values = new ArrayList<Object>();
+        this.names = new ArrayList<>();
+        this.types = new ArrayList<>();
+        this.values = new ArrayList<>();
         this.solution = QCsolution;
     }
 
@@ -98,9 +99,9 @@ public class QuestionCustom<SolutionType> extends Question {
         } else {
             this.difficulty = 0;
         }
-        this.names = new ArrayList<String>();
-        this.types = new ArrayList<String>();
-        this.values = new ArrayList<Object>();
+        this.names = new ArrayList<>();
+        this.types = new ArrayList<>();
+        this.values = new ArrayList<>();
         this.solution = null;
     }
     
@@ -120,10 +121,60 @@ public class QuestionCustom<SolutionType> extends Question {
         } else {
             this.difficulty = 0;
         }
-        this.names = new ArrayList<String>();
-        this.types = new ArrayList<String>();
-        this.values = new ArrayList<Object>();
+        this.names = new ArrayList<>();
+        this.types = new ArrayList<>();
+        this.values = new ArrayList<>();
         this.solution = QCsolution;
+    }
+    
+    public String encodeNames() throws EncodeException {
+        StringBuilder res = new StringBuilder();
+        if (this.names.size() > 0) {
+            for (String name : this.names) {
+                res.append(':').append(name);
+            }
+            res.replace(res.length()-1, res.length(), "");
+        } else {
+            throw new EncodeException("Empty ArrayList");
+        }
+        return res.toString();
+    }
+    
+    public String encodeTypes() throws EncodeException {
+        StringBuilder res = new StringBuilder();
+        if (this.types.size() > 0) {
+            for (char type : this.types) {
+                res.append(':').append(type);
+            }
+            res.replace(res.length()-1, res.length(), "");
+        } else {
+            throw new EncodeException("Empty ArrayList");
+        }
+        return res.toString();
+    }
+    
+    public String encodeValues() throws EncodeException {
+        StringBuilder res = new StringBuilder();
+        if (this.values.size() > 0) {
+            for (Object value : this.values) {
+                
+            }
+            for (Object value : this.values) {
+                res.append(':').append(value);
+            }
+            res.replace(res.length()-1, res.length(), "");
+        } else {
+            throw new EncodeException("Empty ArrayList");
+        }
+        return res.toString();
+    }
+    
+    
+    
+    @Override
+    public String encode() throws EncodeException() {
+        StringBuilder res = new StringBuilder();
+        
     }
 
     // ----------------------

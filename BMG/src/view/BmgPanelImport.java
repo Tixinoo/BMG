@@ -87,6 +87,9 @@ public class BmgPanelImport extends JPanel {
                         + "<p><span " + style + ">Difficulty : </span>" + exercise.getDifficulty() + "<br/></p>"
                         + "<p><span " + style + ">Number of questions : </span>" + exercise.getNumberOfQuestions() + "<br/></p>"
                         + "</html>");
+                
+                exercise.save();
+                
             }
         });
 

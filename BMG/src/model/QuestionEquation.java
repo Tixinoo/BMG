@@ -403,31 +403,43 @@ public class QuestionEquation extends Question {
 
     public String encodeOperands() throws EncodeException {
         String res = new String();
-        Iterator<Integer> itopd = operands.iterator();
-        while (itopd.hasNext()) {
-            res = res + itopd.next() + ":";
+        if (this.operands.size() > 0) {
+            Iterator<Integer> itopd = operands.iterator();
+            while (itopd.hasNext()) {
+                res = res + itopd.next() + ":";
+            }
+            res = res.substring(0, res.length() - 1);
+        } else {
+            throw new EncodeException("Empty ArrayList");
         }
-        res = res.substring(0, res.length() - 1);
         return res;
     }
 
     public String encodeUnknowns() throws EncodeException {
         String res = new String();
-        Iterator<Integer> itukn = unknowns.iterator();
-        while (itukn.hasNext()) {
-            res = res + itukn.next() + ":";
+        if (this.unknowns.size() > 0) {
+            Iterator<Integer> itukn = unknowns.iterator();
+            while (itukn.hasNext()) {
+                res = res + itukn.next() + ":";
+            }
+            res = res.substring(0, res.length() - 1);
+        }  else {
+            throw new EncodeException("Empty ArrayList");
         }
-        res = res.substring(0, res.length() - 1);
         return res;
     }
 
     public String encodeOperators() throws EncodeException {
         String res = new String();
-        Iterator<Character> itopt = operators.iterator();
-        while (itopt.hasNext()) {
-            res = res + itopt.next() + ":";
+        if (this.operators.size() > 0) {
+            Iterator<Character> itopt = operators.iterator();
+            while (itopt.hasNext()) {
+                res = res + itopt.next() + ":";
+            }
+            res = res.substring(0, res.length() - 1);
+        } else {
+            throw new EncodeException("Empty ArrayList");
         }
-        res = res.substring(0, res.length() - 1);
         return res;
     }
 
@@ -448,8 +460,8 @@ public class QuestionEquation extends Question {
         return res;
     }
 
-    public static ArrayList<Integer> decodeOperands(String str) {
-        ArrayList<Integer> res = new ArrayList<Integer>();
+    public static ArrayList<Integer> decodeOperands(String str) throws DecodeException {
+        ArrayList<Integer> res = new ArrayList<>();
         String[] tab = str.split(":");
         for (int x = 0; x < tab.length; x++) {
             res.add(Integer.valueOf(tab[x]));
@@ -458,8 +470,8 @@ public class QuestionEquation extends Question {
         return res;
     }
 
-    public static ArrayList<Integer> decodeUnknowns(String str) {
-        ArrayList<Integer> res = new ArrayList<Integer>();
+    public static ArrayList<Integer> decodeUnknowns(String str) throws DecodeException {
+        ArrayList<Integer> res = new ArrayList<>();
         String[] tab = str.split(":");
         for (int x = 0; x < tab.length; x++) {
             res.add(Integer.valueOf(tab[x]));
@@ -468,8 +480,8 @@ public class QuestionEquation extends Question {
         return res;
     }
 
-    public static ArrayList<Character> decodeOperators(String str) {
-        ArrayList<Character> res = new ArrayList<Character>();
+    public static ArrayList<Character> decodeOperators(String str) throws DecodeException {
+        ArrayList<Character> res = new ArrayList<>();
         String[] tab = str.split(":");
         for (int x = 0; x < tab.length; x++) {
             res.add(tab[x].charAt(0));

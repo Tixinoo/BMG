@@ -369,6 +369,8 @@ public class QuestionCalculation extends Question implements iDbManager {
                 res = res + itopd.next() + ":";
             }
             res = res.substring(0, res.length() - 1);
+        } else {
+            throw new EncodeException("Empty ArrayList");
         }
         return res;
     }
@@ -386,6 +388,8 @@ public class QuestionCalculation extends Question implements iDbManager {
                 res = res + itopt.next() + ":";
             }
             res = res.substring(0, res.length() - 1);
+        } else {
+            throw new EncodeException("Empty ArrayList");
         }
         return res;
     }

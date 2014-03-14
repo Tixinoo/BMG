@@ -502,9 +502,12 @@ public class Exercise implements iDbManager {
         if (this.isReady()) {
             res = "#Exercise<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
             res = res + wording.encode() + "\n";
-            Iterator<Question> itq = questions.iterator();
-            while (itq.hasNext()) {
-                res = res + itq.next().encode() + "\n";
+            for (Question question : this.questions) {
+                if (question != null) {
+                    res = res + question.encode() + "\n";
+                } else {
+                    throw new EncodeException("Null value in questions ArrayList of Exercise");
+                }
             }
         } else {
             res = null;
