@@ -624,7 +624,7 @@ public class Exercise implements iDbManager {
                 
                 q.insert(bs);
                 
-                String query_2 = "INSERT INTO Contains (id_e,id_w) VALUES (?,?)";
+                String query_2 = "INSERT INTO Contains (id_e,id_q) VALUES (?,?)";
                 PreparedStatement p_statement_2 = connection.prepareStatement(query_2);
                 p_statement_2.setInt(1,this.getId());
                 p_statement_2.setInt(2,q.getID());

@@ -212,8 +212,8 @@ public class Practice {
                 PreparedStatement p_statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
                 p_statement.setInt(1, this.id_u);
                 p_statement.setInt(2, id_e);
-                p_statement.setString(3, "date");
-                p_statement.setString(4, "time");
+                p_statement.setString(3, ""+this.execution_date.getTime());
+                p_statement.setString(4, ""+this.execution_time);
                 p_statement.setDouble(5, this.success);
                 p_statement.setString(6, this.encodeWrongAnswers());
                 p_statement.executeUpdate();
@@ -245,8 +245,8 @@ public class Practice {
                 PreparedStatement p_statement = connection.prepareStatement(query);
                 p_statement.setInt(1, this.id_u);
                 p_statement.setInt(2, id_e);
-                p_statement.setString(3, "date");
-                p_statement.setString(4, "time");
+                p_statement.setString(3, ""+this.execution_date.getTime());
+                p_statement.setString(4, ""+this.execution_time);
                 p_statement.setDouble(5, this.success);
                 p_statement.setString(6, this.encodeWrongAnswers());
                 p_statement.setInt(7, this.id_p);
