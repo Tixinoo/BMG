@@ -1,5 +1,8 @@
 package model;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import exceptions.EncodeException;
 import exceptions.DecodeException;
 import database.BaseSetting;
@@ -7,6 +10,7 @@ import interfaces.iDbManager;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,7 +68,6 @@ public class Exercise implements iDbManager {
      */
     private boolean ready;
 
-       // ----------------------
     // ---- CONSTRUCTORS ----
     /**
      * This constructor creates a completely random exercise
@@ -657,6 +660,43 @@ public class Exercise implements iDbManager {
         return res;
     }
 
+    public void exportToFile() {
+        //Create a new Document object
+        Document document = new Document();
+        try {
+            //Associate the document with a PDF writer and an output stream
+            PdfWriter.getInstance(document, new FileOutputStream(this.title + ".pdf"));
+
+            //Open the document
+            document.open();
+
+            String strExercise = "";
+            strExercise = strExercise + "                                       B.M.G. - Exercice\n\n";
+            strExercise = strExercise + "                   Titre: " + this.title + "\n";
+            strExercise = strExercise + "                   Type: " + this.type + "\n";
+            strExercise = strExercise + "                   Difficulté : " + this.difficulty + "\n";
+            strExercise = strExercise + "                   Nombre de questions : " + this.questions.size() + "\n\n";
+            strExercise = strExercise + "                   Énoncé : " + this.wording.getText() + "\n\n\n";
+            Iterator it = this.questions.iterator();
+            int i = 0;
+            while (it.hasNext()) {
+                strExercise = strExercise + "           # Question " + (i + 1) + "\n";
+                strExercise = strExercise + ((Question) (it.next())).getText();
+                strExercise = strExercise + "\nRéponse : __________________\n\n";
+                i++;
+            }
+            strExercise = strExercise + "\n\n\n                                                 Généré grâce à B.M.G.";
+
+            //Write into the document
+            document.add(new Paragraph(strExercise));
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            //Close the document
+            document.close();
+        }
+    }
+
     // ----------------------
     // ----- DB METHODS -----
 
@@ -686,11 +726,10 @@ public class Exercise implements iDbManager {
 //            Iterator it = questions.iterator();
 //            
 //            while (it.hasNext())
-            
             System.out.println("DEBUT AFFICHAGE LISTE");
             System.out.println(questions.toString());
             System.out.println("FIN AFFICHAGE LISTE");
-            
+
             for (Question q : questions) {
                 //(Question)(it.next()).insert(bs);
 
@@ -862,7 +901,7 @@ public class Exercise implements iDbManager {
                 }
                 Wording wordinge = Wording.findById(idw, bs);
                 ArrayList<Question> alq = Exercise.findById_AllQuestions(ide, bs);
-                System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST QUESTIONS\n\n"+alq+"\n\nFIN AFFICHAGE ARRAYLIST QUESTIONS\n\n");
+                System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST QUESTIONS\n\n" + alq + "\n\nFIN AFFICHAGE ARRAYLIST QUESTIONS\n\n");
                 Exercise e = new Exercise(ide, titlee, wordinge, alq, typee, diffe, readye_b);
                 ale.add(e);
             }

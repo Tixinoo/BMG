@@ -91,6 +91,7 @@ public class Main {
                     ex1.addQuestion(qc2);
                     ex1.addQuestion(qc3);
                     ex1.addQuestion(qc4);
+                    ex1.exportToFile();
                     System.out.println(ex1);
                     System.out.println("---------------------------------------------------------------------\n");
 
