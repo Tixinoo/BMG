@@ -43,6 +43,7 @@ public class BmgPanelImport extends JPanel {
 
         //Initialisation exercices
         listeExercices = Exercise.findAll(fen.bs);
+        System.out.println("ex:"+listeExercices);
         //listeExercices = new ArrayList<>();
         
         this.setLayout(new BorderLayout());
@@ -86,6 +87,9 @@ public class BmgPanelImport extends JPanel {
                         + "<p><span " + style + ">Difficulty : </span>" + exercise.getDifficulty() + "<br/></p>"
                         + "<p><span " + style + ">Number of questions : </span>" + exercise.getNumberOfQuestions() + "<br/></p>"
                         + "</html>");
+                
+                exercise.save();
+                
             }
         });
 
