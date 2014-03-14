@@ -147,8 +147,10 @@ public class Wording implements iDbManager {
                     res.append("chr:");
                 } else if (value instanceof String) {
                     res.append("str:");
+                } else if (value == null) {
+                    res.append("nul");
                 } else {
-                    res.append("nul:");
+                    throw new EncodeException("Unsupported variable type");
                 }
                 res.replace(res.length()-1, res.length(), "");
             }
