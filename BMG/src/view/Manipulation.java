@@ -38,7 +38,7 @@ public class Manipulation {
         } else {
 
             //On initialise la liste des écoles
-            ArrayList<String> list = new ArrayList<String>();
+            ArrayList<String> list = new ArrayList<>();
             try {
                 //
 
