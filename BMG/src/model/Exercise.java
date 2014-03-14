@@ -503,7 +503,11 @@ public class Exercise implements iDbManager {
             res = "#Exercise<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
             res = res + wording.encode() + "\n";
             for (Question question : this.questions) {
-                res = res + question.encode() + "\n";
+                if (question != null) {
+                    res = res + question.encode() + "\n";
+                } else {
+                    throw new EncodeException("Null value in questions ArrayList");
+                }
             }
         } else {
             res = null;
