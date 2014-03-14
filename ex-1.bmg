@@ -1,12 +1,10 @@
-#Exercise<-1><exercisebli><calculation><0>
-#Wording<-1><$<Answer the following questions.>$><emp>>
-#QuestionCalculaion<15:3><+><2><-1><$<Calculate.>$><0>
-#QuestionCalculaion<8:19:19:20:7:18:1:16:9><-:*:-:/:+:/:/:*><9><-1><$<Calculate.>$><0>
-#QuestionCalculaion<7:4:9:8:13:11:15:20:10:4></:+:+:*:/:*:-:+:*><10><-1><$<Calculate.>$><0>
-#QuestionCalculaion<6:10:10:5:1:6:1:6:20:14:9><+:/:-:-:/:+:-:/:*:*><11><-1><$<Calculate.>$><0>
-#QuestionCalculaion<12:19:5:6:19:9:4:7:19:6><+:*:/:-:-:+:-:+:*><10><-1><$<Calculate.>$><0>
-#QuestionCalculaion<2:9:13:17:16:3:19:13></:*:-:/:-:-:+><8><-1><$<Calculate.>$><0>
-#QuestionCalculaion<20:6:3:15:4:20:12:14:16:14:11><+:-:/:-:/:-:-:-:-:+><11><-1><$<Calculate.>$><0>
-#QuestionCalculaion<8:18:12:18:11:15:18:8:11:9:17></:*:+:/:/:*:-:/:+:/><11><-1><$<Calculate.>$><0>
-#QuestionCalculaion<20:5:12:20:6:10:1:8:13:2><+:-:*:*:+:-:*:/:*><10><-1><$<Calculate.>$><0>
-#QuestionCalculaion<16:20:4:9:10><+:/:-:+><5><-1><$<Calculate.>$><0>
+#Exercise<-1><exercice_exemple><calculation><0>
+#Wording<-1><$<Answer the following questions.>$><emp><>
+#QuestionCalculaion<14:1:15:18:20><*:+:*:+><5><-1><$<Calculate.>$><0>
+#QuestionCalculaion<10:16:10:3:19:10:18:15><*:+:+:*:*:*:*><8><-1><$<Calculate.>$><0>
+#QuestionCalculaion<2:4:7:20:19:18><*:+:*:*:+><6><-1><$<Calculate.>$><0>
+#QuestionCalculaion<12:18:14:6:1:3:2:16><+:+:*:+:+:*:+><8><-1><$<Calculate.>$><0>
+#QuestionCalculaion<18:15><*><2><-1><$<Calculate.>$><0>
+#QuestionCalculaion<10:20:17:6:4:7:10:20:3><+:+:+:+:+:*:*:+><9><-1><$<Calculate.>$><0>
+#QuestionCalculaion<9:5:2:13:14:6:11><*:*:+:*:*:*><7><-1><$<Calculate.>$><0>
+#QuestionCalculaion<7:9:6:20:8:12:12:10:4><+:+:*:*:*:+:*:*><9><-1><$<Calculate.>$><0>
