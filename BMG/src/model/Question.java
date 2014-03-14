@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Antoine NOSAl
  * @author Julien RISCHE
  */
-public abstract class Question implements iDbManager{
+public abstract class Question {
 
     // ----- ATTRIBUTES -----
     /**
@@ -122,6 +122,8 @@ public abstract class Question implements iDbManager{
     public int getDifficulty() {
         return difficulty;
     }
+    
+    public boolean insert(BaseSetting bs) {return false;}
     
     /**
      * Recreate a Question from an encoded string
