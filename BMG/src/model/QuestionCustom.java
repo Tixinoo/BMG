@@ -14,12 +14,7 @@ public class QuestionCustom<SolutionType> extends Question {
      * List of the name of the attributes.
      */
     private ArrayList<String> names;
-
-    /**
-     * List of the types of the attributes.
-     */
-    private ArrayList<Character> types;
-
+    
     /**
      * List of the values of the attributes.
      */
@@ -42,7 +37,6 @@ public class QuestionCustom<SolutionType> extends Question {
         this.text = "Answer.";
         this.difficulty = 0;
         this.names = new ArrayList<>();
-        this.types = new ArrayList<>();
         this.values = new ArrayList<>();
         this.solution = null;
     }
@@ -60,7 +54,6 @@ public class QuestionCustom<SolutionType> extends Question {
         }
         this.difficulty = 0;
         this.names = new ArrayList<>();
-        this.types = new ArrayList<>();
         this.values = new ArrayList<>();
         this.solution = null;
     }
@@ -78,7 +71,6 @@ public class QuestionCustom<SolutionType> extends Question {
         }
         this.difficulty = 0;
         this.names = new ArrayList<>();
-        this.types = new ArrayList<>();
         this.values = new ArrayList<>();
         this.solution = QCsolution;
     }
@@ -100,7 +92,6 @@ public class QuestionCustom<SolutionType> extends Question {
             this.difficulty = 0;
         }
         this.names = new ArrayList<>();
-        this.types = new ArrayList<>();
         this.values = new ArrayList<>();
         this.solution = null;
     }
@@ -122,7 +113,6 @@ public class QuestionCustom<SolutionType> extends Question {
             this.difficulty = 0;
         }
         this.names = new ArrayList<>();
-        this.types = new ArrayList<>();
         this.values = new ArrayList<>();
         this.solution = QCsolution;
     }
@@ -132,19 +122,6 @@ public class QuestionCustom<SolutionType> extends Question {
         if (this.names.size() > 0) {
             for (String name : this.names) {
                 res.append(':').append(name);
-            }
-            res.replace(res.length()-1, res.length(), "");
-        } else {
-            throw new EncodeException("Empty ArrayList");
-        }
-        return res.toString();
-    }
-    
-    public String encodeTypes() throws EncodeException {
-        StringBuilder res = new StringBuilder();
-        if (this.types.size() > 0) {
-            for (char type : this.types) {
-                res.append(':').append(type);
             }
             res.replace(res.length()-1, res.length(), "");
         } else {
