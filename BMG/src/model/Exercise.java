@@ -504,7 +504,9 @@ public class Exercise implements iDbManager {
             res = res + wording.encode() + "\n";
             Iterator<Question> itq = questions.iterator();
             while (itq.hasNext()) {
-                res = res + itq.next().encode() + "\n";
+                Question q = itq.next(); //////////////////////////////////////////
+                System.out.println(q);
+                res = res + q.encode() + "\n";
             }
         } else {
             res = null;
