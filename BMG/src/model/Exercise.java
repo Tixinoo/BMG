@@ -664,7 +664,44 @@ public class Exercise implements iDbManager {
         Document document = new Document();
         try {
             //Associate the document with a PDF writer and an output stream
-            PdfWriter.getInstance(document, new FileOutputStream(this.title + ".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("/home/" + this.title + ".pdf"));
+
+            //Open the document
+            document.open();
+
+            String strExercise = "";
+            strExercise = strExercise + "                                       B.M.G. - Exercice\n\n";
+            strExercise = strExercise + "                   Titre: " + this.title + "\n";
+            strExercise = strExercise + "                   Type: " + this.type + "\n";
+            strExercise = strExercise + "                   Difficulté : " + this.difficulty + "\n";
+            strExercise = strExercise + "                   Nombre de questions : " + this.questions.size() + "\n\n";
+            strExercise = strExercise + "                   Énoncé : " + this.wording.getText() + "\n\n\n";
+            Iterator it = this.questions.iterator();
+            int i = 0;
+            while (it.hasNext()) {
+                strExercise = strExercise + "           # Question " + (i + 1) + "\n";
+                strExercise = strExercise + ((Question) (it.next())).getText();
+                strExercise = strExercise + "\nRéponse : __________________\n\n";
+                i++;
+            }
+            strExercise = strExercise + "\n\n\n                                                 Généré grâce à B.M.G.";
+
+            //Write into the document
+            document.add(new Paragraph(strExercise));
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            //Close the document
+            document.close();
+        }
+    }
+    
+    public void exportToFile(String s) {
+        //Create a new Document object
+        Document document = new Document();
+        try {
+            //Associate the document with a PDF writer and an output stream
+            PdfWriter.getInstance(document, new FileOutputStream(s));
 
             //Open the document
             document.open();
