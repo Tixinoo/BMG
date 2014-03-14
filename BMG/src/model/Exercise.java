@@ -96,6 +96,24 @@ public class Exercise implements iDbManager {
         }
         this.ready = false;
     }
+    
+    /**
+     * This constructor creates an exercise of the type given in parameter All others characteristics are random
+     * @param Etype Exercise type
+     */
+    public Exercise(String Etitle, String Etype) {
+        this.id = -1;
+        this.title = Etitle;
+        this.wording = new Wording();
+        this.questions = new ArrayList<>();
+        this.difficulty = 0;
+        if (Etype != null) {
+            this.type = Etype;
+        } else {
+            this.type = null;
+        }
+        this.ready = false;
+    }
 
     /**
      * This constructor creates an exercise of the type and of a difficulty given in parameters
