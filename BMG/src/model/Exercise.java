@@ -3,7 +3,6 @@ package model;
 import exceptions.EncodeException;
 import exceptions.DecodeException;
 import database.BaseSetting;
-import model.Question;
 import interfaces.iDbManager;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
