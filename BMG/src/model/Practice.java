@@ -151,6 +151,10 @@ public class Practice {
     public Date getExecution_date() {
         return execution_date.getTime();
     }
+    
+    public String getExecution_dateString() {
+        return "" + this.execution_date.get(Calendar.DAY_OF_MONTH) + " " + this.execution_date.get(Calendar.MONTH) + " " + this.execution_date.get(Calendar.YEAR);
+    }
 
     public double getSuccess() {
         return success;

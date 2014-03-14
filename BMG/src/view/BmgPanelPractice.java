@@ -92,7 +92,7 @@ public class BmgPanelPractice {
             panCenter.add(new BmgLabel("<br/><br/>C'est fini"
                     + "<br/><br/>Score : " + practice.getSuccess() + "%"
                     + "<br/>Temps d'execution : " + practice.getExecution_time() + "sec"
-                    + "<br/><br/>Date d'execution : " + practice.getExecution_date(), "white", 20));
+                    + "<br/><br/>Date d'execution : " + practice.getExecution_dateString(), "white", 20));
 
         } else {
 
