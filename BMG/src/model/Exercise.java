@@ -580,7 +580,6 @@ public class Exercise implements iDbManager {
 	    PreparedStatement p_statement = connection.prepareStatement(query,PreparedStatement.RETURN_GENERATED_KEYS);
 	    p_statement.setInt(1,this.wording.getId());
 	    p_statement.setString(2,this.title);
-	/*questions*/
 	    p_statement.setString(3,this.type);
 	    p_statement.setInt(4,this.difficulty);
 	    p_statement.setBoolean(5,this.ready);
@@ -588,6 +587,13 @@ public class Exercise implements iDbManager {
 	    ResultSet rs = p_statement.getGeneratedKeys();
 	    
 	    if (rs.next()) this.id = rs.getInt(1);
+            
+            Iterator it = questions.iterator();
+            
+            while (it.hasNext())
+            {
+                (Question)(it.next()).insert(bs);
+            }
 		    
 	}  
 	catch (SQLException sqle) 
@@ -693,7 +699,7 @@ public class Exercise implements iDbManager {
 		boolean readye_b = false; if (readye == 1) readye_b = true; 
 		Wording wordinge = Wording.findById(idw, bs);
 	    
-		exercise = new Exercise(ide,titlee,wordinge,new ArrayList<Question>(),typee,diffe,readye_b);
+		exercise = new Exercise(ide,titlee,wordinge,Exercise.findById_AllQuestions(id, bs),typee,diffe,readye_b);
 	    }
 		    
 	}  
@@ -737,6 +743,39 @@ public class Exercise implements iDbManager {
 	}
 	
 	return alq;
+    }
+    
+    public static ArrayList<Exercise> findAll(BaseSetting bs)
+    {
+        Connection connection = bs.getConnection();
+        
+        ArrayList<Exercise> ale = new ArrayList<Exercise>();
+        
+        try
+        {
+            String query = "SELECT * FROM Exercise";
+            Exercise e = new Exercise();
+            PreparedStatement p_statement = connection.prepareStatement(query);
+            ResultSet rs = p_statement.executeQuery();
+            
+            while (rs.next())
+            {
+                int ide = rs.getInt("id_e");
+		int idw = rs.getInt("id_w");
+		String titlee = rs.getString("title_e");
+		String typee = rs.getString("type_e");
+		int diffe = rs.getInt("diff_e");
+		int readye = rs.getInt("ready_e"); 
+		boolean readye_b = false; if (readye == 1) readye_b = true; 
+		Wording wordinge = Wording.findById(idw, bs);
+                e = new Exercise(ide,titlee,wordinge,Exercise.findById_AllQuestions(ide, bs),typee,diffe,readye_b);
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("ERREUR");
+	    sqle.printStackTrace();
+        }
     }
 
     // ----------------------

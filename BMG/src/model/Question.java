@@ -1,14 +1,17 @@
 package model;
 
+import database.BaseSetting;
 import exceptions.EncodeException;
 import exceptions.DecodeException;
+import interfaces.iDbManager;
+import java.util.ArrayList;
 
 /**
  * Abstract Question object containing it base components
  * @author Antoine NOSAl
  * @author Julien RISCHE
  */
-public abstract class Question {
+public abstract class Question implements iDbManager{
 
     // ----- ATTRIBUTES -----
     /**
@@ -173,5 +176,7 @@ public abstract class Question {
             throw new DecodeException();
         }
     }
+    
+    public abstract ArrayList<Question> findAll_ByIdExercise(int ide, BaseSetting bs);
     
 }
