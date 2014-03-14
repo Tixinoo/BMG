@@ -902,7 +902,8 @@ public class Exercise implements iDbManager {
                 Wording wordinge = Wording.findById(idw, bs);
                 ArrayList<Question> alq = Exercise.findById_AllQuestions(ide, bs);
                 System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST QUESTIONS\n\n" + alq + "\n\nFIN AFFICHAGE ARRAYLIST QUESTIONS\n\n");
-                Exercise e = new Exercise(ide, titlee, wordinge, alq, typee, diffe, readye_b);
+                Exercise e = new Exercise(ide, titlee, wordinge, alq, typee, diffe, readye_b);             
+                System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST EXERCISES\n\n"+ale+"\n\nFIN AFFICHAGE ARRAYLIST EXERCISES\n\n");
                 ale.add(e);
             }
         } catch (SQLException sqle) {
