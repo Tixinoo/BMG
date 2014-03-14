@@ -9,21 +9,11 @@ public class QuestionCustom<SolutionType> extends Question {
     // ----- ATTRIBUTES -----
     
     // Inherited
-    
-    /**
-     * List of the name of the attributes.
-     */
-    private ArrayList<String> names;
-    
-    /**
-     * List of the values of the attributes.
-     */
-    private ArrayList<Object> values;
 
     /**
      * Solution of the question.
      */
-    private SolutionType solution;
+    private SolutionType[] solution;
 
     // ----------------------
     
@@ -36,8 +26,6 @@ public class QuestionCustom<SolutionType> extends Question {
         super();
         this.text = "Answer.";
         this.difficulty = 0;
-        this.names = new ArrayList<>();
-        this.values = new ArrayList<>();
         this.solution = null;
     }
 
@@ -53,8 +41,6 @@ public class QuestionCustom<SolutionType> extends Question {
             this.text = "...";
         }
         this.difficulty = 0;
-        this.names = new ArrayList<>();
-        this.values = new ArrayList<>();
         this.solution = null;
     }
     
@@ -62,7 +48,7 @@ public class QuestionCustom<SolutionType> extends Question {
      * This constructor creates a question,
      * with the text and the solution given in parameters.
      */
-    public QuestionCustom(String QCtext, SolutionType QCsolution) {
+    public QuestionCustom(String QCtext, SolutionType[] QCsolution) {
         super();
         if (QCtext != null) {
             this.text = QCtext;
@@ -70,8 +56,6 @@ public class QuestionCustom<SolutionType> extends Question {
             this.text = "...";
         }
         this.difficulty = 0;
-        this.names = new ArrayList<>();
-        this.values = new ArrayList<>();
         this.solution = QCsolution;
     }
 
@@ -91,8 +75,6 @@ public class QuestionCustom<SolutionType> extends Question {
         } else {
             this.difficulty = 0;
         }
-        this.names = new ArrayList<>();
-        this.values = new ArrayList<>();
         this.solution = null;
     }
     
@@ -100,7 +82,7 @@ public class QuestionCustom<SolutionType> extends Question {
      * This constructor creates a question,
      * with the text, the difficulty and the solution given in parameters.
      */
-    public QuestionCustom(String QCtext, int QCdifficulty, SolutionType QCsolution) {
+    public QuestionCustom(String QCtext, int QCdifficulty, SolutionType[] QCsolution) {
         super();
         if (QCtext != null) {
             this.text = QCtext;
@@ -112,51 +94,9 @@ public class QuestionCustom<SolutionType> extends Question {
         } else {
             this.difficulty = 0;
         }
-        this.names = new ArrayList<>();
-        this.values = new ArrayList<>();
         this.solution = QCsolution;
     }
     
-    public String encodeNames() throws EncodeException {
-        StringBuilder res = new StringBuilder();
-        if (this.names.size() > 0) {
-            for (String name : this.names) {
-                res.append(':').append(name);
-            }
-            res.replace(res.length()-1, res.length(), "");
-        } else {
-            throw new EncodeException("Empty ArrayList");
-        }
-        return res.toString();
-    }
-    
-    public String encodeValues() throws EncodeException {
-        StringBuilder res = new StringBuilder();
-        if (this.values.size() > 0) {
-            for (Object value : this.values) {
-                if (value instanceof Integer) {
-                    res.append("int:");
-                } else if (value instanceof Double) {
-                    res.append("dbl:");
-                } else if (value instanceof Character) {
-                    res.append("chr:");
-                } else if (value instanceof String) {
-                    res.append("str:");
-                } else {
-                    res.append("nul:");
-                }
-                res.replace(res.length()-1, res.length(), "");
-            }
-            res.append("><");
-            for (Object value : this.values) {
-                res.append(':').append(value);
-            }
-            res.replace(res.length()-1, res.length(), "");
-        } else {
-            res.append("emp><");
-        }
-        return res.toString();
-    }
     
     
     
@@ -185,9 +125,43 @@ public class QuestionCustom<SolutionType> extends Question {
         return res;
     }
 
-    public void setSolution(SolutionType solution) {
+    public void setSolution(SolutionType[] solution) {
         this.solution = solution;
-    }    
+    }
+    
+    public String encodeSolution() throws EncodeException {
+        StringBuilder res = new StringBuilder();
+        if (this.solution != null && this.solution.length > 0) {
+            for (Object value : this.solution) {
+                if (value instanceof Integer) {
+                    res.append("int:");
+                } else if (value instanceof Double) {
+                    res.append("dbl:");
+                } else if (value instanceof Character) {
+                    res.append("chr:");
+                } else if (value instanceof String) {
+                    res.append("str:");
+                } else if (value == null) {
+                    res.append("nul:");
+                } else {
+                    throw new EncodeException("Unsupported variable type");
+                }
+            }
+            res.replace(res.length()-1, res.length(), "");
+            res.append("><");
+            for (Object value : this.solution) {
+                res.append(value).append(':');
+            }
+            res.replace(res.length()-1, res.length(), "");
+        } else {
+            throw new EncodeException("Empty solution array");
+        }
+        return res.toString();
+    }
+    
+    public SolutionType[] solve() {
+        return solution;
+    }
     
     /**
      * Display a question custom.
