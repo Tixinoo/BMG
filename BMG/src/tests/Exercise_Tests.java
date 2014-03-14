@@ -75,17 +75,19 @@ public class Exercise_Tests
         
         ArrayList<Question> newalq = Exercise.findById_AllQuestions(e.getId(), bs);
         
-        if (newalq != null)
-        {
-            if (!(newalq.isEmpty()))
-            {
-                for (Question q : newalq)
-                {
-                    System.out.println("test");
-                    System.out.println("test"+q.getID());
-                }
-            }
-        }
+        System.out.println(newalq.toString());
+        
+//        if (newalq != null)
+//        {
+//            if (!(newalq.isEmpty()))
+//            {
+//                for (Question q : newalq)
+//                {
+//                    System.out.println("test");
+//                    System.out.println("test"+q.getID());
+//                }
+//            }
+//        }
     }
     
 }
