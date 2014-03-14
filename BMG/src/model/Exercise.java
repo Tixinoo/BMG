@@ -692,7 +692,6 @@ public class Exercise implements iDbManager {
 		int ide = rs.getInt("id_e");
 		int idw = rs.getInt("id_w");
 		String titlee = rs.getString("title_e");
-	/*questions*/
 		String typee = rs.getString("type_e");
 		int diffe = rs.getInt("diff_e");
 		int readye = rs.getInt("ready_e"); 
