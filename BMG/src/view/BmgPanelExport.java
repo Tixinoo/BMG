@@ -29,6 +29,7 @@ public class BmgPanelExport extends JPanel {
     String filename = "";
     JLabel labelRes = new JLabel("No file selected.");
     JButton buttonOk = new JButton("GO");
+    JButton boutonExportPDF;
     BmgFrame fen;
 
     Exercise ex = null;
@@ -131,10 +132,25 @@ public class BmgPanelExport extends JPanel {
                 actionExporter(ex);
             }
         });
+        
+        boutonExportPDF = new JButton("Exporter en PDF");
+        boutonExportPDF.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                // On exporte en PDF
+                actionExporterPDF(ex);
+            }
+        });
+        
         panSouth.add(buttonOk);
 
         this.add(panSouth);
 
+    }
+    
+    public void actionExporterPDF(Exercise e) {
+        
     }
     
     public void actionExporter(Exercise e) {
