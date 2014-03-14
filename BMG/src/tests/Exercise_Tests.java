@@ -37,7 +37,25 @@ public class Exercise_Tests
         ArrayList<Question> alq = new ArrayList<>();
         
         QuestionCalculation qc1 = new QuestionCalculation("Qui suis-je ?",1);
+        ArrayList<Integer> ali1 = new ArrayList<>();
+        ali1.add(6);
+        ali1.add(9);
+        qc1.setOperands(ali1);
+        ArrayList<Character> alc1 = new ArrayList<>();
+        alc1.add('-');
+        qc1.setOperators(alc1);
+        qc1.setLength(0);
         QuestionCalculation qc2 = new QuestionCalculation("Où est Brian ?",1);
+        ArrayList<Integer> ali2 = new ArrayList<>();
+        ali2.add(6);
+        ali2.add(6);
+        ali2.add(6);
+        qc2.setOperands(ali2);
+        ArrayList<Character> alc2 = new ArrayList<>();
+        alc2.add('/');
+        alc2.add('/');
+        qc2.setOperators(alc2);
+        qc2.setLength(0);
         
         // INSERTION QUESTIONS
         qc1.insert(bs);
@@ -57,17 +75,17 @@ public class Exercise_Tests
         
         ArrayList<Question> newalq = Exercise.findById_AllQuestions(e.getId(), bs);
         
-        Iterator it = newalq.iterator();
-        
-        while (it.hasNext())
+        if (newalq != null)
         {
-            System.out.println("test");
-            System.out.println("test"+it.next().equals(qc1));
+            if (!(newalq.isEmpty()))
+            {
+                for (Question q : newalq)
+                {
+                    System.out.println("test");
+                    System.out.println("test"+q.getID());
+                }
+            }
         }
-        
-        // INSERTION CONTAINS
-        //(e.getId(),qc1.getID());
-        //(e.getId(),qc2.getID());
     }
     
 }
