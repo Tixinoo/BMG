@@ -31,6 +31,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import model.Exercise;
 import user.User;
 
 /**
@@ -630,10 +631,10 @@ public class BmgCreatePanel {
 
                 s += "Nom : " + choixNom.getText() + "<br/>";
                 s += "Type : " + tabChoixType[choixType.getSelectedIndex()] + "<br/>";
-                s += "Longueur : " + slide.getValue() + "<br/W";
+                s += "Nombre de questions : " + slide.getValue() + "<br/>";
 
                 // Génération des opérateurs
-                ArrayList<Character> operateurs = new ArrayList<>();
+                final ArrayList<Character> operateurs = new ArrayList<>();
                 if (jrbPlus.isSelected()) {
                     operateurs.add('+');
                 }
@@ -660,8 +661,36 @@ public class BmgCreatePanel {
 
                     @Override
                     public void actionPerformed(ActionEvent ae) {
-                        labFin.set("PROUT");
+                        // Récupération du type
+                        String type = getType(choixType.getSelectedIndex());
+                        
+                        // Création de l'exercice
+                        Exercise e = new Exercise(choixNom.getText(), type);
+                        e.generate(slide.getValue(), operateurs);
+                        e.save();
+                        
+                        labFin.set("Success !");
                         labFin.setVisible(true);
+                    }
+
+                    private String getType(int selectedIndex) {
+                        String type = "";
+                        switch(selectedIndex) {
+                            case 0:
+                                type = "calculation";
+                                break;
+                            case 1: 
+                                type = "fraction";
+                                break;
+                            case 2: 
+                                type = "equation";
+                                break;
+                            case 3:
+                                type = "power";
+                                break;
+                        }
+                        
+                        return type;
                     }
                 });
                 confirm.setVisible(true);
