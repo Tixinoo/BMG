@@ -1,6 +1,7 @@
 package model;
 
 import database.BaseSetting;
+import exceptions.DecodeException;
 import exceptions.EncodeException;
 import java.util.ArrayList;
 
@@ -146,6 +147,12 @@ public class QuestionCustom<SolutionType> extends Question {
             throw new EncodeException("Empty solution array");
         }
         return res.toString();
+    }
+    
+    public static QuestionCustom decodeSolution() throws DecodeException {
+        QuestionCustom res =null;
+        
+        return res;
     }
     
     public SolutionType[] solve() {
