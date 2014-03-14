@@ -156,7 +156,7 @@ public class Wording implements iDbManager {
             res.replace(res.length()-1, res.length(), "");
             res.append("><");
             for (Object value : this.values) {
-                res.append(':').append(value);
+                res.append(value).append(':');
             }
             res.replace(res.length()-1, res.length(), "");
         } else {
