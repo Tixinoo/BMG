@@ -502,11 +502,8 @@ public class Exercise implements iDbManager {
         if (this.isReady()) {
             res = "#Exercise<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
             res = res + wording.encode() + "\n";
-            Iterator<Question> itq = questions.iterator();
-            while (itq.hasNext()) {
-                Question q = itq.next(); //////////////////////////////////////////
-                System.out.println(q);
-                res = res + q.encode() + "\n";
+            for (Question question : this.questions) {
+                res = res + question.encode() + "\n";
             }
         } else {
             res = null;
