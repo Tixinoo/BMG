@@ -3,7 +3,6 @@ package model;
 import exceptions.EncodeException;
 import exceptions.DecodeException;
 import database.BaseSetting;
-import model.Question;
 import interfaces.iDbManager;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -502,6 +501,7 @@ public class Exercise implements iDbManager {
         if (this.isReady()) {
             res = "#Exercise<" + id + "><" + title + "><" + type + "><" + difficulty + ">\n";
             res = res + wording.encode() + "\n";
+            System.out.println(this); ////////////////////////////////////////////
             for (Question question : this.questions) {
                 if (question != null) {
                     res = res + question.encode() + "\n";
@@ -627,7 +627,7 @@ public class Exercise implements iDbManager {
         } catch (IOException ioe) {
             System.out.println("ERROR : in/out failure");
         } catch (EncodeException ee) {
-            System.out.println("ERROR : encoding failue");
+            System.out.println("ERROR : encoding failure");
         }
     }
 
@@ -686,6 +686,11 @@ public class Exercise implements iDbManager {
 //            Iterator it = questions.iterator();
 //            
 //            while (it.hasNext())
+            
+            System.out.println("DEBUT AFFICHAGE LISTE");
+            System.out.println(questions.toString());
+            System.out.println("FIN AFFICHAGE LISTE");
+            
             for (Question q : questions) {
                 //(Question)(it.next()).insert(bs);
 
@@ -841,7 +846,6 @@ public class Exercise implements iDbManager {
 
         try {
             String query = "SELECT * FROM Exercise";
-            Exercise e = null;
             PreparedStatement p_statement = connection.prepareStatement(query);
             ResultSet rs = p_statement.executeQuery();
 
@@ -857,7 +861,9 @@ public class Exercise implements iDbManager {
                     readye_b = true;
                 }
                 Wording wordinge = Wording.findById(idw, bs);
-                e = new Exercise(ide, titlee, wordinge, Exercise.findById_AllQuestions(ide, bs), typee, diffe, readye_b);
+                ArrayList<Question> alq = Exercise.findById_AllQuestions(ide, bs);
+                System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST QUESTIONS\n\n"+alq+"\n\nFIN AFFICHAGE ARRAYLIST QUESTIONS\n\n");
+                Exercise e = new Exercise(ide, titlee, wordinge, alq, typee, diffe, readye_b);
                 ale.add(e);
             }
         } catch (SQLException sqle) {
