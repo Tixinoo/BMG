@@ -133,33 +133,32 @@ public class Wording implements iDbManager {
 		return values;
 	}
     
-    public String encodeValues() {
-        String res = new String();
-        if (values != null && values.length > 0) {
-            String types = "";
-            for (int i = 0; i<values.length; i++) {
-                if (values[i] instanceof Integer) {
-                    types = types + "int:";
-                } else if (values[i] instanceof Double) {
-                    types = types + "dbl:";
-                } else if (values[i] instanceof Character) {
-                    types = types + "chr:";
-                } else if (values[i] instanceof String) {
-                    types = types + "str:";
+    public String encodeValues() throws EncodeException {
+        StringBuilder res = new StringBuilder();
+        if (this.values != null && this.values.length > 0) {
+            for (Object value : this.values) {
+                if (value instanceof Integer) {
+                    res.append("int:");
+                } else if (value instanceof Double) {
+                    res.append("dbl:");
+                } else if (value instanceof Character) {
+                    res.append("chr:");
+                } else if (value instanceof String) {
+                    res.append("str:");
                 } else {
-                    types = types + "nul:";
+                    res.append("nul:");
                 }
+                res.replace(res.length()-1, res.length(), "");
             }
-            types = types.substring(0, types.length()-1);
-            res = res + types + "><";
-            for (int i = 0; i<values.length; i++) {
-                res = res + values[i] + ":";
+            res.append("><");
+            for (Object value : this.values) {
+                res.append(':').append(value);
             }
-            res = res.substring(0, res.length()-1);
+            res.replace(res.length()-1, res.length(), "");
         } else {
-            res = res + "emp><";
+            res.append("emp><");
         }
-        return res;
+        return res.toString();
     }
 
     public String encode() throws EncodeException {
