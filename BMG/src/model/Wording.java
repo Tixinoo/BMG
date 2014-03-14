@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Wording implements iDbManager {
@@ -357,7 +359,9 @@ public class Wording implements iDbManager {
 	{
 	    System.out.println("ERREUR");
 	    sqle.printStackTrace();
-	}
+	} catch (EncodeException ex) {
+            Logger.getLogger(Wording.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	
 	return true;
     }
@@ -382,7 +386,9 @@ public class Wording implements iDbManager {
 	{
 	    System.out.println("ERREUR");
 	    sqle.printStackTrace();
-	}
+	} catch (EncodeException ex) {
+            Logger.getLogger(Wording.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	
 	return true;
     }
