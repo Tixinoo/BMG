@@ -151,7 +151,18 @@ public class BmgPanelExport extends JPanel {
     }
     
     public void actionExporterPDF(Exercise e) {
-        e.exportToFile();
+        String nomFichier = "";
+        String approve = "Enregistrer";
+       
+        JFileChooser jfc = new JFileChooser();
+        
+        int resultatEnregistrer = jfc.showDialog(jfc, approve);
+        
+        if(JFileChooser.APPROVE_OPTION == resultatEnregistrer) {
+            nomFichier = jfc.getSelectedFile().toString();
+            
+            e.exportToFile(nomFichier + ".pdf");
+        }
     }
     
     public void actionExporter(Exercise e) {
