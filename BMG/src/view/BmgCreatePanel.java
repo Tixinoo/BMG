@@ -76,9 +76,9 @@ public class BmgCreatePanel {
 
         //Panel Exercises
         JPanel panExercises = new JPanel();
-        panExercises.setPreferredSize(new Dimension(width - 100, ((height - 100) / nb)));
+        panExercises.setPreferredSize(new Dimension(width - 100, ((height - 100) / 2)));
         panExercises.setBorder(BorderFactory.createTitledBorder("<html><p style=\"color: " + colortitle + ";\">Training with exercises !</p></html>"));
-        panExercises.setLayout(new GridLayout(2, 2));
+        panExercises.setLayout(new GridLayout(5, 2));
 
         //Button Generate in panel Exercises.
         panExercises.add(new BmgLabel("Automatically generate exercises : ", colortext));
@@ -105,6 +105,46 @@ public class BmgCreatePanel {
             }
         });
         panExercises.add(bpractice);
+        
+         //Button Import in panel Exercises.
+        panExercises.add(new BmgLabel("Importez les exercices en lignes : ", colortext));
+        BmgButton bimport = new BmgButton("Import");
+        //listener
+        bimport.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panImport);
+            }
+        });
+        panExercises.add(bimport);
+        
+        //Button Export in panel Exercises.
+        panExercises.add(new BmgLabel("Exportez en ligne ou en PDF : ", colortext));
+        BmgButton bexport = new BmgButton("Export");
+        //listener
+        bexport.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                fen.setPanel(BmgFrame.panExport);
+            }
+        });
+        panExercises.add(bexport);
+        
+        //Button Solve in panel Exercises.
+        panExercises.add(new BmgLabel("Résoudre les exercices : ", colortext));
+        BmgButton bsolve = new BmgButton("Solve");
+        //listener
+        bsolve.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+               // fen.setPanel(BmgFrame.panS);
+            }
+        });
+        panExercises.add(bsolve);
+        
 
         //Panel Account
         JPanel panAccount = new JPanel();
