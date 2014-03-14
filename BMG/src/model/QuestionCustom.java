@@ -134,14 +134,26 @@ public class QuestionCustom<SolutionType> extends Question {
         StringBuilder res = new StringBuilder();
         if (this.values.size() > 0) {
             for (Object value : this.values) {
-                
+                if (value instanceof Integer) {
+                    res.append("int:");
+                } else if (value instanceof Double) {
+                    res.append("dbl:");
+                } else if (value instanceof Character) {
+                    res.append("chr:");
+                } else if (value instanceof String) {
+                    res.append("str:");
+                } else {
+                    res.append("nul:");
+                }
+                res.replace(res.length()-1, res.length(), "");
             }
+            res.append("><");
             for (Object value : this.values) {
                 res.append(':').append(value);
             }
             res.replace(res.length()-1, res.length(), "");
         } else {
-            throw new EncodeException("Empty ArrayList");
+            res.append("emp><");
         }
         return res.toString();
     }
