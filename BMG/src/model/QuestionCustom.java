@@ -171,11 +171,11 @@ public class QuestionCustom<SolutionType> extends Question {
     
     
     
-    @Override
+    /*@Override
     public String encode() throws EncodeException() {
         StringBuilder res = new StringBuilder();
-        
-    }
+        return "";
+    }*/
 
     // ----------------------
     
