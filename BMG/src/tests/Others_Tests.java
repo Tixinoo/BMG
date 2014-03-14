@@ -34,7 +34,15 @@ public class Others_Tests
 
 	w_encode.setValues(t_obj_encode);
 
-	big_s_encode = w_encode.encodeValues();
+	try
+        {
+            big_s_encode = w_encode.encodeValues();
+        }
+        catch (EncodeException ee)
+        {
+            System.out.println("ERROR : ENCODE EXCEPTION");
+            ee.printStackTrace();
+        }
 
 	System.out.println("Obtenu :  " + big_s_encode);
 	System.out.println("Attendu : " + "dbl:int:str:chr><3.50:666:hell:!");
