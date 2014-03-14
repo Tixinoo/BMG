@@ -573,4 +573,9 @@ public class QuestionEquation extends Question {
     }
 
     // ----------------------
+
+    @Override
+    public ArrayList<Question> findAll_ByIdExercise(int ide, BaseSetting bs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

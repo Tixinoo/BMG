@@ -592,7 +592,7 @@ public class Exercise implements iDbManager {
             
             while (it.hasNext())
             {
-                (Question)(it.next()).insert(bs);
+                    //(Question)(it.next()).insert(BaseSetting bs);
             }
 		    
 	}  
@@ -776,6 +776,8 @@ public class Exercise implements iDbManager {
             System.out.println("ERREUR");
 	    sqle.printStackTrace();
         }
+        
+        return ale;
     }
 
     // ----------------------

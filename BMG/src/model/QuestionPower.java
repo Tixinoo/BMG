@@ -1,5 +1,6 @@
 package model;
 
+import database.BaseSetting;
 import exceptions.EncodeException;
 import exceptions.DecodeException;
 import java.util.ArrayList;
@@ -375,5 +376,10 @@ public class QuestionPower extends Question {
         }
 		return res;
 	}
+
+    @Override
+    public ArrayList<Question> findAll_ByIdExercise(int ide, BaseSetting bs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
