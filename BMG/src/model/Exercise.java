@@ -3,6 +3,7 @@ package model;
 import exceptions.EncodeException;
 import exceptions.DecodeException;
 import database.BaseSetting;
+import model.Question;
 import interfaces.iDbManager;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -588,11 +589,28 @@ public class Exercise implements iDbManager {
 	    
 	    if (rs.next()) this.id = rs.getInt(1);
             
-            Iterator it = questions.iterator();
-            
-            while (it.hasNext())
+//            Iterator it = questions.iterator();
+//            
+//            while (it.hasNext())
+                
+            for (Question q : questions)
             {
-                    //(Question)(it.next()).insert(BaseSetting bs);
+                //(Question)(it.next()).insert(bs);
+                
+                //Object o = it.next();
+               
+//                if (!(o instanceof QuestionCustom))
+//                {
+//                    //o.insert(bs);
+//                }
+                
+                q.insert(bs);
+                
+                String query_2 = "INSERT INTO Contains (id_e,id_w) VALUES (?,?)";
+                PreparedStatement p_statement_2 = connection.prepareStatement(query_2);
+                p_statement_2.setInt(1,this.getId());
+                p_statement_2.setInt(2,q.getID());
+                p_statement_2.executeUpdate();
             }
 		    
 	}  

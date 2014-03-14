@@ -381,5 +381,11 @@ public class QuestionPower extends Question {
     public ArrayList<Question> findAll_ByIdExercise(int ide, BaseSetting bs) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean insert(BaseSetting bs) 
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
