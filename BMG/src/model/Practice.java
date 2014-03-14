@@ -53,6 +53,7 @@ public class Practice {
     public Practice(Exercise e) {
         this.execution_time = 0;
         this.execution_date = new GregorianCalendar();
+        this.execution_date.setTime(new Date());
         this.success = 0.0;
         this.wrong_answers = new ArrayList<Integer>();
         this.right_answers = new ArrayList<Integer>();
@@ -63,6 +64,7 @@ public class Practice {
         this.id_u = idu;
         this.execution_time = 0;
         this.execution_date = new GregorianCalendar();
+        this.execution_date.setTime(new Date());
         this.execution_date.setTime(new Date());
         this.success = 0.0;
         this.wrong_answers = new ArrayList<Integer>();
