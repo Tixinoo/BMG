@@ -899,11 +899,11 @@ public class Exercise implements iDbManager {
             while (rs.next()) {
                 int idq = rs.getInt("id_q");
 
-                if (QuestionCalculation.findById(idq, bs) != null);
+                if (QuestionCalculation.findById(idq, bs) != null)
                 alq.add(QuestionCalculation.findById(idq, bs));
-                if (QuestionFraction.findById(idq, bs) != null);
+                if (QuestionFraction.findById(idq, bs) != null)
                 alq.add(QuestionFraction.findById(idq, bs));
-                if (QuestionEquation.findById(idq, bs) != null);
+                if (QuestionEquation.findById(idq, bs) != null)
                 alq.add(QuestionEquation.findById(idq, bs));
             }
 
@@ -925,7 +925,10 @@ public class Exercise implements iDbManager {
             PreparedStatement p_statement = connection.prepareStatement(query);
             ResultSet rs = p_statement.executeQuery();
 
+            int i = 0;
+            
             while (rs.next()) {
+                System.out.println(i++);
                 int ide = rs.getInt("id_e");
                 int idw = rs.getInt("id_w");
                 String titlee = rs.getString("title_e");
@@ -940,7 +943,7 @@ public class Exercise implements iDbManager {
                 ArrayList<Question> alq = Exercise.findById_AllQuestions(ide, bs);
                 System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST QUESTIONS\n\n" + alq + "\n\nFIN AFFICHAGE ARRAYLIST QUESTIONS\n\n");
                 Exercise e = new Exercise(ide, titlee, wordinge, alq, typee, diffe, readye_b);             
-                System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST EXERCISES\n\n"+ale+"\n\nFIN AFFICHAGE ARRAYLIST EXERCISES\n\n");
+                System.out.println("\n\nDEBUT AFFICHAGE ARRAYLIST EXERCISES\n\n" + ale + "\n\nFIN AFFICHAGE ARRAYLIST EXERCISES\n\n");
                 ale.add(e);
             }
         } catch (SQLException sqle) {

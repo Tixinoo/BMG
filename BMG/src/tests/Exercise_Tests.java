@@ -80,6 +80,9 @@ public class Exercise_Tests
         System.out.println("INSERT E OK");
         
         ArrayList<Exercise> ale = Exercise.findAll(bs);
+        
+        ArrayList<Question> alquest = e1.findById_AllQuestions(1, bs);
+        System.out.println(">>> "+alquest+" <<<");
     }
     
 }
