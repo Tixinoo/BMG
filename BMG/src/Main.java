@@ -2,8 +2,6 @@
 import exceptions.EncodeException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.*;
 
 public class Main {
@@ -278,7 +276,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("-------> A custom question <-------");
-                    QuestionCustom qcu = new QuestionCustom();
+                    QuestionCustom qcu = null;
                     sc = new Scanner(System.in);
                     System.out.println("Wording ?");
                     String tcu = sc.nextLine();
@@ -289,12 +287,12 @@ public class Main {
                         qcu = new QuestionCustom<Integer>(tcu,sol);
                     }
                     if (i == 2) {
-                        double sol = new Double(sc.next());
-                        // ERREUR : qcu = new QuestionCustom<Double>(tcu,sol);
+                        Double[] sol = {new Double(sc.next())};
+                        qcu = new QuestionCustom<Double>(tcu,sol);
                     }
                     if (i == 3) {
-                        String sol = sc.nextLine();
-                        // ERREUR : qcu = new QuestionCustom<String>(tcu,sol);
+                        String[] sol = {sc.nextLine()};
+                        qcu = new QuestionCustom<String>(tcu,sol);
                     }
                     System.out.println(qcu);
                     System.out.println("---------------------------------------------------------------------\n");

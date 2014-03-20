@@ -1,6 +1,7 @@
 package model;
 
 import database.BaseSetting;
+import exceptions.DecodeException;
 import exceptions.EncodeException;
 import java.util.ArrayList;
 
@@ -111,19 +112,6 @@ public class QuestionCustom<SolutionType> extends Question {
     // ------- METHODS ------
     
     // Inherited
-    
-    /**
-     * True if the object given in parameter equals the solution
-     */
-    public boolean checkAnswer(SolutionType QCanswer) {
-        boolean res = false;
-        if (QCanswer != null) {
-            if (this.solution == QCanswer) {
-                res = true;
-            }
-        }
-        return res;
-    }
 
     public void setSolution(SolutionType[] solution) {
         this.solution = solution;
@@ -141,6 +129,8 @@ public class QuestionCustom<SolutionType> extends Question {
                     res.append("chr:");
                 } else if (value instanceof String) {
                     res.append("str:");
+                } else if (value instanceof Boolean) {
+                    res.append("bln:");
                 } else if (value == null) {
                     res.append("nul:");
                 } else {
@@ -157,6 +147,12 @@ public class QuestionCustom<SolutionType> extends Question {
             throw new EncodeException("Empty solution array");
         }
         return res.toString();
+    }
+    
+    public static QuestionCustom decodeSolution() throws DecodeException {
+        QuestionCustom res =null;
+        
+        return res;
     }
     
     public SolutionType[] solve() {
