@@ -290,11 +290,11 @@ public class Main {
                     }
                     if (i == 2) {
                         double sol = new Double(sc.next());
-                        qcu = new QuestionCustom<Double>(tcu,sol);
+                        // ERREUR : qcu = new QuestionCustom<Double>(tcu,sol);
                     }
                     if (i == 3) {
                         String sol = sc.nextLine();
-                        qcu = new QuestionCustom<String>(tcu,sol);
+                        // ERREUR : qcu = new QuestionCustom<String>(tcu,sol);
                     }
                     System.out.println(qcu);
                     System.out.println("---------------------------------------------------------------------\n");
