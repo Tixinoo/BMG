@@ -28,11 +28,13 @@ public class Automate {
      * 
      */
     public static void addSchool() {
+        System.out.print("Connection add school ... ");
         
         //Connexion à la base
         BaseSetting bs = new BaseSetting();
         
         if (bs.testerConnexion()) {
+            System.out.println("success");
             try (Scanner sc = new Scanner(System.in)) {
                 
                 //On récupère le nom de l'école voulu
