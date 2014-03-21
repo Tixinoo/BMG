@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class QuestionCustom<SolutionType> extends Question {
 
-    // ----- ATTRIBUTES -----
+    // ----- ATTRIBUTE -----
     
     // Inherited
 
@@ -99,13 +99,6 @@ public class QuestionCustom<SolutionType> extends Question {
     }
     
     
-    
-    
-    /*@Override
-    public String encode() throws EncodeException() {
-        StringBuilder res = new StringBuilder();
-        return "";
-    }*/
 
     // ----------------------
     
@@ -149,10 +142,75 @@ public class QuestionCustom<SolutionType> extends Question {
         return res.toString();
     }
     
-    public static QuestionCustom decodeSolution() throws DecodeException {
-        QuestionCustom res =null;
+    public static Object[] decodeSolution(String str) throws DecodeException {
+        Object[] res;
+        int i=0;
+        int beginning = i;
+        while (str.charAt(i) != '>') {
+            i++;
+        }
+        String[] types = str.substring(beginning, i).split(":");
         
+        i++;
+        beginning = i;
+        if (str.charAt(i) == '<') {
+            i++;
+            while (i < str.length()) {
+                i++;
+            }
+            String[] tab = str.substring(beginning+1, i).split(":");
+            res = new Object[tab.length];
+            for (int x=0; x<tab.length; x++) {
+                switch(types[x]) {
+                case "int":
+                    res[x] = Integer.valueOf(tab[x]);
+                    break;
+                case "dbl":
+                    res[x] = Double.valueOf(tab[x]);
+                    break;
+                case "str":
+                    res[x] = tab[x];
+                    break;
+                case "chr":
+                    res[x] = ((Character) tab[x].charAt(0));
+                    break;
+                case "nul":
+                    res[x] = null;
+                    break;
+                }
+            }
+        } else {
+            res = null;
+            throw new DecodeException();
+        }
         return res;
+    }
+    
+    @Override
+    public String encode() throws EncodeException {
+        StringBuilder res = new StringBuilder("#QuestionCustom<");
+        res.append(encodeSolution());
+        res.append(">");
+        res.append(super.encode());
+        return res.toString();
+    }
+    
+    public static QuestionCustom decode(String str) throws DecodeException {
+        QuestionCustom res = null;
+        if (str.substring(0, 15).compareTo("#QuestionCustom") == 0) {
+            int i = 15;
+            if (str.charAt(i) == '<') {
+                while (str.charAt(i) != '>') {
+                    i++;
+                }
+                Object tmp_solution = decodeSolution(str.substring(16, i));
+            } else {
+                throw new DecodeException();
+            }
+        } else {
+            throw new DecodeException();
+        }
+        return null;
     }
     
     public SolutionType[] solve() {
