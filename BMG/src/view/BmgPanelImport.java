@@ -124,7 +124,7 @@ public class BmgPanelImport extends JPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 String style = "style=\"color: red;font-size: 15px\"";
-                labelRes.setText("<html><p "+style+">Antoine a une petite bite</p></html>");
+                labelRes.setText("<html><p "+style+">OK</p></html>");
             }
         });
         
