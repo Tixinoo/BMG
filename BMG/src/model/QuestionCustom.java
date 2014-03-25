@@ -238,6 +238,7 @@ public class QuestionCustom<SolutionType> extends Question {
                         i++;
                         str = str.substring(i);
                         Question.decode(res, str);
+                        return res;
                     } else {
                         throw new DecodeException();
                     }
@@ -254,6 +255,7 @@ public class QuestionCustom<SolutionType> extends Question {
                         i++;
                         str = str.substring(i);
                         Question.decode(res, str);
+                        return res;
                     } else {
                         throw new DecodeException();
                     }
@@ -270,6 +272,7 @@ public class QuestionCustom<SolutionType> extends Question {
                         i++;
                         str = str.substring(i);
                         Question.decode(res, str);
+                        return res;
                     } else {
                         throw new DecodeException();
                     }
@@ -286,6 +289,7 @@ public class QuestionCustom<SolutionType> extends Question {
                         i++;
                         str = str.substring(i);
                         Question.decode(res, str);
+                        return res;
                     } else {
                         throw new DecodeException();
                     }
@@ -302,6 +306,7 @@ public class QuestionCustom<SolutionType> extends Question {
                         i++;
                         str = str.substring(i);
                         Question.decode(res, str);
+                        return res;
                     } else {
                         throw new DecodeException();
                     }
@@ -314,7 +319,6 @@ public class QuestionCustom<SolutionType> extends Question {
         } else {
             throw new DecodeException();
         }
-        return null;
     }
     
     public SolutionType[] solve() {
