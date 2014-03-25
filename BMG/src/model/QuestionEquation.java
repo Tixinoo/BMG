@@ -334,6 +334,7 @@ public class QuestionEquation extends Question {
     /**
      * Display a question with an equation
      */
+    @Override
     public String toString() {
         String res = "		QuestionEquation";
         res = res + "\n			Text: " + this.text;
