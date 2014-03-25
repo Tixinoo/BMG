@@ -590,6 +590,15 @@ public class Exercise implements iDbManager {
                                     QuestionPower qp = QuestionPower.decode(encodedExercise);
                                     System.out.println(qp);
                                     res.addQuestion(qp);
+                                } else if (qtype.compareTo("#QuestionCustom") == 0) {
+                                    QuestionCustom qct = null;
+                                    try {
+                                        qct = QuestionCustom.decode(encodedExercise);
+                                    } catch (ClassNotFoundException cnfe) {
+                                        cnfe.printStackTrace();
+                                    }
+                                    System.out.println(qct);
+                                    res.addQuestion(qct);
                                 } else if (qtype.compareTo("#Wording") == 0) {
                                     Wording w = Wording.decode(encodedExercise);
                                     System.out.println(w);
